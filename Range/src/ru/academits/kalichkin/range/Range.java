@@ -1,7 +1,7 @@
 package ru.academits.kalichkin.range;
 
 
-class Range {
+public class Range {
     private double from;
     private double to;
 
@@ -10,27 +10,23 @@ class Range {
         this.to = to;
     }
 
-    public double getFrom () {
+    public double getFrom() {
         return from;
     }
 
-    public void setFrom (double from) {
+    public void setFrom(double from) {
         this.from = from;
     }
 
-    public double getTo () {
+    public double getTo() {
         return to;
     }
 
-    public void setTo (double to) {
+    public void setTo(double to) {
         this.to = to;
     }
 
     public boolean isInside(double number) {
-
-        if (number > getTo() || number < getFrom()) {
-            return false;
-        }
-        return true;
+        return number >= getFrom() && number <= getTo();
     }
 }
