@@ -3,7 +3,10 @@ import ru.academits.kalichkin.range.*;
 
 public class Main {
     public static void main(String[] args) {
-        Range interval = new Range(-10, 8);
-        System.out.println(interval.isInside(5.004));
+        Range interval = new Range(1, 3);
+        Range interval2 = new Range (2, 6);
+        Range interval3 = new Range (0, 0);
+        System.out.println(interval3.intersectionInterval(interval,interval2));
+
     }
 }
