@@ -26,7 +26,7 @@ public class Range {
         this.to = to;
     }
 
-    public double lengthInterval(double from, double to) {
+    public double getLength(double from, double to) {
         return to - from;
     }
 
@@ -34,20 +34,25 @@ public class Range {
         return number >= getFrom() && number <= getTo();
     }
 
-    public Range intersectionInterval(Range range, Range range2) {
+    public String toString () {
+        return "(" + from + "," + to + ")";
+    }
 
-        Range range3 = new Range(0,0);
+    public Range getIntersection(Range interval) {
 
-        if (range.getTo() < range2.getFrom() || range2.getTo() < range.getFrom()) {
+        if (Math.min(to, interval.to) < Math.max(from, interval.from)) {
             return null;
+        } else {
+            return new Range(Math.max(from, interval.from), Math.min(to, interval.to));
         }
+    }
 
-        if (range.getTo() >= range2.getFrom() && range2.getFrom() > range.getFrom()) {
-            range3.setFrom(range2.getFrom());
+    public Range[] getAssociation(Range range) {
+        if (Math.min(to, range.to) < Math.max(from, range.from)) {
+            return new Range[] {new Range (Math.min(from, range.from), Math.min(to, range.to)),
+                    new Range (Math.max(from, range.from), Math.max(to, range.to))};
+        } else {
+            return new Range[] {new Range (Math.min(from, range.from), Math.max(to, range.to))};
         }
-        else if (range.getTo() >= range2.getFrom() && range2.getTo() > range.getTo()) {
-            range3.setTo(range.getTo());
-        }
-        return range3;
     }
 }
