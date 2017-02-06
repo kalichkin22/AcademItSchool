@@ -6,8 +6,8 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        Range interval = new Range(1, 8);
-        Range interval2 = new Range(4, 5);
+        Range interval = new Range(6, 9);
+        Range interval2 = new Range(3, 5);
 
         Range interval3 = interval.getIntersection(interval2);
         if (interval3 == null) {
