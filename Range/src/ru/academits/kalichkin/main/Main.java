@@ -9,7 +9,6 @@ public class Main {
         Range interval = new Range(1, 3);
         Range interval2 = new Range(2, 4);
 
-
         Range interval3 = interval.getIntersection(interval2);
         if (interval3 == null) {
             System.out.println("Пересечений интервалов нет");
@@ -19,6 +18,9 @@ public class Main {
 
         Range[] interval4 = interval.getAssociation(interval2);
         System.out.println("Результат объединения интервалов: " + Arrays.toString(interval4));
+
+        Range [] interval5 = interval.getDifference(interval2);
+        System.out.println("Результат разности интервалов: " + Arrays.toString(interval5));
 
     }
 }
