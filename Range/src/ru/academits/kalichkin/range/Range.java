@@ -57,7 +57,7 @@ public class Range {
     }
 
     public Range[] getDifference(Range range) {
-        if ((range.from < from && to < range.to) || (from - range.from < EPSILON && to - range.to < EPSILON)) {
+        if ((range.from < from && to < range.to) || (Math.abs(from - range.from) <= EPSILON && Math.abs(to - range.to) <= EPSILON)) {
             return null;
         } else if (from > range.from && to > range.to && from < range.to) {
             return new Range[]{new Range(range.to, to)};
