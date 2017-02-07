@@ -6,8 +6,8 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        Range interval = new Range(6, 9);
-        Range interval2 = new Range(3, 5);
+        Range interval = new Range(1, 5);
+        Range interval2 = new Range(3, 10);
 
         Range interval3 = interval.getIntersection(interval2);
         if (interval3 == null) {
@@ -19,8 +19,12 @@ public class Main {
         Range[] interval4 = interval.getAssociation(interval2);
         System.out.println("Результат объединения интервалов: " + Arrays.toString(interval4));
 
-        Range [] interval5 = interval.getDifference(interval2);
-        System.out.println("Результат разности интервалов: " + Arrays.toString(interval5));
+        Range[] interval5 = interval.getDifference(interval2);
+        if (interval5 == null) {
+            System.out.println("Результат разности интервалов равен нулю");
+        } else {
+            System.out.println("Результат разности интервалов: " + Arrays.toString(interval5));
 
+        }
     }
 }
