@@ -4,7 +4,6 @@ package ru.academits.kalichkin.range;
 public class Range {
     private double from;
     private double to;
-    private final double EPSILON = 0.00001;
 
     public Range(double from, double to) {
         this.from = from;
@@ -57,16 +56,14 @@ public class Range {
     }
 
     public Range[] getDifference(Range range) {
-        if ((range.from < from && to < range.to) || (Math.abs(from - range.from) <= EPSILON && Math.abs(to - range.to) <= EPSILON)) {
-            return null;
-        } else if (from > range.from && to > range.to && from < range.to) {
-            return new Range[]{new Range(range.to, to)};
-        } else if (range.from < from && range.to < to) {
+        if (range.from <= from && to <= range.to) {
+            return new Range[]{};
+        } else if (to <= range.from || from >= range.to) {
             return new Range[]{new Range(from, to)};
-        } else if (to < range.from) {
-            return new Range[]{new Range(from, to)};
-        } else if (range.from < to && range.to > to) {
+        } else if (range.from <= to && range.to >= to) {
             return new Range[]{new Range(from, range.from)};
+        } else if (from >= range.from && range.to <= to) {
+            return new Range[]{new Range(range.to, to)};
         } else {
             return new Range[]{(new Range(from, range.from)), new Range(range.to, to)};
         }

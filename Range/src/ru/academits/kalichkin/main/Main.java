@@ -2,12 +2,13 @@ package ru.academits.kalichkin.main;
 
 import ru.academits.kalichkin.range.*;
 
+import javax.swing.text.html.HTML;
 import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        Range interval = new Range(1, 1);
-        Range interval2 = new Range(1, 1);
+        Range interval = new Range(1, 5);
+        Range interval2 = new Range(3, 10);
 
         Range interval3 = interval.getIntersection(interval2);
         if (interval3 == null) {
@@ -20,11 +21,10 @@ public class Main {
         System.out.println("Результат объединения интервалов: " + Arrays.toString(interval4));
 
         Range[] interval5 = interval.getDifference(interval2);
-        if (interval5 == null) {
+        if (interval5.length == 0) {
             System.out.println("Результат разности интервалов равен нулю");
         } else {
             System.out.println("Результат разности интервалов: " + Arrays.toString(interval5));
-
         }
     }
 }
