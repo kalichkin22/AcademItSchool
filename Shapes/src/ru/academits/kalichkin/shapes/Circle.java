@@ -1,6 +1,6 @@
 package ru.academits.kalichkin.shapes;
 
-public abstract class Circle implements Shapes {
+public class Circle implements Shape {
     private double radius;
 
     public Circle(double radius) {
@@ -8,27 +8,27 @@ public abstract class Circle implements Shapes {
     }
 
     public double getRadius() {
-        return this.radius;
+        return radius;
     }
 
     @Override
     public double getArea() {
-        return Math.PI * this.radius * this.radius;
+        return Math.PI * radius * radius;
     }
 
     @Override
     public double getPerimeter() {
-        return 2 * Math.PI * this.radius;
+        return 2 * Math.PI * radius;
     }
 
     @Override
     public double getHeight() {
-        return this.radius + this.radius;
+        return radius + radius;
     }
 
     @Override
     public double getWidth() {
-        return this.radius + this.radius;
+        return radius + radius;
     }
 
 

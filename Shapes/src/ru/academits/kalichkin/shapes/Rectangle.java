@@ -1,7 +1,7 @@
 package ru.academits.kalichkin.shapes;
 
 
-public abstract class Rectangle implements Shapes {
+public class Rectangle implements Shape {
     private double width;
     private double height;
 
@@ -12,22 +12,21 @@ public abstract class Rectangle implements Shapes {
 
     @Override
     public double getArea() {
-        return this.height * this.width;
+        return height * width;
     }
 
     @Override
     public double getPerimeter() {
-        return (this.width + this.height) * 2;
+        return (width + height) * 2;
     }
 
     @Override
     public double getWidth() {
-        return this.width;
+        return width;
     }
 
     @Override
     public double getHeight() {
-        return this.height;
+        return height;
     }
-
 }

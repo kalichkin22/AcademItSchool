@@ -1,6 +1,6 @@
 package ru.academits.kalichkin.shapes;
 
-public interface Shapes {
+public interface Shape {
 
     double getWidth();
 

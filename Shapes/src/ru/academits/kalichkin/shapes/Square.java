@@ -1,7 +1,7 @@
 package ru.academits.kalichkin.shapes;
 
 
-public abstract class Square implements Shapes {
+public class Square implements Shape {
     private double length;
 
     public Square (double length) {
@@ -9,16 +9,26 @@ public abstract class Square implements Shapes {
     }
 
     public double getLength() {
-        return this.length;
+        return length;
     }
 
     @Override
     public double getArea() {
-        return this.length * this.length;
+        return length * length;
     }
 
     @Override
     public double getPerimeter() {
-        return this.length * 4;
+        return length * 4;
+    }
+
+    @Override
+    public double getHeight() {
+        return length;
+    }
+
+    @Override
+    public double getWidth() {
+        return length;
     }
 }
