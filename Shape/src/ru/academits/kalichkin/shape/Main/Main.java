@@ -1,20 +1,21 @@
 package ru.academits.kalichkin.shape.Main;
+
 import ru.academits.kalichkin.shape.Shape.*;
 
-
 public class Main {
-    private static double getMaxArea(double[] a) {
-        double areaRecord = a[0];
+    private static Shape getMaxArea(Shape[] shapes) {
+        Shape areaRecord = shapes[0];
 
-        for (int i = 1; i < a.length; ++i) {
-            if (a[i] > areaRecord) {
-                areaRecord = a[i];
+        for (int i = 1; i < shapes.length; ++i) {
+            if (shapes[i].getArea() > areaRecord.getArea()) {
+                areaRecord = shapes[i];
             }
         }
         return areaRecord;
     }
 
     public static void main(String[] args) {
+
         Shape s1 = new Rectangle(10, 2);
         Shape s2 = new Triangle(-1, 2, 3, 1, 5, 4);
         Shape s3 = new Square(5);
@@ -24,10 +25,24 @@ public class Main {
         Shape s7 = new Square(1);
         Shape s8 = new Circle(2);
 
-        double [] a = {s1.getArea(), s2.getArea(), s3.getArea(), s4.getArea(),
-                s5.getArea(), s6.getArea(), s7.getArea(), s8.getArea()};
+        Shape[] shapes = {s1, s2, s3, s4, s5, s6, s7, s8};
 
-        System.out.println(getMaxArea(a));
+
+        /*
+        Shape [] shapes = new Shape[8];
+
+        shapes[0] = new Rectangle(10, 2);
+        shapes[1] = new Triangle(-1, 2, 3, 1, 5, 4);
+        shapes[2] = new Square(5);
+        shapes[3] = new Circle(2);
+        shapes[4] = new Rectangle(5, 3);
+        shapes[5] = new Triangle(0, 1, 2, 3, 2, 3);
+        shapes[6] = new Square(1);
+        shapes[7] = new Circle(1); */
+
+        Shape a = getMaxArea(shapes);
+        System.out.println(a.getArea());
+
     }
 }
 
