@@ -1,4 +1,4 @@
-package ru.academits.kalichkin.shapes;
+package ru.academits.kalichkin.shape.Shape;
 
 public class Circle implements Shape {
     private double radius;
