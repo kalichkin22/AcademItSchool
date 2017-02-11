@@ -2,7 +2,7 @@ package ru.academits.kalichkin.shape.Shape;
 
 
 public class Rectangle implements Shape {
-    private static String name = "Rectangle";
+    private String name = "Rectangle";
     private double width;
     private double height;
 

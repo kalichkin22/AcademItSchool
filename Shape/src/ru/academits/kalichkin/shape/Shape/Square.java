@@ -3,7 +3,6 @@ package ru.academits.kalichkin.shape.Shape;
 
 public class Square implements Shape {
     private String name = "Square";
-
     private double length;
 
     public Square (double length) {
