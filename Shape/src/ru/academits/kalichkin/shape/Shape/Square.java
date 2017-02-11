@@ -2,6 +2,8 @@ package ru.academits.kalichkin.shape.Shape;
 
 
 public class Square implements Shape {
+    private String name = "Square";
+
     private double length;
 
     public Square (double length) {
@@ -10,6 +12,10 @@ public class Square implements Shape {
 
     public double getLength() {
         return length;
+    }
+
+    public String toString () {
+        return name;
     }
 
     @Override
