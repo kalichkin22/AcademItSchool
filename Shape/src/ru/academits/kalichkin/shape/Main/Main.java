@@ -50,6 +50,9 @@ public class Main {
 
         System.out.println(shapes[0].equals(shapes[4]));
 
+        System.out.println(shapes[5].hashCode());
+        System.out.println(shapes[1].hashCode());
+
     }
 }
 
