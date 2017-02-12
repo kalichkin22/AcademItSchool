@@ -32,6 +32,7 @@ public class Main {
         for (Shape e : shapes) {
             if (array[array.length - 2] == e.getPerimeter()) {
                 p = e;
+                break;
             }
         }
         return p;
@@ -40,7 +41,7 @@ public class Main {
     public static void main(String[] args) {
 
         Shape[] shapes = {new Rectangle(10, 2), new Triangle(-1, 2, 3, 1, 5, 4), new Square(1),
-                new Circle(2), new Rectangle(10, 2), new Triangle(0, 1, 2, 3, 2, 3), new Square(1), new Circle(1)};
+                new Circle(2), new Rectangle(10, 2), new Triangle(0, 1, 2, 3, 2, 3), new Square(10), new Circle(1)};
 
 
         Shape s = getMaxShape(shapes);
