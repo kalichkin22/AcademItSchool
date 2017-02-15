@@ -9,7 +9,7 @@ public class Cft {
     public static void main(String[] args) {
 
         if (args.length > 0) {
-            if (args[0].equals("-i-a")) {
+            if (args[0].equals("in.txt out.txt -i -a")) {
                 try (Scanner scanner = new Scanner(new FileInputStream("in.txt"));
                      PrintWriter writer = new PrintWriter("out.txt")) {
 
@@ -30,7 +30,7 @@ public class Cft {
                 } catch (FileNotFoundException e) {
                     System.out.println(e);
                 }
-            } else if (args[1].equals("-i-d")) {
+            } else if (args[1].equals("in.txt out.txt -i -d")) {
                 try (Scanner scanner = new Scanner(new FileInputStream("in.txt"));
                      PrintWriter writer = new PrintWriter("out.txt")) {
 
@@ -51,7 +51,7 @@ public class Cft {
                 } catch (FileNotFoundException e) {
                     System.out.println(e);
                 }
-            } else if (args[2].equals("-s-a")) {
+            } else if (args[2].equals("in.txt out.txt -s -a")) {
                 try (Scanner scanner = new Scanner(new FileInputStream("in.txt"));
                      PrintWriter writer = new PrintWriter("out.txt")) {
 
