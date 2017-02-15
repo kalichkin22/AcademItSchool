@@ -13,7 +13,7 @@ public class Cft {
 
         try (Scanner scanner = new Scanner(new FileInputStream(args[0]));
              PrintWriter writer = new PrintWriter(args[1])) {
-            while (scanner.hasNextInt()) {
+            while (scanner.hasNext()) {
                 lines.add(scanner.nextLine());
             }
             String[] strings = lines.toArray(new String[lines.size()]);
@@ -35,7 +35,7 @@ public class Cft {
                         writer.println(e);
                     }
                 } else if (args[0].equals("in.txt") && args[1].equals("out.txt") && args[2].equals("-s") && args[3].equals("-a")) {
-//сюда пока не знаю как
+
                 }
 
             } else {
