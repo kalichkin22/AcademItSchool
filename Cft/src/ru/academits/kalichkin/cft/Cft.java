@@ -5,32 +5,79 @@ import java.util.Scanner;
 
 
 public class Cft {
-    public static void main(String[] args) throws FileNotFoundException {
-        try (Scanner scanner = new Scanner(new FileInputStream("input.txt"));
-             PrintWriter writer = new PrintWriter("output.txt")) {
 
-            while (scanner.hasNextInt()) {
-                int[] array = new int[6];
-                for (int i = 0; i < array.length; i++) {
-                    array[i] = scanner.nextInt();
+    public static void main(String[] args) {
+
+        if (args.length > 0) {
+            if (args[0].equals("-i-a")) {
+                try (Scanner scanner = new Scanner(new FileInputStream("in.txt"));
+                     PrintWriter writer = new PrintWriter("out.txt")) {
+
+                    int count = scanner.nextInt();
+                    int[] array = new int[count];
+
+                    while (scanner.hasNextInt()) {
+                        for (int i = 0; i < array.length; ++i) {
+                            array[i] = scanner.nextInt();
+                        }
+                    }
+
+                    insertionSort(array);
+                    for (int e : array) {
+                        writer.println(e);
+                    }
+
+                } catch (FileNotFoundException e) {
+                    System.out.println(e);
                 }
-                insertionSort(array);
-                for (int e : array) {
-                    writer.println(e);
+            } else if (args[1].equals("-i-d")) {
+                try (Scanner scanner = new Scanner(new FileInputStream("in.txt"));
+                     PrintWriter writer = new PrintWriter("out.txt")) {
+
+                    int count = scanner.nextInt();
+                    int[] array = new int[count];
+
+                    while (scanner.hasNextInt()) {
+                        for (int i = 0; i < array.length; ++i) {
+                            array[i] = scanner.nextInt();
+                        }
+                    }
+
+                    insertSort(array);
+                    for (int e : array) {
+                        writer.println(e);
+                    }
+
+                } catch (FileNotFoundException e) {
+                    System.out.println(e);
+                }
+            } else if (args[2].equals("-s-a")) {
+                try (Scanner scanner = new Scanner(new FileInputStream("in.txt"));
+                     PrintWriter writer = new PrintWriter("out.txt")) {
+
+                    int count = scanner.nextInt();
+                    int[] array = new int[count];
+
+                    while (scanner.hasNextInt()) {
+                        for (int i = 0; i < array.length; ++i) {
+                            array[i] = scanner.nextInt();
+                        }
+                    }
+
+                    insertSort(array);
+                    for (int e : array) {
+                        writer.println(e);
+                    }
+
+                } catch (FileNotFoundException e) {
+                    System.out.println(e);
                 }
             }
-
-            while (scanner.hasNextLine()) {
-                for (int i = 0; i < args.length; i++) {
-                    args[i] = scanner.nextLine();
-                }
-                insertionSort(args);
-                for (String e : args) {
-                    writer.println(e);
-                }
-            }
+        } else {
+            System.out.println("Такой команды нет");
         }
     }
+
 
     public static void insertionSort(int[] array) {
 
@@ -47,15 +94,18 @@ public class Cft {
         }
     }
 
-    public static void insertionSort(String[] strings) {
-        for (int j = 0; j < strings.length; j++) {
-            for (int i = j + 1; i < strings.length; i++) {
-                if (strings[i].compareTo(strings[j]) < 0) {
-                    String temp = strings[j];
-                    strings[j] = strings[i];
-                    strings[i] = temp;
-                }
+    public static void insertSort(int[] array) {
+
+        for (int i = 1; i < array.length; i++) {
+
+            int a = array[i];
+            int b = i - 1;
+
+            while (b >= 0 && array[b] <= a) {
+                array[b + 1] = array[b];
+                b--;
             }
+            array[b + 1] = a;
         }
     }
 }
