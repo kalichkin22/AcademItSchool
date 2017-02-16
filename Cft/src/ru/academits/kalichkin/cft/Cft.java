@@ -8,12 +8,10 @@ import java.util.Scanner;
 
 public class Cft {
     public static void main(String[] args) {
-        List<String> lines = new ArrayList<>();
-
-
         try {
             try (Scanner scanner = new Scanner(new FileInputStream(args[0]));
                  PrintWriter writer = new PrintWriter(args[1])) {
+                List<String> lines = new ArrayList<>();
                 while (scanner.hasNext()) {
                     lines.add(scanner.nextLine());
                 }
