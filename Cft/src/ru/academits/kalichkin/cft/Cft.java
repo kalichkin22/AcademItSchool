@@ -7,47 +7,51 @@ import java.util.Scanner;
 
 
 public class Cft {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args)  {
         List<String> lines = new ArrayList<>();
 
-        try (Scanner scanner = new Scanner(new FileInputStream(args[0]));
-             PrintWriter writer = new PrintWriter(args[1])) {
-            while (scanner.hasNext()) {
-                lines.add(scanner.nextLine());
-            }
-            String[] strings = lines.toArray(new String[lines.size()]);
-
-            if (args.length > 0) {
-                if (args[2].equals("-i") && args[3].equals("-a")) {
-                    int numbers[] = new int[strings.length];
-                    for (int i = 0; i < strings.length; i++) {
-                        numbers[i] = Integer.parseInt(strings[i]);
-                    }
-                    insertionSort(numbers);
-                    for (int e : numbers) {
-                        writer.println(e);
-                    }
-                } else if (args[2].equals("-i") && args[3].equals("-d")) {
-                    int numbers[] = new int[strings.length];
-                    for (int i = 0; i < strings.length; i++) {
-                        numbers[i] = Integer.parseInt(strings[i]);
-                    }
-                    insertSort(numbers);
-                    for (int e : numbers) {
-                        writer.println(e);
-                    }
-                } else if (args[2].equals("-s") && args[3].equals("-a")) {
-                    insertStringSort(strings);
-                    for (String e : strings) {
-                        writer.println(e);
-                    }
+        try {
+            try (Scanner scanner = new Scanner(new FileInputStream(args[0]));
+                 PrintWriter writer = new PrintWriter(args[1])) {
+                while (scanner.hasNext()) {
+                    lines.add(scanner.nextLine());
                 }
+                String[] strings = lines.toArray(new String[lines.size()]);
 
-            } else {
-                System.out.println("Такой команды нет");
+                if (args.length > 0) {
+                    if (args[2].equals("-i") && args[3].equals("-a")) {
+                        int numbers[] = new int[strings.length];
+                        for (int i = 0; i < strings.length; i++) {
+                            numbers[i] = Integer.parseInt(strings[i]);
+                        }
+                        insertionSort(numbers);
+                        for (int e : numbers) {
+                            writer.println(e);
+                        }
+                    } else if (args[2].equals("-i") && args[3].equals("-d")) {
+                        int numbers[] = new int[strings.length];
+                        for (int i = 0; i < strings.length; i++) {
+                            numbers[i] = Integer.parseInt(strings[i]);
+                        }
+                        insertSort(numbers);
+                        for (int e : numbers) {
+                            writer.println(e);
+                        }
+                    } else if (args[2].equals("-s") && args[3].equals("-a")) {
+                        insertStringSort(strings);
+                        for (String e : strings) {
+                            writer.println(e);
+                        }
+                    }
+
+                } else {
+                    System.out.println("Такой команды нет");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Обработка команды невозможна, файл содержит не только целые числа");
             }
-        } catch (java.lang.NumberFormatException e) {
-            System.out.println("Обработка команды невозможна, файл содержит не только целые числа");
+        } catch (FileNotFoundException e) {
+            System.out.println("Файл не найден");
         }
     }
 
