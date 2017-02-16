@@ -47,7 +47,7 @@ public class Cft {
                 System.out.println("Такой команды нет");
             }
         } catch (java.lang.NumberFormatException e) {
-            System.out.println("Обработка этой команды невозможна, потому что введены не только целые числа");
+            System.out.println("Обработка команды невозможна, файл содержит не только целые числа");
         }
     }
 
