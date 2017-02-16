@@ -7,8 +7,9 @@ import java.util.Scanner;
 
 
 public class Cft {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws FileNotFoundException {
         List<String> lines = new ArrayList<>();
+
         try (Scanner scanner = new Scanner(new FileInputStream(args[0]));
              PrintWriter writer = new PrintWriter(args[1])) {
             while (scanner.hasNext()) {
@@ -45,8 +46,12 @@ public class Cft {
             } else {
                 System.out.println("Такой команды нет");
             }
+        } catch (java.lang.NumberFormatException e) {
+            System.out.println("Обработка этой команды невозможна, потому что введены не только целые числа");
         }
     }
+
+
 
 
     private static void insertionSort(int[] array) {
