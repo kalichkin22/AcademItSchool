@@ -7,10 +7,8 @@ import java.util.Scanner;
 
 
 public class Cft {
-
     public static void main(String[] args) throws IOException {
         List<String> lines = new ArrayList<>();
-
         try (Scanner scanner = new Scanner(new FileInputStream(args[0]));
              PrintWriter writer = new PrintWriter(args[1])) {
             while (scanner.hasNext()) {
@@ -18,24 +16,30 @@ public class Cft {
             }
             String[] strings = lines.toArray(new String[lines.size()]);
 
-            int numbers[] = new int[strings.length];
-            for (int i = 0; i < strings.length; i++) {
-                numbers[i] = Integer.parseInt(strings[i]);
-            }
-
             if (args.length > 0) {
-                if (args[0].equals("in.txt") && args[1].equals("out.txt") && args[2].equals("-i") && args[3].equals("-a")) {
+                if (args[2].equals("-i") && args[3].equals("-a")) {
+                    int numbers[] = new int[strings.length];
+                    for (int i = 0; i < strings.length; i++) {
+                        numbers[i] = Integer.parseInt(strings[i]);
+                    }
                     insertionSort(numbers);
                     for (int e : numbers) {
                         writer.println(e);
                     }
-                } else if (args[0].equals("in.txt") && args[1].equals("out.txt") && args[2].equals("-i") && args[3].equals("-d")) {
+                } else if (args[2].equals("-i") && args[3].equals("-d")) {
+                    int numbers[] = new int[strings.length];
+                    for (int i = 0; i < strings.length; i++) {
+                        numbers[i] = Integer.parseInt(strings[i]);
+                    }
                     insertSort(numbers);
                     for (int e : numbers) {
                         writer.println(e);
                     }
-                } else if (args[0].equals("in.txt") && args[1].equals("out.txt") && args[2].equals("-s") && args[3].equals("-a")) {
-
+                } else if (args[2].equals("-s") && args[3].equals("-a")) {
+                    insertStringSort(strings);
+                    for (String e : strings) {
+                        writer.println(e);
+                    }
                 }
 
             } else {
@@ -45,7 +49,7 @@ public class Cft {
     }
 
 
-    public static void insertionSort(int[] array) {
+    private static void insertionSort(int[] array) {
 
         for (int i = 1; i < array.length; i++) {
 
@@ -60,7 +64,7 @@ public class Cft {
         }
     }
 
-    public static void insertSort(int[] array) {
+    private static void insertSort(int[] array) {
 
         for (int i = 1; i < array.length; i++) {
 
@@ -68,6 +72,21 @@ public class Cft {
             int b = i - 1;
 
             while (b >= 0 && array[b] <= a) {
+                array[b + 1] = array[b];
+                b--;
+            }
+            array[b + 1] = a;
+        }
+    }
+
+    private static void insertStringSort(String[] array) {
+
+        for (int i = 1; i < array.length; i++) {
+
+            String a = array[i];
+            int b = i - 1;
+
+            while (b >= 0 && array[b].compareToIgnoreCase(a) > 0) {
                 array[b + 1] = array[b];
                 b--;
             }
