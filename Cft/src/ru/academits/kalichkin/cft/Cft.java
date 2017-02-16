@@ -55,6 +55,8 @@ public class Cft {
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Обработка команды невозможна, файл содержит не только целые числа");
+            } catch (java.lang.ArrayIndexOutOfBoundsException e) {
+                System.out.println("Введите команду полностью");
             }
 
         } catch (FileNotFoundException e) {
