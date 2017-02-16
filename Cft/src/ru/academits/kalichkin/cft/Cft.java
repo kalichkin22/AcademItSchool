@@ -7,8 +7,9 @@ import java.util.Scanner;
 
 
 public class Cft {
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         List<String> lines = new ArrayList<>();
+
 
         try {
             try (Scanner scanner = new Scanner(new FileInputStream(args[0]));
@@ -38,24 +39,29 @@ public class Cft {
                             writer.println(e);
                         }
                     } else if (args[2].equals("-s") && args[3].equals("-a")) {
+                        insertionStringSort(strings);
+                        for (String e : strings) {
+                            writer.println(e);
+                        }
+                    } else if (args[2].equals("-s") && args[3].equals("-d")) {
                         insertStringSort(strings);
                         for (String e : strings) {
                             writer.println(e);
                         }
-                    }
 
-                } else {
-                    System.out.println("Такой команды нет");
+                    } else {
+                        System.out.println("Такой команды нет");
+                    }
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Обработка команды невозможна, файл содержит не только целые числа");
             }
+
         } catch (FileNotFoundException e) {
             System.out.println("Файл не найден");
         }
+
     }
-
-
 
 
     private static void insertionSort(int[] array) {
@@ -88,7 +94,7 @@ public class Cft {
         }
     }
 
-    private static void insertStringSort(String[] array) {
+    private static void insertionStringSort(String[] array) {
 
         for (int i = 1; i < array.length; i++) {
 
@@ -96,6 +102,21 @@ public class Cft {
             int b = i - 1;
 
             while (b >= 0 && array[b].compareToIgnoreCase(a) > 0) {
+                array[b + 1] = array[b];
+                b--;
+            }
+            array[b + 1] = a;
+        }
+    }
+
+    private static void insertStringSort(String[] array) {
+
+        for (int i = 1; i < array.length; i++) {
+
+            String a = array[i];
+            int b = i - 1;
+
+            while (b >= 0 && array[b].compareToIgnoreCase(a) < 0) {
                 array[b + 1] = array[b];
                 b--;
             }
