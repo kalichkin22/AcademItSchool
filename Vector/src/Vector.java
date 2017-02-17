@@ -21,7 +21,6 @@ public class Vector {
 
     public Vector(int n, double[] vector) {
         this.n = n;
-        double[] array = new double[n];
         if (vector.length < n) {
             this.vector = Arrays.copyOf(vector, n);
         } else {

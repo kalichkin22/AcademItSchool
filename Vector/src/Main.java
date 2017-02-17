@@ -13,7 +13,7 @@ public class Main {
         Vector vector2 = new Vector(10);
         System.out.println(vector2);
 
-        Vector vector3 = new Vector(5, array);
+        Vector vector3 = new Vector(7, array);
         System.out.println(vector3);
     }
 }
