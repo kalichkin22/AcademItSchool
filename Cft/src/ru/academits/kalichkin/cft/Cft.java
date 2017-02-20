@@ -2,20 +2,26 @@ package ru.academits.kalichkin.cft;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
 
 public class Cft {
     public static void main(String[] args) {
+        if (args.length != 4) {
+            System.out.println();
+            return;
+        }
         try {
             try (Scanner scanner = new Scanner(new FileInputStream(args[0]));
                  PrintWriter writer = new PrintWriter(args[1])) {
                 List<String> lines = new ArrayList<>();
                 while (scanner.hasNext()) {
-                    lines.add(scanner.nextLine());
+                    lines.add(scanner.next());
                 }
                 String[] strings = lines.toArray(new String[lines.size()]);
+
 
                 if (args.length > 0) {
                     if (args[2].equals("-i") && args[3].equals("-a")) {
@@ -37,7 +43,7 @@ public class Cft {
                             writer.println(e);
                         }
                     } else if (args[2].equals("-s") && args[3].equals("-a")) {
-                        insertionStringSort(strings);
+                        //insertionStringSort(strings);
                         for (String e : strings) {
                             writer.println(e);
                         }
@@ -58,7 +64,7 @@ public class Cft {
             }
 
         } catch (FileNotFoundException e) {
-            System.out.println("Файл не найден");
+            System.out.printf("Файл %s не найден", args[0]);
         }
 
     }
@@ -94,9 +100,9 @@ public class Cft {
         }
     }
 
-    private static void insertionStringSort(String[] array) {
+    /*private static <T> void insertionStringSort(ArrayList<T> array, Comparator<T> s) {
 
-        for (int i = 1; i < array.length; i++) {
+        for (int i = 1; i < array.size(); i++) {
 
             String a = array[i];
             int b = i - 1;
@@ -107,7 +113,7 @@ public class Cft {
             }
             array[b + 1] = a;
         }
-    }
+    }*/
 
     private static void insertStringSort(String[] array) {
 
