@@ -26,11 +26,11 @@ public class Main {
 
         System.out.println(vector.equals(vector1));
         System.out.println(vector1.hashCode());
-*/
+
 
         System.out.printf("Прибавление к вектору другого вектора: %s\n", vector.additionVector(vector3));
-        //System.out.printf("Вычитание из вектора другого вектора: %s\n", vector.subtractionVector(vector1));
-        //System.out.println(Vector.getAdditionVector(vector3, vector1));
+        System.out.printf("Вычитание из вектора другого вектора: %s\n", vector1.subtractionVector(vector3));*/
+        System.out.println(Vector.getAdditionVector(vector1, vector3));
 
 
     }

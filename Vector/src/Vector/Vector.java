@@ -59,7 +59,7 @@ public class Vector {
             length = vector.getSize();
         }
         for (int i = 0; i < length; ++i) {
-            if (i >= vector.getSize()) {
+            if (i >= this.getSize() || i >= vector.getSize()) {
                 break;
             }
             this.setElem(i, this.getElem(i) + vector.getElem(i));
@@ -75,6 +75,9 @@ public class Vector {
             length = vector.getSize();
         }
         for (int i = 0; i < length; ++i) {
+            if (i >= this.getSize() || i >= vector.getSize()) {
+                break;
+            }
             this.setElem(i, this.getElem(i) - vector.getElem(i));
         }
         return this;
@@ -144,6 +147,9 @@ public class Vector {
         Vector vector2 = new Vector(length);
 
         for (int i = 0; i < vector2.getSize(); ++i) {
+            if (i >= vector.getSize() || i >= vector1.getSize()) {
+                break;
+            }
             vector2.setElem(i, (vector.getElem(i) + vector1.getElem(i)));
         }
         return vector2;
@@ -159,6 +165,9 @@ public class Vector {
         Vector vector2 = new Vector();
         System.out.println(vector2);
         for (int i = 0; i < vector2.getSize(); ++i) {
+            if (i >= vector.getSize() || i >= vector1.getSize()) {
+                break;
+            }
             vector2.setElem(i, (vector.getElem(i) - vector1.getElem(i)));
         }
         return vector2;
