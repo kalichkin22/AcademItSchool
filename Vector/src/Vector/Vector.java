@@ -101,9 +101,9 @@ public class Vector {
     public double getLength() {
         double length = 0;
         for (double e : vector) {
-            length = Math.sqrt(e);
+            length = Math.pow(e, 2);
         }
-        return Math.pow(length, 2);
+        return Math.sqrt(length);
     }
 
     public boolean equals(Object o) {

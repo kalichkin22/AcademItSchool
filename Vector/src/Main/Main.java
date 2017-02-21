@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         double[] array = {1, 2, 3, 4};
 
-        Vector vector = new Vector(5, 1, 3, 4);
+        Vector vector = new Vector(5, 4, 5);
         System.out.println("Вектор " + vector);
 
         Vector vector1 = new Vector(array);
@@ -20,19 +20,19 @@ public class Main {
 
         //System.out.println("Размерность вектора:" + vector3.getSize());
 
-        // System.out.printf("Умножение вектора на скаляр: %s\n", vector3.multiplicationByScalar(2));
+        //System.out.printf("Умножение вектора на скаляр: %s\n", vector3.multiplicationByScalar(2));
         //System.out.printf("Разворот вектора: %s\n", vector.reverse());
-        // System.out.printf("Длина вектора: %s\n", vector.getLength());
+        //System.out.printf("Длина вектора: %s\n", vector.getLength());
 
-        // System.out.println(vector.equals(vector1));
-        //System.out.println(vector1.hashCode());
+        //System.out.println(vector.equals(vector1));
+        //System.out.println(vector2.hashCode());
 
-        // System.out.printf("Прибавление к вектору другого вектора: %s\n", vector3.addition(vector));
+        //System.out.printf("Прибавление к вектору другого вектора: %s\n", vector.addition(vector3));
         // System.out.printf("Вычитание из вектора другого вектора: %s\n", vector3.subtraction(vector));
         //System.out.println(Vector.getAddition(vector, vector3));
         //System.out.println(Vector.getSubtraction(vector, vector3));
 
-        System.out.println(Vector.getScalarSum(vector, vector3));
+       // System.out.println(Vector.getScalarSum(vector, vector3));
 
     }
 }
