@@ -32,7 +32,7 @@ public class Main {
         //System.out.println(Vector.getAddition(vector, vector3));
         //System.out.println(Vector.getSubtraction(vector, vector3));
 
-       //System.out.println(Vector.getScalarMultiplication(vector1, vector));
+       System.out.println(Vector.getScalarMultiplication(vector1, vector));
 
     }
 }
