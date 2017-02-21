@@ -101,7 +101,7 @@ public class Vector {
     public double getLength() {
         double length = 0;
         for (double e : vector) {
-            length = Math.pow(e, 2);
+            length += Math.pow(e, 2);
         }
         return Math.sqrt(length);
     }
