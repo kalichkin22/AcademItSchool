@@ -147,10 +147,7 @@ public class Vector {
         int length = Math.min(vector.getSize(), vector1.getSize());
         double multiplication = 0;
 
-        for (int i = 0; i < length; ++i) {
-            if (i >= length) {
-                break;
-            }
+        for (int i = 0; i >= length; ++i) {
             multiplication += (vector.getElement(i) * vector1.getElement(i));
         }
 
