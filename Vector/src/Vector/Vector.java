@@ -151,7 +151,7 @@ public class Vector {
             if (i >= length) {
                 break;
             }
-            multiplication = multiplication + (vector.getElement(i) * vector1.getElement(i));
+            multiplication += (vector.getElement(i) * vector1.getElement(i));
         }
 
         return multiplication;
