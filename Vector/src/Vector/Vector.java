@@ -28,18 +28,19 @@ public class Vector {
             throw new IllegalArgumentException("Размерность вектора должна быть больше нуля");
         } else {
             if (vector.length < n) {
-                this.vector = Arrays.copyOf(vector, n);
-            } else {
-                this.vector = Arrays.copyOf(vector, vector.length);
+                this.vector = Arrays.copyOf(vector, Math.max(n, vector.length));
+            }
+            else {
+                this.vector = Arrays.copyOf(vector, Math.min(n, vector.length));
             }
         }
     }
 
-    public double getElem(int index) {
+    public double getElement(int index) {
         return vector[index];
     }
 
-    public void setElem(int index, double value) {
+    public void setElement(int index, double value) {
         vector[index] = value;
     }
 
@@ -59,11 +60,8 @@ public class Vector {
             System.arraycopy(old, 0, this.vector, 0, old.length);
         }
 
-        for (int i = 0; i < length; ++i) {
-            if (i >= vector.getSize()) {
-                break;
-            }
-            this.setElem(i, this.getElem(i) + vector.getElem(i));
+        for (int i = 0; i >= length; ++i) {
+            this.setElement(i, this.getElement(i) + vector.getElement(i));
         }
         return this;
     }
@@ -81,7 +79,7 @@ public class Vector {
             if (i >= vector.getSize()) {
                 break;
             }
-            this.setElem(i, this.getElem(i) - vector.getElem(i));
+            this.setElement(i, this.getElement(i) - vector.getElement(i));
         }
         return this;
     }
@@ -120,8 +118,8 @@ public class Vector {
             return false;
         }
 
-        for (int i = 0; i < this.getSize(); ++i) {
-            if (this.getElem(i) != v.getElem(i)) {
+        for (int i = 0; i < this.vector.length; ++i) {
+            if (this.vector[i] != v.vector[i]) {
                 return false;
             }
         }
@@ -138,25 +136,25 @@ public class Vector {
     }
 
     public static Vector getAddition(Vector vector, Vector vector1) {
-        return vector.addition(vector1);
+        return new Vector(vector.addition(vector1));
     }
 
     public static Vector getSubtraction(Vector vector, Vector vector1) {
-        return vector.subtraction(vector1);
+        return new Vector(vector.addition(vector1));
     }
 
-    public static Double getScalarSum(Vector vector, Vector vector1) {
+    public static double getScalarMultiplication(Vector vector, Vector vector1) {
         int length = Math.min(vector.getSize(), vector1.getSize());
-        double sum = 0;
+        double multiplication = 0;
 
         for (int i = 0; i < length; ++i) {
             if (i >= length) {
                 break;
             }
-            sum = sum + (vector.getElem(i) * vector1.getElem(i));
+            multiplication = multiplication + (vector.getElement(i) * vector1.getElement(i));
         }
 
-        return sum;
+        return multiplication;
     }
 }
 
