@@ -24,8 +24,8 @@ public class Vector {
     }
 
     public Vector(int n, double[] vector) {
-        if (n <= 0) {
-            throw new IllegalArgumentException("Размерность вектора должна быть больше нуля");
+        if (n < 0) {
+            throw new IllegalArgumentException("Размерность вектора не должна быть меньше нуля");
         } else {
             this.vector = Arrays.copyOf(vector, n);
 
