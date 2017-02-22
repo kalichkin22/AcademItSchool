@@ -12,10 +12,10 @@ public class Main {
         Vector vector1 = new Vector(array);
         System.out.println("Вектор1 " + vector1);
 
-        Vector vector2 = new Vector(4);
+        Vector vector2 = new Vector(5);
         System.out.println("Вектор2 " + vector2);
 
-        Vector vector3 = new Vector(6, array);
+        Vector vector3 = new Vector(2, array);
         System.out.println("Вектор3 " + vector3);
 
         //System.out.println("Размерность вектора:" + vector3.getSize());
@@ -28,9 +28,9 @@ public class Main {
         //System.out.println(vector2.hashCode());
 
         //System.out.printf("Прибавление к вектору другого вектора: %s\n", vector3.addition(vector));
-        //System.out.printf("Вычитание из вектора другого вектора: %s\n", vector3.subtraction(vector1));
+        //System.out.printf("Вычитание из вектора другого вектора: %s\n", vector.subtraction(vector3));
         //System.out.println(Vector.getAddition(vector, vector3));
-        System.out.println(Vector.getSubtraction(vector, vector3));
+        //System.out.println(Vector.getSubtraction(vector, vector3));
 
        //System.out.println(Vector.getScalarMultiplication(vector3, vector));
 
