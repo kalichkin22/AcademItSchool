@@ -1,24 +1,32 @@
 package ru.academits.kalichkin.cft.programCommands;
 
-
-import ru.academits.kalichkin.cft.fileReader.FileReader;
-import ru.academits.kalichkin.cft.sortList.SortList;
-
-import java.util.AbstractList;
-import java.util.ArrayList;
-
 public class ProgramCommands {
-    private ArrayList list;
-    private FileReader reader;
-    private SortList sort;
-    private String[] args;
 
-
-    public ProgramCommands (String a, String b) {
-        if (a.equals("-i")) {
-            list = FileReader.readInt(args[0]);
-        } else if (a.equals("-s")) {
-            list = FileReader.readString(args[0]);
+    public static boolean isAscending(String args) {
+        boolean isAscending = true;
+        switch (args) {
+            case "-a":
+                isAscending = false;
+                break;
+            case "-d":
+                isAscending = true;
+                break;
+            default:
+                throw new IllegalArgumentException("Такой команды нет");
         }
+        return isAscending;
     }
+
+   /* public List type(String str) {
+        if (str.equals("-i")) {
+            ArrayList<Integer> list = FileReader.readInt(args[0]);
+        }
+        if (str.equals("-s")) {
+            ArrayList<String> list = FileReader.readString(args[0]);
+        } else {
+            throw new IllegalArgumentException("Такой команды нет");
+        }
+        return list;
+    }
+    */
 }
