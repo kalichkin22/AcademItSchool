@@ -19,10 +19,10 @@ public class ProgramCommands {
 
    /* public List type(String str) {
         if (str.equals("-i")) {
-            ArrayList<Integer> list = FileReader.readInt(args[0]);
+            ArrayList<Integer> list = FileReader.readInt(commandsLine[0]);
         }
         if (str.equals("-s")) {
-            ArrayList<String> list = FileReader.readString(args[0]);
+            ArrayList<String> list = FileReader.readString(commandsLine[0]);
         } else {
             throw new IllegalArgumentException("Такой команды нет");
         }

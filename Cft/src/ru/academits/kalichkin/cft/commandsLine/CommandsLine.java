@@ -1,12 +1,12 @@
-package ru.academits.kalichkin.cft.args;
+package ru.academits.kalichkin.cft.commandsLine;
 
 import ru.academits.kalichkin.cft.fileReader.FileReader;
 import ru.academits.kalichkin.cft.sortList.SortList;
 import java.util.ArrayList;
 
-public class Args {
+public class CommandsLine {
 
-    public Args(String... args) {
+    public CommandsLine(String... args) {
         if (args.length != 4) {
             System.out.println("Необходимо ввести четыре команды");
             return;
@@ -24,6 +24,7 @@ public class Args {
                 FileReader.writeFile(list, args[1]);
                 break;
             }
+
             default:
                 throw new IllegalArgumentException("Такой команды нет");
         }
