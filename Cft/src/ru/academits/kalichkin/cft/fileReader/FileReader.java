@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class FileReader<T> {
+public class FileReader {
 
     public static ArrayList<String> readString(String fileName) {
         ArrayList<String> list = new ArrayList<>();

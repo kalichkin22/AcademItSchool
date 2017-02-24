@@ -3,6 +3,7 @@ package ru.academits.kalichkin.cft.main;
 import ru.academits.kalichkin.cft.fileReader.FileReader;
 import ru.academits.kalichkin.cft.sortList.SortList;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,6 +11,7 @@ public class Main {
             System.out.println("Необходимо ввести четыре команды");
             return;
         }
+
         boolean direction;
         switch (args[3]) {
             case "-a":
@@ -19,7 +21,7 @@ public class Main {
                 direction = true;
                 break;
             default:
-                throw new IllegalArgumentException("Такой команды нет");
+                throw new NoSuchElementException ("Такой команды нет");
         }
 
         switch (args[2]) {
@@ -37,7 +39,7 @@ public class Main {
             }
 
             default:
-                throw new IllegalArgumentException("Такой команды нет");
+                throw new NoSuchElementException("Такой команды нет");
         }
     }
 }
