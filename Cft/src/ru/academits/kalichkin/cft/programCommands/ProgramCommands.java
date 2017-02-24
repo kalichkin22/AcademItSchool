@@ -2,31 +2,19 @@ package ru.academits.kalichkin.cft.programCommands;
 
 public class ProgramCommands {
 
-    public static boolean isAscending(String args) {
-        boolean isAscending;
+
+    public static boolean direction(String args) {
+        boolean direction;
         switch (args) {
             case "-a":
-                isAscending = false;
+                direction = false;
                 break;
             case "-d":
-                isAscending = true;
+                direction = true;
                 break;
             default:
                 throw new IllegalArgumentException("Такой команды нет");
         }
-        return isAscending;
+        return direction;
     }
-
-   /* public List type(String str) {
-        if (str.equals("-i")) {
-            ArrayList<Integer> list = FileReader.readInt(commandsLine[0]);
-        }
-        if (str.equals("-s")) {
-            ArrayList<String> list = FileReader.readString(commandsLine[0]);
-        } else {
-            throw new IllegalArgumentException("Такой команды нет");
-        }
-        return list;
-    }
-    */
 }
