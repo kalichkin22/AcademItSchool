@@ -115,7 +115,6 @@ public class Vector {
                 return false;
             }
         }
-
         return true;
     }
 
