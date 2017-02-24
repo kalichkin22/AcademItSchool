@@ -3,7 +3,7 @@ package ru.academits.kalichkin.cft.programCommands;
 public class ProgramCommands {
 
 
-    public static boolean direction(String args) {
+    protected static boolean direction(String args) {
         boolean direction;
         switch (args) {
             case "-a":
