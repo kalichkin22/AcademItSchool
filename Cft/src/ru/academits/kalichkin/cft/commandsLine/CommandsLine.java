@@ -15,13 +15,13 @@ public class CommandsLine extends ProgramCommands{
         switch (args[2]) {
             case "-i": {
                 ArrayList<Integer> list = FileReader.readInt(args[0]);
-                SortList.insertionSort(list, Integer::compareTo, direction(args[3]));
+                SortList.insertionSort(list, Integer::compareTo, getDirection(args[3]));
                 FileReader.writeFile(list, args[1]);
                 break;
             }
             case "-s": {
                 ArrayList<String> list = FileReader.readString(args[0]);
-                SortList.insertionSort(list, String::compareTo, direction(args[3]));
+                SortList.insertionSort(list, String::compareTo, getDirection(args[3]));
                 FileReader.writeFile(list, args[1]);
                 break;
             }

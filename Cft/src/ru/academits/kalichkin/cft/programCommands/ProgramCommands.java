@@ -2,8 +2,12 @@ package ru.academits.kalichkin.cft.programCommands;
 
 public class ProgramCommands {
 
+    private String fileName;
+    private String fileOut;
+    private String type;
 
-    protected static boolean direction(String args) {
+
+    protected boolean getDirection(String args) {
         boolean direction;
         switch (args) {
             case "-a":
@@ -17,4 +21,5 @@ public class ProgramCommands {
         }
         return direction;
     }
+
 }
