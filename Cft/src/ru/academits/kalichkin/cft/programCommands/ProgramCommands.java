@@ -3,7 +3,7 @@ package ru.academits.kalichkin.cft.programCommands;
 public class ProgramCommands {
 
     public static boolean isAscending(String args) {
-        boolean isAscending = true;
+        boolean isAscending;
         switch (args) {
             case "-a":
                 isAscending = false;
