@@ -16,7 +16,7 @@ public class Vector {
     }
 
     public Vector(Vector vector) {
-        this.vector = vector.vector;
+        this(vector.vector);
     }
 
     public Vector(double... vector) {

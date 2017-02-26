@@ -23,6 +23,7 @@ public class Matrix {
     }
 
     public Matrix(Vector[] vectors) {
+        this.rows = vectors;
 
     }
 

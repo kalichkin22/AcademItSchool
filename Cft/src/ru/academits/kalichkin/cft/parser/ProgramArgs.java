@@ -36,7 +36,7 @@ public class ProgramArgs {
         return fileOut;
     }
 
-    public boolean getIncrease() {
+    public boolean isIncrease() {
         return increase;
     }
 }
