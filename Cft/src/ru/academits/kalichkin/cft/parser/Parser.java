@@ -11,7 +11,7 @@ public class Parser {
         programArgs.setFileName(args[0]);
         programArgs.setFileOut(args[1]);
         programArgs.setType(parseType(args[2]));
-        programArgs.setDirection(isIncrease(args[3]));
+        programArgs.setIncrease(isIncrease(args[3]));
 
         return programArgs;
     }
