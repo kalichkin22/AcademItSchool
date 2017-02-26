@@ -2,7 +2,7 @@ package ru.academits.kalichkin.matrix.main;
 
 
 import ru.academits.kalichkin.matrix.matrix.Matrix;
-import ru.academits.kalichkin.matrix.vector.Vector;
+import ru.academits.kalichkin.vector.Vector;
 
 public class Main {
     public static void main(String[] args) {

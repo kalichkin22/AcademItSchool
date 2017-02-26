@@ -9,7 +9,7 @@ public class Parser {
 
     public ProgramArgs parse(String[] args) {
         if (args.length != 4) {
-            System.out.println("Необходимо ввести четыре команды");
+            throw new IllegalArgumentException ("Необходимо ввести четыре аргументы");
         }
 
         ProgramArgs programArgs = new ProgramArgs();
@@ -30,7 +30,7 @@ public class Parser {
                 return Type.STRING;
             }
             default:
-                throw new NoSuchElementException("Такой команды нет");
+                throw new IllegalArgumentException ("Такой команды нет");
         }
     }
 
@@ -44,7 +44,7 @@ public class Parser {
                 direction = true;
                 break;
             default:
-                throw new NoSuchElementException("Такой команды нет");
+                throw new IllegalArgumentException ("Такой команды нет");
         }
         return direction;
     }

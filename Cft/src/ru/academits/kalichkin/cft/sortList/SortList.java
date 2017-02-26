@@ -2,7 +2,7 @@ package ru.academits.kalichkin.cft.sortList;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.NoSuchElementException;
+
 
 public class SortList {
     public static <T> void insertionSort(List<T> list, Comparator<T> tComparator, boolean direction) {
