@@ -1,34 +1,33 @@
 package ru.academits.kalichkin.cft.main;
 
+import ru.academits.kalichkin.cft.Type;
 import ru.academits.kalichkin.cft.fileReader.FileReader;
+import ru.academits.kalichkin.cft.parser.Parser;
+import ru.academits.kalichkin.cft.programArgs.ProgramArgs;
 import ru.academits.kalichkin.cft.sortList.SortList;
+
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class Main {
 
     public static void main(String[] args) {
-        if (args.length != 4) {
-            System.out.println("Необходимо ввести четыре команды");
-            return;
-        }
+        Parser a = new Parser();
+        ProgramArgs programArgs = a.parse(args);
 
-        switch (args[2]) {
-            case "-i": {
-                ArrayList<Integer> list = FileReader.readInt(args[0]);
-                SortList.insertionSort(list, Integer::compareTo, args[3]);
-                FileReader.writeFile(list, args[1]);
-                break;
-            }
-            case "-s": {
-                ArrayList<String> list = FileReader.readString(args[0]);
-                SortList.insertionSort(list, String::compareTo, args[3]);
-                FileReader.writeFile(list, args[1]);
-                break;
+        try {
+            if (programArgs.getType() == Type.INTEGER) {
+                ArrayList<Integer> list = FileReader.readInt(programArgs.getFileName());
+                SortList.insertionSort(list, Integer::compareTo, programArgs.isDirection());
+                FileReader.writeFile(list, programArgs.getFileOut());
+            } else if (programArgs.getType() == Type.STRING) {
+                ArrayList<String> list = FileReader.readString(programArgs.getFileName());
+                SortList.insertionSort(list, String::compareTo, programArgs.isDirection());
+                FileReader.writeFile(list, programArgs.getFileOut());
             }
 
-            default:
-                throw new NoSuchElementException("Такой команды нет");
+        } catch (Exception e) {
+            System.out.println();
         }
     }
 }

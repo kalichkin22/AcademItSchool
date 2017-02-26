@@ -1,6 +1,6 @@
-package ru.academits.kalichkin.range.main;
+package ru.academits.kalichkin.matrix.range.main;
 
-import ru.academits.kalichkin.range.range.*;
+import ru.academits.kalichkin.matrix.range.range.Range;
 
 import java.util.Arrays;
 

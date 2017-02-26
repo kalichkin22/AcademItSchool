@@ -1,33 +1,17 @@
 package ru.academits.kalichkin.cft.programArgs;
 
+import ru.academits.kalichkin.cft.Type;
+
 public class ProgramArgs {
 
     private String fileName;
     private String fileOut;
-    private String type;
-    private String direction;
+    private Type type;
+    private boolean direction;
 
-    public ProgramArgs(String fileName, String fileOut, String type, String direction) {
-        this.fileName = fileName;
-        this.fileOut = fileOut;
-        this.type = type;
-        this.direction = direction;
-    }
 
     public String getFileName() {
         return fileName;
-    }
-
-    public String getFileOut() {
-        return fileOut;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getDirection() {
-        return direction;
     }
 
     public void setFileName(String fileName) {
@@ -38,11 +22,27 @@ public class ProgramArgs {
         this.fileOut = fileOut;
     }
 
-    public void setType(String type) {
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
         this.type = type;
     }
 
-    public void setDirection(String direction) {
+    public void setDirection(boolean direction) {
         this.direction = direction;
+    }
+
+    public boolean isDirection() {
+        return direction;
+    }
+
+    public String getFileOut() {
+        return fileOut;
+    }
+
+    public boolean getDirection() {
+        return direction;
     }
 }

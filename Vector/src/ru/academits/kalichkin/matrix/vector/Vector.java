@@ -1,4 +1,5 @@
-package Vector;
+package ru.academits.kalichkin.matrix.vector;
+
 
 import java.util.Arrays;
 
@@ -15,8 +16,7 @@ public class Vector {
     }
 
     public Vector(Vector vector) {
-        this(vector.vector);
-
+        this.vector = vector.vector;
     }
 
     public Vector(double... vector) {
@@ -151,5 +151,4 @@ public class Vector {
         return multiplication;
     }
 }
-
 
