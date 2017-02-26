@@ -1,7 +1,5 @@
 package ru.academits.kalichkin.cft.parser;
 
-import ru.academits.kalichkin.cft.type.Type;
-
 public class ProgramArgs {
 
     private String fileName;

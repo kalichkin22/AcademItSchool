@@ -1,6 +1,6 @@
 package ru.academits.kalichkin.cft.main;
 
-import ru.academits.kalichkin.cft.type.Type;
+import ru.academits.kalichkin.cft.parser.Type;
 import ru.academits.kalichkin.cft.fileReader.FileReader;
 import ru.academits.kalichkin.cft.parser.Parser;
 import ru.academits.kalichkin.cft.parser.ProgramArgs;

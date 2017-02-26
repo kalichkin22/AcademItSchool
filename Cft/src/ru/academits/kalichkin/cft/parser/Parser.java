@@ -1,7 +1,5 @@
 package ru.academits.kalichkin.cft.parser;
 
-import ru.academits.kalichkin.cft.type.Type;
-
 public class Parser {
 
     public ProgramArgs parse(String[] args) {

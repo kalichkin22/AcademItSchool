@@ -1,4 +1,4 @@
-package ru.academits.kalichkin.cft.type;
+package ru.academits.kalichkin.cft.parser;
 
 public enum Type {
     STRING, INTEGER;
