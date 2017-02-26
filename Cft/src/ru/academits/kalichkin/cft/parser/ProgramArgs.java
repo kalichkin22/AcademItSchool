@@ -32,15 +32,11 @@ public class ProgramArgs {
         this.increase = increase;
     }
 
-    public boolean isDirection() {
-        return increase;
-    }
-
     public String getFileOut() {
         return fileOut;
     }
 
-    public boolean getDirection() {
+    public boolean getIncrease() {
         return increase;
     }
 }

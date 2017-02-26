@@ -18,11 +18,11 @@ public class Main {
 
             if (programArgs.getType() == Type.INTEGER) {
                 ArrayList<Integer> list = FileReader.readInt(programArgs.getFileName());
-                SortList.insertionSort(list, Integer::compareTo, programArgs.isDirection());
+                SortList.insertionSort(list, Integer::compareTo, programArgs.getIncrease());
                 FileReader.writeFile(list, programArgs.getFileOut());
             } else if (programArgs.getType() == Type.STRING) {
                 ArrayList<String> list = FileReader.readString(programArgs.getFileName());
-                SortList.insertionSort(list, String::compareTo, programArgs.isDirection());
+                SortList.insertionSort(list, String::compareTo, programArgs.getIncrease());
                 FileReader.writeFile(list, programArgs.getFileOut());
             }
 
