@@ -1,4 +1,4 @@
-package ru.academits.kalichkin.matrix.shape.Shape;
+package ru.academits.kalichkin.shape.Shape;
 
 
 public class Square implements Shape {

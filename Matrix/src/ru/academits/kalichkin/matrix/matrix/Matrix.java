@@ -1,6 +1,6 @@
 package ru.academits.kalichkin.matrix.matrix;
 
-import ru.academits.kalichkin.matrix.vector.Vector;
+import ru.academits.kalichkin.vector.Vector;
 
 import java.util.Arrays;
 

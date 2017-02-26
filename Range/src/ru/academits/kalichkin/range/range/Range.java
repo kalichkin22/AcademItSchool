@@ -1,4 +1,4 @@
-package ru.academits.kalichkin.matrix.range.range;
+package ru.academits.kalichkin.range.range;
 
 
 public class Range {

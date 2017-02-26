@@ -1,6 +1,6 @@
-package ru.academits.kalichkin.matrix.shape.Main;
+package ru.academits.kalichkin.shape.Main;
 
-import ru.academits.kalichkin.matrix.shape.Shape.*;
+import ru.academits.kalichkin.shape.Shape.*;
 
 import java.util.Arrays;
 

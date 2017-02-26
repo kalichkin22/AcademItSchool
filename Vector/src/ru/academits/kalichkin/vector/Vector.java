@@ -1,4 +1,4 @@
-package ru.academits.kalichkin.matrix.vector;
+package ru.academits.kalichkin.vector;
 
 
 import java.util.Arrays;
