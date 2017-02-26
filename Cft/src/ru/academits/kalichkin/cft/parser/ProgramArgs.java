@@ -28,8 +28,8 @@ public class ProgramArgs {
         this.type = type;
     }
 
-    public void setDirection(boolean direction) {
-        this.increase = direction;
+    public void setIncrease(boolean increase) {
+        this.increase = increase;
     }
 
     public boolean isDirection() {
