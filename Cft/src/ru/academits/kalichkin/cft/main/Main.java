@@ -1,13 +1,12 @@
 package ru.academits.kalichkin.cft.main;
 
-import ru.academits.kalichkin.cft.Type;
+import ru.academits.kalichkin.cft.type.Type;
 import ru.academits.kalichkin.cft.fileReader.FileReader;
 import ru.academits.kalichkin.cft.parser.Parser;
 import ru.academits.kalichkin.cft.programArgs.ProgramArgs;
 import ru.academits.kalichkin.cft.sortList.SortList;
 
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 
 public class Main {
 

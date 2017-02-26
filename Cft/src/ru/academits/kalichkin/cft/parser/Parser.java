@@ -1,9 +1,7 @@
 package ru.academits.kalichkin.cft.parser;
 
-import ru.academits.kalichkin.cft.Type;
+import ru.academits.kalichkin.cft.type.Type;
 import ru.academits.kalichkin.cft.programArgs.ProgramArgs;
-
-import java.util.NoSuchElementException;
 
 public class Parser {
 

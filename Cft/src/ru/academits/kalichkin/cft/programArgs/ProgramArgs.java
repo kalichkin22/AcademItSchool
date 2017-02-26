@@ -1,6 +1,6 @@
 package ru.academits.kalichkin.cft.programArgs;
 
-import ru.academits.kalichkin.cft.Type;
+import ru.academits.kalichkin.cft.type.Type;
 
 public class ProgramArgs {
 
