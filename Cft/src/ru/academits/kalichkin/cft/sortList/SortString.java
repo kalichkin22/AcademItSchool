@@ -1,4 +1,4 @@
-package ru.academits.kalichkin.cft.sortString;
+package ru.academits.kalichkin.cft.sortList;
 import java.util.Comparator;
 
 class SortString implements Comparator<String> {

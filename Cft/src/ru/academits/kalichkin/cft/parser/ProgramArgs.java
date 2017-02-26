@@ -1,4 +1,4 @@
-package ru.academits.kalichkin.cft.programArgs;
+package ru.academits.kalichkin.cft.parser;
 
 import ru.academits.kalichkin.cft.type.Type;
 
@@ -7,7 +7,7 @@ public class ProgramArgs {
     private String fileName;
     private String fileOut;
     private Type type;
-    private boolean direction;
+    private boolean increase;
 
 
     public String getFileName() {
@@ -31,11 +31,11 @@ public class ProgramArgs {
     }
 
     public void setDirection(boolean direction) {
-        this.direction = direction;
+        this.increase = direction;
     }
 
     public boolean isDirection() {
-        return direction;
+        return increase;
     }
 
     public String getFileOut() {
@@ -43,6 +43,6 @@ public class ProgramArgs {
     }
 
     public boolean getDirection() {
-        return direction;
+        return increase;
     }
 }

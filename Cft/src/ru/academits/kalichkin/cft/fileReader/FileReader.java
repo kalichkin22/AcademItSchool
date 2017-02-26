@@ -18,7 +18,7 @@ public class FileReader {
                 list.add(scanner.nextLine());
             }
         } catch (FileNotFoundException e) {
-            System.out.printf("Файл %s не найден\n", fileName);
+            System.out.printf("Файл %s не найден%n", fileName);
         }
         return list;
     }
@@ -31,22 +31,11 @@ public class FileReader {
                 list.add(scanner.nextInt());
             }
         } catch (FileNotFoundException e) {
-            System.out.printf("Файл %s не найден\n", fileName);
+            System.out.printf("Файл %s не найден%n", fileName);
         }
         return list;
     }
 
-    /*
-    public static List<String> readString(String fileName) {
-        List<String> list = null;
-        try {
-            list = Files.readAllLines(Paths.get(fileName));
-        } catch (IOException e) {
-            System.out.printf("Файл %s не найден\n", fileName);
-        }
-        return list;
-    }
-    */
 
     public static <T> void writeFile(List<T> list, String fileNameOut) {
         try (PrintWriter writer = new PrintWriter(fileNameOut)) {
@@ -54,7 +43,7 @@ public class FileReader {
                 writer.println(e);
             }
         } catch (FileNotFoundException e) {
-            System.out.printf("Файл %s не найден\n", fileNameOut);
+            System.out.printf("Файл %s не найден%n", fileNameOut);
         }
     }
 }

@@ -1,25 +1,24 @@
 package ru.academits.kalichkin.cft.parser;
 
 import ru.academits.kalichkin.cft.type.Type;
-import ru.academits.kalichkin.cft.programArgs.ProgramArgs;
 
 public class Parser {
 
     public ProgramArgs parse(String[] args) {
         if (args.length != 4) {
-            throw new IllegalArgumentException ("Необходимо ввести четыре аргументы");
+            throw new IllegalArgumentException ("Необходимо ввести четыре аргумента");
         }
 
         ProgramArgs programArgs = new ProgramArgs();
         programArgs.setFileName(args[0]);
         programArgs.setFileOut(args[1]);
         programArgs.setType(parseType(args[2]));
-        programArgs.setDirection(isDirection(args[3]));
+        programArgs.setDirection(isIncrease(args[3]));
 
         return programArgs;
     }
 
-    private Type parseType(String type) {
+    private static Type parseType(String type) {
         switch (type) {
             case "-i": {
                 return Type.INTEGER;
@@ -32,19 +31,19 @@ public class Parser {
         }
     }
 
-    private static boolean isDirection(String str) {
-        boolean direction;
-        switch (str) {
+    private static boolean isIncrease(String string) {
+        boolean increase;
+        switch (string) {
             case "-a":
-                direction = false;
+                increase = true;
                 break;
             case "-d":
-                direction = true;
+                increase = false;
                 break;
             default:
                 throw new IllegalArgumentException ("Такой команды нет");
         }
-        return direction;
+        return increase;
     }
 
 }

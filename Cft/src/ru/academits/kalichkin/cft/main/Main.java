@@ -3,7 +3,7 @@ package ru.academits.kalichkin.cft.main;
 import ru.academits.kalichkin.cft.type.Type;
 import ru.academits.kalichkin.cft.fileReader.FileReader;
 import ru.academits.kalichkin.cft.parser.Parser;
-import ru.academits.kalichkin.cft.programArgs.ProgramArgs;
+import ru.academits.kalichkin.cft.parser.ProgramArgs;
 import ru.academits.kalichkin.cft.sortList.SortList;
 
 import java.util.ArrayList;
@@ -11,10 +11,11 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        Parser a = new Parser();
-        ProgramArgs programArgs = a.parse(args);
 
         try {
+            Parser a = new Parser();
+            ProgramArgs programArgs = a.parse(args);
+
             if (programArgs.getType() == Type.INTEGER) {
                 ArrayList<Integer> list = FileReader.readInt(programArgs.getFileName());
                 SortList.insertionSort(list, Integer::compareTo, programArgs.isDirection());

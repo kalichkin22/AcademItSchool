@@ -11,8 +11,11 @@ public class Main {
         Vector vector = new Vector(3,5,6,7,8);
         Vector[] vectors = {new Vector(vector)};
 */
-        Matrix a = new Matrix(2,3);
+        Matrix a = new Matrix(3,4);
         System.out.println(a);
+
+        Matrix b = new Matrix(a);
+        System.out.println(b);
 
     }
 

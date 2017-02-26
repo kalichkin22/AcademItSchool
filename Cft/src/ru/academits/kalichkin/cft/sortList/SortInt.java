@@ -1,4 +1,4 @@
-package ru.academits.kalichkin.cft.sortInt;
+package ru.academits.kalichkin.cft.sortList;
 
 import java.util.Comparator;
 
