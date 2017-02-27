@@ -7,25 +7,51 @@ import java.util.Arrays;
 public class Matrix {
     private Vector[] rows;
 
-    public Matrix(int n, int m) {
-        rows = new Vector[m];
-        for (int i = 0; i < rows.length; ++i) {
-            rows[i] = new Vector(n);
+    public Matrix(int columns, int rows) {
+        this.rows = new Vector[columns];
+        for (int i = 0; i < this.rows.length; ++i) {
+            this.rows[i] = new Vector(rows);
         }
     }
 
     public Matrix(Matrix matrix) {
-        this.rows = matrix.rows;
+        this(matrix.rows);
     }
 
     public Matrix(double[][] array) {
-
+        this.rows = new Vector[array.length];
+        for (int i = 0; i < this.rows.length; ++i) {
+            this.rows[i] = new Vector(array[i]);
+        }
     }
 
     public Matrix(Vector[] vectors) {
         this.rows = vectors;
 
     }
+
+    public int getSize() {
+        return rows.length;
+    }
+
+    public Vector getRow(int rows) {
+        if (rows >= this.rows.length || rows < 0) {
+            throw new ArrayIndexOutOfBoundsException("Выход за границы массива");
+        } else {
+            return this.rows[rows];
+        }
+    }
+
+    public void setRow(int index, Vector vector) {
+        if (index >= this.rows.length || index < 0) {
+            throw new ArrayIndexOutOfBoundsException("Выход за границы массива");
+        } else {
+            this.rows[index] = vector;
+        }
+    }
+
+
+
 
     public String toString() {
         return Arrays.deepToString(rows).replace("[", "{").replace("]", "}");
