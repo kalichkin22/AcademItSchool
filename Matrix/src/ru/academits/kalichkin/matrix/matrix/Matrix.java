@@ -1,6 +1,7 @@
 package ru.academits.kalichkin.matrix.matrix;
 
-import ru.academits.kalichkin.vector.Vector;
+import ru.academits.kalichkin.vector.vector.Vector;
+
 
 import java.util.Arrays;
 
@@ -34,11 +35,11 @@ public class Matrix {
         return rows.length;
     }
 
-    public Vector getRow(int rows) {
-        if (rows >= this.rows.length || rows < 0) {
+    public Vector getRow(int index) {
+        if (index >= this.rows.length || index < 0) {
             throw new ArrayIndexOutOfBoundsException("Выход за границы массива");
         } else {
-            return this.rows[rows];
+            return new Vector(rows[index]);
         }
     }
 
@@ -46,9 +47,25 @@ public class Matrix {
         if (index >= this.rows.length || index < 0) {
             throw new ArrayIndexOutOfBoundsException("Выход за границы массива");
         } else {
-            this.rows[index] = vector;
+            this.rows[index] = new Vector(vector);
         }
     }
+
+    public Vector getColumn(int index) {
+        if (index > this.rows.length || index < 0) {
+            throw new ArrayIndexOutOfBoundsException("Выход за границы массива");
+        } else {
+            Vector v = new Vector(this.rows.length);
+            for (int i = 0; i < this.rows.length; ++i) {
+                for (Vector row : this.rows) {
+                    v.setElement(i, this.rows[i].getElement(index));
+                }
+            }
+            return v;
+        }
+    }
+
+
 
 
 
@@ -58,3 +75,4 @@ public class Matrix {
     }
 
 }
+

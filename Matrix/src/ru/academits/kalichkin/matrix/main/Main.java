@@ -1,15 +1,14 @@
 package ru.academits.kalichkin.matrix.main;
 
-
 import ru.academits.kalichkin.matrix.matrix.Matrix;
-import ru.academits.kalichkin.vector.Vector;
+import ru.academits.kalichkin.vector.vector.Vector;
 
-import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
 
         double[][] array = {{1, 2, 3}, {4, 5, 6}};
+        /*
         Vector[] vectors = {new Vector(7, 8, 9), new Vector(4, 5, 6)};
         Vector vector = new Vector(3, 8, 0);
 
@@ -25,11 +24,20 @@ public class Main {
         Matrix d = new Matrix(array);
         System.out.println(d);
 
+
         d.setRow(1, new Vector(3, 6, 8));
         System.out.println(d);
+*/
 
+        Matrix d = new Matrix(array);
+        System.out.println(d);
+        System.out.println(d.getColumn(2));
+
+
+
+        //System.out.println(d.getRow(1));
         // System.out.println(d.getRow(1));
 
-        System.out.println(d.transportMatrix());
+        //System.out.println(d.transportMatrix());
     }
 }

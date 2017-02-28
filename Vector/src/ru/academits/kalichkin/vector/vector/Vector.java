@@ -1,5 +1,4 @@
-package ru.academits.kalichkin.vector;
-
+package ru.academits.kalichkin.vector.vector;
 
 import java.util.Arrays;
 
@@ -151,4 +150,3 @@ public class Vector {
         return multiplication;
     }
 }
-
