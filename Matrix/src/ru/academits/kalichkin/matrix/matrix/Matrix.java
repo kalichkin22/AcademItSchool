@@ -2,7 +2,6 @@ package ru.academits.kalichkin.matrix.matrix;
 
 import ru.academits.kalichkin.vector.vector.Vector;
 
-
 import java.util.Arrays;
 
 public class Matrix {
@@ -55,19 +54,44 @@ public class Matrix {
         if (index > this.rows.length || index < 0) {
             throw new ArrayIndexOutOfBoundsException("Выход за границы массива");
         } else {
-            Vector v = new Vector(this.rows.length);
+            Vector column = new Vector(this.rows.length);
             for (int i = 0; i < this.rows.length; ++i) {
                 for (Vector row : this.rows) {
-                    v.setElement(i, this.rows[i].getElement(index));
+                    column.setElement(i, this.rows[i].getElement(index));
                 }
             }
-            return v;
+            return column;
         }
     }
 
+    public Matrix transposition() {
+        Matrix transposition = new Matrix(this.rows[0].getSize(), this.rows.length);
+        for (int i = 0; i < this.rows[0].getSize(); i++) {
+            for (Vector row : this.rows) {
+                transposition.setRow(i, this.getColumn(i));
+            }
+        }
+        return transposition;
+    }
 
+    public Matrix multiplicationByScalar(double number) {
+        for (int i = 0; i < this.rows.length; ++i) {
+            this.rows[i] = this.rows[i].multiplicationByScalar(number);
+        }
+        return this;
+    }
 
-
+    public double determinant() {
+        double determinant = 0;
+        double d1 = 0;
+        double d2 = 0;
+        for (int i = 0; i < this.rows.length; i++) {
+            for (int j = i+1; j < this.rows[0].getSize(); j++) {
+                d1 += (this.getRow(i).getElement(i) * this.getColumn(j).getElement(j));
+            }
+        }
+        return d1;
+    }
 
 
     public String toString() {
