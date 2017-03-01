@@ -8,9 +8,9 @@ public class Matrix {
     private Vector[] rows;
 
     public Matrix(int columns, int rows) {
-        this.rows = new Vector[columns];
+        this.rows = new Vector[rows];
         for (int i = 0; i < this.rows.length; ++i) {
-            this.rows[i] = new Vector(rows);
+            this.rows[i] = new Vector(columns);
         }
     }
 
@@ -20,18 +20,35 @@ public class Matrix {
 
     public Matrix(double[][] array) {
         this.rows = new Vector[array.length];
-        for (int i = 0; i < this.rows.length; ++i) {
-            this.rows[i] = new Vector(array[i]);
+        for (int i = 0; i < array.length; ++i) {
+            int lengthRow = array[0].length;
+            if (array[i].length != lengthRow) {
+                throw new RuntimeException("Недопустимая длинна массива");
+            } else {
+                this.rows[i] = new Vector(array[i]);
+            }
         }
     }
 
-    public Matrix(Vector[] vectors) {
-        this.rows = vectors;
 
+    public Matrix(Vector[] vectors) {
+        this.rows = new Vector[vectors.length];
+        for (int i = 0; i < this.rows.length; ++i) {
+            int lengthRow = vectors[0].getSize();
+            if (vectors[i].getSize() != lengthRow) {
+                throw new RuntimeException("Недопустимая длинна вектора");
+            } else {
+                this.rows[i] = new Vector(vectors[i]);
+            }
+        }
     }
 
-    public int getSize() {
+    public int getRowsLength() {
         return rows.length;
+    }
+
+    public int getColumnsLength() {
+        return rows[0].getSize();
     }
 
     public Vector getRow(int index) {
@@ -43,15 +60,15 @@ public class Matrix {
     }
 
     public void setRow(int index, Vector vector) {
-        if (index >= this.rows.length || index < 0) {
-            throw new ArrayIndexOutOfBoundsException("Выход за границы массива");
+        if (index >= this.rows.length || index < 0 || vector.getSize() != this.rows[0].getSize()) {
+            throw new RuntimeException("Выход за границы массива");
         } else {
             this.rows[index] = new Vector(vector);
         }
     }
 
     public Vector getColumn(int index) {
-        if (index > this.rows.length || index < 0) {
+        if (index >= this.rows[0].getSize() || index < 0) {
             throw new ArrayIndexOutOfBoundsException("Выход за границы массива");
         } else {
             Vector column = new Vector(this.rows.length);
@@ -63,7 +80,7 @@ public class Matrix {
     }
 
     public Matrix transposition() {
-        Matrix transposition = new Matrix(this.rows[0].getSize(), this.rows.length);
+        Matrix transposition = new Matrix(this.rows.length, this.rows[0].getSize());
         for (int i = 0; i < this.rows[0].getSize(); i++) {
             transposition.setRow(i, this.getColumn(i));
         }
@@ -71,8 +88,8 @@ public class Matrix {
     }
 
     public Matrix multiplicationByScalar(double number) {
-        for (int i = 0; i < this.rows.length; ++i) {
-            this.rows[i] = this.rows[i].multiplicationByScalar(number);
+        for (Vector row : this.rows) {
+            row.multiplicationByScalar(number);
         }
         return this;
     }
@@ -101,8 +118,7 @@ public class Matrix {
             throw new RuntimeException("Недопустимый размер матрицы");
         } else {
             for (int i = 0; i < this.rows.length; i++) {
-                this.rows[i] = this.rows[i].addition(matrix.rows[i]);
-                setRow(i, this.rows[i]);
+                setRow(i, this.rows[i].addition(matrix.rows[i]));
             }
             return this;
         }
@@ -114,8 +130,7 @@ public class Matrix {
             throw new RuntimeException("Недопустимый размер матрицы");
         } else {
             for (int i = 0; i < this.rows.length; i++) {
-                this.rows[i] = this.rows[i].subtraction(matrix.rows[i]);
-                setRow(i, this.rows[i]);
+                setRow(i, this.rows[i].subtraction(matrix.rows[i]));
             }
             return this;
         }
@@ -152,6 +167,4 @@ public class Matrix {
     public String toString() {
         return Arrays.deepToString(rows).replace("[", "{").replace("]", "}");
     }
-
 }
-
