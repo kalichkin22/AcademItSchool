@@ -29,13 +29,11 @@ public class Main {
         Vector vector = new Vector(1, 2, 3);
         //d.setRow(1, vector);
         //System.out.println(d);
-        //System.out.println(d.getColumn(0));
-        //System.out.println(d.getRow(1));
+        //System.out.println(d.getColumn(1));
+        //System.out.println(d.getRow(0));
         //System.out.println(d.transposition());
         //System.out.println(d.multiplicationByScalar(2));
         System.out.println(d.multiplyVector(vector));
-
-
 
 
     }
