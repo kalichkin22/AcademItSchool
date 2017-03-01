@@ -84,11 +84,11 @@ public class Matrix {
         }
         Vector multiply = new Vector(this.rows.length);
         for (int i = 0; i < this.getSize(); i++) {
-            double elem = 0;
+            double sum = 0;
             for (int j = 0; j < this.rows[0].getSize(); j++) {
-                elem += this.getRow(i).getElement(j) * vector.getElement(j);
+                sum += this.getRow(i).getElement(j) * vector.getElement(j);
             }
-            multiply.setElement(i, elem);
+            multiply.setElement(i, sum);
         }
         return multiply;
     }
