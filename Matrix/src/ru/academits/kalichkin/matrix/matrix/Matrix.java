@@ -122,17 +122,17 @@ public class Matrix {
     }
 
     public static Matrix getAddition(Matrix matrix, Matrix matrix1) {
-        Matrix addition = new Matrix(matrix);
-        addition.addition(matrix1);
+        Matrix sum = new Matrix(matrix);
+        sum.addition(matrix1);
 
-        return addition;
+        return sum;
     }
 
     public static Matrix getSubtraction(Matrix matrix, Matrix matrix1) {
-        Matrix subtraction = new Matrix(matrix);
-        subtraction.subtraction(matrix1);
+        Matrix difference = new Matrix(matrix);
+        difference.subtraction(matrix1);
 
-        return subtraction;
+        return difference;
     }
 
 
