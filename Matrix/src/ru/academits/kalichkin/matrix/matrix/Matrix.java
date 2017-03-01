@@ -86,7 +86,7 @@ public class Matrix {
         double elem = 0;
         for (int i = 0; i < this.rows[0].getSize(); ++i) {
             for (int j = 0; j < this.rows.length; j++) {
-                elem += this.getColumn(i).getElement(j) * vector.getElement(i);
+                elem += this.rows[i].getElement(j) * vector.getElement(i);
             }
             multiply.setElement(i, elem);
         }
