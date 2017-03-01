@@ -141,7 +141,7 @@ public class Matrix {
         for (int i = 0; i < matrix.rows.length; i++) {
             multiplication.setRow(i, matrix.multiplyVector(matrix1.getColumn(i)));
         }
-        return multiplication;
+        return multiplication.transposition();
     }
 
 
