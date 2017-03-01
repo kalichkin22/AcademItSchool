@@ -7,7 +7,7 @@ import ru.academits.kalichkin.vector.vector.Vector;
 public class Main {
     public static void main(String[] args) {
         try {
-            double[][] array = {{2, 1}, {-3, 0}, {4, -1}};
+            double[][] array = {{2, 1}, {-3, 0}};
             double[][] array2 = {{5, -1, 6}, {-3, 0, 7}};
 
             /*

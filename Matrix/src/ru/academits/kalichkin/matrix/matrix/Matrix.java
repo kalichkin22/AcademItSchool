@@ -87,6 +87,14 @@ public class Matrix {
         return transposition;
     }
 
+    public Matrix transposition2() {
+        Matrix transposition = new Matrix(this);
+        for (int i = 0; i < this.rows[0].getSize(); i++) {
+            setRow(i, transposition.getColumn(i));
+        }
+        return this;
+    }
+
     public Matrix multiplicationByScalar(double number) {
         for (Vector row : this.rows) {
             row.multiplicationByScalar(number);
