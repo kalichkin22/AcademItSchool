@@ -95,7 +95,8 @@ public class Matrix {
 
 
     public Matrix addition(Matrix matrix) {
-        if (this.rows.length != matrix.rows.length) {
+        if (this.rows.length != matrix.rows.length
+                && this.rows[0].getSize() != matrix.rows[0].getSize()) {
             throw new RuntimeException("Недопустимый размер матрицы");
         }
         for (int i = 0; i < this.rows.length; i++) {
@@ -106,7 +107,8 @@ public class Matrix {
     }
 
     public Matrix subtraction(Matrix matrix) {
-        if (this.rows.length != matrix.rows.length) {
+        if (this.rows.length != matrix.rows.length
+                && this.rows[0].getSize() != matrix.rows[0].getSize()) {
             throw new RuntimeException("Недопустимый размер матрицы");
         }
         for (int i = 0; i < this.rows.length; i++) {
