@@ -94,6 +94,28 @@ public class Matrix {
     }
 
 
+    public Matrix addition(Matrix matrix) {
+        if (this.rows.length != matrix.rows.length) {
+            throw new RuntimeException("Недопустимый размер матрицы");
+        }
+        for (int i = 0; i < this.rows.length; i++) {
+            this.rows[i] = this.rows[i].addition(matrix.rows[i]);
+            setRow(i, this.rows[i]);
+        }
+        return this;
+    }
+
+    public Matrix subtraction(Matrix matrix) {
+        if (this.rows.length != matrix.rows.length) {
+            throw new RuntimeException("Недопустимый размер матрицы");
+        }
+        for (int i = 0; i < this.rows.length; i++) {
+            this.rows[i] = this.rows[i].subtraction(matrix.rows[i]);
+            setRow(i, this.rows[i]);
+        }
+        return this;
+    }
+
     public String toString() {
         return Arrays.deepToString(rows).replace("[", "{").replace("]", "}");
     }
