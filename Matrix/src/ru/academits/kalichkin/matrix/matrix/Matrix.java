@@ -133,6 +133,18 @@ public class Matrix {
     }
 
 
+    public static Matrix getMultiplication(Matrix matrix, Matrix matrix1) {
+        if (matrix.rows[0].getSize() != matrix1.rows.length) {
+            throw new RuntimeException("Недопустимый размер матрицы");
+        }
+        Matrix multiplication = new Matrix(matrix.rows.length, matrix.rows[0].getSize());
+        for (int i = 0; i < matrix.rows.length; i++) {
+            multiplication.setRow(i, matrix.multiplyVector(matrix1.getColumn(i)));
+        }
+        return multiplication;
+    }
+
+
     public String toString() {
         return Arrays.deepToString(rows).replace("[", "{").replace("]", "}");
     }
