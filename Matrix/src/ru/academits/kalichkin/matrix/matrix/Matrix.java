@@ -83,10 +83,10 @@ public class Matrix {
             throw new RuntimeException("Недопустимый размер матрицы");
         }
         Vector multiply = new Vector(this.rows.length);
-        double elem = 0;
-        for (int i = 0; i < this.getSize(); ++i) {
-            for (int j = 0; j < this.rows[0].getSize(); ++j) {
-              elem += this.getRow(i).getElement(j) * vector.getElement(j);
+        for (int i = 0; i < this.getSize(); i++) {
+            double elem = 0;
+            for (int j = 0; j < this.rows[0].getSize(); j++) {
+                elem += this.getRow(i).getElement(j) * vector.getElement(j);
             }
             multiply.setElement(i, elem);
         }
