@@ -96,7 +96,7 @@ public class Matrix {
 
     public Matrix addition(Matrix matrix) {
         if (this.rows.length != matrix.rows.length
-                && this.rows[0].getSize() != matrix.rows[0].getSize()) {
+                || this.rows[0].getSize() != matrix.rows[0].getSize()) {
             throw new RuntimeException("Недопустимый размер матрицы");
         }
         for (int i = 0; i < this.rows.length; i++) {
@@ -108,7 +108,7 @@ public class Matrix {
 
     public Matrix subtraction(Matrix matrix) {
         if (this.rows.length != matrix.rows.length
-                && this.rows[0].getSize() != matrix.rows[0].getSize()) {
+                || this.rows[0].getSize() != matrix.rows[0].getSize()) {
             throw new RuntimeException("Недопустимый размер матрицы");
         }
         for (int i = 0; i < this.rows.length; i++) {
@@ -117,6 +117,21 @@ public class Matrix {
         }
         return this;
     }
+
+    public static Matrix getAddition(Matrix matrix, Matrix matrix1) {
+        Matrix matrix2 = new Matrix(matrix);
+        matrix2.addition(matrix1);
+
+        return matrix2;
+    }
+
+    public static Matrix getSubtraction(Matrix matrix, Matrix matrix1) {
+        Matrix matrix2 = new Matrix(matrix);
+        matrix2.subtraction(matrix1);
+
+        return matrix2;
+    }
+
 
     public String toString() {
         return Arrays.deepToString(rows).replace("[", "{").replace("]", "}");

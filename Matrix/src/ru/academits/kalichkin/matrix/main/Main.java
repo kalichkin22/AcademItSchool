@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             double[][] array = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-            double[][] array2 = {{4, 7}, {4, 5}, {7, 8}};
+            double[][] array2 = {{4, 7, 8}, {4, 5, 6}, {7, 8, 9}};
         /*
         Vector[] vectors = {new Vector(7, 8, 9), new Vector(4, 5, 6)};
 
@@ -36,7 +36,8 @@ public class Main {
             //System.out.println(d.transposition());
             //System.out.println(d.multiplicationByScalar(2));
             // System.out.println(d.multiplyVector(vector));
-            System.out.println(d.addition(e));
+            //System.out.println(d.addition(e));
+            System.out.println(Matrix.getAddition(d, e));
 
 
         } catch (Exception e) {
