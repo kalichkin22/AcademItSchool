@@ -83,21 +83,12 @@ public class Matrix {
             throw new RuntimeException("Недопустимый размер матрицы");
         }
         Vector multiply = new Vector(this.rows.length);
-
-        for (int i = 0; i < this.rows[0].getSize(); ++i) {
-            double elem = (this.getRow(0).getElement(0) * vector.getElement(0))
-                    + (this.getRow(0).getElement(1) * vector.getElement(1))
-                    + (this.getRow(0).getElement(2) * vector.getElement(2));
-            double elem1 = (this.getRow(1).getElement(0) * vector.getElement(0))
-                    + (this.getRow(1).getElement(1) * vector.getElement(1))
-                    + (this.getRow(1).getElement(2) * vector.getElement(2));
-            double elem2 = (this.getRow(2).getElement(0) * vector.getElement(0))
-                    + (this.getRow(2).getElement(1) * vector.getElement(1))
-                    + (this.getRow(2).getElement(2) * vector.getElement(2));
-
-            multiply.setElement(0, elem);
-            multiply.setElement(1, elem1);
-            multiply.setElement(2, elem2);
+        double elem = 0;
+        for (int i = 0; i < this.getSize(); ++i) {
+            for (int j = 0; j < this.getSize(); ++j) {
+                elem += (this.getRow(i).getElement(j) * vector.getElement(j));
+            }
+            multiply.setElement(i, elem);
         }
         return multiply;
     }
