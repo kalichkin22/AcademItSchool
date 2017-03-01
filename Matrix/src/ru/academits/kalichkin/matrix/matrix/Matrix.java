@@ -56,9 +56,7 @@ public class Matrix {
         } else {
             Vector column = new Vector(this.rows.length);
             for (int i = 0; i < this.rows.length; ++i) {
-                for (Vector row : this.rows) {
-                    column.setElement(i, this.rows[i].getElement(index));
-                }
+                column.setElement(i, this.rows[i].getElement(index));
             }
             return column;
         }
@@ -67,9 +65,7 @@ public class Matrix {
     public Matrix transposition() {
         Matrix transposition = new Matrix(this.rows[0].getSize(), this.rows.length);
         for (int i = 0; i < this.rows[0].getSize(); i++) {
-            for (Vector row : this.rows) {
-                transposition.setRow(i, this.getColumn(i));
-            }
+            transposition.setRow(i, this.getColumn(i));
         }
         return transposition;
     }
@@ -81,16 +77,20 @@ public class Matrix {
         return this;
     }
 
-    public double determinant() {
-        double determinant = 0;
-        double d1 = 0;
-        double d2 = 0;
-        for (int i = 0; i < this.rows.length; i++) {
-            for (int j = i+1; j < this.rows[0].getSize(); j++) {
-                d1 += (this.getRow(i).getElement(i) * this.getColumn(j).getElement(j));
-            }
+
+    public Vector multiplyVector(Vector vector) {
+        if (vector.getSize() != this.rows[0].getSize()) {
+            throw new RuntimeException("Недопустимый размер матрицы");
         }
-        return d1;
+        Vector multiply = new Vector(this.rows.length);
+        double elem = 0;
+        for (int i = 0; i < this.rows[0].getSize(); ++i) {
+            for (int j = 0; j < this.rows.length; j++) {
+                elem += this.getColumn(i).getElement(j) * vector.getElement(i);
+            }
+            multiply.setElement(i, elem);
+        }
+        return multiply;
     }
 
 

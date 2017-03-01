@@ -26,14 +26,16 @@ public class Main {
 */
         Matrix d = new Matrix(array);
         System.out.println(d);
-        //Vector vector = new Vector(3, 8, 0);
+        Vector vector = new Vector(1, 2, 3);
         //d.setRow(1, vector);
         //System.out.println(d);
-        // System.out.println(d.getColumn(0));
+        //System.out.println(d.getColumn(0));
         //System.out.println(d.getRow(1));
         //System.out.println(d.transposition());
         //System.out.println(d.multiplicationByScalar(2));
-        System.out.println(d.determinant());
+        System.out.println(d.multiplyVector(vector));
+
+
 
 
     }
