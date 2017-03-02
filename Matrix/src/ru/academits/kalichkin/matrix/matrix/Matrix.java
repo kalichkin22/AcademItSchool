@@ -175,9 +175,9 @@ public class Matrix {
         } else {
             determinant = 0;
             for (int i = 0; i < matrixLength; i++) {
-                Matrix matrix = new Matrix(0, matrixLength - 1);
+                Matrix minor = new Matrix(0, matrixLength - 1);
                 for (int j = 0; j < (matrixLength - 1); j++) {
-                    matrix.rows[j] = new Vector(matrixLength - 1);
+                    minor.rows[j] = new Vector(matrixLength - 1);
                 }
                 for (int k = 1; k < matrixLength; k++) {
                     int count = 0;
@@ -185,12 +185,12 @@ public class Matrix {
                         if (l == i) {
                             continue;
                         }
-                        matrix.rows[k - 1].setElement(count, this.rows[k].getElement(l));
+                        minor.rows[k - 1].setElement(count, this.rows[k].getElement(l));
                         count++;
                     }
                 }
                 determinant += Math.pow(-1.0, 1.0 + i + 1.0) * this.rows[0].getElement(i)
-                        * matrix.determinant(matrixLength - 1);
+                        * minor.determinant(matrixLength - 1);
             }
         }
         return determinant;
