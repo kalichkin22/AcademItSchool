@@ -37,9 +37,9 @@ public class Main {
             //System.out.println(d);
             //System.out.println(d.getColumn(0));
             //System.out.println(d.getRow(0));
-            //System.out.println(d.transposition2());
+            //System.out.println(d.transposition());
             //System.out.println(d.multiplicationByScalar(2));
-            System.out.println(d.multiplyVector(vector));
+            //System.out.println(d.multiplyVector(vector));
             //System.out.println(d.addition(e));
             //System.out.println(d.subtraction(e));
             //System.out.println(Matrix.getAddition(d, e));

@@ -30,7 +30,6 @@ public class Matrix {
         }
     }
 
-
     public Matrix(Vector[] vectors) {
         this.rows = new Vector[vectors.length];
         for (int i = 0; i < this.rows.length; ++i) {
@@ -84,14 +83,7 @@ public class Matrix {
         for (int i = 0; i < this.rows[0].getSize(); i++) {
             transposition.setRow(i, this.getColumn(i));
         }
-        return transposition;
-    }
-
-    public Matrix transposition2() {
-        Matrix transposition = new Matrix(this);
-        for (int i = 0; i < this.rows[0].getSize(); i++) {
-            this.rows[i] = transposition.getColumn(i);
-        }
+        this.rows = transposition.rows;
         return this;
     }
 
@@ -101,7 +93,6 @@ public class Matrix {
         }
         return this;
     }
-
 
     public Vector multiplyVector(Vector vector) {
         if (vector.getSize() != this.rows[0].getSize()) {
@@ -118,7 +109,6 @@ public class Matrix {
             return multiply;
         }
     }
-
 
     public Matrix addition(Matrix matrix) {
         if (this.rows.length != matrix.rows.length
@@ -158,7 +148,6 @@ public class Matrix {
         return difference;
     }
 
-
     public static Matrix getMultiplication(Matrix matrix, Matrix matrix1) {
         if (matrix1.rows.length != matrix.rows[0].getSize()) {
             throw new RuntimeException("Недопустимый размер матрицы");
@@ -170,7 +159,6 @@ public class Matrix {
             return multiplication.transposition();
         }
     }
-
 
     public String toString() {
         return Arrays.deepToString(rows).replace("[", "{").replace("]", "}");
