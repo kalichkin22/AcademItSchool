@@ -7,8 +7,8 @@ import ru.academits.kalichkin.vector.vector.Vector;
 public class Main {
     public static void main(String[] args) {
         try {
-            double[][] array = {{2, 1}, {-3, 0}};
-            double[][] array2 = {{5, -1, 6}, {-3, 0, 7}};
+            double[][] array = {{2, 1}, {-3, 0}, {4, -1}};
+            double[][] array2 = {{5, -1}, {6, -3}, {0, 7}};
 
             /*
 
@@ -30,17 +30,21 @@ public class Main {
             Matrix e = new Matrix(array2);
             System.out.println(d);
             //System.out.println(e);
-            //Vector vector = new Vector(1, 2, 3);
-            //d.setRow(1, vector);
+            Vector vector = new Vector(1, 2);
+            //System.out.println(d.getRowsLength());
+            //System.out.println(d.getColumnsLength());
+            //d.setRow(1, e.getColumn(0));
             //System.out.println(d);
-            //System.out.println(d.getColumn(2));
+            //System.out.println(d.getColumn(0));
             //System.out.println(d.getRow(0));
-            System.out.println(d.transposition());
+            //System.out.println(d.transposition2());
             //System.out.println(d.multiplicationByScalar(2));
             //System.out.println(d.multiplyVector(vector));
             //System.out.println(d.addition(e));
+            //System.out.println(d.subtraction(e));
             //System.out.println(Matrix.getAddition(d, e));
-            //System.out.println(Matrix.getMultiplication(d, e));
+            //System.out.println(Matrix.getSubtraction(d, e));
+            System.out.println(Matrix.getMultiplication(d, e));
 
 
         } catch (Exception e) {

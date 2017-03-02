@@ -21,8 +21,8 @@ public class Matrix {
     public Matrix(double[][] array) {
         this.rows = new Vector[array.length];
         for (int i = 0; i < array.length; ++i) {
-            int lengthRow = array[0].length;
-            if (array[i].length != lengthRow) {
+            int lengthColumn = array[0].length;
+            if (array[i].length != lengthColumn) {
                 throw new RuntimeException("Недопустимая длинна массива");
             } else {
                 this.rows[i] = new Vector(array[i]);
@@ -34,8 +34,8 @@ public class Matrix {
     public Matrix(Vector[] vectors) {
         this.rows = new Vector[vectors.length];
         for (int i = 0; i < this.rows.length; ++i) {
-            int lengthRow = vectors[0].getSize();
-            if (vectors[i].getSize() != lengthRow) {
+            int lengthColumn = vectors[0].getSize();
+            if (vectors[i].getSize() != lengthColumn) {
                 throw new RuntimeException("Недопустимая длинна вектора");
             } else {
                 this.rows[i] = new Vector(vectors[i]);
@@ -53,7 +53,7 @@ public class Matrix {
 
     public Vector getRow(int index) {
         if (index >= this.rows.length || index < 0) {
-            throw new ArrayIndexOutOfBoundsException("Выход за границы массива");
+            throw new ArrayIndexOutOfBoundsException("Выход за границы массива1");
         } else {
             return new Vector(rows[index]);
         }
@@ -61,7 +61,7 @@ public class Matrix {
 
     public void setRow(int index, Vector vector) {
         if (index >= this.rows.length || index < 0 || vector.getSize() != this.rows[0].getSize()) {
-            throw new RuntimeException("Выход за границы массива");
+            throw new RuntimeException("Выход за границы массива2");
         } else {
             this.rows[index] = new Vector(vector);
         }
@@ -69,7 +69,7 @@ public class Matrix {
 
     public Vector getColumn(int index) {
         if (index >= this.rows[0].getSize() || index < 0) {
-            throw new ArrayIndexOutOfBoundsException("Выход за границы массива");
+            throw new ArrayIndexOutOfBoundsException("Выход за границы массива3");
         } else {
             Vector column = new Vector(this.rows.length);
             for (int i = 0; i < this.rows.length; ++i) {
@@ -90,7 +90,7 @@ public class Matrix {
     public Matrix transposition2() {
         Matrix transposition = new Matrix(this);
         for (int i = 0; i < this.rows[0].getSize(); i++) {
-            setRow(i, transposition.getColumn(i));
+            this.rows[i] = transposition.getColumn(i);
         }
         return this;
     }
@@ -160,7 +160,7 @@ public class Matrix {
 
 
     public static Matrix getMultiplication(Matrix matrix, Matrix matrix1) {
-        if (matrix.rows[0].getSize() != matrix1.rows.length) {
+        if (matrix.getColumnsLength() != matrix1.getRowsLength()) {
             throw new RuntimeException("Недопустимый размер матрицы");
         } else {
             Matrix multiplication = new Matrix(matrix.rows.length, matrix.rows[0].getSize());
