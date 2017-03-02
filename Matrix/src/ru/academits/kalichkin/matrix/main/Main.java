@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             double[][] array = {{2, 1}, {-3, 0}, {4, -1}};
-            double[][] array2 = {{5, -1}, {6, -3}, {0, 7}};
+            double[][] array2 = {{5, -1, 6,}, {-3, 0, 7}};
 
             /*
 
@@ -39,7 +39,7 @@ public class Main {
             //System.out.println(d.getRow(0));
             //System.out.println(d.transposition2());
             //System.out.println(d.multiplicationByScalar(2));
-            //System.out.println(d.multiplyVector(vector));
+            System.out.println(d.multiplyVector(vector));
             //System.out.println(d.addition(e));
             //System.out.println(d.subtraction(e));
             //System.out.println(Matrix.getAddition(d, e));

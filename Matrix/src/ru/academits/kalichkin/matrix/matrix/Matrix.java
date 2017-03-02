@@ -160,10 +160,10 @@ public class Matrix {
 
 
     public static Matrix getMultiplication(Matrix matrix, Matrix matrix1) {
-        if (matrix.getColumnsLength() != matrix1.getRowsLength()) {
+        if (matrix1.rows.length != matrix.rows[0].getSize()) {
             throw new RuntimeException("Недопустимый размер матрицы");
         } else {
-            Matrix multiplication = new Matrix(matrix.rows.length, matrix.rows[0].getSize());
+            Matrix multiplication = new Matrix(matrix.rows.length, matrix1.rows[0].getSize());
             for (int i = 0; i < matrix.rows.length; i++) {
                 multiplication.setRow(i, matrix.multiplyVector(matrix1.getColumn(i)));
             }
