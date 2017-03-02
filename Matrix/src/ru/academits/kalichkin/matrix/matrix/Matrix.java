@@ -175,7 +175,7 @@ public class Matrix {
         } else {
             determinant = 0;
             for (int i = 0; i < matrixLength; i++) {
-                Matrix matrix = new Matrix(new double[matrixLength - 1][0]);
+                Matrix matrix = new Matrix(0,matrixLength - 1);
                 for (int j = 0; j < (matrixLength - 1); j++) {
                     matrix.rows[j] = new Vector(matrixLength - 1);
                 }
