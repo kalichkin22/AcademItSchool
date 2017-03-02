@@ -7,7 +7,7 @@ import ru.academits.kalichkin.vector.vector.Vector;
 public class Main {
     public static void main(String[] args) {
         try {
-            double[][] array = {{2, 1}, {-3, 0}, {4, -1}};
+            double[][] array = {{1, 2, 3}, {6, -5, 2}, {-4, 2, 0}};
             double[][] array2 = {{5, -1, 6,}, {-3, 0, 7}};
 
             /*
@@ -28,7 +28,7 @@ public class Main {
 
             Matrix d = new Matrix(array);
             Matrix e = new Matrix(array2);
-            System.out.println(d);
+            //System.out.println(d);
             //System.out.println(e);
             Vector vector = new Vector(1, 2);
             //System.out.println(d.getRowsLength());
@@ -44,7 +44,9 @@ public class Main {
             //System.out.println(d.subtraction(e));
             //System.out.println(Matrix.getAddition(d, e));
             //System.out.println(Matrix.getSubtraction(d, e));
-            System.out.println(Matrix.getMultiplication(d, e));
+            //System.out.println(Matrix.getMultiplication(d, e));
+
+            System.out.println(d.determinant(d.getColumnsLength()));
 
 
         } catch (Exception e) {

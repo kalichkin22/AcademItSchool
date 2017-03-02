@@ -163,4 +163,36 @@ public class Matrix {
     public String toString() {
         return Arrays.deepToString(rows).replace("[", "{").replace("]", "}");
     }
+
+
+    public double determinant(int matrixLength) {
+        double determinant;
+        if (matrixLength == 1) {
+            determinant = this.rows[0].getElement(0);
+        } else if (matrixLength == 2) {
+            determinant = this.rows[0].getElement(0) * this.rows[1].getElement(1)
+                    - this.rows[1].getElement(0) * this.rows[0].getElement(1);
+        } else {
+            determinant = 0;
+            for (int i = 0; i < matrixLength; i++) {
+                Matrix matrix = new Matrix(new double[matrixLength - 1][0]);
+                for (int j = 0; j < (matrixLength - 1); j++) {
+                    matrix.rows[j] = new Vector(matrixLength - 1);
+                }
+                for (int k = 1; k < matrixLength; k++) {
+                    int count = 0;
+                    for (int l = 0; l < matrixLength; l++) {
+                        if (l == i) {
+                            continue;
+                        }
+                        matrix.rows[k - 1].setElement(count, this.rows[k].getElement(l));
+                        count++;
+                    }
+                }
+                determinant += Math.pow(-1.0, 1.0 + i + 1.0) * this.rows[0].getElement(i)
+                        * matrix.determinant(matrixLength - 1);
+            }
+        }
+        return determinant;
+    }
 }
