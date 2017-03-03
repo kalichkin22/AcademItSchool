@@ -166,10 +166,10 @@ public class Matrix {
 
 
     public double determinant() {
-        double determinant;
         if (this.rows.length != this.rows[0].getSize()) {
             throw new RuntimeException("Недопустимый размер матрицы");
         }
+        double determinant;
         if (this.rows[0].getSize() == 1) {
             determinant = this.rows[0].getElement(0);
         } else if (this.rows[0].getSize() == 2) {
