@@ -46,7 +46,7 @@ public class Main {
             //System.out.println(Matrix.getSubtraction(d, e));
             //System.out.println(Matrix.getMultiplication(d, e));
 
-            System.out.println(d.determinant(d.getColumnsLength()));
+            System.out.println(d.determinant());
 
 
         } catch (Exception e) {

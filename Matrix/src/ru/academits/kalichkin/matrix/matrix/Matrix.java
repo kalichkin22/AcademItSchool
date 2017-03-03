@@ -165,8 +165,9 @@ public class Matrix {
     }
 
 
-    public double determinant(int matrixLength) {
+    public double determinant() {
         double determinant;
+        int matrixLength = this.rows.length;
         if (matrixLength == 1) {
             determinant = this.rows[0].getElement(0);
         } else if (matrixLength == 2) {
@@ -190,7 +191,7 @@ public class Matrix {
                     }
                 }
                 determinant += Math.pow(-1.0, 1.0 + i + 1.0) * this.rows[0].getElement(i)
-                        * minor.determinant(matrixLength - 1);
+                        * minor.determinant();
             }
         }
         return determinant;
