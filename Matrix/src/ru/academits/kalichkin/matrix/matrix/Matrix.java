@@ -79,11 +79,11 @@ public class Matrix {
     }
 
     public Matrix transposition() {
-        Matrix transposition = new Matrix(this.rows.length, this.getColumnsCount());
+        Vector[] transposition = new Vector[this.getColumnsCount()];
         for (int i = 0; i < this.getColumnsCount(); i++) {
-            transposition.setRow(i, this.getColumn(i));
+            transposition[i] = this.getColumn(i);
         }
-        this.rows = transposition.rows;
+        this.rows = transposition;
         return this;
     }
 
