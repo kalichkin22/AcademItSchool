@@ -167,22 +167,21 @@ public class Matrix {
 
     public double determinant() {
         double determinant;
-        int matrixLength = this.rows.length;
-        if (matrixLength == 1) {
+        if (this.rows.length == 1) {
             determinant = this.rows[0].getElement(0);
-        } else if (matrixLength == 2) {
+        } else if (this.rows.length == 2) {
             determinant = this.rows[0].getElement(0) * this.rows[1].getElement(1)
                     - this.rows[1].getElement(0) * this.rows[0].getElement(1);
         } else {
             determinant = 0;
-            for (int i = 0; i < matrixLength; i++) {
-                Matrix minor = new Matrix(0, matrixLength - 1);
-                for (int j = 0; j < (matrixLength - 1); j++) {
-                    minor.rows[j] = new Vector(matrixLength - 1);
+            for (int i = 0; i < this.rows.length; i++) {
+                Matrix minor = new Matrix(0, this.rows.length - 1);
+                for (int j = 0; j < (this.rows.length - 1); j++) {
+                    minor.rows[j] = new Vector(this.rows.length - 1);
                 }
-                for (int k = 1; k < matrixLength; k++) {
+                for (int k = 1; k < this.rows.length; k++) {
                     int count = 0;
-                    for (int l = 0; l < matrixLength; l++) {
+                    for (int l = 0; l < this.rows.length; l++) {
                         if (l == i) {
                             continue;
                         }
