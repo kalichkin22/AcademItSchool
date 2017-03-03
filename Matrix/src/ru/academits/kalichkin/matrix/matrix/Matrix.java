@@ -58,6 +58,8 @@ public class Matrix {
 
     public void setRow(int index, Vector vector) {
         if (index >= this.rows.length || index < 0) {
+            throw new ArrayIndexOutOfBoundsException("Выход за границы матрицы");
+        } else if (vector.getSize() != this.getColumnsCount()) {
             throw new RuntimeException("Выход за границы матрицы");
         } else {
             this.rows[index] = new Vector(vector);
