@@ -94,6 +94,44 @@ public class Matrix {
         return this;
     }
 
+    public double determinant() {
+        if (this.rows.length != this.rows[0].getSize()) {
+            throw new RuntimeException("Недопустимый размер матрицы");
+        }
+        double determinant;
+        if (this.rows[0].getSize() == 1) {
+            determinant = this.rows[0].getElement(0);
+        } else if (this.rows[0].getSize() == 2) {
+            determinant = this.rows[0].getElement(0) * this.rows[1].getElement(1)
+                    - this.rows[1].getElement(0) * this.rows[0].getElement(1);
+        } else {
+            determinant = 0;
+            for (int i = 0; i < this.rows[0].getSize(); i++) {
+                Matrix minor = new Matrix(0, this.rows[0].getSize() - 1);
+                for (int j = 0; j < this.rows[0].getSize() - 1; j++) {
+                    minor.rows[j] = new Vector(this.rows[0].getSize() - 1);
+                }
+                for (int k = 1; k < this.rows[0].getSize(); k++) {
+                    int count = 0;
+                    for (int l = 0; l < this.rows[0].getSize(); l++) {
+                        if (l == i) {
+                            continue;
+                        }
+                        minor.rows[k - 1].setElement(count, this.rows[k].getElement(l));
+                        count++;
+                    }
+                }
+                determinant += Math.pow(-1.0, 1.0 + i + 1.0) * this.rows[0].getElement(i)
+                        * minor.determinant();
+            }
+        }
+        return determinant;
+    }
+
+    public String toString() {
+        return Arrays.deepToString(rows).replace("[", "{").replace("]", "}");
+    }
+
     public Vector multiplyVector(Vector vector) {
         if (vector.getSize() != this.rows[0].getSize()) {
             throw new RuntimeException("Недопустимый размер матрицы");
@@ -158,44 +196,5 @@ public class Matrix {
             }
             return multiplication.transposition();
         }
-    }
-
-    public String toString() {
-        return Arrays.deepToString(rows).replace("[", "{").replace("]", "}");
-    }
-
-
-    public double determinant() {
-        if (this.rows.length != this.rows[0].getSize()) {
-            throw new RuntimeException("Недопустимый размер матрицы");
-        }
-        double determinant;
-        if (this.rows[0].getSize() == 1) {
-            determinant = this.rows[0].getElement(0);
-        } else if (this.rows[0].getSize() == 2) {
-            determinant = this.rows[0].getElement(0) * this.rows[1].getElement(1)
-                    - this.rows[1].getElement(0) * this.rows[0].getElement(1);
-        } else {
-            determinant = 0;
-            for (int i = 0; i < this.rows[0].getSize(); i++) {
-                Matrix minor = new Matrix(0, this.rows[0].getSize() - 1);
-                for (int j = 0; j < this.rows[0].getSize() - 1; j++) {
-                    minor.rows[j] = new Vector(this.rows[0].getSize() - 1);
-                }
-                for (int k = 1; k < this.rows[0].getSize(); k++) {
-                    int count = 0;
-                    for (int l = 0; l < this.rows[0].getSize(); l++) {
-                        if (l == i) {
-                            continue;
-                        }
-                        minor.rows[k - 1].setElement(count, this.rows[k].getElement(l));
-                        count++;
-                    }
-                }
-                determinant += Math.pow(-1.0, 1.0 + i + 1.0) * this.rows[0].getElement(i)
-                        * minor.determinant();
-            }
-        }
-        return determinant;
     }
 }
