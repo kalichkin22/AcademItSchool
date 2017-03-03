@@ -21,8 +21,7 @@ public class Matrix {
     public Matrix(double[][] array) {
         this.rows = new Vector[array.length];
         for (int i = 0; i < array.length; ++i) {
-            int lengthColumn = array[0].length;
-            if (array[i].length != lengthColumn) {
+            if (array[i].length != array[0].length) {
                 throw new RuntimeException("Недопустимая длинна массива");
             } else {
                 this.rows[i] = new Vector(array[i]);
@@ -33,8 +32,7 @@ public class Matrix {
     public Matrix(Vector[] vectors) {
         this.rows = new Vector[vectors.length];
         for (int i = 0; i < this.rows.length; ++i) {
-            int lengthColumn = vectors[0].getSize();
-            if (vectors[i].getSize() != lengthColumn) {
+            if (vectors[i].getSize() != vectors[0].getSize()) {
                 throw new RuntimeException("Недопустимая длинна вектора");
             } else {
                 this.rows[i] = new Vector(vectors[i]);
@@ -131,6 +129,7 @@ public class Matrix {
     public String toString() {
         return Arrays.deepToString(rows).replace("[", "{").replace("]", "}");
     }
+
 
     public Vector multiplyVector(Vector vector) {
         if (vector.getSize() != this.rows[0].getSize()) {
