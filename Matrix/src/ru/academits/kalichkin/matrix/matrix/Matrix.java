@@ -167,21 +167,24 @@ public class Matrix {
 
     public double determinant() {
         double determinant;
-        if (this.rows.length == 1) {
+        if (this.rows.length != this.rows[0].getSize()) {
+            throw new RuntimeException("Недопустимый размер матрицы");
+        }
+        if (this.rows[0].getSize() == 1) {
             determinant = this.rows[0].getElement(0);
-        } else if (this.rows.length == 2) {
+        } else if (this.rows[0].getSize() == 2) {
             determinant = this.rows[0].getElement(0) * this.rows[1].getElement(1)
                     - this.rows[1].getElement(0) * this.rows[0].getElement(1);
         } else {
             determinant = 0;
-            for (int i = 0; i < this.rows.length; i++) {
-                Matrix minor = new Matrix(0, this.rows.length - 1);
-                for (int j = 0; j < (this.rows.length - 1); j++) {
-                    minor.rows[j] = new Vector(this.rows.length - 1);
+            for (int i = 0; i < this.rows[0].getSize(); i++) {
+                Matrix minor = new Matrix(0, this.rows[0].getSize() - 1);
+                for (int j = 0; j < (this.rows[0].getSize() - 1); j++) {
+                    minor.rows[j] = new Vector(this.rows[0].getSize() - 1);
                 }
-                for (int k = 1; k < this.rows.length; k++) {
+                for (int k = 1; k < this.rows[0].getSize(); k++) {
                     int count = 0;
-                    for (int l = 0; l < this.rows.length; l++) {
+                    for (int l = 0; l < this.rows[0].getSize(); l++) {
                         if (l == i) {
                             continue;
                         }
