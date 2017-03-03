@@ -31,8 +31,8 @@ public class Main {
             //System.out.println(d);
             //System.out.println(e);
             Vector vector = new Vector(1, 2);
-            //System.out.println(d.getRowsLength());
-            //System.out.println(d.getColumnsLength());
+            //System.out.println(d.getRowsCount());
+            //System.out.println(d.getColumnsCount());
             //d.setRow(1, e.getColumn(0));
             //System.out.println(d);
             //System.out.println(d.getColumn(0));

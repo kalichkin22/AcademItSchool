@@ -40,33 +40,33 @@ public class Matrix {
         }
     }
 
-    public int getRowsLength() {
+    public int getRowsCount() {
         return rows.length;
     }
 
-    public int getColumnsLength() {
+    public int getColumnsCount() {
         return rows[0].getSize();
     }
 
     public Vector getRow(int index) {
         if (index >= this.rows.length || index < 0) {
-            throw new ArrayIndexOutOfBoundsException("Выход за границы массива1");
+            throw new ArrayIndexOutOfBoundsException("Выход за границы матрицы");
         } else {
             return new Vector(rows[index]);
         }
     }
 
     public void setRow(int index, Vector vector) {
-        if (index >= this.rows.length || index < 0 || vector.getSize() != this.rows[0].getSize()) {
-            throw new RuntimeException("Выход за границы массива2");
+        if (index >= this.rows.length || index < 0) {
+            throw new RuntimeException("Выход за границы матрицы");
         } else {
             this.rows[index] = new Vector(vector);
         }
     }
 
     public Vector getColumn(int index) {
-        if (index >= this.rows[0].getSize() || index < 0) {
-            throw new ArrayIndexOutOfBoundsException("Выход за границы массива3");
+        if (index >= this.getColumnsCount() || index < 0) {
+            throw new ArrayIndexOutOfBoundsException("Выход за границы матрицы");
         } else {
             Vector column = new Vector(this.rows.length);
             for (int i = 0; i < this.rows.length; ++i) {
@@ -77,8 +77,8 @@ public class Matrix {
     }
 
     public Matrix transposition() {
-        Matrix transposition = new Matrix(this.rows.length, this.rows[0].getSize());
-        for (int i = 0; i < this.rows[0].getSize(); i++) {
+        Matrix transposition = new Matrix(this.rows.length, this.getColumnsCount());
+        for (int i = 0; i < this.getColumnsCount(); i++) {
             transposition.setRow(i, this.getColumn(i));
         }
         this.rows = transposition.rows;
@@ -93,35 +93,34 @@ public class Matrix {
     }
 
     public double determinant() {
-        if (this.rows.length != this.rows[0].getSize()) {
+        if (this.rows.length != this.getColumnsCount()) {
             throw new RuntimeException("Недопустимый размер матрицы");
         }
-        double determinant;
-        if (this.rows[0].getSize() == 1) {
-            determinant = this.rows[0].getElement(0);
-        } else if (this.rows[0].getSize() == 2) {
-            determinant = this.rows[0].getElement(0) * this.rows[1].getElement(1)
+        if (this.getColumnsCount() == 1) {
+            return this.rows[0].getElement(0);
+        } else if (this.getColumnsCount() == 2) {
+            return this.rows[0].getElement(0) * this.rows[1].getElement(1)
                     - this.rows[1].getElement(0) * this.rows[0].getElement(1);
-        } else {
-            determinant = 0;
-            for (int i = 0; i < this.rows[0].getSize(); i++) {
-                Matrix minor = new Matrix(0, this.rows[0].getSize() - 1);
-                for (int j = 0; j < this.rows[0].getSize() - 1; j++) {
-                    minor.rows[j] = new Vector(this.rows[0].getSize() - 1);
-                }
-                for (int k = 1; k < this.rows[0].getSize(); k++) {
-                    int count = 0;
-                    for (int l = 0; l < this.rows[0].getSize(); l++) {
-                        if (l == i) {
-                            continue;
-                        }
-                        minor.rows[k - 1].setElement(count, this.rows[k].getElement(l));
-                        count++;
-                    }
-                }
-                determinant += Math.pow(-1.0, 1.0 + i + 1.0) * this.rows[0].getElement(i)
-                        * minor.determinant();
+        }
+
+        double determinant = 0;
+        for (int i = 0; i < this.getColumnsCount(); i++) {
+            Matrix minor = new Matrix(0, this.getColumnsCount() - 1);
+            for (int j = 0; j < this.getColumnsCount() - 1; j++) {
+                minor.rows[j] = new Vector(this.getColumnsCount() - 1);
             }
+            for (int k = 1; k < this.getColumnsCount(); k++) {
+                int count = 0;
+                for (int l = 0; l < this.getColumnsCount(); l++) {
+                    if (l == i) {
+                        continue;
+                    }
+                    minor.rows[k - 1].setElement(count, this.rows[k].getElement(l));
+                    count++;
+                }
+            }
+            determinant += Math.pow(-1.0, 1.0 + i + 1.0) * this.rows[0].getElement(i)
+                    * minor.determinant();
         }
         return determinant;
     }
@@ -132,13 +131,13 @@ public class Matrix {
 
 
     public Vector multiplyVector(Vector vector) {
-        if (vector.getSize() != this.rows[0].getSize()) {
+        if (vector.getSize() != this.getColumnsCount()) {
             throw new RuntimeException("Недопустимый размер матрицы");
         } else {
             Vector multiply = new Vector(this.rows.length);
             for (int i = 0; i < this.rows.length; i++) {
                 double sum = 0;
-                for (int j = 0; j < this.rows[0].getSize(); j++) {
+                for (int j = 0; j < this.getColumnsCount(); j++) {
                     sum += this.getRow(i).getElement(j) * vector.getElement(j);
                 }
                 multiply.setElement(i, sum);
@@ -149,7 +148,7 @@ public class Matrix {
 
     public Matrix addition(Matrix matrix) {
         if (this.rows.length != matrix.rows.length
-                || this.rows[0].getSize() != matrix.rows[0].getSize()) {
+                || this.getColumnsCount() != matrix.getColumnsCount()) {
             throw new RuntimeException("Недопустимый размер матрицы");
         } else {
             for (int i = 0; i < this.rows.length; i++) {
@@ -161,7 +160,7 @@ public class Matrix {
 
     public Matrix subtraction(Matrix matrix) {
         if (this.rows.length != matrix.rows.length
-                || this.rows[0].getSize() != matrix.rows[0].getSize()) {
+                || this.getColumnsCount() != matrix.getColumnsCount()) {
             throw new RuntimeException("Недопустимый размер матрицы");
         } else {
             for (int i = 0; i < this.rows.length; i++) {
@@ -186,10 +185,10 @@ public class Matrix {
     }
 
     public static Matrix getMultiplication(Matrix matrix, Matrix matrix1) {
-        if (matrix1.rows.length != matrix.rows[0].getSize()) {
+        if (matrix1.rows.length != matrix.getColumnsCount()) {
             throw new RuntimeException("Недопустимый размер матрицы");
         } else {
-            Matrix multiplication = new Matrix(matrix.rows.length, matrix1.rows[0].getSize());
+            Matrix multiplication = new Matrix(matrix.rows.length, matrix1.getColumnsCount());
             for (int i = 0; i < matrix.rows.length; i++) {
                 multiplication.setRow(i, matrix.multiplyVector(matrix1.getColumn(i)));
             }
