@@ -179,7 +179,7 @@ public class Matrix {
             determinant = 0;
             for (int i = 0; i < this.rows[0].getSize(); i++) {
                 Matrix minor = new Matrix(0, this.rows[0].getSize() - 1);
-                for (int j = 0; j < (this.rows[0].getSize() - 1); j++) {
+                for (int j = 0; j < this.rows[0].getSize() - 1; j++) {
                     minor.rows[j] = new Vector(this.rows[0].getSize() - 1);
                 }
                 for (int k = 1; k < this.rows[0].getSize(); k++) {
