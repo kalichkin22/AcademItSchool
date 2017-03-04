@@ -154,7 +154,7 @@ public class Matrix {
             throw new RuntimeException("Недопустимый размер матрицы");
         } else {
             for (int i = 0; i < this.rows.length; i++) {
-                setRow(i, this.rows[i].addition(matrix.rows[i]));
+                this.rows[i].addition(matrix.rows[i]);
             }
             return this;
         }
@@ -166,7 +166,7 @@ public class Matrix {
             throw new RuntimeException("Недопустимый размер матрицы");
         } else {
             for (int i = 0; i < this.rows.length; i++) {
-                setRow(i, this.rows[i].subtraction(matrix.rows[i]));
+                this.rows[i].subtraction(matrix.rows[i]);
             }
             return this;
         }
@@ -191,7 +191,7 @@ public class Matrix {
             throw new RuntimeException("Недопустимый размер матрицы");
         } else {
             Matrix multiplication = new Matrix(matrix.rows.length, matrix1.getColumnsCount());
-            for (int i = 0; i < matrix.rows.length; i++) {
+            for (int i = 0; i < matrix1.getColumnsCount(); i++) {
                 multiplication.setRow(i, matrix.multiplyVector(matrix1.getColumn(i)));
             }
             return multiplication.transposition();
