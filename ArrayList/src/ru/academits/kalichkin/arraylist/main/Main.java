@@ -18,11 +18,9 @@ public class Main {
         list.add(8);
         list.add(9);
         list.add(10);
-        list.add(11);
 
 
-
-        //list.add(5, 100);
+        list.add(3, 100);
 
         //System.out.println(list.get(10));
         //list.set(3,99);

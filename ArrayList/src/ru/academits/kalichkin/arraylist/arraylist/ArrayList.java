@@ -72,9 +72,12 @@ public class ArrayList<T> implements List<T> {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
         } else {
             Object[] old = items;
-            items = Arrays.copyOf(old, size + 1);
+            if (items.length <= size) {
+                items = Arrays.copyOf(old, size + 1);
+            } else {
+                items = Arrays.copyOf(old, old.length);
+            }
             System.arraycopy(items, index, items, index + 1, size - index);
-
             items[index] = element;
             size++;
         }
@@ -111,7 +114,7 @@ public class ArrayList<T> implements List<T> {
     }
 
     public String toString() {
-        return Arrays.toString(Arrays.copyOf(items, size));
+        return Arrays.toString(items);
     }
 
     @Override
