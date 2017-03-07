@@ -11,8 +11,6 @@ public class ArrayList<T> implements List<T> {
         if (capacity < 0) {
             throw new IllegalArgumentException("Недопустимая вместимость: " +
                     capacity);
-        } else if (capacity == 0) {
-            items = new Object[]{};
         } else {
             items = new Object[capacity];
         }
@@ -23,7 +21,7 @@ public class ArrayList<T> implements List<T> {
     }
 
     @SuppressWarnings("unchecked")
-    private T items(int index) {
+    private T getValueItems(int index) {
         return (T) items[index];
     }
 
@@ -42,7 +40,7 @@ public class ArrayList<T> implements List<T> {
         if (index > size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
         } else {
-            return items(index);
+            return getValueItems(index);
         }
     }
 
@@ -51,9 +49,9 @@ public class ArrayList<T> implements List<T> {
         if (index > size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
         } else {
-            T oldItems = items(index);
+            T valueItems = getValueItems(index);
             this.items[index] = element;
-            return oldItems;
+            return valueItems;
         }
     }
 
@@ -85,7 +83,7 @@ public class ArrayList<T> implements List<T> {
     @Override
     public T remove(int index) {
         Object[] old = items;
-        T oldValue = items(index);
+        T valueItems = getValueItems(index);
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
         } else {
@@ -94,7 +92,7 @@ public class ArrayList<T> implements List<T> {
             }
             size--;
         }
-        return oldValue;
+        return valueItems;
     }
 
     @Override
@@ -113,9 +111,8 @@ public class ArrayList<T> implements List<T> {
     }
 
     public String toString() {
-        return Arrays.toString(items);
+        return Arrays.toString(Arrays.copyOf(items, size));
     }
-
 
     @Override
     public int indexOf(Object o) {
