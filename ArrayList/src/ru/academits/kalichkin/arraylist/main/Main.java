@@ -21,9 +21,9 @@ public class Main {
         list.add(11);
 
 
-        //list.add(3, 100);
+        list.add(3, 100);
 
-/*
+
         System.out.println(list.get(4));
         list.set(3,99);
 
@@ -34,11 +34,11 @@ public class Main {
 
 
         ArrayList<String> list2 = new ArrayList<>();
-        //System.out.println(list2.isEmpty());
-        //System.out.println(list.remove(3));
-        */
-        Integer a = 100;
-        //System.out.println(list.remove(a));
+        System.out.println(list2.isEmpty());
+        System.out.println(list.remove(3));
+
+        Integer a = 11;
+        System.out.println(list.remove(a));
         System.out.println(list);
 
     }

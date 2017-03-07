@@ -232,4 +232,9 @@ public class ArrayList<T> implements List<T> {
         return null;
     }
 
+    public void trimToSize() {
+        if (size < items.length) {
+            items = (size == 0) ? new Object[]{} : Arrays.copyOf(items, size);
+        }
+    }
 }
