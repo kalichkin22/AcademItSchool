@@ -181,7 +181,7 @@ public class ArrayList<T> implements List<T> {
     @Override
     public boolean containsAll(Collection<?> c) {
         Object[] old = c.toArray();
-        for (Object e: old) {
+        for (Object e : old) {
             if (!contains(e)) {
                 return false;
             }
@@ -224,25 +224,25 @@ public class ArrayList<T> implements List<T> {
         int j = 0;
 
         boolean modified = false;
-        try {
-            while (i < size) {
-                if (!c.contains(old[i]))
-                    old[j++] = old[i];
-                i++;
-            }
-        } finally {
-            if (i != size) {
-                System.arraycopy(old, i, old, j, size - i);
-                j += size - i;
-            }
-            if (j != size) {
-                for (int k = j; k < size; k++) {
-                    old[i] = null;
-                }
 
-                size = j;
-                modified = true;
+        while (i < size) {
+            if (!c.contains(old[i]))
+                old[j++] = old[i];
+            i++;
+        }
+
+        if (i != size) {
+            System.arraycopy(old, i, old, j, size - i);
+            j += size - i;
+        }
+
+        if (j != size) {
+            for (int k = j; k < size; k++) {
+                old[i] = null;
             }
+
+            size = j;
+            modified = true;
         }
         return modified;
     }
@@ -256,26 +256,26 @@ public class ArrayList<T> implements List<T> {
         int j = 0;
 
         boolean modified = false;
-        try {
-            while (i < size) {
-                if (c.contains(old[i]))
-                    old[j++] = old[i];
-                i++;
-            }
-        } finally {
-            if (i != size) {
-                System.arraycopy(old, i, old, j, size - i);
-                j += size - i;
-            }
-            if (j != size) {
-                for (int k = j; k < size; k++) {
-                    old[i] = null;
-                }
 
-                size = j;
-                modified = true;
-            }
+        while (i < size) {
+            if (c.contains(old[i]))
+                old[j++] = old[i];
+            i++;
         }
+
+        if (i != size) {
+            System.arraycopy(old, i, old, j, size - i);
+            j += size - i;
+        }
+        if (j != size) {
+            for (int k = j; k < size; k++) {
+                old[i] = null;
+            }
+
+            size = j;
+            modified = true;
+        }
+
         return modified;
     }
 
