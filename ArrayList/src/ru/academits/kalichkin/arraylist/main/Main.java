@@ -30,13 +30,11 @@ public class Main {
 
         //System.out.println(a.containsAll(b));
 
-        System.out.println(a.removeAll(b));
-
-        System.out.println(a);
-
+        //System.out.println(a.removeAll(b));
         //System.out.println(a.retainAll(b));
 
-
+        a.ensureCapacity(15);
+        System.out.println(a);
 
     }
 }

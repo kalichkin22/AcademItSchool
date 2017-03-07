@@ -16,6 +16,7 @@ public class ArrayList<T> implements List<T> {
         }
     }
 
+
     public ArrayList() {
         items = new Object[10];
     }
@@ -23,6 +24,18 @@ public class ArrayList<T> implements List<T> {
     public void trimToSize() {
         if (size < items.length) {
             items = (size == 0) ? new Object[]{} : Arrays.copyOf(items, size);
+        }
+    }
+
+    public void ensureCapacity(int minCapacity) {
+        if (minCapacity <= size) {
+            items = Arrays.copyOf(items, size);
+        } else if (minCapacity < items.length && minCapacity > size) {
+            items = Arrays.copyOf(items, minCapacity);
+        } else {
+            Object[] old = items;
+            items = new Object[minCapacity];
+            System.arraycopy(old, 0, items, 0, old.length);
         }
     }
 
@@ -93,6 +106,7 @@ public class ArrayList<T> implements List<T> {
     public boolean addAll(Collection<? extends T> c) {
         Object[] a = c.toArray();
         items = Arrays.copyOf(items, items.length + a.length);
+
         System.arraycopy(a, 0, items, size, a.length);
         size += a.length;
         return a.length != 0;
@@ -149,8 +163,8 @@ public class ArrayList<T> implements List<T> {
     }
 
     public String toString() {
-        return Arrays.toString(Arrays.copyOf(items, size));
-        //return Arrays.toString(items);
+        //return Arrays.toString(Arrays.copyOf(items, size));
+        return Arrays.toString(items);
     }
 
     @Override
@@ -299,9 +313,5 @@ public class ArrayList<T> implements List<T> {
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
         return null;
-    }
-
-    public void ensureCapacity(int minCapacity) {
-
     }
 }
