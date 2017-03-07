@@ -193,8 +193,8 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        Object[] old = c.toArray();
-        for (Object e : old) {
+        Object[] array = c.toArray();
+        for (Object e : array) {
             if (!contains(e)) {
                 return false;
             }
