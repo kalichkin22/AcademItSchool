@@ -59,7 +59,7 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public boolean add(T element) {
-        if (items.length >= size) {
+        if (items.length <= size) {
             Object[] old = items;
             items = new Object[old.length + 1];
             System.arraycopy(old, 0, items, 0, old.length);
