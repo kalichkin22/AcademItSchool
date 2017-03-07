@@ -114,7 +114,7 @@ public class ArrayList<T> implements List<T> {
     }
 
     public String toString() {
-        return Arrays.toString(items);
+        return Arrays.toString(Arrays.copyOf(items, size));
     }
 
     @Override
