@@ -20,6 +20,12 @@ public class ArrayList<T> implements List<T> {
         items = new Object[10];
     }
 
+    public void trimToSize() {
+        if (size < items.length) {
+            items = (size == 0) ? new Object[]{} : Arrays.copyOf(items, size);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     private T getValueItems(int index) {
         return (T) items[index];
@@ -84,6 +90,35 @@ public class ArrayList<T> implements List<T> {
     }
 
     @Override
+    public boolean addAll(Collection<? extends T> c) {
+        Object[] a = c.toArray();
+        items = Arrays.copyOf(items, items.length + a.length);
+        System.arraycopy(a, 0, items, size, a.length);
+        size += a.length;
+        return a.length != 0;
+    }
+
+
+    @Override
+    public boolean addAll(int index, Collection<? extends T> c) {
+        if (index >= size || index < 0) {
+            throw new IndexOutOfBoundsException("Недопустимый индекс");
+        } else {
+            Object[] a = c.toArray();
+            items = Arrays.copyOf(items, items.length + a.length);
+
+            if (size - index > 0) {
+                System.arraycopy(items, index, items, index + a.length, size - index);
+            }
+
+            System.arraycopy(a, 0, items, index, a.length);
+            size += a.length;
+            return a.length != 0;
+        }
+    }
+
+
+    @Override
     public T remove(int index) {
         Object[] old = items;
         T valueItems = getValueItems(index);
@@ -115,6 +150,7 @@ public class ArrayList<T> implements List<T> {
 
     public String toString() {
         return Arrays.toString(Arrays.copyOf(items, size));
+        //return Arrays.toString(items);
     }
 
     @Override
@@ -143,6 +179,16 @@ public class ArrayList<T> implements List<T> {
     }
 
     @Override
+    public boolean containsAll(Collection<?> c) {
+        for (Object e : Objects.requireNonNull(c)) {
+            if (!contains(e)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
     public Object[] toArray() {
         return Arrays.copyOf(items, size);
     }
@@ -160,38 +206,49 @@ public class ArrayList<T> implements List<T> {
         return a;
     }
 
-
-    @Override
-    public boolean containsAll(Collection<?> c) {
-        return false;
-    }
-
-    @Override
-    public boolean addAll(Collection<? extends T> c) {
-        return false;
-    }
-
-    @Override
-    public boolean addAll(int index, Collection<? extends T> c) {
-        return false;
-    }
-
-    @Override
-    public boolean removeAll(Collection<?> c) {
-        return false;
-    }
-
-    @Override
-    public boolean retainAll(Collection<?> c) {
-        return false;
-    }
-
     @Override
     public void clear() {
         for (int i = 0; i < size; i++) {
             items[i] = null;
         }
         size = 0;
+    }
+
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        Object[] old = items;
+        int i = 0;
+        int j = 0;
+
+        boolean modified = false;
+        try {
+            while (i < size) {
+                if (!c.contains(old[i]))
+                    old[j++] = old[i];
+                i++;
+            }
+        } finally {
+            if (i != size) {
+                System.arraycopy(old, i, old, j, size - i);
+                j += size - i;
+            }
+            if (j != size) {
+                for (int k = j; k < size; k++) {
+                    old[i] = null;
+                }
+
+                size = j;
+                modified = true;
+            }
+        }
+        return modified;
+    }
+
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        return false;
     }
 
     @Override
@@ -212,11 +269,5 @@ public class ArrayList<T> implements List<T> {
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
         return null;
-    }
-
-    public void trimToSize() {
-        if (size < items.length) {
-            items = (size == 0) ? new Object[]{} : Arrays.copyOf(items, size);
-        }
     }
 }

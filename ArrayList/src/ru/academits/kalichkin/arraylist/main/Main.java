@@ -7,41 +7,30 @@ import ru.academits.kalichkin.arraylist.arraylist.ArrayList;
 public class Main {
     public static void main(String[] args) {
 
-        ArrayList<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        list.add(4);
-        list.add(5);
-        list.add(6);
-        list.add(7);
-        list.add(8);
-        list.add(9);
-        list.add(10);
+        ArrayList<Integer> a = new ArrayList<>();
+        a.add(1);
+        a.add(2);
+        a.add(3);
+        a.add(4);
+        a.add(5);
 
 
-        //list.add(3, 100);
+        System.out.println(a);
 
-        //System.out.println(list.get(9));
-        //list.set(3,99);
+        ArrayList<Integer> b = new ArrayList<>();
+        b.add(1);
+        b.add(3);
+        b.add(4);
+        b.add(2);
+        b.add(5);
+        b.add(6);
 
-        //System.out.println(list.indexOf(5));
-        //System.out.println(list.size());
-        //System.out.println(list.contains(10));
+        System.out.println(b);
 
+        //System.out.println(a.containsAll(b));
 
-        //ArrayList<String> list2 = new ArrayList<>();
-        //System.out.println(list2);
-        // System.out.println(list2.isEmpty());
-        // System.out.println(list.remove(3));
+        System.out.println(a.removeAll(b));
 
-        //Integer a = 5;
-       //System.out.println(list.remove(a));
-        //System.out.println(list);
-        //list.clear();
-
-
-
-        System.out.println(list);
+        System.out.println(a);
     }
 }
