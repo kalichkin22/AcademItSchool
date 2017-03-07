@@ -217,6 +217,7 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public boolean removeAll(Collection<?> c) {
+        Objects.requireNonNull(c);
         Object[] old = items;
         int i = 0;
         int j = 0;
@@ -248,7 +249,33 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        return false;
+        Objects.requireNonNull(c);
+        Object[] old = items;
+        int i = 0;
+        int j = 0;
+
+        boolean modified = false;
+        try {
+            while (i < size) {
+                if (c.contains(old[i]))
+                    old[j++] = old[i];
+                i++;
+            }
+        } finally {
+            if (i != size) {
+                System.arraycopy(old, i, old, j, size - i);
+                j += size - i;
+            }
+            if (j != size) {
+                for (int k = j; k < size; k++) {
+                    old[i] = null;
+                }
+
+                size = j;
+                modified = true;
+            }
+        }
+        return modified;
     }
 
     @Override
