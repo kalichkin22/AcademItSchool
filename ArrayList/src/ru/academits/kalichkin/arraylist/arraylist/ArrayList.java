@@ -37,7 +37,7 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        if (index > size || index < 0) {
+        if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
         } else {
             return getValueItems(index);
@@ -46,7 +46,7 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public T set(int index, T element) {
-        if (index > size || index < 0) {
+        if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
         } else {
             T valueItems = getValueItems(index);
@@ -68,7 +68,7 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public void add(int index, T element) {
-        if (index > size || index < 0) {
+        if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
         } else {
             Object[] old = items;
@@ -188,7 +188,10 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public void clear() {
-
+        for (int i = 0; i < size; i++) {
+            items[i] = null;
+        }
+        size = 0;
     }
 
     @Override
