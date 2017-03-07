@@ -297,4 +297,8 @@ public class ArrayList<T> implements List<T> {
     public List<T> subList(int fromIndex, int toIndex) {
         return null;
     }
+
+    public void ensureCapacity(int minCapacity) {
+
+    }
 }

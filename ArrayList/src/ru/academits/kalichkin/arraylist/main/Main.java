@@ -28,13 +28,15 @@ public class Main {
 
         System.out.println(b);
 
-        //System.out.println(a.containsAll(b));
+        System.out.println(a.containsAll(b));
 
         //System.out.println(a.removeAll(b));
 
         //System.out.println(a);
 
         //System.out.println(a.retainAll(b));
-        System.out.println(a);
+
+
+
     }
 }
