@@ -118,16 +118,16 @@ public class ArrayList<T> implements List<T> {
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
         } else {
-            Object[] a = c.toArray();
-            items = Arrays.copyOf(items, items.length + a.length);
+            Object[] array = c.toArray();
+            items = Arrays.copyOf(items, items.length + array.length);
 
             if (size - index > 0) {
-                System.arraycopy(items, index, items, index + a.length, size - index);
+                System.arraycopy(items, index, items, index + array.length, size - index);
             }
 
-            System.arraycopy(a, 0, items, index, a.length);
-            size += a.length;
-            return a.length != 0;
+            System.arraycopy(array, 0, items, index, array.length);
+            size += array.length;
+            return array.length != 0;
         }
     }
 
