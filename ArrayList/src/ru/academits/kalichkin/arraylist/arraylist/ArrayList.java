@@ -4,7 +4,7 @@ import java.util.*;
 
 public class ArrayList<T> implements List<T> {
 
-    private Object[] items = new Object[10];
+    private Object[] items;
     private int size;
 
     public ArrayList(int capacity) {
@@ -19,7 +19,7 @@ public class ArrayList<T> implements List<T> {
     }
 
     public ArrayList() {
-        items = new Object[]{};
+        items = new Object[10];
     }
 
     @SuppressWarnings("unchecked")
@@ -61,7 +61,7 @@ public class ArrayList<T> implements List<T> {
     public boolean add(T element) {
         if (items.length <= size) {
             Object[] old = items;
-            items = new Object[old.length + 1];
+            items = new Object[old.length * 2];
             System.arraycopy(old, 0, items, 0, old.length);
         }
         items[size++] = element;
@@ -85,42 +85,29 @@ public class ArrayList<T> implements List<T> {
     @Override
     public T remove(int index) {
         Object[] old = items;
-        T oldItems = items(index);
+        T oldValue = items(index);
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
         } else {
             if (index <= size - 1) {
-                items = Arrays.copyOf(old, size - 1);
-                System.arraycopy(old, index + 1, items, index, size - index - 1);
+                System.arraycopy(old, index + 1, items, index, old.length - index - 1);
             }
             size--;
         }
-        return oldItems;
+        return oldValue;
     }
 
     @Override
     public boolean remove(Object o) {
-        Object[] old = items;
-        if (o == null) {
-            for (int index = 0; index < size; index++)
-                if (items[index] == null) {
-                    if (index <= size - 1) {
-                        items = Arrays.copyOf(old, size - 1);
-                        System.arraycopy(old, index + 1, items, index, size - index - 1);
-                    }
-                    size--;
-                    return true;
+        for (int index = 0; index < size; index++) {
+            if (Objects.equals(items[index], o)) {
+                if (index <= size - 1) {
+                    Object[] old = items;
+                    System.arraycopy(old, index + 1, items, index, old.length - index - 1);
                 }
-        } else {
-            for (int index = 0; index < size; index++)
-                if (o.equals(items[index])) {
-                    if (index <= size - 1) {
-                        items = Arrays.copyOf(old, size - 1);
-                        System.arraycopy(old, index + 1, items, index, size - index - 1);
-                    }
-                    size--;
-                    return true;
-                }
+                size--;
+                return true;
+            }
         }
         return false;
     }
@@ -132,28 +119,20 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public int indexOf(Object o) {
-        if (o == null) {
-            for (int i = 0; i < size; i++)
-                if (items[i] == null)
-                    return i;
-        } else {
-            for (int i = 0; i < size; i++)
-                if (o.equals(items[i]))
-                    return i;
+        for (int i = 0; i < size; i++) {
+            if (Objects.equals(items[i], o)) {
+                return i;
+            }
         }
         return -1;
     }
 
     @Override
     public int lastIndexOf(Object o) {
-        if (o == null) {
-            for (int i = size - 1; i >= 0; i--)
-                if (items[i] == null)
-                    return i;
-        } else {
-            for (int i = size - 1; i >= 0; i--)
-                if (o.equals(items[i]))
-                    return i;
+        for (int i = size - 1; i >= 0; i--) {
+            if (Objects.equals(items[i], o)) {
+                return i;
+            }
         }
         return -1;
     }

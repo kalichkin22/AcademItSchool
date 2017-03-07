@@ -13,27 +13,34 @@ public class Main {
         list.add(3);
         list.add(4);
         list.add(5);
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        list.add(1);
 
 
 
-        list.add(3, 100);
+        //list.add(5, 100);
 
-        System.out.println(list.get(4));
-        list.set(3,99);
+        //System.out.println(list.get(10));
+        //list.set(3,99);
 
         System.out.println(list.indexOf(5));
-        System.out.println(list.size());
+        //System.out.println(list.size());
         System.out.println(list);
-        System.out.println(list.contains(10));
+        //System.out.println(list.contains(10));
 
 
-        ArrayList<String> list2 = new ArrayList<>();
-        System.out.println(list2.isEmpty());
-        System.out.println(list.remove(3));
+        //ArrayList<String> list2 = new ArrayList<>();
+        //System.out.println(list2);
+        // System.out.println(list2.isEmpty());
+        // System.out.println(list.remove(3));
 
-        Integer a = 11;
-        System.out.println(list.remove(a));
-        System.out.println(list);
+        //Integer a = 5;
+       //System.out.println(list.remove(a));
+        //System.out.println(list);
 
     }
 }
