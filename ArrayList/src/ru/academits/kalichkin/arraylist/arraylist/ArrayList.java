@@ -180,7 +180,8 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        for (Object e : Objects.requireNonNull(c)) {
+        Object[] old = c.toArray();
+        for (Object e: old) {
             if (!contains(e)) {
                 return false;
             }
