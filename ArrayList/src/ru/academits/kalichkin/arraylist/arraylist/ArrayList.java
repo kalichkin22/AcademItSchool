@@ -226,8 +226,9 @@ public class ArrayList<T> implements List<T> {
         boolean modified = false;
 
         while (i < size) {
-            if (!c.contains(old[i]))
+            if (!c.contains(old[i])) {
                 old[j++] = old[i];
+            }
             i++;
         }
 
@@ -258,8 +259,9 @@ public class ArrayList<T> implements List<T> {
         boolean modified = false;
 
         while (i < size) {
-            if (c.contains(old[i]))
+            if (c.contains(old[i])) {
                 old[j++] = old[i];
+            }
             i++;
         }
 
