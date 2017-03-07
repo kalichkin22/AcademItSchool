@@ -8,18 +8,23 @@ public class ArrayList<T> implements List<T> {
     private int size;
 
     public ArrayList(int capacity) {
-        if (capacity > 0) {
-            this.items = new Object[capacity];
-        } else if (capacity == 0) {
-            this.items = new Object[]{};
-        } else {
+        if (capacity < 0) {
             throw new IllegalArgumentException("Недопустимая вместимость: " +
                     capacity);
+        } else if (capacity == 0) {
+            items = new Object[]{};
+        } else {
+            items = new Object[capacity];
         }
     }
 
     public ArrayList() {
-        this.items = new Object[]{};
+        items = new Object[]{};
+    }
+
+    @SuppressWarnings("unchecked")
+    private T items(int index) {
+        return (T) items[index];
     }
 
     @Override
@@ -34,20 +39,29 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        return (T) items[index];
-
+        if (index > size || index < 0) {
+            throw new IndexOutOfBoundsException("Недопустимый индекс");
+        } else {
+            return items(index);
+        }
     }
 
     @Override
     public T set(int index, T element) {
-        return (T) (items[index] = element);
+        if (index > size || index < 0) {
+            throw new IndexOutOfBoundsException("Недопустимый индекс");
+        } else {
+            T oldItems = items(index);
+            this.items[index] = element;
+            return oldItems;
+        }
     }
 
     @Override
     public boolean add(T element) {
-        if (items.length <= size) {
+        if (items.length >= size) {
             Object[] old = items;
-            items = new Object[old.length + 1];
+            items = new Object[old.length * 2];
             System.arraycopy(old, 0, items, 0, old.length);
         }
         items[size++] = element;
@@ -71,6 +85,7 @@ public class ArrayList<T> implements List<T> {
     @Override
     public T remove(int index) {
         Object[] old = items;
+        T oldItems = items(index);
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
         } else {
@@ -80,14 +95,35 @@ public class ArrayList<T> implements List<T> {
             }
             size--;
         }
-        return (T) old[index];
+        return oldItems;
     }
 
     @Override
     public boolean remove(Object o) {
+        Object[] old = items;
+        if (o == null) {
+            for (int index = 0; index < size; index++)
+                if (items[index] == null) {
+                    if (index <= size - 1) {
+                        items = Arrays.copyOf(old, size - 1);
+                        System.arraycopy(old, index + 1, items, index, size - index - 1);
+                    }
+                    size--;
+                    return true;
+                }
+        } else {
+            for (int index = 0; index < size; index++)
+                if (o.equals(items[index])) {
+                    if (index <= size - 1) {
+                        items = Arrays.copyOf(old, size - 1);
+                        System.arraycopy(old, index + 1, items, index, size - index - 1);
+                    }
+                    size--;
+                    return true;
+                }
+        }
         return false;
     }
-
 
     public String toString() {
         return Arrays.toString(items);
@@ -109,24 +145,40 @@ public class ArrayList<T> implements List<T> {
     }
 
     @Override
+    public int lastIndexOf(Object o) {
+        if (o == null) {
+            for (int i = size - 1; i >= 0; i--)
+                if (items[i] == null)
+                    return i;
+        } else {
+            for (int i = size - 1; i >= 0; i--)
+                if (o.equals(items[i]))
+                    return i;
+        }
+        return -1;
+    }
+
+    @Override
     public boolean contains(Object o) {
         return indexOf(o) >= 0;
     }
 
-
-    @Override
-    public Iterator<T> iterator() {
-        return null;
-    }
-
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        return Arrays.copyOf(items, size);
     }
 
     @Override
-    public <T1> T1[] toArray(T1[] a) {
-        return null;
+    @SuppressWarnings("unchecked")
+    public <E> E[] toArray(E[] a) {
+        if (a.length < size) {
+            return (E[]) Arrays.copyOf(items, size, a.getClass());
+        }
+        System.arraycopy(items, 0, a, 0, size);
+        if (a.length > size) {
+            a[size] = null;
+        }
+        return a;
     }
 
 
@@ -161,8 +213,8 @@ public class ArrayList<T> implements List<T> {
     }
 
     @Override
-    public int lastIndexOf(Object o) {
-        return 0;
+    public Iterator<T> iterator() {
+        return null;
     }
 
     @Override
