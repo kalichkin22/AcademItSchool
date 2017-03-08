@@ -118,12 +118,14 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-        if (index >= size || index < 0) {
+        if (index > size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
         } else {
             Object[] array = c.toArray();
-            items = Arrays.copyOf(items, items.length + array.length);
 
+            if (items.length < items.length + array.length) {
+                items = Arrays.copyOf(items, items.length + array.length);
+            }
             if (size - index > 0) {
                 System.arraycopy(items, index, items, index + array.length, size - index);
             }
@@ -166,8 +168,8 @@ public class ArrayList<T> implements List<T> {
     }
 
     public String toString() {
-        return Arrays.toString(Arrays.copyOf(items, size));
-        //return Arrays.toString(items);
+        //return Arrays.toString(Arrays.copyOf(items, size));
+        return Arrays.toString(items);
     }
 
     @Override
