@@ -109,11 +109,10 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        Object[] array = c.toArray();
-        for (Object e : array) {
+        for (Object e : c) {
             this.add((T) e);
         }
-        return array.length != 0;
+        return c.size() != 0;
     }
 
 
@@ -198,8 +197,7 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        Object[] array = c.toArray();
-        for (Object e : array) {
+        for (Object e : c) {
             if (!contains(e)) {
                 return false;
             }

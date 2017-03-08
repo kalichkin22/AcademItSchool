@@ -24,7 +24,7 @@ public class Main {
 
         System.out.println(a);
 
-        ArrayList<Integer> b = new ArrayList<>();
+        java.util.ArrayList <Integer> b = new java.util.ArrayList<>();
         b.add(1);
         b.add(3);
         b.add(4);
@@ -40,8 +40,8 @@ public class Main {
 
         //a.ensureCapacity(15);
 
-        //a.addAll(b);
-        //a.addAll(b);
+        a.addAll(b);
+
         System.out.println(a);
 
     }
