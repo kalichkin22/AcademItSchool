@@ -267,55 +267,55 @@ public class ArrayList<T> implements List<T> {
     }
 
 
-        @Override
-        public boolean retainAll (Collection < ? > c){
-            Objects.requireNonNull(c);
-            Object[] old = items;
-            int i = 0;
-            int j = 0;
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        Objects.requireNonNull(c);
+        Object[] old = items;
+        int i = 0;
+        int j = 0;
 
-            boolean modified = false;
+        boolean modified = false;
 
-            while (i < size) {
-                if (c.contains(old[i])) {
-                    old[j++] = old[i];
-                }
-                i++;
+        while (i < size) {
+            if (c.contains(old[i])) {
+                old[j++] = old[i];
+            }
+            i++;
+        }
+
+        if (i != size) {
+            System.arraycopy(old, i, old, j, size - i);
+            j += size - i;
+        }
+        if (j != size) {
+            for (int k = j; k < size; k++) {
+                old[i] = null;
             }
 
-            if (i != size) {
-                System.arraycopy(old, i, old, j, size - i);
-                j += size - i;
-            }
-            if (j != size) {
-                for (int k = j; k < size; k++) {
-                    old[i] = null;
-                }
-
-                size = j;
-                modified = true;
-            }
-
-            return modified;
+            size = j;
+            modified = true;
         }
 
-        @Override
-        public Iterator<T> iterator () {
-            return null;
-        }
-
-        @Override
-        public ListIterator<T> listIterator () {
-            return null;
-        }
-
-        @Override
-        public ListIterator<T> listIterator ( int index){
-            return null;
-        }
-
-        @Override
-        public List<T> subList ( int fromIndex, int toIndex){
-            return null;
-        }
+        return modified;
     }
+
+    @Override
+    public Iterator<T> iterator() {
+        return null;
+    }
+
+    @Override
+    public ListIterator<T> listIterator() {
+        return null;
+    }
+
+    @Override
+    public ListIterator<T> listIterator(int index) {
+        return null;
+    }
+
+    @Override
+    public List<T> subList(int fromIndex, int toIndex) {
+        return null;
+    }
+}
