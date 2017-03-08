@@ -124,7 +124,7 @@ public class ArrayList<T> implements List<T> {
             Object[] array = c.toArray();
 
             if (items.length < items.length + array.length) {
-                items = Arrays.copyOf(items, items.length + array.length);
+                items = Arrays.copyOf(items, items.length * 2);
             }
             if (size - index > 0) {
                 System.arraycopy(items, index, items, index + array.length, size - index);
@@ -132,6 +132,7 @@ public class ArrayList<T> implements List<T> {
 
             System.arraycopy(array, 0, items, index, array.length);
             size += array.length;
+
             return array.length != 0;
         }
     }
@@ -168,8 +169,8 @@ public class ArrayList<T> implements List<T> {
     }
 
     public String toString() {
-        //return Arrays.toString(Arrays.copyOf(items, size));
-        return Arrays.toString(items);
+        return Arrays.toString(Arrays.copyOf(items, size));
+        //return Arrays.toString(items);
     }
 
     @Override

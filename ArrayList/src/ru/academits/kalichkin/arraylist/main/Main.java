@@ -15,10 +15,6 @@ public class Main {
         a.add(5);
         a.add(6);
         a.add(4);
-        a.add(4);
-        a.add(4);
-        a.add(5);
-
         a.add(3,6);
 
 
@@ -28,13 +24,7 @@ public class Main {
         b.add(1);
         b.add(3);
         b.add(4);
-        b.add(2);
-        b.add(5);
-        b.add(1);
-        b.add(3);
-        b.add(4);
-        b.add(2);
-        b.add(5);
+
         System.out.println(b);
 
         System.out.println(a.containsAll(b));
@@ -44,7 +34,7 @@ public class Main {
 
         //a.ensureCapacity(15);
 
-        a.addAll(11,b);
+        a.addAll(0,b);
 
         System.out.println(a);
 
