@@ -252,8 +252,7 @@ public class ArrayList<T> implements List<T> {
         }
 
         if (i != size) {
-            System.arraycopy(old, i, old, j, size - i);
-            j += size - i;
+            this.remove(c);
         }
 
         if (j != size) {
@@ -285,8 +284,7 @@ public class ArrayList<T> implements List<T> {
         }
 
         if (i != size) {
-            System.arraycopy(old, i, old, j, size - i);
-            j += size - i;
+            this.remove(c);
         }
         if (j != size) {
             for (int k = j; k < size; k++) {

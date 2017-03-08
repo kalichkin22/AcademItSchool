@@ -11,30 +11,31 @@ public class Main {
         a.add(1);
         a.add(2);
         a.add(3);
-        a.add(8);
-        a.add(5);
-        a.add(6);
         a.add(4);
-        a.add(3,6);
+        a.add(2);
+        a.add(3);
+        a.add(3);
+        a.add(3);
+        a.add(3);
 
 
         System.out.println(a);
 
         java.util.ArrayList <Integer> b = new java.util.ArrayList<>();
         b.add(1);
+        b.add(2);
         b.add(3);
-        b.add(4);
 
         System.out.println(b);
 
-        System.out.println(a.containsAll(b));
+        //System.out.println(a.containsAll(b));
 
-        //System.out.println(a.removeAll(b));
+        System.out.println(a.removeAll(b));
         //System.out.println(a.retainAll(b));
 
         //a.ensureCapacity(15);
 
-        a.addAll(0,b);
+        //a.addAll(0,b);
 
         System.out.println(a);
 
