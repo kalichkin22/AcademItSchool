@@ -1,5 +1,6 @@
 package ru.academits.kalichkin.arraylist.arraylist;
 
+import javax.annotation.processing.SupportedAnnotationTypes;
 import java.util.*;
 
 public class ArrayList<T> implements List<T> {
@@ -9,11 +10,10 @@ public class ArrayList<T> implements List<T> {
 
     public ArrayList(int capacity) {
         if (capacity < 0) {
-            throw new IllegalArgumentException("Недопустимая вместимость: " +
-                    capacity);
-        } else {
-            items = new Object[capacity];
+            throw new IllegalArgumentException("Недопустимая вместимость: " + capacity);
         }
+        items = new Object[capacity];
+
     }
 
 
@@ -28,10 +28,8 @@ public class ArrayList<T> implements List<T> {
     }
 
     public void ensureCapacity(int minCapacity) {
-        if (minCapacity <= size) {
-            items = Arrays.copyOf(items, size);
-        } else if (minCapacity < items.length && minCapacity > size) {
-            items = Arrays.copyOf(items, minCapacity);
+        if (minCapacity < items.length) {
+            items = Arrays.copyOf(items, items.length);
         } else {
             Object[] old = items;
             items = new Object[minCapacity];
@@ -40,7 +38,7 @@ public class ArrayList<T> implements List<T> {
     }
 
     @SuppressWarnings("unchecked")
-    private T getItems(int index) {
+    private T getItem(int index) {
         return (T) items[index];
     }
 
@@ -58,20 +56,19 @@ public class ArrayList<T> implements List<T> {
     public T get(int index) {
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
-        } else {
-            return getItems(index);
         }
+        return getItem(index);
     }
 
     @Override
     public T set(int index, T element) {
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
-        } else {
-            T valueItems = getItems(index);
-            this.items[index] = element;
-            return valueItems;
         }
+        T valueItems = getItem(index);
+        this.items[index] = element;
+        return valueItems;
+
     }
 
     private void increaseCapacity() {
@@ -94,20 +91,18 @@ public class ArrayList<T> implements List<T> {
     public void add(int index, T element) {
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
-        } else {
-            Object[] old = items;
-            if (items.length <= size) {
-                increaseCapacity();
-            } else {
-                items = Arrays.copyOf(old, old.length);
-            }
-            System.arraycopy(items, index, items, index + 1, size - index);
-            items[index] = element;
-            size++;
         }
+        if (items.length <= size) {
+            increaseCapacity();
+        }
+        System.arraycopy(items, index, items, index + 1, size - index);
+        items[index] = element;
+        size++;
+
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public boolean addAll(Collection<? extends T> c) {
         for (Object e : c) {
             this.add((T) e);
@@ -120,36 +115,36 @@ public class ArrayList<T> implements List<T> {
     public boolean addAll(int index, Collection<? extends T> c) {
         if (index > size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
-        } else {
-            Object[] array = c.toArray();
-
-            if (items.length < items.length + array.length) {
-                items = Arrays.copyOf(items, items.length * 2);
-            }
-            if (size - index > 0) {
-                System.arraycopy(items, index, items, index + array.length, size - index);
-            }
-
-            System.arraycopy(array, 0, items, index, array.length);
-            size += array.length;
-
-            return array.length != 0;
         }
+        Object[] array = c.toArray();
+
+        if (items.length < items.length + array.length) {
+            items = Arrays.copyOf(items, items.length * 2);
+        }
+        if (size - index > 0) {
+            System.arraycopy(items, index, items, index + array.length, size - index);
+        }
+
+        System.arraycopy(array, 0, items, index, array.length);
+        size += array.length;
+
+        return array.length != 0;
+
     }
 
 
     @Override
     public T remove(int index) {
         Object[] old = items;
-        T valueItems = getItems(index);
+        T valueItems = getItem(index);
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
-        } else {
-            if (index <= size - 1) {
-                System.arraycopy(old, index + 1, items, index, old.length - index - 1);
-            }
-            size--;
         }
+        if (index <= size - 1) {
+            System.arraycopy(old, index + 1, items, index, old.length - index - 1);
+        }
+        size--;
+
         return valueItems;
     }
 
