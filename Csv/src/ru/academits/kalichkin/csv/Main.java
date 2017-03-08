@@ -1,29 +1,28 @@
 package ru.academits.kalichkin.csv;
 
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        String[] line = new String[3];
-        try (Scanner scanner = new Scanner(new FileInputStream("csv.txt"));
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("csv.txt")));
              PrintWriter writer = new PrintWriter("html.txt")) {
 
-            for (int i = 0; i < line.length; ++i) {
-                line[i] = scanner.nextLine();
+            StringBuilder sb = new StringBuilder();
+            String s;
+            while ((s = br.readLine()) != null) {
+                sb.append(s);
             }
+            s = sb.toString();
 
-            for (String e : line) {
-                writer.println(e);
-            }
 
-        } catch (FileNotFoundException e) {
+
+            System.out.println(s);
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

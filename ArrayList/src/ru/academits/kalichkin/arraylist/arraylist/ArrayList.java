@@ -40,7 +40,7 @@ public class ArrayList<T> implements List<T> {
     }
 
     @SuppressWarnings("unchecked")
-    private T getValueItems(int index) {
+    private T getItems(int index) {
         return (T) items[index];
     }
 
@@ -59,7 +59,7 @@ public class ArrayList<T> implements List<T> {
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
         } else {
-            return getValueItems(index);
+            return getItems(index);
         }
     }
 
@@ -68,22 +68,27 @@ public class ArrayList<T> implements List<T> {
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
         } else {
-            T valueItems = getValueItems(index);
+            T valueItems = getItems(index);
             this.items[index] = element;
             return valueItems;
         }
     }
 
+    private void increaseCapacity() {
+        Object[] old = items;
+        items = new Object[old.length * 2];
+        System.arraycopy(old, 0, items, 0, old.length);
+    }
+
     @Override
     public boolean add(T element) {
         if (items.length <= size) {
-            Object[] old = items;
-            items = new Object[old.length * 2];
-            System.arraycopy(old, 0, items, 0, old.length);
+            increaseCapacity();
         }
         items[size++] = element;
         return true;
     }
+
 
     @Override
     public void add(int index, T element) {
@@ -92,7 +97,7 @@ public class ArrayList<T> implements List<T> {
         } else {
             Object[] old = items;
             if (items.length <= size) {
-                items = Arrays.copyOf(old, size + 1);
+                increaseCapacity();
             } else {
                 items = Arrays.copyOf(old, old.length);
             }
@@ -104,12 +109,11 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        Object[] a = c.toArray();
-        items = Arrays.copyOf(items, items.length + a.length);
-
-        System.arraycopy(a, 0, items, size, a.length);
-        size += a.length;
-        return a.length != 0;
+        Object[] array = c.toArray();
+        for (Object e : array) {
+            this.add((T) e);
+        }
+        return array.length != 0;
     }
 
 
@@ -135,7 +139,7 @@ public class ArrayList<T> implements List<T> {
     @Override
     public T remove(int index) {
         Object[] old = items;
-        T valueItems = getValueItems(index);
+        T valueItems = getItems(index);
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
         } else {
@@ -164,6 +168,7 @@ public class ArrayList<T> implements List<T> {
 
     public String toString() {
         return Arrays.toString(Arrays.copyOf(items, size));
+        //return Arrays.toString(items);
     }
 
     @Override
@@ -262,55 +267,55 @@ public class ArrayList<T> implements List<T> {
     }
 
 
-    @Override
-    public boolean retainAll(Collection<?> c) {
-        Objects.requireNonNull(c);
-        Object[] old = items;
-        int i = 0;
-        int j = 0;
+        @Override
+        public boolean retainAll (Collection < ? > c){
+            Objects.requireNonNull(c);
+            Object[] old = items;
+            int i = 0;
+            int j = 0;
 
-        boolean modified = false;
+            boolean modified = false;
 
-        while (i < size) {
-            if (c.contains(old[i])) {
-                old[j++] = old[i];
-            }
-            i++;
-        }
-
-        if (i != size) {
-            System.arraycopy(old, i, old, j, size - i);
-            j += size - i;
-        }
-        if (j != size) {
-            for (int k = j; k < size; k++) {
-                old[i] = null;
+            while (i < size) {
+                if (c.contains(old[i])) {
+                    old[j++] = old[i];
+                }
+                i++;
             }
 
-            size = j;
-            modified = true;
+            if (i != size) {
+                System.arraycopy(old, i, old, j, size - i);
+                j += size - i;
+            }
+            if (j != size) {
+                for (int k = j; k < size; k++) {
+                    old[i] = null;
+                }
+
+                size = j;
+                modified = true;
+            }
+
+            return modified;
         }
 
-        return modified;
-    }
+        @Override
+        public Iterator<T> iterator () {
+            return null;
+        }
 
-    @Override
-    public Iterator<T> iterator() {
-        return null;
-    }
+        @Override
+        public ListIterator<T> listIterator () {
+            return null;
+        }
 
-    @Override
-    public ListIterator<T> listIterator() {
-        return null;
-    }
+        @Override
+        public ListIterator<T> listIterator ( int index){
+            return null;
+        }
 
-    @Override
-    public ListIterator<T> listIterator(int index) {
-        return null;
+        @Override
+        public List<T> subList ( int fromIndex, int toIndex){
+            return null;
+        }
     }
-
-    @Override
-    public List<T> subList(int fromIndex, int toIndex) {
-        return null;
-    }
-}
