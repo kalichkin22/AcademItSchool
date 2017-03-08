@@ -209,7 +209,7 @@ public class ArrayList<T> implements List<T> {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "SuspiciousSystemArraycopy"})
     public <E> E[] toArray(E[] a) {
         if (a.length < size) {
             return (E[]) Arrays.copyOf(items, size, a.getClass());
