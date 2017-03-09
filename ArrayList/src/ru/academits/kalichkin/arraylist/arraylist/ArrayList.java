@@ -1,7 +1,7 @@
 package ru.academits.kalichkin.arraylist.arraylist;
 
-import javax.annotation.processing.SupportedAnnotationTypes;
 import java.util.*;
+import java.util.function.Consumer;
 
 public class ArrayList<T> implements List<T> {
 
@@ -258,21 +258,140 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new Itr();
     }
 
     @Override
     public ListIterator<T> listIterator() {
-        return null;
+        return new ListItr(0);
     }
 
     @Override
     public ListIterator<T> listIterator(int index) {
-        return null;
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index: " + index);
+        }
+        return new ListItr(index);
     }
+
 
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
         return null;
+    }
+
+    private class Itr implements Iterator<T> {
+        int cursor;
+        int lastRet = -1;
+
+        public boolean hasNext() {
+            return cursor != size;
+        }
+
+        @SuppressWarnings("unchecked")
+        public T next() {
+            int i = cursor;
+            if (i >= size) {
+                throw new NoSuchElementException();
+            }
+            Object[] old = items;
+            if (i >= old.length) {
+                throw new ConcurrentModificationException();
+            }
+            cursor = i + 1;
+            return (T) old[lastRet = i];
+        }
+
+        public void remove() {
+            if (lastRet < 0) {
+                throw new IllegalStateException();
+            }
+
+            try {
+                ru.academits.kalichkin.arraylist.arraylist.ArrayList.this.remove(lastRet);
+                cursor = lastRet;
+                lastRet = -1;
+            } catch (IndexOutOfBoundsException ex) {
+                throw new ConcurrentModificationException();
+            }
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public void forEachRemaining(Consumer<? super T> consumer) {
+            Objects.requireNonNull(consumer);
+            final int size = ru.academits.kalichkin.arraylist.arraylist.ArrayList.this.size;
+            int i = cursor;
+            if (i >= size) {
+                return;
+            }
+            final Object[] elementData = ArrayList.this.items;
+            if (i >= elementData.length) {
+                throw new ConcurrentModificationException();
+            }
+            while (i != size) {
+                consumer.accept((T) elementData[i++]);
+            }
+            cursor = i;
+            lastRet = i - 1;
+        }
+    }
+
+    private class ListItr extends Itr implements ListIterator<T> {
+        ListItr(int index) {
+            super();
+            cursor = index;
+        }
+
+        public boolean hasPrevious() {
+            return cursor != 0;
+        }
+
+        public int nextIndex() {
+            return cursor;
+        }
+
+        public int previousIndex() {
+            return cursor - 1;
+        }
+
+        @SuppressWarnings("unchecked")
+        public T previous() {
+
+            int i = cursor - 1;
+            if (i < 0) {
+                throw new NoSuchElementException();
+            }
+            Object[] old = ArrayList.this.items;
+            if (i >= old.length) {
+                throw new ConcurrentModificationException();
+            }
+            cursor = i;
+            return (T) old[lastRet = i];
+        }
+
+        public void set(T e) {
+            if (lastRet < 0) {
+                throw new IllegalStateException();
+            }
+
+            try {
+                ArrayList.this.set(lastRet, e);
+            } catch (IndexOutOfBoundsException ex) {
+                throw new ConcurrentModificationException();
+            }
+        }
+
+        public void add(T e) {
+
+            try {
+                int i = cursor;
+                ArrayList.this.add(i, e);
+                cursor = i + 1;
+                lastRet = -1;
+            } catch (IndexOutOfBoundsException ex) {
+                throw new ConcurrentModificationException();
+            }
+        }
     }
 }
