@@ -325,12 +325,12 @@ public class ArrayList<T> implements List<T> {
             if (i >= size) {
                 return;
             }
-            final Object[] elementData = ArrayList.this.items;
-            if (i >= elementData.length) {
+            final Object[] items = ArrayList.this.items;
+            if (i >= items.length) {
                 throw new ConcurrentModificationException();
             }
             while (i != size) {
-                consumer.accept((T) elementData[i++]);
+                consumer.accept((T) items[i++]);
             }
             cursor = i;
             lastRet = i - 1;
@@ -383,7 +383,6 @@ public class ArrayList<T> implements List<T> {
         }
 
         public void add(T e) {
-
             try {
                 int i = cursor;
                 ArrayList.this.add(i, e);
