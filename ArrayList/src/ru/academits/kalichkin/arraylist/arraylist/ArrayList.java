@@ -233,6 +233,7 @@ public class ArrayList<T> implements List<T> {
         return Arrays.copyOf(items, size);
     }
 
+
     @Override
     @SuppressWarnings({"unchecked", "SuspiciousSystemArraycopy"})
     public <E> E[] toArray(E[] a) {
