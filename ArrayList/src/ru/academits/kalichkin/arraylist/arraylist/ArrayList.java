@@ -150,17 +150,64 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public boolean remove(Object o) {
-        for (int index = 0; index < size; index++) {
-            if (Objects.equals(items[index], o)) {
-                if (index <= size - 1) {
+        for (int i = 0; i < size; i++) {
+            if (Objects.equals(items[i], o)) {
+                if (i <= size - 1) {
                     Object[] old = items;
-                    System.arraycopy(old, index + 1, items, index, old.length - index - 1);
+                    System.arraycopy(old, i + 1, items, i, old.length - i - 1);
                 }
                 size--;
                 return true;
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+
+        boolean modified = false;
+        for (int i = 0; i < size; ++i) {
+            for (Object e : c) {
+                if (this.contains(e)) {
+                    this.remove(e);
+                }
+            }
+            modified = true;
+        }
+        return modified;
+    }
+
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        Objects.requireNonNull(c);
+        Object[] old = items;
+        int i = 0;
+        int j = 0;
+
+        boolean modified = false;
+
+        while (i < size) {
+            if (c.contains(old[i])) {
+                old[j++] = old[i];
+            }
+            i++;
+        }
+
+        if (i != size) {
+            this.remove(c);
+        }
+        if (j != size) {
+            for (int k = j; k < size; k++) {
+                old[i] = null;
+            }
+
+            size = j;
+            modified = true;
+        }
+
+        return modified;
     }
 
     public String toString() {
@@ -229,69 +276,6 @@ public class ArrayList<T> implements List<T> {
         size = 0;
     }
 
-
-    @Override
-    public boolean removeAll(Collection<?> c) {
-        Objects.requireNonNull(c);
-        Object[] old = items;
-        int i = 0;
-        int j = 0;
-
-        boolean modified = false;
-
-        while (i < size) {
-            if (!c.contains(old[i])) {
-                old[j++] = old[i];
-            }
-            i++;
-        }
-
-        if (i != size) {
-            this.remove(c);
-        }
-
-        if (j != size) {
-            for (int k = j; k < size; k++) {
-                old[i] = null;
-            }
-
-            size = j;
-            modified = true;
-        }
-        return modified;
-    }
-
-
-    @Override
-    public boolean retainAll(Collection<?> c) {
-        Objects.requireNonNull(c);
-        Object[] old = items;
-        int i = 0;
-        int j = 0;
-
-        boolean modified = false;
-
-        while (i < size) {
-            if (c.contains(old[i])) {
-                old[j++] = old[i];
-            }
-            i++;
-        }
-
-        if (i != size) {
-            this.remove(c);
-        }
-        if (j != size) {
-            for (int k = j; k < size; k++) {
-                old[i] = null;
-            }
-
-            size = j;
-            modified = true;
-        }
-
-        return modified;
-    }
 
     @Override
     public Iterator<T> iterator() {
