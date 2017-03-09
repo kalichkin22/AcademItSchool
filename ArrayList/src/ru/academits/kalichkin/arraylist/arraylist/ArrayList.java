@@ -284,10 +284,12 @@ public class ArrayList<T> implements List<T> {
         int cursor;
         int lastRet = -1;
 
+        @Override
         public boolean hasNext() {
             return cursor != size;
         }
 
+        @Override
         @SuppressWarnings("unchecked")
         public T next() {
             int i = cursor;
@@ -301,52 +303,23 @@ public class ArrayList<T> implements List<T> {
             cursor = i + 1;
             return (T) old[lastRet = i];
         }
-
-        public void remove() {
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public void forEachRemaining(Consumer<? super T> consumer) {
-            Objects.requireNonNull(consumer);
-            final int size = ru.academits.kalichkin.arraylist.arraylist.ArrayList.this.size;
-            int i = cursor;
-            if (i >= size) {
-                return;
-            }
-            final Object[] items = ArrayList.this.items;
-            if (i >= items.length) {
-                throw new ConcurrentModificationException();
-            }
-            while (i != size) {
-                consumer.accept((T) items[i++]);
-            }
-            cursor = i;
-            lastRet = i - 1;
-        }
     }
 
     private class ListItr extends Itr implements ListIterator<T> {
+
         ListItr(int index) {
             super();
             cursor = index;
         }
 
+        @Override
         public boolean hasPrevious() {
             return cursor != 0;
         }
 
-        public int nextIndex() {
-            return cursor;
-        }
-
-        public int previousIndex() {
-            return cursor - 1;
-        }
-
+        @Override
         @SuppressWarnings("unchecked")
         public T previous() {
-
             int i = cursor - 1;
             if (i < 0) {
                 throw new NoSuchElementException();
@@ -359,22 +332,40 @@ public class ArrayList<T> implements List<T> {
             return (T) old[lastRet = i];
         }
 
-        public void set(T e) {
+
+        @Override
+        public int nextIndex() {
+            return cursor;
+        }
+
+        @Override
+        public int previousIndex() {
+            return cursor - 1;
+        }
+
+        @Override
+        public void remove() {
+
+        }
+
+        @Override
+        public void set(T t) {
             if (lastRet < 0) {
                 throw new IllegalStateException();
             }
 
             try {
-                ArrayList.this.set(lastRet, e);
+                ArrayList.this.set(lastRet, t);
             } catch (IndexOutOfBoundsException ex) {
                 throw new ConcurrentModificationException();
             }
         }
 
-        public void add(T e) {
+        @Override
+        public void add(T t) {
             try {
                 int i = cursor;
-                ArrayList.this.add(i, e);
+                ArrayList.this.add(i, t);
                 cursor = i + 1;
                 lastRet = -1;
             } catch (IndexOutOfBoundsException ex) {

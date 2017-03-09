@@ -24,7 +24,7 @@ public class Main {
 
         ArrayList<Integer> b = new ArrayList<>();
         b.add(9);
-        b.add(2);
+        b.add(3);
         b.add(2);
         b.add(1);
 
