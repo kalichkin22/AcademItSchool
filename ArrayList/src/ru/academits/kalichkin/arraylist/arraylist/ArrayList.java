@@ -168,11 +168,11 @@ public class ArrayList<T> implements List<T> {
 
         boolean modified = false;
         for (int i = 0; i < size; ++i) {
-            for (Object e : c) {
-                if (this.contains(e)) {
-                    this.remove(e);
-                }
+            if (c.contains(items[i])) {
+                this.remove(items[i]);
+                --i;
             }
+
             modified = true;
         }
         return modified;
@@ -181,38 +181,20 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        Objects.requireNonNull(c);
-        Object[] old = items;
-        int i = 0;
-        int j = 0;
 
         boolean modified = false;
-
-        while (i < size) {
-            if (c.contains(old[i])) {
-                old[j++] = old[i];
+        for (int i = 0; i < size; ++i) {
+            if (!c.contains(items[i])) {
+                this.remove(items[i]);
+                --i;
             }
-            i++;
-        }
-
-        if (i != size) {
-            this.remove(c);
-        }
-        if (j != size) {
-            for (int k = j; k < size; k++) {
-                old[i] = null;
-            }
-
-            size = j;
             modified = true;
         }
-
         return modified;
     }
 
     public String toString() {
         return Arrays.toString(Arrays.copyOf(items, size));
-        //return Arrays.toString(items);
     }
 
     @Override
