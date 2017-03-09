@@ -303,17 +303,6 @@ public class ArrayList<T> implements List<T> {
         }
 
         public void remove() {
-            if (lastRet < 0) {
-                throw new IllegalStateException();
-            }
-
-            try {
-                ru.academits.kalichkin.arraylist.arraylist.ArrayList.this.remove(lastRet);
-                cursor = lastRet;
-                lastRet = -1;
-            } catch (IndexOutOfBoundsException ex) {
-                throw new ConcurrentModificationException();
-            }
         }
 
         @Override

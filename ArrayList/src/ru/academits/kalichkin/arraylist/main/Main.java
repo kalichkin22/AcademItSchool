@@ -37,7 +37,7 @@ public class Main {
 
         //a.ensureCapacity(8);
 
-        //a.addAll(0,b);
+        //a.addAll(b);
 
         System.out.println(a);
 
