@@ -18,19 +18,21 @@ public class Main {
         a.add(9);
         a.add(9);
         a.add(9);
-
+        a.add(3);
 
         System.out.println(a);
 
         java.util.ArrayList<Integer> b = new java.util.ArrayList<>();
         b.add(9);
         b.add(2);
+        b.add(3);
+        b.add(1);
 
         System.out.println(b);
 
         //System.out.println(a.containsAll(b));
 
-        //System.out.println(a.removeAll(b));
+        System.out.println(a.removeAll(b));
         //System.out.println(a.retainAll(b));
 
         //a.ensureCapacity(8);

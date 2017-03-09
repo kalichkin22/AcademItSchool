@@ -12,12 +12,14 @@ public class Main {
 
             StringBuilder sb = new StringBuilder();
             String s;
+            sb.append("<table>\n");
             while ((s = br.readLine()) != null) {
-                sb.append(s);
+                s = s.replace(",","</td>");
+                sb.append("<tr>").append(s).append("</tr>\n");
             }
+
+            sb.append("</table>");
             s = sb.toString();
-
-
 
             System.out.println(s);
 
