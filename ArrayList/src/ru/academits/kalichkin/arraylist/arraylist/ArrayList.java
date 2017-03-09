@@ -1,7 +1,6 @@
 package ru.academits.kalichkin.arraylist.arraylist;
 
 import java.util.*;
-import java.util.function.Consumer;
 
 public class ArrayList<T> implements List<T> {
 
@@ -331,7 +330,6 @@ public class ArrayList<T> implements List<T> {
             cursor = i;
             return (T) old[lastRet = i];
         }
-
 
         @Override
         public int nextIndex() {

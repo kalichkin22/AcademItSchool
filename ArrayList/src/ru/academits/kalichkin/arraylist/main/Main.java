@@ -24,20 +24,20 @@ public class Main {
 
         ArrayList<Integer> b = new ArrayList<>();
         b.add(9);
-        b.add(3);
+        b.add(5);
         b.add(2);
         b.add(1);
 
         System.out.println(b);
 
-        System.out.println(a.containsAll(b));
+        //System.out.println(a.containsAll(b));
 
         //System.out.println(a.removeAll(b));
         //System.out.println(a.retainAll(b));
 
         //a.ensureCapacity(8);
 
-        //a.addAll(b);
+        //a.addAll(3,b);
 
         System.out.println(a);
 
