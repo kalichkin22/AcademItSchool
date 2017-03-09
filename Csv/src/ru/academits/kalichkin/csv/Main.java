@@ -14,14 +14,14 @@ public class Main {
             String s;
             sb.append("<table>\n");
             while ((s = br.readLine()) != null) {
-                s = s.replace(",","</td>");
-                sb.append("<tr>").append(s).append("</tr>\n");
+                sb.append("<tr>");
+                s = s.replace(",", "</td><td>");
+                sb.append("<td>").append(s).append("</td></tr><br/>\n");
             }
-
             sb.append("</table>");
             s = sb.toString();
 
-            System.out.println(s);
+            writer.print(s);
 
         } catch (IOException e) {
             e.printStackTrace();
