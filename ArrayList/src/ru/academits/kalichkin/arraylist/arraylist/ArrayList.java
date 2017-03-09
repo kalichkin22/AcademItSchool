@@ -165,14 +165,12 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public boolean removeAll(Collection<?> c) {
-
         boolean modified = false;
         for (int i = 0; i < size; ++i) {
             if (c.contains(items[i])) {
                 this.remove(items[i]);
                 --i;
             }
-
             modified = true;
         }
         return modified;
@@ -181,7 +179,6 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public boolean retainAll(Collection<?> c) {
-
         boolean modified = false;
         for (int i = 0; i < size; ++i) {
             if (!c.contains(items[i])) {
