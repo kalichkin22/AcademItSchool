@@ -139,7 +139,6 @@ public class ArrayList<T> implements List<T> {
         return array.length != 0;
     }
 
-
     @Override
     public T remove(int index) {
         Object[] old = items;
