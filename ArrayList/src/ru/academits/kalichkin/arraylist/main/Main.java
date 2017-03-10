@@ -11,6 +11,9 @@ public class Main {
 
         System.out.println(a);
 
+
+
+
         ArrayList<Integer> b = new ArrayList<>();
         b.add(1);
         b.add(2);
@@ -22,19 +25,19 @@ public class Main {
 
         System.out.println(b);
 
-        a.trimToSize();
+        //a.trimToSize();
         //System.out.println(a.containsAll(b));
-        System.out.println(a);
+        //System.out.println(a);
         //System.out.println(a.removeAll(b));
         //System.out.println(a.retainAll(b));
 
         //a.ensureCapacity(28);
 
-        a.trimToSize();
-        b.clear();
-
+        //a.trimToSize();
+        a.clear();
+        System.out.println(a.size());
         System.out.println(a);
-        System.out.println(b);
+
 
     }
 }

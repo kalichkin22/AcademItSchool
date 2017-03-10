@@ -80,7 +80,9 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public boolean add(T element) {
-        modCount++;
+        if (element != null) {
+            modCount++;
+        }
         if (items.length <= size) {
             increaseCapacity();
         }
