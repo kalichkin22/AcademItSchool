@@ -34,9 +34,10 @@ public class Main {
         //a.ensureCapacity(28);
 
         //a.trimToSize();
-        a.clear();
-        System.out.println(a.size());
-        System.out.println(a);
+        Integer i = 3;
+        b.add(i);
+
+        System.out.println(b);
 
 
     }
