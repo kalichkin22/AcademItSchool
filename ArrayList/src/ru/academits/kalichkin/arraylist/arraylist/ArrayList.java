@@ -259,9 +259,9 @@ public class ArrayList<T> implements List<T> {
     public void clear() {
         if (size != 0) {
             modCount++;
-        }
-        for (int i = 0; i < size; i++) {
-            items[i] = null;
+            for (int i = 0; i < size; i++) {
+                items[i] = null;
+            }
         }
         size = 0;
     }

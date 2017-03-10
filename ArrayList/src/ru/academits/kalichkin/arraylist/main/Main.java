@@ -30,10 +30,11 @@ public class Main {
 
         //a.ensureCapacity(28);
 
-        a.add(6);
+        a.trimToSize();
+        b.clear();
 
         System.out.println(a);
-
+        System.out.println(b);
 
     }
 }
