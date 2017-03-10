@@ -110,6 +110,9 @@ public class ArrayList<T> implements List<T> {
         for (Object e : c) {
             this.add((T) e);
         }
+        if (c.size() != 0) {
+            modCount++;
+        }
         return c.size() != 0;
     }
 
