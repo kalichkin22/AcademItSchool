@@ -313,8 +313,9 @@ public class ArrayList<T> implements List<T> {
         }
 
         final void checkForModification() {
-            if (modCount != estimatedModCount)
+            if (modCount != estimatedModCount) {
                 throw new ConcurrentModificationException();
+            }
         }
     }
 
