@@ -142,18 +142,17 @@ public class ArrayList<T> implements List<T> {
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
         }
-        modCount++;
         if (index <= size - 1) {
             System.arraycopy(old, index + 1, items, index, old.length - index - 1);
         }
         size--;
+        modCount++;
 
         return item;
     }
 
     @Override
     public boolean remove(Object o) {
-        modCount++;
         for (int i = 0; i < size; i++) {
             if (Objects.equals(items[i], o)) {
                 if (i <= size - 1) {
@@ -161,6 +160,7 @@ public class ArrayList<T> implements List<T> {
                     System.arraycopy(old, i + 1, items, i, old.length - i - 1);
                 }
                 size--;
+                modCount++;
                 return true;
             }
         }
