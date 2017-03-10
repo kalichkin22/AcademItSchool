@@ -310,7 +310,8 @@ public class ArrayList<T> implements List<T> {
                 throw new ConcurrentModificationException();
             }
             cursor = i + 1;
-            return (T) old[lastRet = i];
+            lastRet = i;
+            return (T) old[lastRet];
         }
 
         final void checkForModification() {

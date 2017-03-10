@@ -32,9 +32,9 @@ public class Main {
         //System.out.println(a.removeAll(b));
         //System.out.println(a.retainAll(b));
 
-        a.ensureCapacity(28);
+        //a.ensureCapacity(28);
 
-        //a.add(a.size(),b);
+        a.add(a.size(),6);
 
         System.out.println(a);
 
