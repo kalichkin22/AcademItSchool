@@ -200,7 +200,6 @@ public class ArrayList<T> implements List<T> {
 
     public String toString() {
         return Arrays.toString(Arrays.copyOf(items, size));
-        //return Arrays.toString(items);
     }
 
     @Override
