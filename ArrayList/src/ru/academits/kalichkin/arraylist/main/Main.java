@@ -34,10 +34,8 @@ public class Main {
         //a.ensureCapacity(28);
 
         //a.trimToSize();
-        Integer i = 3;
-        b.add(i);
 
-        System.out.println(b);
+        System.out.println(a);
 
 
     }
