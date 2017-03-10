@@ -1,8 +1,8 @@
 package ru.academits.kalichkin.arraylist.main;
 
-import ru.academits.kalichkin.arraylist.arraylist.ArrayList;
+//import ru.academits.kalichkin.arraylist.arraylist.ArrayList;
 
-//import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -32,7 +32,7 @@ public class Main {
         //System.out.println(a.removeAll(b));
         //System.out.println(a.retainAll(b));
 
-        //a.ensureCapacity(28);
+        a.ensureCapacity(28);
 
         //a.add(a.size(),b);
 

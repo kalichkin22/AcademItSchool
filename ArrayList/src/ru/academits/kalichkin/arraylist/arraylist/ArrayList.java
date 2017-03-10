@@ -34,6 +34,7 @@ public class ArrayList<T> implements List<T> {
             items = new Object[minCapacity];
             System.arraycopy(old, 0, items, 0, old.length);
         }
+        modCount++;
     }
 
     @SuppressWarnings("unchecked")
