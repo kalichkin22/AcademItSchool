@@ -70,6 +70,9 @@ public class ArrayList<T> implements List<T> {
     }
 
     private void increaseCapacity() {
+        if (items.length == 0) {
+            items = new Object[10];
+        }
         Object[] old = items;
         items = new Object[old.length * 2];
         System.arraycopy(old, 0, items, 0, old.length);
@@ -78,9 +81,6 @@ public class ArrayList<T> implements List<T> {
     @Override
     public boolean add(T element) {
         modCount++;
-        if (items.length == 0) {
-            items = new Object[10];
-        }
         if (items.length <= size) {
             increaseCapacity();
         }
@@ -93,9 +93,6 @@ public class ArrayList<T> implements List<T> {
     public void add(int index, T element) {
         if (index > size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
-        }
-        if (items.length == 0) {
-            items = new Object[10];
         }
         modCount++;
         if (items.length <= size) {

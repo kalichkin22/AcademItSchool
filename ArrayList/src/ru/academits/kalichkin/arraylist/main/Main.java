@@ -22,7 +22,7 @@ public class Main {
 
         System.out.println(b);
 
-        //a.trimToSize();
+        a.trimToSize();
         //System.out.println(a.containsAll(b));
         System.out.println(a);
         //System.out.println(a.removeAll(b));
@@ -30,7 +30,7 @@ public class Main {
 
         //a.ensureCapacity(28);
 
-        //a.add(a.size(),6);
+        a.add(6);
 
         System.out.println(a);
 
