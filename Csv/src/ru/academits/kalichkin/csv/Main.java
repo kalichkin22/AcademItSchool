@@ -2,28 +2,39 @@ package ru.academits.kalichkin.csv;
 
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Main {
-    public static void main(String[] args) {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("csv.txt")));
+    public static void main(String[] args) throws IOException {
+        List<Character> chars = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("csv.txt")));
              PrintWriter writer = new PrintWriter("html.txt")) {
 
             StringBuilder sb = new StringBuilder();
-            String s;
-            sb.append("<table>\n");
-            while ((s = br.readLine()) != null) {
-                sb.append("<tr>");
-                s = s.replace(",", "</td><td>");
-                sb.append("<td>").append(s).append("</td></tr><br/>\n");
+            sb.append("<table>").append(System.lineSeparator());
+            int c;
+            while ((c = reader.read()) != -1) {
+                chars.add((char) c);
             }
-            sb.append("</table>");
-            s = sb.toString();
+            String a = "";
+            String b = "";
+            String g = "";
 
-            writer.print(s);
+            for (Character e : chars) {
+                if (chars.contains(',')) {
+                    a += e;
+                }
+            }
+            sb.append(a);
 
-        } catch (IOException e) {
-            e.printStackTrace();
+
+            System.out.println(sb);
+
+            for (Character e : chars) {
+                writer.print(e);
+            }
         }
     }
 }

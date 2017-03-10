@@ -1,18 +1,13 @@
 package ru.academits.kalichkin.arraylist.main;
 
-//import ru.academits.kalichkin.arraylist.arraylist.ArrayList;
+import ru.academits.kalichkin.arraylist.arraylist.ArrayList;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
 
         ArrayList<Integer> a = new ArrayList<>();
-        a.add(1);
-        a.add(2);
-        a.add(3);
-        a.add(4);
-        a.add(5);
 
         System.out.println(a);
 
@@ -27,14 +22,15 @@ public class Main {
 
         System.out.println(b);
 
+        //a.trimToSize();
         //System.out.println(a.containsAll(b));
-
+        System.out.println(a);
         //System.out.println(a.removeAll(b));
         //System.out.println(a.retainAll(b));
 
         //a.ensureCapacity(28);
 
-        a.add(a.size(),6);
+        //a.add(a.size(),6);
 
         System.out.println(a);
 

@@ -22,9 +22,8 @@ public class ArrayList<T> implements List<T> {
     }
 
     public void trimToSize() {
-        modCount++;
         if (size < items.length) {
-            items = (size == 0) ? new Object[]{} : Arrays.copyOf(items, size);
+            items = Arrays.copyOf(items, size);
         }
     }
 
@@ -34,7 +33,6 @@ public class ArrayList<T> implements List<T> {
             items = new Object[minCapacity];
             System.arraycopy(old, 0, items, 0, old.length);
         }
-        modCount++;
     }
 
     @SuppressWarnings("unchecked")
@@ -80,6 +78,9 @@ public class ArrayList<T> implements List<T> {
     @Override
     public boolean add(T element) {
         modCount++;
+        if (items.length == 0) {
+            items = new Object[10];
+        }
         if (items.length <= size) {
             increaseCapacity();
         }
@@ -92,6 +93,9 @@ public class ArrayList<T> implements List<T> {
     public void add(int index, T element) {
         if (index > size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
+        }
+        if (items.length == 0) {
+            items = new Object[10];
         }
         modCount++;
         if (items.length <= size) {
@@ -118,9 +122,7 @@ public class ArrayList<T> implements List<T> {
         if (index > size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
         }
-        modCount++;
         Object[] array = c.toArray();
-
         if (items.length < size + array.length) {
             items = Arrays.copyOf(items, items.length + array.length);
         }
@@ -131,8 +133,10 @@ public class ArrayList<T> implements List<T> {
         System.arraycopy(array, 0, items, index, array.length);
         size += array.length;
 
+        if (array.length != 0) {
+            modCount++;
+        }
         return array.length != 0;
-
     }
 
 
@@ -256,7 +260,9 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public void clear() {
-        modCount++;
+        if (size != 0) {
+            modCount++;
+        }
         for (int i = 0; i < size; i++) {
             items[i] = null;
         }
