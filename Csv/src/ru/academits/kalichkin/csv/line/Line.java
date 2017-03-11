@@ -6,7 +6,6 @@ public class Line {
     private String secondCell;
     private String thirdCell;
 
-
     public String getFirstCell() {
         return firstCell;
     }
