@@ -9,7 +9,7 @@ public class Main {
         SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
 
 
-        list.setFirst(1);
+        list.addFirst(1);
         list.addBefore(list.getNodeByIndex(0), 2);
         list.addBefore(list.getNodeByIndex(1), 3);
         list.addBefore(list.getNodeByIndex(2), 4);

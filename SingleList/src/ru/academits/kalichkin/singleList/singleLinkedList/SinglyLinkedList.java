@@ -20,7 +20,7 @@ public class SinglyLinkedList<T> {
         return head;
     }
 
-    public void setFirst(T data) {
+    public void addFirst(T data) {
         Node<T> node = head;
         head = new Node<>(data, node);
         ++size;
@@ -70,7 +70,7 @@ public class SinglyLinkedList<T> {
         for (Node<T> p = head, prev = null; p != null;
              prev = p, p = p.getNext()) {
             if (head == node) {
-                setFirst(data);
+                addFirst(data);
             } else if (p == node) {
                 addBefore(prev, data);
             }
