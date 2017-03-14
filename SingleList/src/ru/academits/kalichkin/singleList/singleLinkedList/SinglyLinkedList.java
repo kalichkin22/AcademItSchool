@@ -1,7 +1,5 @@
 package ru.academits.kalichkin.singleList.singleLinkedList;
 
-import ru.academits.kalichkin.singleList.node.Node;
-
 import java.util.NoSuchElementException;
 
 public class SinglyLinkedList<T> {
@@ -10,17 +8,10 @@ public class SinglyLinkedList<T> {
 
     @SafeVarargs
     public SinglyLinkedList(T... values) {
-        Node <T> prev = null;
         for (T e : values) {
-            Node node = new Node(e);
-            if (prev != null) {
-                prev.setNext(node);
-            } else {
-                head = node;
-            }
-            prev = node;
-            ++size;
+            addFirst(e);
         }
+        reverse();
     }
 
     public int getSize() {
@@ -58,8 +49,19 @@ public class SinglyLinkedList<T> {
     }
 
 
-    public void setValue(int index, T data) {
-        getNodeByIndex(index).setData(data);
+    public T setValue(int index, T data) {
+        if (index >= size || index < 0) {
+            throw new IndexOutOfBoundsException("Недопустимый индекс");
+        }
+        Node<T> node = head;
+
+        for (int i = 0; i < index; i++) {
+            node = node.getNext();
+        }
+        Node<T> oldNode = new Node<T>(node.getData());
+
+        node.setData(data);
+        return oldNode.getData();
     }
 
 
@@ -67,32 +69,33 @@ public class SinglyLinkedList<T> {
         Node<T> node = getNodeByIndex(index);
         if (head == node) {
             head = node.getNext();
+            --size;
             return;
         }
-        for (Node<T> p = head, prev = null; p != null;
-             prev = p, p = p.getNext()) {
+        for (Node<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
             if (p == node) {
                 prev.setNext(p.getNext());
+                --size;
             }
         }
-        --size;
+
     }
 
 
     public void addValue(int index, T data) {
         Node<T> node = getNodeByIndex(index);
-        for (Node<T> p = head, prev = null; p != null;
-             prev = p, p = p.getNext()) {
-            if (head == node) {
-                addFirst(data);
-            } else if (p == node) {
-                addBefore(prev, data);
+        if (head == node) {
+            addFirst(data);
+        }
+        for (Node<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
+            if (p == node) {
+                addAfter(prev, data);
             }
         }
     }
 
 
-    public void addBefore(Node<T> node, T data) {
+    public void addAfter(Node<T> node, T data) {
         if (node == null) {
             throw new NoSuchElementException("Нет такого узла");
         }
@@ -102,7 +105,7 @@ public class SinglyLinkedList<T> {
     }
 
 
-    public void removeBefore(Node<T> node) {
+    public void removeAfter(Node<T> node) {
         if (node == null) {
             throw new NoSuchElementException("Нет такого узла");
         }
@@ -110,14 +113,15 @@ public class SinglyLinkedList<T> {
         --size;
     }
 
-    public void removeNodeByValue(T data) {
 
-        for (Node<T> p = head, prev = null; p != null;
-             prev = p, p = p.getNext()) {
-            if (head.getData() == data) {
-                head = p.getNext();
-                --size;
-            } else if (p.getData() == data) {
+    public void removeNodeByValue(T data) {
+        if (head.getData() == data) {
+            head = head.getNext();
+            --size;
+            return;
+        }
+        for (Node<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
+            if (p.getData() == data) {
                 prev.setNext(p.getNext());
                 --size;
             }
@@ -144,5 +148,16 @@ public class SinglyLinkedList<T> {
             System.out.println(p.getData());
         }
     }
+
+    public String toString() {
+        StringBuilder br = new StringBuilder("[");
+        for (Node p = head; p != null; p = p.getNext()) {
+            String value = ", " + p.getData().toString();
+            br.append(value);
+        }
+        return br.toString().replaceFirst(", ", "").trim() + "]";
+    }
 }
+
+
 

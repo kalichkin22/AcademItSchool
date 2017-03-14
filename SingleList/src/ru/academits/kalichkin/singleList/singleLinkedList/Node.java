@@ -1,4 +1,4 @@
-package ru.academits.kalichkin.singleList.node;
+package ru.academits.kalichkin.singleList.singleLinkedList;
 
 public class Node<T> {
 
@@ -10,7 +10,7 @@ public class Node<T> {
         this.data = data;
     }
 
-    public Node (T data, Node<T> next) {
+    public Node(T data, Node<T> next) {
         this.data = data;
         this.next = next;
     }
@@ -23,7 +23,7 @@ public class Node<T> {
         this.data = data;
     }
 
-    public Node <T> getNext() {
+    public Node<T> getNext() {
         return next;
     }
 
