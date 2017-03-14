@@ -110,6 +110,20 @@ public class SinglyLinkedList<T> {
         }
     }
 
+    public void reverse() {
+        Node<T> node = head;
+        Node<T> prev = null;
+
+        while (node != null) {
+            Node<T> temp = node.getNext();
+            node.setNext(prev);
+
+            head = node;
+            prev = node;
+            node = temp;
+        }
+    }
+
 
     public void print() {
         for (Node p = head; p != null; p = p.getNext()) {
