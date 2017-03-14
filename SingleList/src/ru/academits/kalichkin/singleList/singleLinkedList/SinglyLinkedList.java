@@ -8,6 +8,20 @@ public class SinglyLinkedList<T> {
     private Node<T> head;
     private int size;
 
+    @SafeVarargs
+    public SinglyLinkedList(T... values) {
+        Node <T> previous = null;
+        for (T e : values) {
+            Node node = new Node(e);
+            if (previous != null) {
+                previous.setNext(node);
+            } else {
+                head = node;
+            }
+            previous = node;
+            ++size;
+        }
+    }
 
     public int getSize() {
         return size;
@@ -20,7 +34,7 @@ public class SinglyLinkedList<T> {
         return head;
     }
 
-    public void addFirst(T data) {
+    private void addFirst(T data) {
         Node<T> node = head;
         head = new Node<>(data, node);
         ++size;
