@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/Matrix/Matrix.iml" filepath="$PROJECT_DIR$/Matrix/Matrix.iml" />
       <module fileurl="file://$PROJECT_DIR$/Range/Range.iml" filepath="$PROJECT_DIR$/Range/Range.iml" />
       <module fileurl="file://$PROJECT_DIR$/Shape/Shapes.iml" filepath="$PROJECT_DIR$/Shape/Shapes.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SingleList/SingleList.iml" filepath="$PROJECT_DIR$/SingleList/SingleList.iml" />
       <module fileurl="file://$PROJECT_DIR$/Vector/Vector.iml" filepath="$PROJECT_DIR$/Vector/Vector.iml" />
       <module fileurl="file://$PROJECT_DIR$/Cft/САЕ.iml" filepath="$PROJECT_DIR$/Cft/САЕ.iml" />
     </modules>
