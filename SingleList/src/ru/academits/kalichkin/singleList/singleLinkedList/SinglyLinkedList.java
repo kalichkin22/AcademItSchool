@@ -10,15 +10,15 @@ public class SinglyLinkedList<T> {
 
     @SafeVarargs
     public SinglyLinkedList(T... values) {
-        Node <T> previous = null;
+        Node <T> prev = null;
         for (T e : values) {
             Node node = new Node(e);
-            if (previous != null) {
-                previous.setNext(node);
+            if (prev != null) {
+                prev.setNext(node);
             } else {
                 head = node;
             }
-            previous = node;
+            prev = node;
             ++size;
         }
     }
