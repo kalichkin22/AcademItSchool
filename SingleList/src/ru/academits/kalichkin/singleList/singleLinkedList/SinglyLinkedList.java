@@ -14,9 +14,11 @@ public class SinglyLinkedList<T> {
         reverse();
     }
 
+
     public int getSize() {
         return size;
     }
+
 
     public Node<T> getFirstNode() {
         if (head == null) {
@@ -128,6 +130,7 @@ public class SinglyLinkedList<T> {
         }
     }
 
+
     public void reverse() {
         Node<T> node = head;
         Node<T> prev = null;
@@ -148,6 +151,7 @@ public class SinglyLinkedList<T> {
             System.out.println(p.getData());
         }
     }
+
 
     public String toString() {
         StringBuilder br = new StringBuilder("[");
