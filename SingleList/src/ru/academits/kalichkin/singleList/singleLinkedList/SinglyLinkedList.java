@@ -86,6 +86,7 @@ public class SinglyLinkedList<T> {
         for (Node<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
             if (p == node) {
                 addAfter(prev, data);
+                return;
             }
         }
     }
