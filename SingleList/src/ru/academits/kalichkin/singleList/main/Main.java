@@ -10,9 +10,9 @@ public class Main {
 
 
         //System.out.println(list.removeAfter(list.getNodeByIndex(1)));
-        //list.setValue(0,5);
+        //System.out.println(list.setValue(6,5));
 
-        list.removeData(9);
+        System.out.println(list.removeData(7));
 
         //list.addValue(0, 5);
 

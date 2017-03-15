@@ -52,10 +52,8 @@ public class SinglyLinkedList<T> {
 
 
     public T setValue(int index, T data) {
-        Node<T> node = getNodeByIndex(index);
-        Node<T> oldNode = new Node<T>(node.getData());
-
-        node.setData(data);
+        Node<T> oldNode = new Node<T>(getNodeByIndex(index).getData());
+        getNodeByIndex(index).setData(data);
         return oldNode.getData();
     }
 
@@ -68,8 +66,8 @@ public class SinglyLinkedList<T> {
             return node.getData();
         }
         for (Node<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
-            if (p == node) {
-                prev.setNext(p.getNext());
+            if (node == p) {
+                removeAfter(prev);
                 --size;
                 return node.getData();
             }
