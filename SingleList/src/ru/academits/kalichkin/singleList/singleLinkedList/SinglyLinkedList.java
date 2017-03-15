@@ -8,10 +8,10 @@ public class SinglyLinkedList<T> {
 
     @SafeVarargs
     public SinglyLinkedList(T... values) {
-        for (T e : values) {
+        for (int i = values.length - 1; i >= 0; i--) {
+            T e = values[i];
             addFirst(e);
         }
-        reverse();
     }
 
 
@@ -52,14 +52,7 @@ public class SinglyLinkedList<T> {
 
 
     public T setValue(int index, T data) {
-        if (index >= size || index < 0) {
-            throw new IndexOutOfBoundsException("Недопустимый индекс");
-        }
-        Node<T> node = head;
-
-        for (int i = 0; i < index; i++) {
-            node = node.getNext();
-        }
+        Node<T> node = getNodeByIndex(index);
         Node<T> oldNode = new Node<T>(node.getData());
 
         node.setData(data);
@@ -78,6 +71,7 @@ public class SinglyLinkedList<T> {
             if (p == node) {
                 prev.setNext(p.getNext());
                 --size;
+                return;
             }
         }
     }
@@ -87,6 +81,7 @@ public class SinglyLinkedList<T> {
         Node<T> node = getNodeByIndex(index);
         if (head == node) {
             addFirst(data);
+            return;
         }
         for (Node<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
             if (p == node) {
@@ -106,27 +101,31 @@ public class SinglyLinkedList<T> {
     }
 
 
-    public void removeAfter(Node<T> node) {
+    public T removeAfter(Node<T> node) {
         if (node == null) {
             throw new NoSuchElementException("Нет такого узла");
         }
+        Node<T> oldNode = node.getNext();
         node.setNext(node.getNext().getNext());
         --size;
+        return oldNode.getData();
     }
 
 
-    public void removeNodeByValue(T data) {
+    public T removeNodeByValue(T data) {
         if (head.getData() == data) {
             head = head.getNext();
             --size;
-            return;
+            return data;
         }
         for (Node<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
             if (p.getData() == data) {
                 prev.setNext(p.getNext());
                 --size;
+                return data;
             }
         }
+        return data;
     }
 
 
@@ -155,10 +154,13 @@ public class SinglyLinkedList<T> {
     public String toString() {
         StringBuilder br = new StringBuilder("[");
         for (Node p = head; p != null; p = p.getNext()) {
-            String value = ", " + p.getData().toString();
-            br.append(value);
+            br.append(p.getData().toString());
+            if (p.getNext() != null) {
+                br.append(", ");
+            }
         }
-        return br.toString().replaceFirst(", ", "").trim() + "]";
+        br.append("]");
+        return br.toString();
     }
 }
 
