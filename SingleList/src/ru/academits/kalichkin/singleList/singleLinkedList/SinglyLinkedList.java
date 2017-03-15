@@ -65,13 +65,7 @@ public class SinglyLinkedList<T> {
             --size;
             return node.getData();
         }
-        for (Node<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
-            if (node == p) {
-                removeAfter(prev);
-                --size;
-                return node.getData();
-            }
-        }
+        removeAfter(getNodeByIndex(index - 1));
         return node.getData();
     }
 
@@ -82,12 +76,7 @@ public class SinglyLinkedList<T> {
             addFirst(data);
             return;
         }
-        for (Node<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
-            if (p == node) {
-                addAfter(prev, data);
-                return;
-            }
-        }
+        addAfter(getNodeByIndex(index - 1), data);
     }
 
 
