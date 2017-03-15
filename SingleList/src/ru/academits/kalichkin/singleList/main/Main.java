@@ -12,7 +12,7 @@ public class Main {
         //System.out.println(list.removeAfter(list.getNodeByIndex(1)));
         //list.setValue(0,5);
 
-        //list.removeData(2);
+        list.removeData(9);
 
         //list.addValue(0, 5);
 

@@ -60,20 +60,21 @@ public class SinglyLinkedList<T> {
     }
 
 
-    public void removeData(int index) {
+    public T removeData(int index) {
         Node<T> node = getNodeByIndex(index);
         if (head == node) {
             head = node.getNext();
             --size;
-            return;
+            return node.getData();
         }
         for (Node<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
             if (p == node) {
                 prev.setNext(p.getNext());
                 --size;
-                return;
+                return node.getData();
             }
         }
+        return node.getData();
     }
 
 
