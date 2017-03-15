@@ -27,6 +27,7 @@ public class SinglyLinkedList<T> {
         return head;
     }
 
+
     private void addFirst(T data) {
         Node<T> node = head;
         head = new Node<>(data, node);
@@ -52,31 +53,31 @@ public class SinglyLinkedList<T> {
 
 
     public T setValue(int index, T data) {
-        Node<T> oldNode = new Node<T>(getNodeByIndex(index).getData());
-        getNodeByIndex(index).setData(data);
-        return oldNode.getData();
+        Node<T> node = getNodeByIndex(index);
+        T oldValue = node.getData();
+        node.setData(data);
+        return oldValue;
     }
 
 
     public T removeData(int index) {
-        Node<T> node = getNodeByIndex(index);
-        if (head == node) {
-            head = node.getNext();
+        if (index != 0) {
+            return removeAfter(getNodeByIndex(index - 1));
+        } else {
+            T oldValue = head.getData();
+            head = head.getNext();
             --size;
-            return node.getData();
+            return oldValue;
         }
-        removeAfter(getNodeByIndex(index - 1));
-        return node.getData();
     }
 
 
     public void addValue(int index, T data) {
-        Node<T> node = getNodeByIndex(index);
-        if (head == node) {
-            addFirst(data);
+        if (index != 0) {
+            addAfter(getNodeByIndex(index - 1), data);
             return;
         }
-        addAfter(getNodeByIndex(index - 1), data);
+        addFirst(data);
     }
 
 

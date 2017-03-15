@@ -10,18 +10,18 @@ public class Main {
 
 
         //System.out.println(list.removeAfter(list.getNodeByIndex(1)));
-        //System.out.println(list.setValue(6,5));
+        //System.out.println(list.setValue(5,10));
         //System.out.println(list.removeData(4));
 
 
-        //list.addValue(1, 5);
+        //list.addValue(3, 5);
 
         //System.out.println(list.removeNodeByValue(8));
         //list.reverse();
 
         //System.out.println(list.setValue(1, 100));
         System.out.println(list);
-        System.out.println(list.getSize());
+
 
     }
 }
