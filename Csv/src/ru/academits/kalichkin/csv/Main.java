@@ -16,7 +16,6 @@ public class Main {
             }
 
             StringBuilder table = new StringBuilder();
-
             table.append("<html>").append(System.lineSeparator());
             table.append(" <head>").append(System.lineSeparator());
             table.append("  <meta charset = \"utf-8\">").append(System.lineSeparator());
@@ -30,19 +29,25 @@ public class Main {
                 int i = 0;
                 for (int j = 0; j < e.length(); j++) {
                     char c = e.charAt(j);
+                    e = e.replace(",", "</td>");
                     if (c == '"') {
-                        e = e.replace(",", " </td><td>");
                         if (j > i) {
                             table.append(e.substring(i, j));
                         }
                         i = j + 1;
                     }
                 }
-                if (i < e.length()) {
+                if (i <= e.length()) {
+                    table.append("<td>");
                     table.append(e.substring(i));
                 }
+
                 table.append("</td></tr><br/>").append(System.lineSeparator());
+                if (e.contains("\"")) {
+                    //TODO если в ячейке с ковычками то не писать тд и тр
+                }
             }
+
 
             table.append("  </table>").append(System.lineSeparator());
             table.append(" </body>").append(System.lineSeparator());
