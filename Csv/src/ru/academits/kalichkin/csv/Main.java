@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    private static final String impossibleString = "$#%^&*!xyxb$#%&*!^";
-
     public static void main(String[] args) throws IOException {
         try (Scanner scanner = new Scanner(new FileInputStream(args[0]));
              PrintWriter writer = new PrintWriter(args[1])) {
