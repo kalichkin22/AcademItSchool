@@ -11,13 +11,14 @@ public class Main {
     public static void main(String[] args) throws IOException {
         try (Scanner scanner = new Scanner(new FileInputStream(args[0]));
              PrintWriter writer = new PrintWriter(args[1])) {
+
             List<String> list = new ArrayList<>();
+            StringBuilder table = new StringBuilder();
 
             while (scanner.hasNextLine()) {
                 list.add(scanner.nextLine());
             }
 
-            StringBuilder table = new StringBuilder();
             table.append("<html>").append(System.lineSeparator());
             table.append(" <head>").append(System.lineSeparator());
             table.append("  <meta charset = \"utf-8\">").append(System.lineSeparator());
@@ -29,6 +30,9 @@ public class Main {
             boolean f = false;
             for (String e : list) {
                 int i = 0;
+                if (!f) {
+                    table.append("<tr><td>");
+                }
                 for (int j = 0; j < e.length(); j++) {
                     char c = e.charAt(j);
                     if (c == '\"') {
@@ -37,16 +41,16 @@ public class Main {
                     if (c == ',') {
                         if (j > i) {
                             table.append(e.substring(i, j));
-                            f = false;
+                            table.append("</td><td>");
                         }
                         i = j + 1;
+                        f = false;
                     }
                 }
-
                 if (i < e.length()) {
                     table.append(e.substring(i));
                 }
-                if (f == false) {
+                if (!f) {
                     table.append("</td></tr><br/>").append(System.lineSeparator());
                 }
             }
