@@ -28,29 +28,28 @@ public class Main {
             boolean modification = false;
 
             for (String e : list) {
-                int i = 0;
                 if (!modification) {
                     table.append("<tr><td>");
                 }
                 for (int j = 0; j < e.length(); j++) {
                     char c = e.charAt(j);
-                    if (c == '\"') {
-                        modification = !(modification && e.charAt(j) == '\"');
-                    }
-                    if (!modification) {
-                        if (c == ',' && j > i) {
-                            table.append(e.substring(i, j));
-                            table.append("</td><td>");
-
-                            i = j + 1;
-                            modification = false;
+                    if (c == '"') {
+                        modification = !modification;
+                        if (!modification) {
+                            continue;
                         }
                     }
+
+
+                    if (!modification) {
+                        if (c == ',') {
+                            table.append("</td><td>");
+                            continue;
+                        }
+                    }
+                    table.append(c);
                 }
 
-                if (i < e.length()) {
-                    table.append(e.substring(i));
-                }
                 if (!modification) {
                     table.append("</td></tr><br/>").append(System.lineSeparator());
                 }
