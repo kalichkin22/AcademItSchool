@@ -25,6 +25,7 @@ public class Main {
             table.append(" <body>").append(System.lineSeparator());
             table.append("  <table bordercolor=\"black\" border=\"1\" width=\"80%\">").append(System.lineSeparator());
 
+
             boolean f = false;
             for (String e : list) {
                 int i = 0;
@@ -52,14 +53,11 @@ public class Main {
                     table.append("</td></tr><br/>").append(System.lineSeparator());
                 }
             }
-            table.append("</td></tr><br/>");
-
-            table.append(System.lineSeparator());
+            table.append("</td></tr><br/>").append(System.lineSeparator());
             table.append("  </table>").append(System.lineSeparator());
             table.append(" </body>").append(System.lineSeparator());
             table.append("</html>").append(System.lineSeparator());
             writer.print(table);
         }
     }
-
 }
