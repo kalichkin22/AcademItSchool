@@ -26,30 +26,33 @@ public class Main {
             table.append("  <table bordercolor=\"black\" border=\"1\" width=\"80%\">").append(System.lineSeparator());
 
 
-            boolean f = false;
+            boolean modification = false;
             for (String e : list) {
                 int i = 0;
-                if (!f) {
+                if (!modification) {
                     table.append("<tr><td>");
                 }
                 for (int j = 0; j < e.length(); j++) {
                     char c = e.charAt(j);
                     if (c == '\"') {
-                        f = true;
+                        modification = !(modification && e.charAt(j) == '\"');
                     }
-                    if (c == ',') {
-                        if (j > i) {
-                            table.append(e.substring(i, j));
-                            table.append("</td><td>");
+                    if (modification == false) {
+                        if (c == ',') {
+                            if (j > i) {
+                                table.append(e.substring(i, j));
+                                table.append("</td><td>");
+                            }
+                            i = j + 1;
+                            modification = false;
+
                         }
-                        i = j + 1;
-                        f = false;
                     }
                 }
                 if (i < e.length()) {
                     table.append(e.substring(i));
                 }
-                if (!f) {
+                if (!modification) {
                     table.append("</td></tr><br/>").append(System.lineSeparator());
                 }
             }
