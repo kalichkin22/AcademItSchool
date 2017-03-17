@@ -25,8 +25,8 @@ public class Main {
             table.append(" <body>").append(System.lineSeparator());
             table.append("  <table bordercolor=\"black\" border=\"1\" width=\"80%\">").append(System.lineSeparator());
 
-
             boolean modification = false;
+
             for (String e : list) {
                 int i = 0;
                 if (!modification) {
@@ -37,7 +37,7 @@ public class Main {
                     if (c == '\"') {
                         modification = !(modification && e.charAt(j) == '\"');
                     }
-                    if (modification == false) {
+                    if (!modification) {
                         if (c == ',') {
                             if (j > i) {
                                 table.append(e.substring(i, j));
