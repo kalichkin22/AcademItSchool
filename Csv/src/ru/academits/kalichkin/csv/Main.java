@@ -38,17 +38,16 @@ public class Main {
                         modification = !(modification && e.charAt(j) == '\"');
                     }
                     if (!modification) {
-                        if (c == ',') {
-                            if (j > i) {
-                                table.append(e.substring(i, j));
-                                table.append("</td><td>");
-                            }
+                        if (c == ',' && j > i) {
+                            table.append(e.substring(i, j));
+                            table.append("</td><td>");
+
                             i = j + 1;
                             modification = false;
-
                         }
                     }
                 }
+
                 if (i < e.length()) {
                     table.append(e.substring(i));
                 }
@@ -56,7 +55,6 @@ public class Main {
                     table.append("</td></tr><br/>").append(System.lineSeparator());
                 }
             }
-            table.append("</td></tr><br/>").append(System.lineSeparator());
             table.append("  </table>").append(System.lineSeparator());
             table.append(" </body>").append(System.lineSeparator());
             table.append("</html>").append(System.lineSeparator());
