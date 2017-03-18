@@ -25,27 +25,30 @@ public class Main {
             table.append(" <body>").append(System.lineSeparator());
             table.append("  <table bordercolor=\"black\" border=\"1\" width=\"80%\">").append(System.lineSeparator());
 
-            boolean modification = false;
-
+            boolean isQuoted = false;
+            int quote = 0;
             for (String e : list) {
-                if (!modification) {
+                if (!isQuoted) {
                     table.append("<tr><td>");
                 }
+
                 for (int j = 0; j < e.length() - 1; ++j) {
                     char c = e.charAt(j);
+
                     if (c == '"') {
-                        if (!modification) {
-                            modification = true;
+                        ++quote;
+                        if (!isQuoted) {
+                            isQuoted = true;
                             continue;
                         } else {
                             if (c == e.charAt(j + 1)) {
                                 table.append(c);
                             }
-                            modification = false;
+                            isQuoted = false;
                             continue;
                         }
                     }
-                    if (!modification) {
+                    if (!isQuoted) {
                         if (c == ',') {
                             table.append("</td><td>");
                             continue;
@@ -54,7 +57,7 @@ public class Main {
                     table.append(c);
                 }
 
-                if (!modification) {
+                if (!isQuoted) {
                     table.append("</td></tr><br/>").append(System.lineSeparator());
                 }
             }
@@ -62,6 +65,10 @@ public class Main {
             table.append("  </table>").append(System.lineSeparator());
             table.append(" </body>").append(System.lineSeparator());
             table.append("</html>").append(System.lineSeparator());
+
+            if (quote % 2 != 0) {
+                System.out.println("Возможно вы ввели лишнюю кавычку");
+            }
             writer.print(table);
         }
     }
