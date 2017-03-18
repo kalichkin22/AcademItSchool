@@ -31,7 +31,7 @@ public class Main {
                 if (!modification) {
                     table.append("<tr><td>");
                 }
-                for (int j = 0; j < e.length()-1; ++j) {
+                for (int j = 0; j < e.length() - 1; ++j) {
                     char c = e.charAt(j);
                     if (c == '"') {
                         if (!modification) {
