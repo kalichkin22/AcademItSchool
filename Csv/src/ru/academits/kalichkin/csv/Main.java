@@ -32,33 +32,38 @@ public class Main {
                     table.append("<tr><td>");
                 }
 
-                for (int j = 0; j < e.length() - 1; ++j) {
-                    char c = e.charAt(j);
-
+                for (int i = 0; i < e.length(); ++i) {
+                    char c = e.charAt(i);
                     if (c == '"') {
-                        ++quote;
                         if (!isQuoted) {
+
                             isQuoted = true;
                             continue;
                         } else {
-                            if (c == e.charAt(j + 1)) {
+                            ++quote;
+                            if (quote % 2 == 0) {
                                 table.append(c);
+                            }
+                            if (i == e.length() - 1) {
+                                table.append("</td></tr><br/>").append(System.lineSeparator());
                             }
                             isQuoted = false;
                             continue;
                         }
                     }
+
                     if (!isQuoted) {
                         if (c == ',') {
+                            if (i == e.length() - 1) {
+                                table.append("</td></tr><br/>").append(System.lineSeparator());
+                                continue;
+                            }
                             table.append("</td><td>");
                             continue;
                         }
                     }
-                    table.append(c);
-                }
 
-                if (!isQuoted) {
-                    table.append("</td></tr><br/>").append(System.lineSeparator());
+                    table.append(c);
                 }
             }
 
@@ -66,9 +71,6 @@ public class Main {
             table.append(" </body>").append(System.lineSeparator());
             table.append("</html>").append(System.lineSeparator());
 
-            if (quote % 2 != 0) {
-                System.out.println("Возможно вы ввели лишнюю кавычку");
-            }
             writer.print(table);
         }
     }
