@@ -31,16 +31,20 @@ public class Main {
                 if (!modification) {
                     table.append("<tr><td>");
                 }
-                for (int j = 0; j < e.length(); j++) {
+                for (int j = 0; j < e.length()-1; ++j) {
                     char c = e.charAt(j);
                     if (c == '"') {
-                        modification = !modification;
                         if (!modification) {
+                            modification = true;
+                            continue;
+                        } else {
+                            if (c == e.charAt(j + 1)) {
+                                table.append(c);
+                            }
+                            modification = false;
                             continue;
                         }
                     }
-
-
                     if (!modification) {
                         if (c == ',') {
                             table.append("</td><td>");
@@ -54,6 +58,7 @@ public class Main {
                     table.append("</td></tr><br/>").append(System.lineSeparator());
                 }
             }
+
             table.append("  </table>").append(System.lineSeparator());
             table.append(" </body>").append(System.lineSeparator());
             table.append("</html>").append(System.lineSeparator());
