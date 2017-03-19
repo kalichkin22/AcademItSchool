@@ -13,9 +13,12 @@ public class Main {
     private static final String BODYCLOSE = "</body>";
     private static final String TABLE = "<table bordercolor=\"black\" border=\"1\" width=\"80%\">";
     private static final String TABLECLOSE = "</table>";
-    private static final String TABLEROW = "<tr><td>";
+    private static final String ROW = "<tr><td>";
     private static final String BREAK = "</td></tr><br/>";
-    private static final String TABLEDETAIL = "</td><td>";
+    private static final String DETAIL = "</td><td>";
+    private static final char SEPARATOR = ',';
+    private static final char QUOTE = '"';
+
 
 
     public static void main(String[] args) {
@@ -31,21 +34,21 @@ public class Main {
         table.append(TABLE).append(System.lineSeparator());
 
         boolean isQuoted = false;
-        int quote = 0;
+        int quoteCount = 0;
         for (String e : list) {
             if (!isQuoted) {
-                table.append(TABLEROW);
+                table.append(ROW);
             }
 
             for (int i = 0; i < e.length(); ++i) {
                 char c = e.charAt(i);
-                if (c == '"') {
+                if (c == QUOTE) {
                     if (!isQuoted) {
                         isQuoted = true;
                         continue;
                     } else {
-                        ++quote;
-                        if (quote % 2 == 0) {
+                        ++quoteCount;
+                        if (quoteCount % 2 == 0) {
                             table.append(c);
                         }
                         if (i == e.length() - 1) {
@@ -57,12 +60,12 @@ public class Main {
                 }
 
                 if (!isQuoted) {
-                    if (c == ',') {
+                    if (c == SEPARATOR) {
                         if (i == e.length() - 1) {
                             table.append(BREAK).append(System.lineSeparator());
                             continue;
                         }
-                        table.append(TABLEDETAIL);
+                        table.append(DETAIL);
                         continue;
                     }
                 }
