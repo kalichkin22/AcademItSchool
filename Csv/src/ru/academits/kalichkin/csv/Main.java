@@ -83,7 +83,7 @@ public class Main {
                 if (!isQuoted && i == e.length() - 1) {
                     table.append(BREAK).append(System.lineSeparator());
                 }
-                if (isQuoted && i == e.length()-1) {
+                if (isQuoted && i == e.length() - 1) {
                     table.append(" ");
                 }
             }
