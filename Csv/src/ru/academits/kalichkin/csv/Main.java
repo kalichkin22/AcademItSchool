@@ -28,6 +28,7 @@ public class Main {
 
         boolean isQuoted = false;
         int quoteCount = 0;
+
         for (String e : list) {
             if (!isQuoted) {
                 table.append(ROW);
