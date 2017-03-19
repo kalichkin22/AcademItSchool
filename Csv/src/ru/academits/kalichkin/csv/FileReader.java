@@ -23,10 +23,7 @@ class FileReader {
 
     static void writeFile(StringBuilder sb, String fileNameOut) {
         try (PrintWriter writer = new PrintWriter(fileNameOut)) {
-            for (int i = 0; i < sb.length(); ++i) {
-                char c = sb.charAt(i);
-                writer.print(c);
-            }
+            writer.print(sb.toString());
         } catch (FileNotFoundException e) {
             System.out.printf("Файл %s не найден%n", fileNameOut);
         }

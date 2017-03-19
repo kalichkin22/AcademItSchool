@@ -3,8 +3,18 @@ package ru.academits.kalichkin.csv;
 import java.util.List;
 
 public class Main {
+    private static final String HTML = "<html>";
+    private static final String HTML_CLOSE = "</html>";
+    private static final String HEAD = "<head>";
+    private static final String HEAD_CLOSE = "</head>";
+    private static final String META = "<meta charset=\"utf-8\">";
+    private static final String TITLE = "<title> Разбор формата CSV </title>";
+    private static final String BODY = "<body>";
+    private static final String BODY_CLOSE = "</body>";
+    private static final String TABLE = "<table bordercolor=\"black\" border=\"1\" width=\"80%\">";
+    private static final String TABLE_CLOSE = "</table>";
     private static final String ROW = "<tr><td>";
-    private static final String BREAK = "</td></tr><br/>";
+    private static final String BREAK = "<br/>";
     private static final String DETAIL = "</td><td>";
     private static final char SEPARATOR = ',';
     private static final char QUOTE = '"';
@@ -14,7 +24,7 @@ public class Main {
         List<String> list = FileReader.readFile(args[0]);
         StringBuilder table = new StringBuilder();
 
-        table.append(FormatInHtml.tableOpen());
+        table.append(HTML).append(HEAD).append(META).append(TITLE).append(HEAD_CLOSE).append(BODY).append(TABLE).append(System.lineSeparator());
 
         boolean isQuoted = false;
         int quoteCount = 0;
@@ -24,17 +34,18 @@ public class Main {
             if (!isQuoted) {
                 table.append(ROW);
             }
+
             if (e.contains("&")) {
                 e = e.replace("&", "&amp");
                 if (e.contains("&amp")) {
-                    e = e.replace("<", "&lt").replace(">", "&gt");
+                    e = e.replace("<", "&lt;").replace(">", "&gt;");
                 }
             }
             if (e.contains("<")) {
-                e = e.replace("<", "&lt");
+                e = e.replace("<", "&lt;");
             }
             if (e.contains(">")) {
-                e = e.replace(">", "&gt");
+                e = e.replace(">", "&gt;");
             }
 
             for (int i = 0; i < e.length(); ++i) {
@@ -59,6 +70,7 @@ public class Main {
                 if (!isQuoted) {
                     if (c == SEPARATOR) {
                         if (i == e.length() - 1) {
+                            table.append(DETAIL);
                             table.append(BREAK).append(System.lineSeparator());
                             continue;
                         }
@@ -73,8 +85,7 @@ public class Main {
                 }
             }
         }
-        table.append(FormatInHtml.tableClose());
-
+        table.append(TABLE_CLOSE).append(BODY_CLOSE).append(HTML_CLOSE);
         FileReader.writeFile(table, args[1]);
 
         if (quoteCountAll % 2 != 0) {
