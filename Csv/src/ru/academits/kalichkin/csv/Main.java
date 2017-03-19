@@ -50,13 +50,13 @@ public class Main {
                             continue;
                         } else {
                             ++quoteCount;
-                            if (quoteCount % 2 != 0) {
-                                table.append(c);
-                            }
                             if (i == e.length() - 1) {
                                 table.append(BREAK).append(System.lineSeparator());
                             }
                             isQuoted = false;
+                            if (quoteCount % 2 == 0) {
+                                table.append(c);
+                            }
                             continue;
                         }
                     }
