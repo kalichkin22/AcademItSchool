@@ -47,18 +47,17 @@ public class Main {
                         ++quoteCountAll;
                         if (!isQuoted) {
                             isQuoted = true;
-                            continue;
                         } else {
-                            ++quoteCount;
-                            if (i == e.length() - 1) {
-                                table.append(BREAK).append(System.lineSeparator());
-                            }
                             isQuoted = false;
+                            quoteCount++;
                             if (quoteCount % 2 == 0) {
                                 table.append(c);
                             }
-                            continue;
+                            if (i == e.length() - 1) {
+                                table.append(BREAK).append(System.lineSeparator());
+                            }
                         }
+                        continue;
                     }
                     if (!isQuoted) {
                         if (c == SEPARATOR) {
