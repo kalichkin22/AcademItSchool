@@ -33,9 +33,16 @@ public class Main {
             if (!isQuoted) {
                 table.append(ROW);
             }
+            if (e.contains("&")) {
+                e = e.replace("&", "&amp");
+                if (e.contains("&amp")) {
+                    e = e.replace("<", "&lt").replace(">", "&gt");
+                }
+            }
             if (e.contains("<")) {
                 e = e.replace("<", "&lt");
             }
+
             if (e.contains(">")) {
                 e = e.replace(">", "&gt");
             }
