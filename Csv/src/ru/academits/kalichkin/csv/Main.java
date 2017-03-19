@@ -32,6 +32,12 @@ public class Main {
             if (!isQuoted) {
                 table.append(ROW);
             }
+            if (e.contains("<")) {
+                e = e.replace("<", "&lt");
+            }
+            if (e.contains(">")) {
+                e = e.replace(">", "&gt");
+            }
 
             for (int i = 0; i < e.length(); ++i) {
                 char c = e.charAt(i);
