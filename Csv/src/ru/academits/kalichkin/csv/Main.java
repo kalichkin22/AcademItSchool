@@ -57,7 +57,6 @@ public class Main {
                         continue;
                     }
                 }
-
                 if (!isQuoted) {
                     if (c == SEPARATOR) {
                         if (i == e.length() - 1) {
