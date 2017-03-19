@@ -24,13 +24,7 @@ public class Main {
         List<String> list = FileReader.readFile(args[0]);
         StringBuilder table = new StringBuilder();
 
-        table.append(HTML).append(System.lineSeparator());
-        table.append(HEAD).append(System.lineSeparator());
-        table.append(META).append(System.lineSeparator());
-        table.append(TITLE).append(System.lineSeparator());
-        table.append(HEADCLOSE).append(System.lineSeparator());
-        table.append(BODY).append(System.lineSeparator());
-        table.append(TABLE).append(System.lineSeparator());
+        table.append(HTML).append(HEAD).append(META).append(TITLE).append(HEADCLOSE).append(BODY).append(TABLE).append(System.lineSeparator());
 
         boolean isQuoted = false;
         int quoteCount = 0;
@@ -74,10 +68,7 @@ public class Main {
                 }
             }
         }
-        table.append(TABLECLOSE).append(System.lineSeparator());
-        table.append(BODYCLOSE).append(System.lineSeparator());
-        table.append(HTMLCLOSE).append(System.lineSeparator());
-
+        table.append(TABLECLOSE).append(BODYCLOSE).append(HTMLCLOSE);
         FileReader.writeFile(table, args[1]);
     }
 }
