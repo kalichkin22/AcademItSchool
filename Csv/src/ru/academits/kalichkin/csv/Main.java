@@ -83,6 +83,9 @@ public class Main {
                 if (!isQuoted && i == e.length() - 1) {
                     table.append(BREAK).append(System.lineSeparator());
                 }
+                if (isQuoted && i == e.length()-1) {
+                    table.append(" ");
+                }
             }
         }
         table.append(TABLE_CLOSE).append(BODY_CLOSE).append(HTML_CLOSE);
