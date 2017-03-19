@@ -83,12 +83,12 @@ public class Main {
                 }
             }
         }
+        table.append(TABLECLOSE).append(BODYCLOSE).append(HTMLCLOSE);
+        FileReader.writeFile(table, args[1]);
 
         if (quoteCountAll % 2 != 0) {
             System.out.println("Возможно Вы ввели лишнюю кавычку");
         }
-        table.append(TABLECLOSE).append(BODYCLOSE).append(HTMLCLOSE);
-        FileReader.writeFile(table, args[1]);
     }
 }
 
