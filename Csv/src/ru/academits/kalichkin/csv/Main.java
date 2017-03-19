@@ -13,6 +13,7 @@ public class Main {
     public static void main(String[] args) {
         List<String> list = FileReader.readFile(args[0]);
         StringBuilder table = new StringBuilder();
+
         table.append(FormatInHtml.tableOpen());
 
         boolean isQuoted = false;
@@ -72,8 +73,8 @@ public class Main {
                 }
             }
         }
-
         table.append(FormatInHtml.tableClose());
+
         FileReader.writeFile(table, args[1]);
 
         if (quoteCountAll % 2 != 0) {
