@@ -34,7 +34,6 @@ public class Main {
 
                 for (int i = 0; i < e.length(); ++i) {
                     char c = e.charAt(i);
-
                     if (c == '"') {
                         if (!isQuoted) {
                             isQuoted = true;
@@ -44,6 +43,9 @@ public class Main {
                             if (quote % 2 == 0) {
                                 table.append(c);
                             }
+                            if (i == e.length() - 1) {
+                                table.append("</td></tr><br/>").append(System.lineSeparator());
+                            }
                             isQuoted = false;
                             continue;
                         }
@@ -51,17 +53,21 @@ public class Main {
 
                     if (!isQuoted) {
                         if (c == ',') {
+                            if (i == e.length() - 1) {
+                                table.append("</td></tr><br/>").append(System.lineSeparator());
+                                continue;
+                            }
                             table.append("</td><td>");
                             continue;
                         }
                     }
                     table.append(c);
-                }
-                if (!isQuoted) {
-                    table.append("</td></tr><br/>").append(System.lineSeparator());
+
+                    if (!isQuoted && i == e.length() - 1) {
+                        table.append("</td></tr><br/>").append(System.lineSeparator());
+                    }
                 }
             }
-
             table.append("  </table>").append(System.lineSeparator());
             table.append(" </body>").append(System.lineSeparator());
             table.append("</html>").append(System.lineSeparator());
