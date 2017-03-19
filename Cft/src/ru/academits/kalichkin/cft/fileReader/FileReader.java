@@ -29,6 +29,7 @@ public class FileReader {
         } catch (FileNotFoundException e) {
             System.out.printf("Файл %s не найден%n", fileName);
         }
+
         return list;
     }
 
