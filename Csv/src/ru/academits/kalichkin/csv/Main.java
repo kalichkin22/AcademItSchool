@@ -15,8 +15,8 @@ public class Main {
     private static final String TABLE = "<table bordercolor=\"black\" border=\"1\" width=\"80%\">";
     private static final String TABLE_CLOSE = "</table>";
     private static final String ROW = "<tr><td>";
-    private static final String BREAK = "<br/>";
     private static final String DETAIL = "</td><td>";
+    private static final String BREAK = "<br/>";
     private static final char SEPARATOR = ',';
     private static final char QUOTE = '"';
 
@@ -110,7 +110,7 @@ public class Main {
                     "* Если же ячейка содержит двойную кавычку, то эта кавычка дублируется.");
         } catch (IllegalArgumentException e) {
             System.out.println("Необходимо ввести два аргумента! " +
-                    "Первый аргумент имя исходного файла, второй аргумент - имя нового файла");
+                    "* Первый аргумент имя исходного файла, второй аргумент - имя нового файла");
         }
     }
 }
