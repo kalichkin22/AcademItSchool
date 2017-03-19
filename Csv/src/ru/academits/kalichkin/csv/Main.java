@@ -20,7 +20,6 @@ public class Main {
     private static final char QUOTE = '"';
 
 
-
     public static void main(String[] args) {
         List<String> list = FileReader.readFile(args[0]);
         StringBuilder table = new StringBuilder();
