@@ -21,6 +21,11 @@ public class Main {
 
 
     public static void main(String[] args) {
+        if (args.length != 2) {
+            throw new IllegalArgumentException ("Необходимо ввести два аргумента! " +
+                    "Первый аргумент имя исходного файла, второй аргумент - имя нового файла");
+        }
+
         List<String> list = FileReader.readFile(args[0]);
         StringBuilder table = new StringBuilder();
 
@@ -95,6 +100,9 @@ public class Main {
 
         if (quoteCountAll % 2 != 0) {
             System.out.println("Возможно Вы ввели лишнюю кавычку");
+            System.out.println("* Если ячейка таблицы содержит запятую или перевод строки, " + System.lineSeparator() +
+                    "* то в таком случае содержимое ячейки заключается в двойные кавычки." + System.lineSeparator() +
+                    "* Если же ячейка содержит двойную кавычку, то эта кавычка дублируется.");
         }
     }
 }
