@@ -35,19 +35,6 @@ public class Main {
                 table.append(ROW);
             }
 
-            if (e.contains("&")) {
-                e = e.replace("&", "&amp;");
-                if (e.contains("&amp;")) {
-                    e = e.replace("<", "&lt;").replace(">", "&gt;");
-                }
-            }
-            if (e.contains("<")) {
-                e = e.replace("<", "&lt;");
-            }
-            if (e.contains(">")) {
-                e = e.replace(">", "&gt;");
-            }
-
             for (int i = 0; i < e.length(); ++i) {
                 char c = e.charAt(i);
                 if (c == QUOTE) {
@@ -78,6 +65,20 @@ public class Main {
                         continue;
                     }
                 }
+
+                if (c == '<') {
+                    table.append("&lt;");
+                    continue;
+                }
+                if (c == '>') {
+                    table.append("&gt;");
+                    continue;
+                }
+                if (c == '&') {
+                    table.append("&amp;");
+                    continue;
+                }
+
                 table.append(c);
 
                 if (!isQuoted && i == e.length() - 1) {
@@ -86,6 +87,7 @@ public class Main {
                 if (isQuoted && i == e.length() - 1) {
                     table.append(" ");
                 }
+
             }
         }
         table.append(TABLE_CLOSE).append(BODY_CLOSE).append(HTML_CLOSE);
