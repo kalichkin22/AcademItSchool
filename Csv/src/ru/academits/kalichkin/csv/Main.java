@@ -36,8 +36,8 @@ public class Main {
             }
 
             if (e.contains("&")) {
-                e = e.replace("&", "&amp");
-                if (e.contains("&amp")) {
+                e = e.replace("&", "&amp;");
+                if (e.contains("&amp;")) {
                     e = e.replace("<", "&lt;").replace(">", "&gt;");
                 }
             }
