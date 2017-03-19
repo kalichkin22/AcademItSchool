@@ -28,6 +28,7 @@ public class Main {
 
         boolean isQuoted = false;
         int quoteCount = 0;
+        int quoteCountAll = 0;
 
         for (String e : list) {
             if (!isQuoted) {
@@ -49,12 +50,13 @@ public class Main {
             for (int i = 0; i < e.length(); ++i) {
                 char c = e.charAt(i);
                 if (c == QUOTE) {
+                    ++quoteCountAll;
                     if (!isQuoted) {
                         isQuoted = true;
                         continue;
                     } else {
                         ++quoteCount;
-                        if (quoteCount % 2 == 0) {
+                        if (quoteCount % 2 != 0) {
                             table.append(c);
                         }
                         if (i == e.length() - 1) {
@@ -80,6 +82,10 @@ public class Main {
                     table.append(BREAK).append(System.lineSeparator());
                 }
             }
+        }
+
+        if (quoteCountAll % 2 != 0) {
+            System.out.println("Возможно Вы ввели лишнюю кавычку");
         }
         table.append(TABLECLOSE).append(BODYCLOSE).append(HTMLCLOSE);
         FileReader.writeFile(table, args[1]);
