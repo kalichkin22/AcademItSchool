@@ -3,17 +3,28 @@ package ru.academits.kalichkin.csv;
 import java.util.List;
 
 public class Main {
+    private static final String HTML = "<html>";
+    private static final String HTMLCLOSE = "</html>";
+    private static final String HEAD = "<head>";
+    private static final String HEADCLOSE = "</head>";
+    private static final String META = "<meta charset = \"utf-8\">";
+    private static final String TITLE = "<title> Разбор формата CSV </title>";
+    private static final String BODY = "<body>";
+    private static final String BODYCLOSE = "</body>";
+    private static final String TABLE = "<table bordercolor=\"black\" border=\"1\" width=\"80%\">";
+    private static final String TABLECLOSE = "</table>";
+
     public static void main(String[] args) {
         List<String> list = FileReader.readFile(args[0]);
         StringBuilder table = new StringBuilder();
 
-        table.append("<html>").append(System.lineSeparator());
-        table.append(" <head>").append(System.lineSeparator());
-        table.append("  <meta charset = \"utf-8\">").append(System.lineSeparator());
-        table.append("  <title> Разбор формата CSV </title>").append(System.lineSeparator());
-        table.append(" </head>").append(System.lineSeparator());
-        table.append(" <body>").append(System.lineSeparator());
-        table.append("  <table bordercolor=\"black\" border=\"1\" width=\"80%\">").append(System.lineSeparator());
+        table.append(HTML).append(System.lineSeparator());
+        table.append(HEAD).append(System.lineSeparator());
+        table.append(META).append(System.lineSeparator());
+        table.append(TITLE).append(System.lineSeparator());
+        table.append(HEADCLOSE).append(System.lineSeparator());
+        table.append(BODY).append(System.lineSeparator());
+        table.append(TABLE).append(System.lineSeparator());
 
         boolean isQuoted = false;
         int quote = 0;
@@ -58,9 +69,9 @@ public class Main {
                 }
             }
         }
-        table.append("  </table>").append(System.lineSeparator());
-        table.append(" </body>").append(System.lineSeparator());
-        table.append("</html>").append(System.lineSeparator());
+        table.append(TABLECLOSE).append(System.lineSeparator());
+        table.append(BODYCLOSE).append(System.lineSeparator());
+        table.append(HTMLCLOSE).append(System.lineSeparator());
 
         FileReader.writeFile(table, args[1]);
     }

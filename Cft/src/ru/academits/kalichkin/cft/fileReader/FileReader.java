@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.util.*;
 
 public class FileReader {
-
     public static ArrayList<String> readString(String fileName) {
         ArrayList<String> list = new ArrayList<>();
         try (Scanner scanner = new Scanner(new FileInputStream(fileName))) {
