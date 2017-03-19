@@ -42,7 +42,6 @@ public class Main {
             if (e.contains("<")) {
                 e = e.replace("<", "&lt");
             }
-
             if (e.contains(">")) {
                 e = e.replace(">", "&gt");
             }
