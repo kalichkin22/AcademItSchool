@@ -48,7 +48,6 @@ public class Main {
                         if (!isQuoted) {
                             isQuoted = true;
                         } else {
-                            isQuoted = false;
                             quoteCount++;
                             if (quoteCount % 2 == 0) {
                                 table.append(c);
@@ -56,6 +55,7 @@ public class Main {
                             if (i == e.length() - 1) {
                                 table.append(BREAK).append(System.lineSeparator());
                             }
+                            isQuoted = false;
                         }
                         continue;
                     }
