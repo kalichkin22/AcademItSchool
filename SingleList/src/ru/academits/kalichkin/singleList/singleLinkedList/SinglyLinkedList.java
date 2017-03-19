@@ -14,7 +14,6 @@ public class SinglyLinkedList<T> {
         }
     }
 
-
     public int getSize() {
         return size;
     }
