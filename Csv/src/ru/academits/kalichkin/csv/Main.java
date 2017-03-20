@@ -34,7 +34,6 @@ public class Main {
 
             boolean isQuoted = false;
             int quoteCount = 0;
-            int quoteCountAll = 0;
 
             for (String e : list) {
                 if (!isQuoted) {
@@ -44,7 +43,7 @@ public class Main {
                 for (int i = 0; i < e.length(); ++i) {
                     char c = e.charAt(i);
                     if (c == QUOTE) {
-                        ++quoteCountAll;
+                        ++quoteCount;
                         if (!isQuoted) {
                             isQuoted = true;
 
@@ -54,7 +53,7 @@ public class Main {
                                 table.append(BREAK).append(System.lineSeparator());
                             }
                         }
-                        if (quoteCountAll % 2 != 0 && quoteCountAll > 2) {
+                        if (quoteCount % 2 != 0 && quoteCount > 2) {
                             table.append(c);
                         }
                         continue;
@@ -62,7 +61,7 @@ public class Main {
 
                     if (!isQuoted) {
                         if (c == SEPARATOR) {
-                            quoteCountAll = 0;
+                            quoteCount = 0;
                             if (i == e.length() - 1) {
                                 table.append(DETAIL);
                                 table.append(BREAK).append(System.lineSeparator());
@@ -100,7 +99,7 @@ public class Main {
             table.append(TABLE_CLOSE).append(BODY_CLOSE).append(HTML_CLOSE);
             FileReader.writeFile(table, args[1]);
 
-            if (quoteCountAll % 2 != 0) {
+            if (quoteCount % 2 != 0) {
                 throw new NoSuchElementException();
             }
 
