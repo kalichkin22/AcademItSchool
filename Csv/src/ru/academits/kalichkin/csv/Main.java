@@ -16,7 +16,8 @@ public class Main {
     private static final String TABLE_CLOSE = "</table>";
     private static final String ROW = "<tr><td>";
     private static final String DETAIL = "</td><td>";
-    private static final String BREAK = "<br/></td>";
+    private static final String BREAK = "<br/>";
+    private static final String DETAIL_CLOSE = "</td>";
     private static final char SEPARATOR = ',';
     private static final char QUOTE = '"';
 
@@ -48,7 +49,7 @@ public class Main {
                         } else {
                             isQuoted = false;
                             if (i == e.length() - 1) {
-                                table.append(BREAK).append(System.lineSeparator());
+                                table.append(DETAIL_CLOSE).append(System.lineSeparator());
                             }
                         }
                         if (quoteCount % 2 != 0 && quoteCount > 2) {
@@ -63,7 +64,7 @@ public class Main {
                             quoteCount = 0;
                             if (i == e.length() - 1) {
                                 table.append(DETAIL);
-                                table.append(BREAK).append(System.lineSeparator());
+                                table.append(DETAIL_CLOSE).append(System.lineSeparator());
                                 continue;
                             }
                             table.append(DETAIL);
@@ -87,10 +88,10 @@ public class Main {
                     table.append(c);
 
                     if (!isQuoted && i == e.length() - 1) {
-                        table.append(BREAK).append(System.lineSeparator());
+                        table.append(DETAIL_CLOSE).append(System.lineSeparator());
                     }
                     if (isQuoted && i == e.length() - 1) {
-                        table.append(System.lineSeparator());
+                        table.append(BREAK);
                     }
                 }
             }
