@@ -12,7 +12,7 @@ public class Main {
     private static final String TITLE = "<title> Разбор формата CSV </title>";
     private static final String BODY = "<body>";
     private static final String BODY_CLOSE = "</body>";
-    private static final String TABLE = "<table bordercolor=\"black\" border=\"1\" width=\"80%\">";
+    private static final String TABLE = "<table bordercolor=\"black\" border=\"1\" width=\"\">";
     private static final String TABLE_CLOSE = "</table>";
     private static final String ROW = "<tr><td>";
     private static final String DETAIL = "</td><td>";
@@ -45,7 +45,6 @@ public class Main {
                         ++quoteCount;
                         if (!isQuoted) {
                             isQuoted = true;
-
                         } else {
                             isQuoted = false;
                             if (i == e.length() - 1) {
@@ -92,7 +91,6 @@ public class Main {
                     if (isQuoted && i == e.length() - 1) {
                         table.append(" ");
                     }
-
                 }
             }
 
