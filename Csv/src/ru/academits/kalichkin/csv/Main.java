@@ -4,19 +4,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class Main {
-    private static final String HTML = "<html>";
-    private static final String HTML_CLOSE = "</html>";
-    private static final String HEAD = "<head>";
-    private static final String HEAD_CLOSE = "</head>";
-    private static final String META = "<meta charset=\"utf-8\">";
-    private static final String TITLE = "<title> Разбор формата CSV </title>";
-    private static final String BODY = "<body>";
-    private static final String BODY_CLOSE = "</body>";
-    private static final String TABLE = "<table bordercolor=\"black\" border=\"1\" width=\"80%\">";
-    private static final String TABLE_CLOSE = "</table>";
-    private static final String ROW = "<tr><td>";
-    private static final String DETAIL = "</td><td>";
-    private static final String BREAK = "<br/>";
     private static final char SEPARATOR = ',';
     private static final char QUOTE = '"';
 
@@ -30,14 +17,14 @@ public class Main {
             List<String> list = FileReader.readFile(args[0]);
             StringBuilder table = new StringBuilder();
 
-            table.append(HTML).append(HEAD).append(META).append(TITLE).append(HEAD_CLOSE).append(BODY).append(TABLE).append(System.lineSeparator());
+            table.append(HtmlFormatting.openTable());
 
             boolean isQuoted = false;
             int quoteCount = 0;
 
             for (String e : list) {
                 if (!isQuoted) {
-                    table.append(ROW);
+                    table.append(HtmlFormatting.getROW());
                 }
 
                 for (int i = 0; i < e.length(); ++i) {
@@ -50,7 +37,7 @@ public class Main {
                         } else {
                             isQuoted = false;
                             if (i == e.length() - 1) {
-                                table.append(BREAK).append(System.lineSeparator());
+                                table.append(HtmlFormatting.getBREAK()).append(System.lineSeparator());
                             }
                         }
                         if (quoteCount % 2 != 0 && quoteCount > 2) {
@@ -63,11 +50,11 @@ public class Main {
                         if (c == SEPARATOR) {
                             quoteCount = 0;
                             if (i == e.length() - 1) {
-                                table.append(DETAIL);
-                                table.append(BREAK).append(System.lineSeparator());
+                                table.append(HtmlFormatting.getDETAIL());
+                                table.append(HtmlFormatting.getBREAK()).append(System.lineSeparator());
                                 continue;
                             }
-                            table.append(DETAIL);
+                            table.append(HtmlFormatting.getDETAIL());
                             continue;
                         }
                     }
@@ -88,7 +75,7 @@ public class Main {
                     table.append(c);
 
                     if (!isQuoted && i == e.length() - 1) {
-                        table.append(BREAK).append(System.lineSeparator());
+                        table.append(HtmlFormatting.getBREAK()).append(System.lineSeparator());
                     }
                     if (isQuoted && i == e.length() - 1) {
                         table.append(" ");
@@ -96,7 +83,8 @@ public class Main {
 
                 }
             }
-            table.append(TABLE_CLOSE).append(BODY_CLOSE).append(HTML_CLOSE);
+
+            table.append(HtmlFormatting.closeTable());
             FileReader.writeFile(table, args[1]);
 
             if (quoteCount % 2 != 0) {
