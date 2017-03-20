@@ -47,20 +47,22 @@ public class Main {
                         ++quoteCountAll;
                         if (!isQuoted) {
                             isQuoted = true;
+
                         } else {
-                            quoteCount++;
-                            if (quoteCount % 2 == 0) {
-                                table.append(c);
-                            }
+                            isQuoted = false;
                             if (i == e.length() - 1) {
                                 table.append(BREAK).append(System.lineSeparator());
                             }
-                            isQuoted = false;
+                        }
+                        if (quoteCountAll % 2 != 0 && quoteCountAll > 2) {
+                            table.append(c);
                         }
                         continue;
                     }
+
                     if (!isQuoted) {
                         if (c == SEPARATOR) {
+                            quoteCountAll = 0;
                             if (i == e.length() - 1) {
                                 table.append(DETAIL);
                                 table.append(BREAK).append(System.lineSeparator());
