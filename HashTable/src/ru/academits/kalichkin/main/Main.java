@@ -22,6 +22,7 @@ public class Main {
         //System.out.println(table.containsAll(list));
         //System.out.println(table.addAll(list));
         //table.clear();
+
         System.out.println(table);
 
 

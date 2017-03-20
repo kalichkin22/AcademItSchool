@@ -185,7 +185,6 @@ public class HashTable<T> implements Collection<T> {
         return Arrays.toString(Arrays.copyOf(table, table.length));
     }
 
-
     private class Itr implements Iterator<T> {
         int cursor;
         int lastRet = -1;

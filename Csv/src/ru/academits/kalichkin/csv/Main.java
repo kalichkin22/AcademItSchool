@@ -16,7 +16,7 @@ public class Main {
     private static final String TABLE_CLOSE = "</table>";
     private static final String ROW = "<tr><td>";
     private static final String DETAIL = "</td><td>";
-    private static final String BREAK = "</td><br/>";
+    private static final String BREAK = "<br/></td>";
     private static final char SEPARATOR = ',';
     private static final char QUOTE = '"';
 
@@ -54,6 +54,7 @@ public class Main {
                         if (quoteCount % 2 != 0 && quoteCount > 2) {
                             table.append(c);
                         }
+
                         continue;
                     }
 
@@ -88,6 +89,9 @@ public class Main {
                     if (!isQuoted && i == e.length() - 1) {
                         table.append(BREAK).append(System.lineSeparator());
                     }
+                    if (isQuoted && i == e.length() - 1) {
+                        table.append(System.lineSeparator());
+                    }
                 }
             }
 
@@ -97,6 +101,7 @@ public class Main {
             if (quoteCount % 2 != 0) {
                 throw new LotsQuoteException();
             }
+
 
         } catch (LotsQuoteException e) {
             System.out.println("Возможно Вы ввели лишнюю кавычку" + System.lineSeparator() +
