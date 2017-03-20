@@ -92,6 +92,9 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean remove(Object o) {
+        if (o == null) {
+            throw new NullPointerException();
+        }
         int index = Math.abs(o.hashCode() % table.length);
         if (this.contains(o)) {
             table[index].remove(o);
@@ -180,7 +183,7 @@ public class HashTable<T> implements Collection<T> {
 
 
     public String toString() {
-        return Arrays.toString(Arrays.copyOf(table, table.length));
+        return Arrays.toString(table);
     }
 
     private class Itr implements Iterator<T> {
