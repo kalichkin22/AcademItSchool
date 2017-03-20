@@ -4,9 +4,23 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class Main {
+    private static final String HTML = "<html>";
+    private static final String HTML_CLOSE = "</html>";
+    private static final String HEAD = "<head>";
+    private static final String HEAD_CLOSE = "</head>";
+    private static final String META = "<meta charset=\"utf-8\">";
+    private static final String TITLE = "<title> Разбор формата CSV </title>";
+    private static final String BODY = "<body>";
+    private static final String BODY_CLOSE = "</body>";
+    private static final String TABLE = "<table bordercolor=\"black\" border=\"1\" width=\"80%\">";
+    private static final String TABLE_CLOSE = "</table>";
+    private static final String ROW = "<tr><td>";
+    private static final String DETAIL = "</td><td>";
+    private static final String BREAK = "<br/>";
     private static final char SEPARATOR = ',';
     private static final char QUOTE = '"';
-    
+
+
     public static void main(String[] args) {
         try {
             if (args.length != 2) {
@@ -15,14 +29,14 @@ public class Main {
 
             List<String> list = FileReader.readFile(args[0]);
             StringBuilder table = new StringBuilder();
-            table.append(TableFormatInHtml.openTable());
+            table.append(HTML).append(HEAD).append(META).append(TITLE).append(HEAD_CLOSE).append(BODY).append(TABLE).append(System.lineSeparator());
 
             boolean isQuoted = false;
             int quoteCount = 0;
 
             for (String e : list) {
                 if (!isQuoted) {
-                    table.append(TableFormatInHtml.getROW());
+                    table.append(ROW);
                 }
 
                 for (int i = 0; i < e.length(); ++i) {
@@ -35,7 +49,7 @@ public class Main {
                         } else {
                             isQuoted = false;
                             if (i == e.length() - 1) {
-                                table.append(TableFormatInHtml.getBREAK()).append(System.lineSeparator());
+                                table.append(BREAK).append(System.lineSeparator());
                             }
                         }
                         if (quoteCount % 2 != 0 && quoteCount > 2) {
@@ -48,11 +62,11 @@ public class Main {
                         if (c == SEPARATOR) {
                             quoteCount = 0;
                             if (i == e.length() - 1) {
-                                table.append(TableFormatInHtml.getDETAIL());
-                                table.append(TableFormatInHtml.getBREAK()).append(System.lineSeparator());
+                                table.append(DETAIL);
+                                table.append(BREAK).append(System.lineSeparator());
                                 continue;
                             }
-                            table.append(TableFormatInHtml.getDETAIL());
+                            table.append(DETAIL);
                             continue;
                         }
                     }
@@ -73,7 +87,7 @@ public class Main {
                     table.append(c);
 
                     if (!isQuoted && i == e.length() - 1) {
-                        table.append(TableFormatInHtml.getBREAK()).append(System.lineSeparator());
+                        table.append(BREAK).append(System.lineSeparator());
                     }
                     if (isQuoted && i == e.length() - 1) {
                         table.append(" ");
@@ -82,7 +96,7 @@ public class Main {
                 }
             }
 
-            table.append(TableFormatInHtml.closeTable());
+            table.append(TABLE_CLOSE).append(BODY_CLOSE).append(HTML_CLOSE);
             FileReader.writeFile(table, args[1]);
 
             if (quoteCount % 2 != 0) {
@@ -97,45 +111,6 @@ public class Main {
         } catch (IllegalArgumentException e) {
             System.out.println("Необходимо ввести два аргумента! " +
                     "* Первый аргумент имя исходного файла, второй аргумент - имя нового файла");
-        }
-    }
-
-    static class TableFormatInHtml {
-        private static final String HTML = "<html>";
-        private static final String HTML_CLOSE = "</html>";
-        private static final String HEAD = "<head>";
-        private static final String HEAD_CLOSE = "</head>";
-        private static final String META = "<meta charset=\"utf-8\">";
-        private static final String TITLE = "<title> Разбор формата CSV </title>";
-        private static final String BODY = "<body>";
-        private static final String BODY_CLOSE = "</body>";
-        private static final String TABLE = "<table bordercolor=\"black\" border=\"1\" width=\"80%\">";
-        private static final String TABLE_CLOSE = "</table>";
-        private static final String ROW = "<tr><td>";
-        private static final String DETAIL = "</td><td>";
-        private static final String BREAK = "<br/>";
-
-
-        static String getROW() {
-            return ROW;
-        }
-
-        static String getDETAIL() {
-            return DETAIL;
-        }
-
-        static String getBREAK() {
-            return BREAK;
-        }
-
-        static StringBuilder openTable() {
-            StringBuilder table = new StringBuilder();
-            return table.append(HTML).append(HEAD).append(META).append(TITLE).append(HEAD_CLOSE).append(BODY).append(TABLE).append(System.lineSeparator());
-        }
-
-        static StringBuilder closeTable() {
-            StringBuilder table = new StringBuilder();
-            return table.append(TABLE_CLOSE).append(BODY_CLOSE).append(HTML_CLOSE);
         }
     }
 }
