@@ -113,10 +113,12 @@ public class HashTable<T> implements Collection<T> {
         boolean modified = false;
         for (ArrayList<T> e : table) {
             if (e != null) {
-                for (int i = 0; i < e.size(); ++i) {
+                int i = 0;
+                while (i < e.size()) {
                     if (c.contains(e.get(i))) {
                         this.remove(e.get(i));
                     }
+                    ++i;
                 }
                 modified = true;
             }
@@ -129,11 +131,13 @@ public class HashTable<T> implements Collection<T> {
         boolean modified = false;
         for (ArrayList<T> e : table) {
             if (e != null) {
-                for (int i = 0; i < e.size(); ++i) {
+                int i = 0;
+                while (i < e.size()) {
                     if (!c.contains(e.get(i))) {
                         this.remove(e.get(i));
                         modified = true;
                     }
+                    ++i;
                 }
             }
         }
@@ -153,8 +157,11 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        for (T e : c) {
-            this.add(e);
+        ArrayList<T> list = new ArrayList<T>(c);
+        for (T e : list) {
+            if (e != null) {
+                this.add(e);
+            }
         }
         if (c.size() != 0) {
             ++modCount;
