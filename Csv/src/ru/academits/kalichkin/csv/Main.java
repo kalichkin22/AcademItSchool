@@ -16,7 +16,7 @@ public class Main {
     private static final String TABLE_CLOSE = "</table>";
     private static final String ROW = "<tr><td>";
     private static final String DETAIL = "</td><td>";
-    private static final String BREAK = "<br/>";
+    private static final String BREAK = "</td><br/>";
     private static final char SEPARATOR = ',';
     private static final char QUOTE = '"';
 
@@ -95,10 +95,10 @@ public class Main {
             FileReader.writeFile(table, args[1]);
 
             if (quoteCount % 2 != 0) {
-                throw new NoSuchElementException();
+                throw new LotsQuoteException();
             }
 
-        } catch (NoSuchElementException e) {
+        } catch (LotsQuoteException e) {
             System.out.println("Возможно Вы ввели лишнюю кавычку" + System.lineSeparator() +
                     "* Если ячейка таблицы содержит запятую или перевод строки, " + System.lineSeparator() +
                     "* то в таком случае содержимое ячейки заключается в двойные кавычки." + System.lineSeparator() +
