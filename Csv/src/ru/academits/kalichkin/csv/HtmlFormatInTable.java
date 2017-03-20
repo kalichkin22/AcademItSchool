@@ -1,6 +1,6 @@
 package ru.academits.kalichkin.csv;
 
-class HtmlFormatting {
+class HtmlFormatInTable {
     private static final String HTML = "<html>";
     private static final String HTML_CLOSE = "</html>";
     private static final String HEAD = "<head>";
