@@ -199,7 +199,7 @@ public class HashTable<T> implements Collection<T> {
             if (i >= size()) {
                 throw new NoSuchElementException();
             }
-            Object[] old = table;
+            ArrayList<T>[] old = table;
             if (i >= old.length) {
                 throw new ConcurrentModificationException();
             }
