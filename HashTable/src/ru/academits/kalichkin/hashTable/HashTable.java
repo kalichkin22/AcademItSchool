@@ -99,11 +99,10 @@ public class HashTable<T> implements Collection<T> {
         int index = Math.abs(o.hashCode() % table.length);
         if (this.contains(o)) {
             table[index].remove(o);
-
+            ++modCount;
             if (table[index].size() == 0) {
                 table[index] = null;
             }
-            ++modCount;
             return true;
         }
         return false;
@@ -117,9 +116,9 @@ public class HashTable<T> implements Collection<T> {
                 for (int i = 0; i < e.size(); ++i) {
                     if (c.contains(e.get(i))) {
                         this.remove(e.get(i));
-                        modified = true;
                     }
                 }
+                modified = true;
             }
         }
         return modified;
@@ -163,7 +162,6 @@ public class HashTable<T> implements Collection<T> {
 
         return true;
     }
-
 
     @Override
     public void clear() {
