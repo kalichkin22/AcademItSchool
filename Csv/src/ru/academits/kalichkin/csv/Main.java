@@ -17,14 +17,14 @@ public class Main {
             List<String> list = FileReader.readFile(args[0]);
             StringBuilder table = new StringBuilder();
 
-            table.append(HtmlFormatInTable.openTable());
+            table.append(TableFormatInHtml.openTable());
 
             boolean isQuoted = false;
             int quoteCount = 0;
 
             for (String e : list) {
                 if (!isQuoted) {
-                    table.append(HtmlFormatInTable.getROW());
+                    table.append(TableFormatInHtml.getROW());
                 }
 
                 for (int i = 0; i < e.length(); ++i) {
@@ -37,7 +37,7 @@ public class Main {
                         } else {
                             isQuoted = false;
                             if (i == e.length() - 1) {
-                                table.append(HtmlFormatInTable.getBREAK()).append(System.lineSeparator());
+                                table.append(TableFormatInHtml.getBREAK()).append(System.lineSeparator());
                             }
                         }
                         if (quoteCount % 2 != 0 && quoteCount > 2) {
@@ -50,11 +50,11 @@ public class Main {
                         if (c == SEPARATOR) {
                             quoteCount = 0;
                             if (i == e.length() - 1) {
-                                table.append(HtmlFormatInTable.getDETAIL());
-                                table.append(HtmlFormatInTable.getBREAK()).append(System.lineSeparator());
+                                table.append(TableFormatInHtml.getDETAIL());
+                                table.append(TableFormatInHtml.getBREAK()).append(System.lineSeparator());
                                 continue;
                             }
-                            table.append(HtmlFormatInTable.getDETAIL());
+                            table.append(TableFormatInHtml.getDETAIL());
                             continue;
                         }
                     }
@@ -75,7 +75,7 @@ public class Main {
                     table.append(c);
 
                     if (!isQuoted && i == e.length() - 1) {
-                        table.append(HtmlFormatInTable.getBREAK()).append(System.lineSeparator());
+                        table.append(TableFormatInHtml.getBREAK()).append(System.lineSeparator());
                     }
                     if (isQuoted && i == e.length() - 1) {
                         table.append(" ");
@@ -84,7 +84,7 @@ public class Main {
                 }
             }
 
-            table.append(HtmlFormatInTable.closeTable());
+            table.append(TableFormatInHtml.closeTable());
             FileReader.writeFile(table, args[1]);
 
             if (quoteCount % 2 != 0) {
