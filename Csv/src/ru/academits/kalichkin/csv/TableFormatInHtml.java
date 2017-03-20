@@ -1,6 +1,6 @@
 package ru.academits.kalichkin.csv;
 
-class TableFormatInHtml {
+final class TableFormatInHtml {
     private static final String HTML = "<html>";
     private static final String HTML_CLOSE = "</html>";
     private static final String HEAD = "<head>";
@@ -14,6 +14,7 @@ class TableFormatInHtml {
     private static final String ROW = "<tr><td>";
     private static final String DETAIL = "</td><td>";
     private static final String BREAK = "<br/>";
+
 
     static String getROW() {
         return ROW;

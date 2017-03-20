@@ -16,7 +16,6 @@ public class Main {
 
             List<String> list = FileReader.readFile(args[0]);
             StringBuilder table = new StringBuilder();
-
             table.append(TableFormatInHtml.openTable());
 
             boolean isQuoted = false;
