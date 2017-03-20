@@ -5,6 +5,7 @@ import java.util.*;
 
 public class HashTable<T> implements Collection<T> {
     private ArrayList<T>[] table;
+    private int size;
     private int modCount;
 
     @SuppressWarnings("unchecked")
@@ -13,20 +14,14 @@ public class HashTable<T> implements Collection<T> {
         for (int i = 0; i < table.length; ++i) {
             this.table[i] = null;
         }
-        Collections.addAll(this, elements);
+        for (T e : elements) {
+            this.add(e);
+        }
         ++modCount;
     }
 
     @Override
     public int size() {
-        int size = 0;
-        for (ArrayList<T> e : table) {
-            if (e != null) {
-                for (T list : e) {
-                    ++size;
-                }
-            }
-        }
         return size;
     }
 
@@ -39,6 +34,7 @@ public class HashTable<T> implements Collection<T> {
             }
         }
         table[index].add(element);
+        ++size;
         ++modCount;
         return true;
     }
@@ -103,6 +99,7 @@ public class HashTable<T> implements Collection<T> {
             if (table[index].size() == 0) {
                 table[index] = null;
             }
+            --size;
             return true;
         }
         return false;
@@ -178,6 +175,7 @@ public class HashTable<T> implements Collection<T> {
                 table[i] = null;
             }
         }
+        size = 0;
     }
 
 
