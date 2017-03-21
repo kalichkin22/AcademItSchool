@@ -88,8 +88,9 @@ public class HashTable<T> implements Collection<T> {
     }
 
 
-    @Override
 
+    @Override
+    @SuppressWarnings("SuspiciousMethodCalls")
     public boolean remove(Object o) {
         int index = Math.abs(o.hashCode() % table.length);
         if (table[index].contains(o)) {
