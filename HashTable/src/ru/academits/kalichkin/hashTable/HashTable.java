@@ -78,8 +78,10 @@ public class HashTable<T> implements Collection<T> {
         if (table[index] == null) {
             return false;
         }
-        ++modCount;
-        --size;
+        if (table[index].contains(o)) {
+            ++modCount;
+            --size;
+        }
         return table[index].remove(o);
     }
 
