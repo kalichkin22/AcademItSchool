@@ -68,12 +68,10 @@ public class HashTable<T> implements Collection<T> {
         return new Itr();
     }
 
-
     @Override
     public Object[] toArray() {
         return Arrays.copyOf(table, size());
     }
-
 
     @SuppressWarnings("unchecked")
     public <E> E[] toArray(E[] a) {
@@ -86,7 +84,6 @@ public class HashTable<T> implements Collection<T> {
         }
         return a;
     }
-
 
     @Override
     @SuppressWarnings("SuspiciousMethodCalls")
@@ -147,7 +144,6 @@ public class HashTable<T> implements Collection<T> {
         return true;
     }
 
-
     @Override
     public boolean addAll(Collection<? extends T> c) {
         ArrayList<T> list = new ArrayList<T>(c);
@@ -172,9 +168,11 @@ public class HashTable<T> implements Collection<T> {
         size = 0;
     }
 
+    @Override
     public String toString() {
         return Arrays.toString(table);
     }
+
 
     private class Itr implements Iterator<T> {
         int cursor;
