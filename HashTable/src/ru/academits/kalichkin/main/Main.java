@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        HashTable<Integer> table = new HashTable<>(1, 5, 65, 3, 6, 35, 10);
+        HashTable<Integer> table = new HashTable<>();
 
         ArrayList<Integer> list = new ArrayList<>(Arrays.asList(1, 3, 35, 65, 5, 6, 10));
 

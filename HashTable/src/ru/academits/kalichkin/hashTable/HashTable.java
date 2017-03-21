@@ -15,7 +15,6 @@ public class HashTable<T> implements Collection<T> {
             this.table[i] = null;
         }
         Collections.addAll(this, elements);
-        ++modCount;
     }
 
     private int getIndex(T element) {
