@@ -96,7 +96,7 @@ public class HashTable<T> implements Collection<T> {
     @Override
     public boolean remove(Object o) {
         int index = Math.abs(o.hashCode() % table.length);
-        if (this.contains(o)) {
+        if (table[index].contains(o)) {
             table[index].set(table[index].indexOf(o), null);
             ++modCount;
             --size;
