@@ -1,8 +1,6 @@
 package ru.academits.kalichkin.main;
 
-import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
 import ru.academits.kalichkin.hashTable.HashTable;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 

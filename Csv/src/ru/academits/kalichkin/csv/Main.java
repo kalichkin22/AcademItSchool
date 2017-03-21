@@ -17,7 +17,7 @@ public class Main {
     private static final String ROW = "<tr><td>";
     private static final String DETAIL = "</td><td>";
     private static final String BREAK = "<br/>";
-    private static final String DETAIL_CLOSE = "</td>";
+    private static final String DETAIL_CLOSE = "</td></tr>";
     private static final char SEPARATOR = ',';
     private static final char QUOTE = '"';
 
