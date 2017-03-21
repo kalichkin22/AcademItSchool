@@ -47,15 +47,7 @@ public class HashTable<T> implements Collection<T> {
     @SuppressWarnings("unchecked")
     public boolean contains(Object o) {
         int index = getIndex((T) o);
-        if (table[index] == null) {
-            return false;
-        }
-        for (int i = 0; i < table[index].size(); ++i) {
-            if (Objects.equals(table[index].get(i), o)) {
-                return true;
-            }
-        }
-        return false;
+        return table[index] != null && table[index].contains(o);
     }
 
     @Override
