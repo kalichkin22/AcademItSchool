@@ -11,9 +11,7 @@ public class HashTable<T> implements Collection<T> {
     @SuppressWarnings("unchecked")
     public HashTable(T... elements) {
         this.table = new ArrayList[16];
-        for (T e : elements) {
-            this.add(e);
-        }
+        this.addAll(Arrays.asList(elements));
     }
 
     private int getIndex(T element) {
