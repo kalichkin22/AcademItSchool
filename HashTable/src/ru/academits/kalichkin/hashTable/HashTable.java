@@ -76,6 +76,9 @@ public class HashTable<T> implements Collection<T> {
     @SuppressWarnings("unchecked")
     public boolean remove(Object o) {
         int index = getIndex((T) o);
+        if (table[index] == null) {
+            return false;
+        }
         if (table[index].contains(o)) {
             table[index].remove(o);
             if (table[index].size() == 0) {
