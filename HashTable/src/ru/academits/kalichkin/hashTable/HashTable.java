@@ -78,13 +78,9 @@ public class HashTable<T> implements Collection<T> {
         if (table[index] == null) {
             return false;
         }
-        if (table[index].contains(o)) {
-            table[index].remove(o);
-            ++modCount;
-            --size;
-            return true;
-        }
-        return false;
+        ++modCount;
+        --size;
+        return table[index].remove(o);
     }
 
     @Override
