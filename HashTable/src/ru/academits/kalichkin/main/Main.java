@@ -13,8 +13,9 @@ public class Main {
 
         ArrayList<Integer> list = new ArrayList<>(Arrays.asList(1, 3, 35));
 
+
         //System.out.println(table.contains(9));
-        System.out.println(table.removeAll(list));
+       // System.out.println(table.removeAll(list));
         //System.out.println(table.remove(5));
         //System.out.println(table.retainAll(list));
         //System.out.println(table.containsAll(list));
@@ -22,11 +23,7 @@ public class Main {
         //table.clear();
         //System.out.println(table.size());
 
-        table.add(3);
-
-
         System.out.println(table);
-        // System.out.println(list);
 
 
     }
