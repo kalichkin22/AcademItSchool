@@ -31,7 +31,11 @@ public class HashTable<T> implements Collection<T> {
                 table[index] = new ArrayList<>();
             }
         }
-        table[index].add(element);
+        if (table[index].contains(null)) {
+            table[index].set(table[index].indexOf(null), element);
+        } else {
+            table[index].add(element);
+        }
         ++size;
         ++modCount;
         return true;
