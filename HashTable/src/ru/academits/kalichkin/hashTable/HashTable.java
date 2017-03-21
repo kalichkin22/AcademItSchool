@@ -158,10 +158,12 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public void clear() {
-        if (table != null) {
-            ++modCount;
-            for (int i = 0; i < table.length; i++) {
-                table[i] = null;
+        for (ArrayList<T> e : table) {
+            if (e != null) {
+                ++modCount;
+                for (int i = 0; i < table.length; i++) {
+                    table[i] = null;
+                }
             }
         }
         size = 0;
