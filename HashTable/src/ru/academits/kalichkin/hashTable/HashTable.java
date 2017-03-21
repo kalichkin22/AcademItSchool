@@ -106,6 +106,7 @@ public class HashTable<T> implements Collection<T> {
                     if (c.contains(e.get(i))) {
                         this.remove(e.get(i));
                         modified = true;
+                        continue;
                     }
                     i++;
                 }
@@ -124,6 +125,7 @@ public class HashTable<T> implements Collection<T> {
                     if (!c.contains(e.get(i))) {
                         this.remove(e.get(i));
                         modified = true;
+                        continue;
                     }
                     i++;
                 }
