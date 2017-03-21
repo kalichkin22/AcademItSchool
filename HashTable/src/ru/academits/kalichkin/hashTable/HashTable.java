@@ -11,14 +11,13 @@ public class HashTable<T> implements Collection<T> {
     @SuppressWarnings("unchecked")
     public HashTable(T... elements) {
         this.table = new ArrayList[16];
-        for (int i = 0; i < table.length; ++i) {
-            this.table[i] = null;
+        for (T e : elements) {
+            this.add(e);
         }
-        Collections.addAll(this, elements);
     }
 
     private int getIndex(T element) {
-        return Math.abs(element.hashCode() % table.length);
+        return Math.abs((element != null ? element.hashCode() : 0) % table.length);
     }
 
     @Override
@@ -29,16 +28,10 @@ public class HashTable<T> implements Collection<T> {
     @Override
     public boolean add(T element) {
         int index = getIndex(element);
-        for (int i = 0; i < table.length; ++i) {
-            if (table[index] == null) {
-                table[index] = new ArrayList<>();
-            }
+        if (table[index] == null) {
+            table[index] = new ArrayList<>();
         }
-        if (table[index].contains(null)) {
-            table[index].set(table[index].indexOf(null), element);
-        } else {
-            table[index].add(element);
-        }
+        table[index].add(element);
         ++size;
         ++modCount;
         return true;
@@ -54,10 +47,8 @@ public class HashTable<T> implements Collection<T> {
     @SuppressWarnings("unchecked")
     public boolean contains(Object o) {
         int index = getIndex((T) o);
-        for (ArrayList<T> e : table) {
-            if (table[index] == null) {
-                return false;
-            }
+        if (table[index] == null) {
+            return false;
         }
         for (int i = 0; i < table[index].size(); ++i) {
             if (Objects.equals(table[index].get(i), o)) {
@@ -94,7 +85,10 @@ public class HashTable<T> implements Collection<T> {
     public boolean remove(Object o) {
         int index = getIndex((T) o);
         if (table[index].contains(o)) {
-            table[index].set(table[index].indexOf(o), null);
+            table[index].remove(o);
+            if (table[index].size() == 0) {
+                table[index] = null;
+            }
             ++modCount;
             --size;
             return true;
@@ -107,11 +101,13 @@ public class HashTable<T> implements Collection<T> {
         boolean modified = false;
         for (ArrayList<T> e : table) {
             if (e != null) {
-                for (T listE : e) {
-                    if (c.contains(listE)) {
-                        this.remove(listE);
+                int i = 0;
+                while (i < e.size()) {
+                    if (c.contains(e.get(i))) {
+                        this.remove(e.get(i));
                         modified = true;
                     }
+                    i++;
                 }
             }
         }
@@ -123,11 +119,13 @@ public class HashTable<T> implements Collection<T> {
         boolean modified = false;
         for (ArrayList<T> e : table) {
             if (e != null) {
-                for (T listE : e) {
-                    if (!c.contains(listE)) {
-                        this.remove(listE);
+                int i = 0;
+                while (i < e.size()) {
+                    if (!c.contains(e.get(i))) {
+                        this.remove(e.get(i));
                         modified = true;
                     }
+                    i++;
                 }
             }
         }
