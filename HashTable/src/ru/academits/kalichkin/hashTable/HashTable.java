@@ -81,9 +81,6 @@ public class HashTable<T> implements Collection<T> {
         }
         if (table[index].contains(o)) {
             table[index].remove(o);
-            if (table[index].size() == 0) {
-                table[index] = null;
-            }
             ++modCount;
             --size;
             return true;
@@ -96,33 +93,24 @@ public class HashTable<T> implements Collection<T> {
         boolean modified = false;
         for (ArrayList<T> e : table) {
             if (e != null) {
-                int i = 0;
-                while (i < e.size()) {
-                    if (c.contains(e.get(i))) {
-                        this.remove(e.get(i));
-                        modified = true;
-                        continue;
-                    }
-                    i++;
+                if (c.containsAll(e)) {
+                    e.removeAll(c);
+                    modified = true;
                 }
             }
         }
         return modified;
     }
 
+
     @Override
     public boolean retainAll(Collection<?> c) {
         boolean modified = false;
         for (ArrayList<T> e : table) {
             if (e != null) {
-                int i = 0;
-                while (i < e.size()) {
-                    if (!c.contains(e.get(i))) {
-                        this.remove(e.get(i));
-                        modified = true;
-                        continue;
-                    }
-                    i++;
+                if (!c.containsAll(e)) {
+                    e.retainAll(c);
+                    modified = true;
                 }
             }
         }

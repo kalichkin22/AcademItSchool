@@ -16,7 +16,7 @@ public class Main {
         //System.out.println(table.contains(3));
         //System.out.println(table.removeAll(list));
         //System.out.println(table.remove(null));
-        //System.out.println(table.retainAll(list));
+        System.out.println(table.retainAll(list));
         //System.out.println(table.containsAll(list));
         //System.out.println(table.addAll(list));
         //table.clear();
