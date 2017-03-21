@@ -18,6 +18,10 @@ public class HashTable<T> implements Collection<T> {
         ++modCount;
     }
 
+    private int getIndex (T element) {
+        return  Math.abs(element.hashCode() % table.length);
+    }
+
     @Override
     public int size() {
         return size;
@@ -25,7 +29,7 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean add(T element) {
-        int index = Math.abs(element.hashCode() % table.length);
+        int index = getIndex(element);
         for (int i = 0; i < table.length; ++i) {
             if (table[index] == null) {
                 table[index] = new ArrayList<>();
@@ -52,8 +56,9 @@ public class HashTable<T> implements Collection<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public boolean contains(Object o) {
-        int index = Math.abs(o.hashCode() % table.length);
+        int index = getIndex((T)o);
         for (ArrayList<T> e : table) {
             if (table[index] == null) {
                 return false;
@@ -90,9 +95,9 @@ public class HashTable<T> implements Collection<T> {
     }
 
     @Override
-    @SuppressWarnings("SuspiciousMethodCalls")
+    @SuppressWarnings("unchecked")
     public boolean remove(Object o) {
-        int index = Math.abs(o.hashCode() % table.length);
+        int index = getIndex((T)o);
         if (table[index].contains(o)) {
             table[index].set(table[index].indexOf(o), null);
             ++modCount;
