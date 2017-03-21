@@ -91,10 +91,8 @@ public class HashTable<T> implements Collection<T> {
         boolean modified = false;
         for (ArrayList<T> e : table) {
             if (e != null) {
-                if (c.containsAll(e)) {
-                    e.removeAll(c);
-                    modified = true;
-                }
+                e.removeAll(c);
+                modified = true;
             }
         }
         return modified;
