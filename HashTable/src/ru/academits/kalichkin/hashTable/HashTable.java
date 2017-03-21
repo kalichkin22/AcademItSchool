@@ -50,6 +50,7 @@ public class HashTable<T> implements Collection<T> {
         return size == 0;
     }
 
+
     @Override
     @SuppressWarnings("unchecked")
     public boolean contains(Object o) {
