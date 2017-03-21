@@ -157,7 +157,7 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public void clear() {
-        if (size() != 0) {
+        if (table != null) {
             ++modCount;
             for (int i = 0; i < table.length; i++) {
                 table[i] = null;
@@ -170,7 +170,6 @@ public class HashTable<T> implements Collection<T> {
     public String toString() {
         return Arrays.toString(table);
     }
-
 
     private class Itr implements Iterator<T> {
         int cursor;
