@@ -10,11 +10,6 @@ public class HashTable<T> implements Collection<T> {
 
     @SuppressWarnings("unchecked")
     public HashTable(T... elements) {
-        for (T e : elements) {
-            if (e == null) {
-                throw new NullPointerException();
-            }
-        }
         this.table = new ArrayList[16];
         for (int i = 0; i < table.length; ++i) {
             this.table[i] = null;
@@ -94,6 +89,7 @@ public class HashTable<T> implements Collection<T> {
 
 
     @Override
+
     public boolean remove(Object o) {
         int index = Math.abs(o.hashCode() % table.length);
         if (table[index].contains(o)) {
