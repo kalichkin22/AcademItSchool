@@ -152,7 +152,6 @@ public class HashTable<T> implements Collection<T> {
         if (c.size() != 0) {
             ++modCount;
         }
-
         return true;
     }
 
