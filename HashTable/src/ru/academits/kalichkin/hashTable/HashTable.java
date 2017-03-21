@@ -179,7 +179,7 @@ public class HashTable<T> implements Collection<T> {
 
         @Override
         public boolean hasNext() {
-            return cursor != size();
+            return cursor != size;
         }
 
         @Override
@@ -187,7 +187,7 @@ public class HashTable<T> implements Collection<T> {
         public T next() {
             checkForModification();
             int i = cursor;
-            if (i >= size()) {
+            if (i >= size) {
                 throw new NoSuchElementException();
             }
             ArrayList<T>[] old = table;
