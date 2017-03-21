@@ -58,6 +58,7 @@ public class HashTable<T> implements Collection<T> {
         return Arrays.copyOf(table, size());
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public <E> E[] toArray(E[] a) {
         for (ArrayList<T> e : table) {
