@@ -64,8 +64,8 @@ public class HashTable<T> implements Collection<T> {
     public <E> E[] toArray(E[] a) {
         for (ArrayList<T> e : table) {
             if (e != null) {
-                for (int j = 0; j < e.size(); ++j) {
-                    a[j] = (E) e.get(j);
+                for (int i = 0; i < e.size(); ++i) {
+                    a[i] = (E) e.get(i);
                 }
             }
         }
