@@ -10,6 +10,11 @@ public class HashTable<T> implements Collection<T> {
 
     @SuppressWarnings("unchecked")
     public HashTable(T... elements) {
+        for (T e : elements) {
+            if (e == null) {
+                throw new NullPointerException();
+            }
+        }
         this.table = new ArrayList[16];
         for (int i = 0; i < table.length; ++i) {
             this.table[i] = null;
@@ -25,9 +30,6 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean add(T element) {
-        if (element == (T) null) {
-            throw new NullPointerException();
-        }
         int index = Math.abs(element.hashCode() % table.length);
         for (int i = 0; i < table.length; ++i) {
             if (table[index] == null) {
@@ -155,9 +157,7 @@ public class HashTable<T> implements Collection<T> {
     public boolean addAll(Collection<? extends T> c) {
         ArrayList<T> list = new ArrayList<T>(c);
         for (T e : list) {
-            if (e != null) {
                 this.add(e);
-            }
         }
         if (c.size() != 0) {
             ++modCount;
