@@ -14,9 +14,7 @@ public class HashTable<T> implements Collection<T> {
         for (int i = 0; i < table.length; ++i) {
             this.table[i] = null;
         }
-        for (T e : elements) {
-            this.add(e);
-        }
+        Collections.addAll(this, elements);
         ++modCount;
     }
 
@@ -27,6 +25,9 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean add(T element) {
+        if (element == (T) null) {
+            throw new NullPointerException();
+        }
         int index = Math.abs(element.hashCode() % table.length);
         for (int i = 0; i < table.length; ++i) {
             if (table[index] == null) {
@@ -92,16 +93,11 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean remove(Object o) {
-        if (o == null) {
-            throw new NullPointerException();
-        }
         int index = Math.abs(o.hashCode() % table.length);
         if (this.contains(o)) {
             table[index].remove(o);
             ++modCount;
-            if (table[index].size() == 0) {
-                table[index] = null;
-            }
+
             --size;
             return true;
         }
@@ -180,7 +176,6 @@ public class HashTable<T> implements Collection<T> {
         }
         size = 0;
     }
-
 
     public String toString() {
         return Arrays.toString(table);
