@@ -146,8 +146,7 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        ArrayList<T> list = new ArrayList<T>(c);
-        for (T e : list) {
+        for (T e : c) {
             this.add(e);
         }
         if (c.size() != 0) {
