@@ -18,8 +18,8 @@ public class HashTable<T> implements Collection<T> {
         ++modCount;
     }
 
-    private int getIndex (T element) {
-        return  Math.abs(element.hashCode() % table.length);
+    private int getIndex(T element) {
+        return Math.abs(element.hashCode() % table.length);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class HashTable<T> implements Collection<T> {
     @Override
     @SuppressWarnings("unchecked")
     public boolean contains(Object o) {
-        int index = getIndex((T)o);
+        int index = getIndex((T) o);
         for (ArrayList<T> e : table) {
             if (table[index] == null) {
                 return false;
@@ -92,7 +92,7 @@ public class HashTable<T> implements Collection<T> {
     @Override
     @SuppressWarnings("unchecked")
     public boolean remove(Object o) {
-        int index = getIndex((T)o);
+        int index = getIndex((T) o);
         if (table[index].contains(o)) {
             table[index].set(table[index].indexOf(o), null);
             ++modCount;
@@ -107,13 +107,11 @@ public class HashTable<T> implements Collection<T> {
         boolean modified = false;
         for (ArrayList<T> e : table) {
             if (e != null) {
-                int i = 0;
-                while (i < e.size()) {
-                    if (c.contains(e.get(i))) {
-                        this.remove(e.get(i));
+                for (T listE : e) {
+                    if (c.contains(listE)) {
+                        this.remove(listE);
                         modified = true;
                     }
-                    ++i;
                 }
             }
         }
@@ -125,13 +123,11 @@ public class HashTable<T> implements Collection<T> {
         boolean modified = false;
         for (ArrayList<T> e : table) {
             if (e != null) {
-                int i = 0;
-                while (i < e.size()) {
-                    if (!c.contains(e.get(i))) {
-                        this.remove(e.get(i));
+                for (T listE : e) {
+                    if (!c.contains(listE)) {
+                        this.remove(listE);
                         modified = true;
                     }
-                    ++i;
                 }
             }
         }
