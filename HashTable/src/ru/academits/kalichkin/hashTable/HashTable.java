@@ -88,7 +88,6 @@ public class HashTable<T> implements Collection<T> {
     }
 
 
-
     @Override
     @SuppressWarnings("SuspiciousMethodCalls")
     public boolean remove(Object o) {
@@ -153,7 +152,7 @@ public class HashTable<T> implements Collection<T> {
     public boolean addAll(Collection<? extends T> c) {
         ArrayList<T> list = new ArrayList<T>(c);
         for (T e : list) {
-                this.add(e);
+            this.add(e);
         }
         if (c.size() != 0) {
             ++modCount;
