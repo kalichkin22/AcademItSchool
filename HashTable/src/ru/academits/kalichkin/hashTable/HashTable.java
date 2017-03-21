@@ -56,7 +56,7 @@ public class HashTable<T> implements Collection<T> {
             }
         }
         for (int i = 0; i < table[index].size(); ++i) {
-            if (table[index].get(i).equals(o)) {
+            if (Objects.equals(table[index].get(i), o)) {
                 return true;
             }
         }
