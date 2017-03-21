@@ -47,12 +47,7 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean isEmpty() {
-        for (ArrayList<T> e : table) {
-            if (e != null) {
-                return false;
-            }
-        }
-        return true;
+        return size == 0;
     }
 
     @Override
