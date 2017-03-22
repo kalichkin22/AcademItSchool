@@ -72,9 +72,9 @@ public class HashTable<T> implements Collection<T> {
     @SuppressWarnings({"unchecked", "SuspiciousSystemArraycopy"})
     public <E> E[] toArray(E[] a) {
         if (a.length < size) {
-            return (E[]) Arrays.copyOf(toList().toArray(), size, a.getClass());
+            return (E[]) Arrays.copyOf(this.toArray(), size, a.getClass());
         }
-        System.arraycopy(toList().toArray(), 0, a, 0, toList().size());
+        System.arraycopy(this.toArray(), 0, a, 0, size);
         if (a.length > size) {
             a[size] = null;
         }

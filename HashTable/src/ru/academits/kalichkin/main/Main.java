@@ -24,9 +24,9 @@ public class Main {
         //table.clear();
 
 
-        Object[] a = table.toArray();
+        Integer [] a = table.toArray(new Integer[table.size()]);
 
-        for (Object e : a) {
+        for (Integer e: a) {
             System.out.println(e);
         }
 /*
