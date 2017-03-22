@@ -1,7 +1,6 @@
 package ru.academits.kalichkin.hashTable;
 
 import java.util.*;
-import java.util.function.Consumer;
 
 
 public class HashTable<T> implements Collection<T> {
@@ -31,8 +30,8 @@ public class HashTable<T> implements Collection<T> {
             table[index] = new ArrayList<>();
         }
         table[index].add(element);
-        ++size;
-        ++modCount;
+        size++;
+        modCount++;
         return true;
     }
 
@@ -54,20 +53,33 @@ public class HashTable<T> implements Collection<T> {
         return new Itr();
     }
 
+
     @Override
     public Object[] toArray() {
-        return Arrays.copyOf(table, size());
+        ArrayList<T> newList = new ArrayList<>();
+        for (ArrayList<T> e : table) {
+            if (e != null) {
+                newList.addAll(e);
+            }
+        }
+        return Arrays.copyOf(newList.toArray(), newList.size());
     }
 
     @Override
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "SuspiciousSystemArraycopy"})
     public <E> E[] toArray(E[] a) {
+        ArrayList<T> newList = new ArrayList<>();
         for (ArrayList<T> e : table) {
             if (e != null) {
-                for (int i = 0; i < e.size(); ++i) {
-                    a[i] = (E) e.get(i);
-                }
+                newList.addAll(e);
             }
+        }
+        if (a.length < newList.size()) {
+            return (E[]) Arrays.copyOf(newList.toArray(), newList.size(), a.getClass());
+        }
+        System.arraycopy(newList.toArray(), 0, a, 0, newList.size());
+        if (a.length > newList.size()) {
+            a[newList.size()] = null;
         }
         return a;
     }
@@ -81,8 +93,8 @@ public class HashTable<T> implements Collection<T> {
         }
 
         if (table[index].remove(o)) {
-            ++modCount;
-            --size;
+            modCount++;
+            size--;
             return true;
         }
         return false;
@@ -93,12 +105,11 @@ public class HashTable<T> implements Collection<T> {
         boolean modified = false;
         for (ArrayList<T> e : table) {
             if (e != null) {
-                e.removeAll(c);
+                if (e.removeAll(c)) {
+                    modCount++;
+                }
                 modified = true;
             }
-        }
-        if (c.size() != 0) {
-            ++modCount;
         }
         return modified;
     }
@@ -109,12 +120,11 @@ public class HashTable<T> implements Collection<T> {
         boolean modified = false;
         for (ArrayList<T> e : table) {
             if (e != null) {
-                e.retainAll(c);
+                if (e.retainAll(c)) {
+                    modCount++;
+                }
                 modified = true;
             }
-        }
-        if (c.size() != 0) {
-            ++modCount;
         }
         return modified;
     }
@@ -135,9 +145,9 @@ public class HashTable<T> implements Collection<T> {
             this.add(e);
         }
         if (c.size() != 0) {
-            ++modCount;
+            modCount++;
         }
-        return true;
+        return c.size() != 0;
     }
 
     @Override
