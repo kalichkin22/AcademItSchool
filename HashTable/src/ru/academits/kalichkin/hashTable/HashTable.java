@@ -171,7 +171,7 @@ public class HashTable<T> implements Collection<T> {
 
     private class Itr implements Iterator<T> {
         int cursor;
-        int lastRet = 0;
+        int index = 0;
         int estimatedModCount = modCount;
 
         @Override
@@ -199,10 +199,10 @@ public class HashTable<T> implements Collection<T> {
                 throw new ConcurrentModificationException();
             }
 
-            lastRet = i;
+            index = i;
             cursor = i + 1;
 
-            return old.get(lastRet);
+            return old.get(index);
         }
 
         final void checkForModification() {
