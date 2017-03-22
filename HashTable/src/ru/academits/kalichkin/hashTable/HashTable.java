@@ -71,11 +71,11 @@ public class HashTable<T> implements Collection<T> {
     @Override
     @SuppressWarnings({"unchecked", "SuspiciousSystemArraycopy"})
     public <E> E[] toArray(E[] a) {
-        if (a.length <= size) {
+        if (a.length < size) {
             return (E[]) Arrays.copyOf(this.toArray(), size, a.getClass());
         }
         System.arraycopy(this.toArray(), 0, a, 0, size);
-        if (a.length < size) {
+        if (a.length > size) {
             a[size] = null;
         }
         return a;
