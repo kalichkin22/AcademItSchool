@@ -71,7 +71,7 @@ public class HashTable<T> implements Collection<T> {
     @Override
     @SuppressWarnings({"unchecked", "SuspiciousSystemArraycopy"})
     public <E> E[] toArray(E[] a) {
-        if (a.length < size) {
+        if (a.length <= size) {
             return (E[]) Arrays.copyOf(this.toArray(), size, a.getClass());
         }
         System.arraycopy(this.toArray(), 0, a, 0, size);
@@ -101,17 +101,16 @@ public class HashTable<T> implements Collection<T> {
     @SuppressWarnings("SuspiciousMethodCalls")
     public boolean removeAll(Collection<?> c) {
         boolean modified = false;
+        int listsSize = 0;
         for (ArrayList<T> e : table) {
             if (e != null) {
-                for (Object ec : c) {
-                    if (e.remove(ec)) {
-                        size--;
-                        modCount++;
-                        modified = true;
-                    }
-                }
+                e.removeAll(c);
+                listsSize += e.size();
+                modified = true;
             }
         }
+        size = listsSize;
+        modCount = modCount + (size - listsSize);
         return modified;
     }
 
@@ -119,19 +118,16 @@ public class HashTable<T> implements Collection<T> {
     @Override
     public boolean retainAll(Collection<?> c) {
         boolean modified = false;
+        int listsSize = 0;
         for (ArrayList<T> e : table) {
             if (e != null) {
-                for (int i = 0; i < e.size(); ++i) {
-                    if (!c.contains(e.get(i))) {
-                        e.remove(e.get(i));
-                        --i;
-                        size--;
-                        modCount++;
-                        modified = true;
-                    }
-                }
+                e.retainAll(c);
+                listsSize += e.size();
+                modified = true;
             }
         }
+        size = listsSize;
+        modCount = modCount + (size - listsSize);
         return modified;
     }
 
@@ -191,13 +187,13 @@ public class HashTable<T> implements Collection<T> {
             if (i >= size) {
                 throw new NoSuchElementException();
             }
-            Object [] old = HashTable.this.toArray();
+            Object[] old = HashTable.this.toArray();
             if (i >= size) {
                 throw new ConcurrentModificationException();
             }
             cursor = i + 1;
             lastRet = i;
-            return (T)old[lastRet];
+            return (T) old[lastRet];
         }
 
         final void checkForModification() {
