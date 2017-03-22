@@ -65,16 +65,16 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public Object[] toArray() {
-        return Arrays.copyOf(toList().toArray(), size);
+        return Arrays.copyOf(toList().toArray(), toList().size());
     }
 
     @Override
     @SuppressWarnings({"unchecked", "SuspiciousSystemArraycopy"})
     public <E> E[] toArray(E[] a) {
-        if (a.length < size) {
-            return (E[]) Arrays.copyOf(this.toArray(), size, a.getClass());
+        if (a.length <= size) {
+            return (E[]) Arrays.copyOf(toList().toArray(), toList().size(), a.getClass());
         }
-        System.arraycopy(this.toArray(), 0, a, 0, size);
+        System.arraycopy(toList().toArray(), 0, a, 0, toList().size());
         if (a.length > size) {
             a[size] = null;
         }
@@ -104,7 +104,7 @@ public class HashTable<T> implements Collection<T> {
             if (e != null) {
                 if (e.removeAll(c)) {
                     modCount++;
-                    --size;
+                    size--;
                 }
                 modified = true;
             }
@@ -120,7 +120,7 @@ public class HashTable<T> implements Collection<T> {
             if (e != null) {
                 if (e.retainAll(c)) {
                     modCount++;
-                    --size;
+                    size--;
                 }
                 modified = true;
             }
