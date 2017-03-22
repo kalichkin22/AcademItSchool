@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
         HashTable<Integer> table = new HashTable<>(1, 5, 65, 3, 6, 35, null, null, 10);
 
-        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(null, 6, 35, 88));
+        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(null, 6, 35, 65));
 
 
         //System.out.println(table.contains(7));
@@ -38,7 +38,7 @@ public class Main {
 */
         System.out.println(table.size());
 
-        //System.out.println(table);
+   //     System.out.println(table);
 
 
     }

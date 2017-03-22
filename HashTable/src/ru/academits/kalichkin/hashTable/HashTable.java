@@ -98,13 +98,16 @@ public class HashTable<T> implements Collection<T> {
     }
 
     @Override
+    @SuppressWarnings("SuspiciousMethodCalls")
     public boolean removeAll(Collection<?> c) {
         boolean modified = false;
         for (ArrayList<T> e : table) {
             if (e != null) {
-                if (e.removeAll(c)) {
-                    modCount++;
-                    size--;
+                for(Object ec: c) {
+                    if (e.remove(ec)) {
+                        size--;
+                        modCount++;
+                    }
                 }
                 modified = true;
             }
