@@ -171,7 +171,6 @@ public class HashTable<T> implements Collection<T> {
 
     private class Itr implements Iterator<T> {
         int cursor;
-        int index = 0;
         int estimatedModCount = modCount;
 
         @Override
@@ -184,6 +183,7 @@ public class HashTable<T> implements Collection<T> {
         public T next() {
             checkForModification();
             int i = cursor;
+            int index;
             if (i >= size) {
                 throw new NoSuchElementException();
             }
