@@ -1,6 +1,7 @@
 package ru.academits.kalichkin.hashTable;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 
 public class HashTable<T> implements Collection<T> {
@@ -78,11 +79,13 @@ public class HashTable<T> implements Collection<T> {
         if (table[index] == null) {
             return false;
         }
-        if (table[index].contains(o)) {
+
+        if (table[index].remove(o)) {
             ++modCount;
             --size;
+            return true;
         }
-        return table[index].remove(o);
+        return false;
     }
 
     @Override
@@ -93,6 +96,9 @@ public class HashTable<T> implements Collection<T> {
                 e.removeAll(c);
                 modified = true;
             }
+        }
+        if (c.size() != 0) {
+            ++modCount;
         }
         return modified;
     }
@@ -106,6 +112,9 @@ public class HashTable<T> implements Collection<T> {
                 e.retainAll(c);
                 modified = true;
             }
+        }
+        if (c.size() != 0) {
+            ++modCount;
         }
         return modified;
     }
@@ -154,7 +163,7 @@ public class HashTable<T> implements Collection<T> {
 
         @Override
         public boolean hasNext() {
-            return cursor != size;
+            return cursor != table.length;
         }
 
         @Override
@@ -162,7 +171,7 @@ public class HashTable<T> implements Collection<T> {
         public T next() {
             checkForModification();
             int i = cursor;
-            if (i >= size) {
+            if (i >= table.length) {
                 throw new NoSuchElementException();
             }
             ArrayList<T>[] old = table;
