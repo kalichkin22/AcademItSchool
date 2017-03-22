@@ -101,16 +101,16 @@ public class HashTable<T> implements Collection<T> {
     @SuppressWarnings("SuspiciousMethodCalls")
     public boolean removeAll(Collection<?> c) {
         boolean modified = false;
-        int listsSize = 0;
+        int newSize = 0;
         for (ArrayList<T> e : table) {
             if (e != null) {
                 e.removeAll(c);
-                listsSize += e.size();
+                newSize += e.size();
                 modified = true;
             }
         }
-        size = listsSize;
-        modCount = modCount + (size - listsSize);
+        size = newSize;
+        modCount = modCount + (size - newSize);
         return modified;
     }
 
@@ -118,16 +118,16 @@ public class HashTable<T> implements Collection<T> {
     @Override
     public boolean retainAll(Collection<?> c) {
         boolean modified = false;
-        int listsSize = 0;
+        int newSize = 0;
         for (ArrayList<T> e : table) {
             if (e != null) {
                 e.retainAll(c);
-                listsSize += e.size();
+                newSize += e.size();
                 modified = true;
             }
         }
-        size = listsSize;
-        modCount = modCount + (size - listsSize);
+        size = newSize;
+        modCount = modCount + (size - newSize);
         return modified;
     }
 
