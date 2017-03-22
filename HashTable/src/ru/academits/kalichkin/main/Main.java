@@ -17,15 +17,17 @@ public class Main {
         //System.out.println(table.contains(7));
         //System.out.println(table.removeAll(list));
         //System.out.println(table.remove(5));
-        System.out.println(table.retainAll(list));
+        //System.out.println(table.retainAll(list));
         //System.out.println(table.containsAll(list));
         //System.out.println(table.addAll(list));
         //table.clear();
-        System.out.println(table.size());
+        //System.out.println(table.size());
 
+      for (Integer e: table) {
+          System.out.println(e);
+      }
 
-
-        System.out.println(table);
+        //System.out.println(table);
 
     }
 }

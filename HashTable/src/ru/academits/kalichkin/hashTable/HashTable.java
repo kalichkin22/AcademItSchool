@@ -180,7 +180,7 @@ public class HashTable<T> implements Collection<T> {
 
         @Override
         public boolean hasNext() {
-            return cursor != table.length;
+            return cursor != size;
         }
 
         @Override
@@ -191,13 +191,13 @@ public class HashTable<T> implements Collection<T> {
             if (i >= table.length) {
                 throw new NoSuchElementException();
             }
-            ArrayList<T>[] old = table;
-            if (i >= old.length) {
+            Object [] old = HashTable.this.toArray();
+            if (i >= size) {
                 throw new ConcurrentModificationException();
             }
             cursor = i + 1;
             lastRet = i;
-            return (T) old[lastRet];
+            return (T)old[lastRet];
         }
 
         final void checkForModification() {
