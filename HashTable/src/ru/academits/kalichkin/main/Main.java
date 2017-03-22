@@ -24,12 +24,18 @@ public class Main {
         //table.clear();
 
 
+        Object[] a = table.toArray();
+
+        for (Object e : a) {
+            System.out.println(e);
+        }
+/*
         Iterator<Integer> iterator = table.iterator();
 
         while (iterator.hasNext()) {
             System.out.println(iterator.next());
         }
-
+*/
         //System.out.println(table.size());
 
         //System.out.println(table);

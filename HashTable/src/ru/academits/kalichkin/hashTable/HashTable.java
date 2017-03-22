@@ -53,7 +53,6 @@ public class HashTable<T> implements Collection<T> {
         return new Itr();
     }
 
-
     private List<T> toList() {
         ArrayList<T> newList = new ArrayList<>();
         for (ArrayList<T> e : table) {
@@ -66,7 +65,7 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public Object[] toArray() {
-        return Arrays.copyOf(toList().toArray(), toList().size());
+        return Arrays.copyOf(toList().toArray(), size);
     }
 
     @Override
@@ -105,6 +104,7 @@ public class HashTable<T> implements Collection<T> {
             if (e != null) {
                 if (e.removeAll(c)) {
                     modCount++;
+                    --size;
                 }
                 modified = true;
             }
@@ -120,6 +120,7 @@ public class HashTable<T> implements Collection<T> {
             if (e != null) {
                 if (e.retainAll(c)) {
                     modCount++;
+                    --size;
                 }
                 modified = true;
             }
