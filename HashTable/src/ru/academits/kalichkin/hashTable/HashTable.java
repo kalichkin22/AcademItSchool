@@ -188,7 +188,7 @@ public class HashTable<T> implements Collection<T> {
         public T next() {
             checkForModification();
             int i = cursor;
-            if (i >= table.length) {
+            if (i >= size) {
                 throw new NoSuchElementException();
             }
             Object [] old = HashTable.this.toArray();
