@@ -125,7 +125,7 @@ public class HashTable<T> implements Collection<T> {
                     if (!c.contains(e.get(i))) {
                         e.remove(e.get(i));
                         --i;
-                        size++;
+                        size--;
                         modCount++;
                         modified = true;
                     }
