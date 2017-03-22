@@ -24,7 +24,6 @@ public class Main {
         //table.clear();
 
 
-
         Iterator<Integer> iterator = table.iterator();
 
         while (iterator.hasNext()) {

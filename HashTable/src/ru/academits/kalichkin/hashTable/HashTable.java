@@ -66,16 +66,16 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public Object[] toArray() {
-        return Arrays.copyOf(this.toList().toArray(), size);
+        return Arrays.copyOf(toList().toArray(), toList().size());
     }
 
     @Override
     @SuppressWarnings({"unchecked", "SuspiciousSystemArraycopy"})
     public <E> E[] toArray(E[] a) {
         if (a.length < size) {
-            return (E[]) Arrays.copyOf(this.toList().toArray(), size, a.getClass());
+            return (E[]) Arrays.copyOf(toList().toArray(), size, a.getClass());
         }
-        System.arraycopy(this.toList().toArray(), 0, a, 0, this.toList().size());
+        System.arraycopy(toList().toArray(), 0, a, 0, toList().size());
         if (a.length > size) {
             a[size] = null;
         }
