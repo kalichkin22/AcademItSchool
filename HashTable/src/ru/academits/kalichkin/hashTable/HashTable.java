@@ -54,32 +54,30 @@ public class HashTable<T> implements Collection<T> {
     }
 
 
-    @Override
-    public Object[] toArray() {
+    private List<T> toList() {
         ArrayList<T> newList = new ArrayList<>();
         for (ArrayList<T> e : table) {
             if (e != null) {
                 newList.addAll(e);
             }
         }
-        return Arrays.copyOf(newList.toArray(), newList.size());
+        return newList;
+    }
+
+    @Override
+    public Object[] toArray() {
+        return Arrays.copyOf(this.toList().toArray(), size);
     }
 
     @Override
     @SuppressWarnings({"unchecked", "SuspiciousSystemArraycopy"})
     public <E> E[] toArray(E[] a) {
-        ArrayList<T> newList = new ArrayList<>();
-        for (ArrayList<T> e : table) {
-            if (e != null) {
-                newList.addAll(e);
-            }
+        if (a.length < size) {
+            return (E[]) Arrays.copyOf(this.toList().toArray(), size, a.getClass());
         }
-        if (a.length < newList.size()) {
-            return (E[]) Arrays.copyOf(newList.toArray(), newList.size(), a.getClass());
-        }
-        System.arraycopy(newList.toArray(), 0, a, 0, newList.size());
-        if (a.length > newList.size()) {
-            a[newList.size()] = null;
+        System.arraycopy(this.toList().toArray(), 0, a, 0, this.toList().size());
+        if (a.length > size) {
+            a[size] = null;
         }
         return a;
     }
