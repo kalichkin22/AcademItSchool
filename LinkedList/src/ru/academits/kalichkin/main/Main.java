@@ -9,7 +9,6 @@ public class Main {
 
         LinkedList<Integer> list = new LinkedList<>();
 
-
         //list.addFirst(100);
         //list.addLast(500);
 
