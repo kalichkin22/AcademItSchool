@@ -9,7 +9,7 @@ public class Main {
 
 
         LinkedList<Integer> list = new LinkedList<>(1, 2, 3, null, 4);
-        java.util.LinkedList<Integer> list2 = new java.util.LinkedList<>(Arrays.asList(1, 2, 3, 2, 4));
+        java.util.LinkedList<Integer> list2 = new java.util.LinkedList<>(Arrays.asList(1, 2, 3, null, 4));
 
         //list.addFirst(null);
         //list.addLast(500);
@@ -26,10 +26,12 @@ public class Main {
         //System.out.println(list.peekLast());
         //System.out.println(list.remove(null));
         //System.out.println(list.removeLastOccurrence(null));
-list.add(3,5);
+        //list.add(3, 5);
+        //System.out.println(list.lastIndexOf(4));
+        //System.out.println(list.containsAll(list2));
+
+
 
         System.out.println(list);
-
-
     }
 }

@@ -285,27 +285,51 @@ public class LinkedList<T> implements List<T>, Deque<T> {
 
     @Override
     public int indexOf(Object o) {
-        return 0;
+        int index = 0;
+        for (Node<T> p = head; p != null; p = p.getNext()) {
+            if (Objects.equals(p.getData(), o)) {
+                return index;
+            }
+            index++;
+        }
+        return -1;
     }
 
     @Override
     public int lastIndexOf(Object o) {
-        return 0;
+        int index = size - 1;
+        for (Node<T> p = tail; p != null; p = p.getPrev()) {
+            if (Objects.equals(p.getData(), o)) {
+                return index;
+            }
+            index--;
+        }
+        return -1;
     }
 
     @Override
     public boolean contains(Object o) {
-        return false;
+        return indexOf(o) >= 0;
     }
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        return false;
+        for (Object e : c) {
+            if (!contains(e)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        Object[] array = new Object[size];
+        int i = 0;
+        for (Node<T> p = head; p != null; p = p.getNext()) {
+            array[i++] = p.getData();
+        }
+        return array;
     }
 
     @Override
