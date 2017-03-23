@@ -101,14 +101,12 @@ public class LinkedList<T> implements List<T>, Deque<T> {
 
     @Override
     public T peekFirst() {
-        Node<T> node = head;
-        return (node == null) ? null : head.getData();
+        return getFirst();
     }
 
     @Override
     public T peekLast() {
-        Node<T> node = tail;
-        return (node == null) ? null : tail.getData();
+        return getLast();
     }
 
 
