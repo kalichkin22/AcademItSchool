@@ -1,13 +1,14 @@
 package ru.academits.kalichkin.main;
 
 import ru.academits.kalichkin.hashTable.HashTable;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
 public class Main {
     public static void main(String[] args) {
-        HashTable<Integer> table = new HashTable<>(1, 5, 65, 3, 6, 35, null, 10);
+        HashTable<Integer> table = new HashTable<>( 0,20, 3, 4, 56, 6, null);
 
         ArrayList<Integer> list = new ArrayList<>(Arrays.asList(null, 1, 65, 35));
 
@@ -21,7 +22,7 @@ public class Main {
         //System.out.println(table.size());
         //System.out.println(table);
 
-        for (Object e : table) {
+        for (Integer e : table) {
             System.out.println(e);
         }
     }

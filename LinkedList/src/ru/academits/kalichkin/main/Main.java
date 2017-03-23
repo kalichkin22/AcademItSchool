@@ -9,12 +9,12 @@ public class Main {
 
 
         LinkedList<Integer> list = new LinkedList<>(1, 2, 3, 4);
-        //java.util.LinkedList<Integer> list2 = new java.util.LinkedList<>(Arrays.asList(1, 2, 3, 4));
+        java.util.LinkedList<Integer> list2 = new java.util.LinkedList<>(Arrays.asList(1, 2, 3, 4));
 
         //list.addFirst(100);
         //list.addLast(500);
 
-        //System.out.println(list.getFirst());
+        //System.out.println(list2.getFirst());
         //System.out.println(list.getLast());
         //System.out.println(list.offerFirst(100));
         //System.out.println(list.offerLast(200));

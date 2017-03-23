@@ -106,10 +106,12 @@ public class HashTable<T> implements Collection<T> {
             if (e != null) {
                 e.removeAll(c);
                 newSize += e.size();
-                modified = true;
             }
         }
-        size = newSize;
+        if (size != newSize) {
+            size = newSize;
+            modified = true;
+        }
         modCount = modCount + (size - newSize);
         return modified;
     }
@@ -123,10 +125,12 @@ public class HashTable<T> implements Collection<T> {
             if (e != null) {
                 e.retainAll(c);
                 newSize += e.size();
-                modified = true;
             }
         }
-        size = newSize;
+        if (size != newSize) {
+            size = newSize;
+            modified = true;
+        }
         modCount = modCount + (size - newSize);
         return modified;
     }
@@ -170,39 +174,45 @@ public class HashTable<T> implements Collection<T> {
     }
 
     private class Itr implements Iterator<T> {
-        int cursor;
+        int cursorArray;
+        int cursorList;
+        int indexArray;
+        int indexList;
         int estimatedModCount = modCount;
 
         @Override
         public boolean hasNext() {
-            return cursor != size;
+            return cursorArray != table.length || cursorList != table[cursorArray].size() - 1;
         }
 
         @Override
         @SuppressWarnings("unchecked")
         public T next() {
             checkForModification();
-            int i = cursor;
-            int index;
-            if (i >= size) {
-                throw new NoSuchElementException();
-            }
+            int i = cursorArray;
+            int j = cursorList;
+            ArrayList<T>[] old = table;
 
-            ArrayList<T> old = new ArrayList<>();
-            for (ArrayList<T> e : table) {
-                if (e != null) {
-                    old.addAll(e);
+
+            for (int k = 0; k < size; k++) {
+                if (old[i] == null) {
+                    i++;
                 }
             }
 
-            if (i >= size) {
-                throw new ConcurrentModificationException();
+            for (int k = 0; k < old[i].size() - 1; k++) {
+                if (j < old[i].size()) {
+                    j++;
+                }
             }
 
-            index = i;
-            cursor = i + 1;
+            cursorArray = i + 1;
+            indexArray = i;
+            indexList = j;
 
-            return old.get(index);
+
+
+            return old[indexArray].get(indexList);
         }
 
 
