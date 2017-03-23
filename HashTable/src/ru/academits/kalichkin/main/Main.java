@@ -4,11 +4,12 @@ import ru.academits.kalichkin.hashTable.HashTable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 
 public class Main {
     public static void main(String[] args) {
-        HashTable<Integer> table = new HashTable<>( 0,20, 3, 4, 56, 6, null);
+        HashTable<Integer> table = new HashTable<>( 0, 20, 3, 4, 56, 6, null);
 
         ArrayList<Integer> list = new ArrayList<>(Arrays.asList(null, 1, 65, 35));
 
@@ -22,8 +23,8 @@ public class Main {
         //System.out.println(table.size());
         //System.out.println(table);
 
-        for (Integer e : table) {
-            System.out.println(e);
+        for (Integer aTable : table) {
+            System.out.println(aTable);
         }
     }
 }

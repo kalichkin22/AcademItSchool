@@ -47,7 +47,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
     @Override
     public T getFirst() {
         if (head == null) {
-            throw new NoSuchElementException("Нет такого узла");
+            throw new NoSuchElementException("Нет такого элемента");
         }
         return head.getData();
     }
@@ -55,7 +55,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
     @Override
     public T getLast() {
         if (tail == null) {
-            throw new NoSuchElementException("Нет такого узла");
+            throw new NoSuchElementException("Нет такого элемента");
         }
         return tail.getData();
     }

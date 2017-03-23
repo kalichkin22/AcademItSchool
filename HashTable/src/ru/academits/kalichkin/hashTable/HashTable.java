@@ -182,7 +182,7 @@ public class HashTable<T> implements Collection<T> {
 
         @Override
         public boolean hasNext() {
-            return cursorArray != table.length || cursorList != table[cursorArray].size() - 1;
+            return cursorArray != size;
         }
 
         @Override
@@ -194,13 +194,13 @@ public class HashTable<T> implements Collection<T> {
             ArrayList<T>[] old = table;
 
 
-            for (int k = 0; k < size; k++) {
+            for (int k = 0; k < old.length; k++) {
                 if (old[i] == null) {
                     i++;
                 }
             }
 
-            for (int k = 0; k < old[i].size() - 1; k++) {
+            for (int k = 0; k < old[i].size()-1; k++) {
                 if (j < old[i].size()) {
                     j++;
                 }
@@ -209,7 +209,6 @@ public class HashTable<T> implements Collection<T> {
             cursorArray = i + 1;
             indexArray = i;
             indexList = j;
-
 
 
             return old[indexArray].get(indexList);
