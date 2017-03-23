@@ -205,6 +205,7 @@ public class HashTable<T> implements Collection<T> {
             return old.get(index);
         }
 
+
         final void checkForModification() {
             if (modCount != estimatedModCount) {
                 throw new ConcurrentModificationException();

@@ -1,8 +1,6 @@
 package ru.academits.kalichkin.main;
 
-
 import ru.academits.kalichkin.hashTable.HashTable;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -14,7 +12,7 @@ public class Main {
         ArrayList<Integer> list = new ArrayList<>(Arrays.asList(null, 1, 65, 35));
 
         //System.out.println(table.contains(7));
-        System.out.println(table.removeAll(list));
+        //System.out.println(table.removeAll(list));
         //System.out.println(table.remove(5));
         //System.out.println(table.retainAll(list));
         //System.out.println(table.containsAll(list));
@@ -23,9 +21,8 @@ public class Main {
         //System.out.println(table.size());
         //System.out.println(table);
 
-        for (Integer e : table) {
+        for (Object e : table) {
             System.out.println(e);
         }
-
     }
 }
