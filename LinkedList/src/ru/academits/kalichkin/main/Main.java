@@ -31,7 +31,6 @@ public class Main {
         //System.out.println(list.containsAll(list2));
 
 
-
-        System.out.println(list);
+        //System.out.println(list);
     }
 }

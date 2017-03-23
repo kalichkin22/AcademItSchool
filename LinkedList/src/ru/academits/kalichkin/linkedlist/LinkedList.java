@@ -333,8 +333,23 @@ public class LinkedList<T> implements List<T>, Deque<T> {
     }
 
     @Override
-    public <T1> T1[] toArray(T1[] a) {
-        return null;
+    @SuppressWarnings("unchecked")
+    public <E> E[] toArray(E[] a) {
+        if (a.length < size) {
+            a = (E[]) java.lang.reflect.Array.newInstance(
+                    a.getClass().getComponentType(), size);
+        }
+
+        int i = 0;
+        for (Node<T> p = head; p != null; p = p.getNext()) {
+            ((Object[]) a)[i++] = p.getData();
+        }
+
+        if (a.length > size) {
+            a[size] = null;
+        }
+
+        return a;
     }
 
     @Override
