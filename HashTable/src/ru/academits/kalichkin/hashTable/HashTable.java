@@ -202,9 +202,10 @@ public class HashTable<T> implements Collection<T> {
                 throw new ConcurrentModificationException();
             }
 
-            while (old[i] == null) {
+            while (old[i] == null|| old[i].size() == 0) {
                 i++;
             }
+
 
             if (old[i] != null) {
                 if (j < old[i].size() - 1) {

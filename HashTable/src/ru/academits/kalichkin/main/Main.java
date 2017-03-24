@@ -11,11 +11,11 @@ public class Main {
     public static void main(String[] args) {
         HashTable<Integer> table = new HashTable<>(0, 20, 3, 4, 56, 6, null,15);
 
-        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(null, 1, 65, 35));
+        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(null, 20, 3, 15));
 
         //System.out.println(table.contains(7));
         //System.out.println(table.removeAll(list));
-        //System.out.println(table.remove(5));
+        //System.out.println(table.remove(56));
         //System.out.println(table.retainAll(list));
         //System.out.println(table.containsAll(list));
         //System.out.println(table.addAll(list));
