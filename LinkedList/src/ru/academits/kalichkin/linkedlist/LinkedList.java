@@ -17,6 +17,10 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         }
     }
 
+    public LinkedList(Collection<? extends T> c) {
+        addAll(c);
+    }
+
     @Override
     public int size() {
         return size;
@@ -256,13 +260,13 @@ public class LinkedList<T> implements List<T>, Deque<T> {
     }
 
     @Override
-    public void add(int index, T element) {
+    public void add(int index, T data) {
         if (index == 0) {
-            addFirst(element);
+            addFirst(data);
         } else if (index == size) {
-            addLast(element);
+            addLast(data);
         } else {
-            addBefore(element, getNodeByIndex(index));
+            addBefore(data, getNodeByIndex(index));
         }
     }
 
@@ -395,10 +399,10 @@ public class LinkedList<T> implements List<T>, Deque<T> {
     }
 
     @Override
-    public T set(int index, T element) {
+    public T set(int index, T data) {
         Node<T> node = getNodeByIndex(index);
         T oldValue = node.getData();
-        node.setData(element);
+        node.setData(data);
         return oldValue;
     }
 
@@ -408,6 +412,143 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         size = 0;
         modCount++;
     }
+
+    @Override
+    public Iterator<T> iterator() {
+        return listIterator();
+    }
+
+    @Override
+    public ListIterator<T> listIterator() {
+        return listIterator(0);
+    }
+
+    @Override
+    public ListIterator<T> listIterator(int index) {
+        if (index >= size || index < 0) {
+            throw new IndexOutOfBoundsException("Недопустимый индекс");
+        }
+        return new ListItr(index);
+    }
+
+
+    private class ListItr implements ListIterator<T> {
+        private Node<T> lastReturned;
+        private Node<T> next;
+        private int nextIndex;
+        private int expectedModCount = modCount;
+
+        ListItr(int index) {
+            next = (index == size) ? null : getNodeByIndex(index);
+            nextIndex = index;
+        }
+
+        public boolean hasNext() {
+            return nextIndex < size;
+        }
+
+        public T next() {
+            checkForModification();
+            if (!hasNext()) {
+                throw new NoSuchElementException("Нет такого элемента");
+            }
+            lastReturned = next;
+            next = next.getNext();
+            nextIndex++;
+            return lastReturned.getData();
+        }
+
+        public boolean hasPrevious() {
+            return nextIndex > 0;
+        }
+
+        public T previous() {
+            checkForModification();
+            if (!hasPrevious()) {
+                throw new NoSuchElementException();
+            }
+            lastReturned = next = (next == null) ? tail : next.getPrev();
+            nextIndex--;
+            return lastReturned.getData();
+        }
+
+        public int nextIndex() {
+            return nextIndex;
+        }
+
+        public int previousIndex() {
+            return nextIndex - 1;
+        }
+
+        public void remove() {
+            checkForModification();
+            if (lastReturned == null) {
+                throw new IllegalStateException();
+            }
+            Node<T> lastNext = lastReturned.getNext();
+            removeNode(lastReturned);
+
+            if (next == lastReturned) {
+                next = lastNext;
+            } else {
+                nextIndex--;
+            }
+
+            lastReturned = null;
+            expectedModCount++;
+        }
+
+        public void set(T e) {
+            if (lastReturned == null) {
+                throw new IllegalStateException();
+            }
+
+            checkForModification();
+            lastReturned.setData(e);
+        }
+
+        public void add(T e) {
+            checkForModification();
+            lastReturned = null;
+            if (next == null) {
+                addLast(e);
+            } else {
+                addBefore(e, next);
+            }
+
+            nextIndex++;
+            expectedModCount++;
+        }
+
+        final void checkForModification() {
+            if (modCount != expectedModCount)
+                throw new ConcurrentModificationException();
+        }
+    }
+
+
+    private class DescendingIterator implements Iterator<T> {
+        private final ListItr itr = new ListItr(size());
+
+        public boolean hasNext() {
+            return itr.hasPrevious();
+        }
+
+        public T next() {
+            return itr.previous();
+        }
+
+        public void remove() {
+            itr.remove();
+        }
+    }
+
+
+    @Override
+    public Iterator<T> descendingIterator() {
+        return new DescendingIterator();
+    }
+
 
     public String toString() {
         StringBuilder br = new StringBuilder("[");
@@ -419,26 +560,6 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         }
         br.append("]");
         return br.toString();
-    }
-
-    @Override
-    public Iterator<T> iterator() {
-        return null;
-    }
-
-    @Override
-    public Iterator<T> descendingIterator() {
-        return null;
-    }
-
-    @Override
-    public ListIterator<T> listIterator() {
-        return null;
-    }
-
-    @Override
-    public ListIterator<T> listIterator(int index) {
-        return null;
     }
 
     @Override
