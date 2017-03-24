@@ -192,13 +192,13 @@ public class HashTable<T> implements Collection<T> {
             int i = cursorArray;
             int j = cursorList;
 
-            if (i >= table.length) {
+            if (i >= table.length && j >= table[i].size()) {
                 throw new NoSuchElementException();
             }
 
             ArrayList<T>[] old = table;
 
-            if (i >= old.length) {
+            if (i >= old.length && j >= old[i].size()) {
                 throw new ConcurrentModificationException();
             }
 
