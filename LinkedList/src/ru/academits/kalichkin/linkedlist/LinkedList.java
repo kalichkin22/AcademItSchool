@@ -429,9 +429,6 @@ public class LinkedList<T> implements List<T>, Deque<T> {
 
     @Override
     public ListIterator<T> listIterator(int index) {
-        if (index >= size || index < 0) {
-            throw new IndexOutOfBoundsException("Недопустимый индекс");
-        }
         return new ListItr(index);
     }
 

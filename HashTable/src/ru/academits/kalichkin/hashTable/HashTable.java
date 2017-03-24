@@ -193,6 +193,7 @@ public class HashTable<T> implements Collection<T> {
             int i = cursorArray;
             int j = cursorList;
 
+
             if (i >= table.length && j >= table[i].size()) {
                 throw new NoSuchElementException();
             }
@@ -202,9 +203,8 @@ public class HashTable<T> implements Collection<T> {
             }
 
             while (table[i] == null || table[i].size() == 0) {
-                ++i;
+                i++;
             }
-
 
             if (table[i] != null) {
                 if (j < table[i].size() - 1) {
@@ -213,8 +213,6 @@ public class HashTable<T> implements Collection<T> {
                     cursorArray = i + 1;
                     cursorList = 0;
                 }
-            } else {
-                return null;
             }
 
             indexList = j;
