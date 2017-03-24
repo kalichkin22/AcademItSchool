@@ -206,10 +206,10 @@ public class LinkedList<T> implements List<T>, Deque<T> {
 
     @Override
     public boolean remove(Object o) {
-        if (head.getData().equals(o)) {
+        if (Objects.equals(head.getData(), o)) {
             removeFirst();
             return true;
-        } else if (tail.getData().equals(o)) {
+        } else if (Objects.equals(tail.getData(), o)) {
             removeLast();
             return true;
         } else {
@@ -220,18 +220,21 @@ public class LinkedList<T> implements List<T>, Deque<T> {
                 }
             }
         }
+
         return false;
     }
 
     private void addBefore(T data, Node<T> node) {
         Node<T> prev = node.getPrev();
         Node<T> newNode = new Node<>(data, prev, node);
+
         node.setPrev(newNode);
         if (prev == null) {
             head = newNode;
         } else {
             prev.setNext(newNode);
         }
+
         size++;
         modCount++;
     }
@@ -264,23 +267,57 @@ public class LinkedList<T> implements List<T>, Deque<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public boolean addAll(Collection<? extends T> c) {
+        for (Object e : c) {
+            this.addLast((T) e);
+        }
+        if (c.size() != 0) {
+            modCount++;
+        }
         return false;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public boolean addAll(int index, Collection<? extends T> c) {
-        return false;
+        if (c.size() == 0) {
+            return false;
+        }
+
+        Object[] array = c.toArray();
+        for (int i = array.length - 1; i >= 0; i--) {
+            add(index, (T) array[i]);
+        }
+
+        return true;
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        boolean modified = false;
+        for (int i = 0; i < size; ++i) {
+            if (c.contains(this.get(i))) {
+                this.remove(this.get(i));
+                --i;
+                modified = true;
+            }
+        }
+        return modified;
     }
+
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        return false;
+        boolean modified = false;
+        for (int i = 0; i < size; ++i) {
+            if (!c.contains(this.get(i))) {
+                this.remove(this.get(i));
+                --i;
+                modified = true;
+            }
+        }
+        return modified;
     }
 
     @Override

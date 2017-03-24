@@ -8,8 +8,8 @@ public class Main {
     public static void main(String[] args) {
 
 
-        LinkedList<Integer> list = new LinkedList<>(1, 2, 3, null, 4);
-        java.util.LinkedList<Integer> list2 = new java.util.LinkedList<>(Arrays.asList(1, 2, 3, null, 4));
+        LinkedList<Integer> list = new LinkedList<>(1, 2, 3, 4);
+        java.util.LinkedList<Integer> list2 = new java.util.LinkedList<>(Arrays.asList(2, 3, null, 4));
 
         //list.addFirst(null);
         //list.addLast(500);
@@ -27,10 +27,13 @@ public class Main {
         //System.out.println(list.remove(null));
         //System.out.println(list.removeLastOccurrence(null));
         //list.add(3, 5);
-        //System.out.println(list.lastIndexOf(4));
+        //System.out.println(list.lastIndexOf(null));
         //System.out.println(list.containsAll(list2));
+        //System.out.println(list.removeAll(list2));
+        System.out.println(list.containsAll(list2));
 
 
-        //System.out.println(list);
+        //System.out.println(list.size());
+        System.out.println(list);
     }
 }
