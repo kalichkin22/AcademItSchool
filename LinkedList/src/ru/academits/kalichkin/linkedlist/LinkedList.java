@@ -469,7 +469,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         public T previous() {
             checkForModification();
             if (!hasPrevious()) {
-                throw new NoSuchElementException();
+                throw new NoSuchElementException("Нет такого элемента");
             }
             lastReturned = next = (next == null) ? tail : next.getPrev();
             nextIndex--;
