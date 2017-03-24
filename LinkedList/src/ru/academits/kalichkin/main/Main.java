@@ -1,6 +1,7 @@
 package ru.academits.kalichkin.main;
 
 import ru.academits.kalichkin.linkedlist.LinkedList;
+
 import java.util.Arrays;
 
 public class Main {
@@ -32,9 +33,11 @@ public class Main {
         //System.out.println(list.retainAll(list2));
 
         //System.out.println(list.size());
+        //System.out.println(list);
 
-        for (Integer e: list) {
+        for (Integer e : list) {
             System.out.println(e);
         }
+
     }
 }

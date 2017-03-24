@@ -30,12 +30,14 @@ public class LinkedList<T> implements List<T>, Deque<T> {
     public void addFirst(T data) {
         Node<T> node = head;
         Node<T> newNode = new Node<>(data, null, node);
+
         head = newNode;
         if (node == null) {
             tail = newNode;
         } else {
             node.setPrev(newNode);
         }
+
         size++;
         modCount++;
     }
@@ -44,11 +46,13 @@ public class LinkedList<T> implements List<T>, Deque<T> {
     public void addLast(T data) {
         Node<T> node = tail;
         tail = new Node<>(data, node, null);
+
         if (node == null) {
             head = tail;
         } else {
             node.setNext(tail);
         }
+
         size++;
         modCount++;
     }
@@ -162,7 +166,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
     }
 
     private T removeNode(Node<T> node) {
-        T element = node.getData();
+        T data = node.getData();
         Node<T> next = node.getNext();
         Node<T> prev = node.getPrev();
 
@@ -183,7 +187,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         node.setData(null);
         size--;
         modCount++;
-        return element;
+        return data;
     }
 
 
