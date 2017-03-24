@@ -202,9 +202,7 @@ public class HashTable<T> implements Collection<T> {
             }
 
             while (table[i] == null || table[i].size() == 0) {
-                if (i < table.length - 1) {
-                    i++;
-                }
+                ++i;
             }
 
 
