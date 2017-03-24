@@ -174,39 +174,43 @@ public class HashTable<T> implements Collection<T> {
     }
 
     private class Itr implements Iterator<T> {
-        int cursor;
+        int cursorArray;
         int cursorList;
+        int indexArray;
+        int indexList;
         int estimatedModCount = modCount;
 
         @Override
         public boolean hasNext() {
-            return cursor <= size;
+            return cursorArray < table.length;
         }
 
         @Override
         @SuppressWarnings("unchecked")
         public T next() {
             checkForModification();
-            int i = cursor;
+            int i = cursorArray;
             int j = cursorList;
-
 
             ArrayList<T>[] old = table;
 
             while (old[i] == null) {
-                ++i;
+                i++;
             }
 
             if (old[i] != null) {
-                while (cursorList < old[i].size() - 1) {
-                    cursorList++;
+                if (j < old[i].size() - 1) {
+                    cursorList = j + 1;
+                } else {
+                    cursorArray = i + 1;
+                    cursorList = 0;
                 }
             }
 
-            cursor = i + 1;
-            cursorList = j;
+            indexList = j;
+            indexArray = i;
 
-            return old[i].get(j);
+            return old[indexArray].get(indexList);
         }
 
 
