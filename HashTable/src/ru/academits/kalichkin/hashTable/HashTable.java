@@ -112,6 +112,7 @@ public class HashTable<T> implements Collection<T> {
             size = newSize;
             modified = true;
         }
+
         modCount = modCount + (size - newSize);
         return modified;
     }
@@ -204,6 +205,7 @@ public class HashTable<T> implements Collection<T> {
                 i++;
             }
 
+
             if (table[i] != null) {
                 if (j < table[i].size() - 1) {
                     cursorList = j + 1;
@@ -211,6 +213,8 @@ public class HashTable<T> implements Collection<T> {
                     cursorArray = i + 1;
                     cursorList = 0;
                 }
+            } else {
+                return null;
             }
 
             indexList = j;
