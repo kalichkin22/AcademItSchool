@@ -193,7 +193,7 @@ public class HashTable<T> implements Collection<T> {
             int j = indexList;
 
             if (!hasNext()) {
-                throw new NoSuchElementException();
+                throw new ConcurrentModificationException();
             }
 
             while (table[i] == null || table[i].size() == 0) {
