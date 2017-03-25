@@ -90,12 +90,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         if (head == null) {
             throw new NoSuchElementException("Нет такого элемента");
         }
-        T firstValue = head.getData();
-        head.setData(null);
-        head = head.getNext();
-        size--;
-        modCount++;
-        return firstValue;
+        return removeNode(head);
     }
 
     @Override
@@ -321,8 +316,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
             prev = node.getPrev();
         }
 
-        Object[] array = c.toArray();
-        for (Object e : array) {
+        for (Object e : c) {
             Node<T> newNode = new Node<>((T) e, prev, null);
             if (prev == null) {
                 head = newNode;
@@ -339,7 +333,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
             node.setPrev(prev);
         }
 
-        size += array.length;
+        size += c.size();
         modCount++;
 
         return true;
@@ -456,7 +450,8 @@ public class LinkedList<T> implements List<T>, Deque<T> {
 
     @Override
     public void clear() {
-        head = tail = null;
+        head = null;
+        tail = null;
         size = 0;
         modCount++;
     }
