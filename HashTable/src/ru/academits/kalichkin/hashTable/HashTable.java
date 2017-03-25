@@ -200,7 +200,6 @@ public class HashTable<T> implements Collection<T> {
                 i++;
             }
 
-
             if (j < table[i].size() - 1) {
                 indexList = j + 1;
             } else {
