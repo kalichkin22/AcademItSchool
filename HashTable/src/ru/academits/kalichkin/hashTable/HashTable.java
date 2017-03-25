@@ -200,14 +200,14 @@ public class HashTable<T> implements Collection<T> {
                 i++;
             }
 
-            if (table[i] != null) {
-                if (j < table[i].size() - 1) {
-                    indexList = j + 1;
-                } else {
-                    indexArray = i + 1;
-                    indexList = 0;
-                }
+
+            if (j < table[i].size() - 1) {
+                indexList = j + 1;
+            } else {
+                indexArray = i + 1;
+                indexList = 0;
             }
+
             count++;
             return table[i].get(j);
         }
