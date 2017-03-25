@@ -323,7 +323,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
 
         Object[] array = c.toArray();
         for (Object e : array) {
-            Node<T> newNode = new Node<>((T)e, prev, null);
+            Node<T> newNode = new Node<>((T) e, prev, null);
             if (prev == null) {
                 head = newNode;
             } else {

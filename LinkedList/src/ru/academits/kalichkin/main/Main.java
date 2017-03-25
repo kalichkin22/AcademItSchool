@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-        LinkedList<Integer> list = new LinkedList<>(1, 2, 3, null, 4);
+        LinkedList<Integer> list = new LinkedList<>(1,2);
         java.util.LinkedList<Integer> list2 = new java.util.LinkedList<>(Arrays.asList(1, 2, 3, null, 4));
 
         //list.addFirst(null);
@@ -19,7 +19,7 @@ public class Main {
         //System.out.println(list.offerFirst(100));
         //System.out.println(list.offerLast(200));
         //System.out.println(list.removeFirst());
-        //System.out.println(list.removeLast());
+        System.out.println(list.removeLast());
         //System.out.println(list.pollFirst());
         //System.out.println(list.pollLast());
         //System.out.println(list.peekFirst());

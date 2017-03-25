@@ -189,12 +189,13 @@ public class HashTable<T> implements Collection<T> {
         @SuppressWarnings("unchecked")
         public T next() {
             checkForModification();
-            int i = indexArray;
-            int j = indexList;
 
             if (!hasNext()) {
-                throw new ConcurrentModificationException();
+                throw new NoSuchElementException();
             }
+
+            int i = indexArray;
+            int j = indexList;
 
             while (table[i] == null || table[i].size() == 0) {
                 i++;
