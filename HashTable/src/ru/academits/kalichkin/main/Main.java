@@ -21,7 +21,7 @@ public class Main {
         //System.out.println(table.addAll(list));
         //table.clear();
         //System.out.println(table.size());
-        System.out.println(table);
+        //System.out.println(table);
 
         for (Object e : table) {
             System.out.println(e);
