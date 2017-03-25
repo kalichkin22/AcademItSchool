@@ -87,7 +87,11 @@ public class LinkedList<T> implements List<T>, Deque<T> {
 
     @Override
     public T removeFirst() {
+        if (head == null) {
+            throw new NoSuchElementException("Нет такого элемента");
+        }
         T firstValue = head.getData();
+        head.setData(null);
         head = head.getNext();
         size--;
         modCount++;
@@ -96,32 +100,30 @@ public class LinkedList<T> implements List<T>, Deque<T> {
 
     @Override
     public T removeLast() {
-        T lastValue = tail.getData();
-        tail = tail.getPrev();
-        tail.setNext(null);
-        size--;
-        modCount++;
-        return lastValue;
+        if (tail == null) {
+            throw new NoSuchElementException("Нет такого элемента");
+        }
+        return removeNode(tail);
     }
 
     @Override
     public T pollFirst() {
-        return removeFirst();
+        return (head == null) ? null : removeFirst();
     }
 
     @Override
     public T pollLast() {
-        return removeLast();
+        return (tail == null) ? null : removeLast();
     }
 
     @Override
     public T peekFirst() {
-        return getFirst();
+        return (head == null) ? null : getFirst();
     }
 
     @Override
     public T peekLast() {
-        return getLast();
+        return (tail == null) ? null : getLast();
     }
 
 
@@ -214,6 +216,10 @@ public class LinkedList<T> implements List<T>, Deque<T> {
 
     @Override
     public boolean remove(Object o) {
+        if (head == null) {
+            return false;
+        }
+
         if (Objects.equals(head.getData(), o)) {
             removeFirst();
             return true;
@@ -228,7 +234,6 @@ public class LinkedList<T> implements List<T>, Deque<T> {
                 }
             }
         }
-
         return false;
     }
 
@@ -256,9 +261,17 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
         }
-        Node<T> node = head;
-        for (int i = 0; i < index; i++) {
-            node = node.getNext();
+        Node<T> node;
+        if (size / 2 > index) {
+            node = head;
+            for (int i = 0; i < index; i++) {
+                node = node.getNext();
+            }
+        } else {
+            node = tail;
+            for (int i = size - 1; i > index; i--) {
+                node = node.getPrev();
+            }
         }
         return node;
     }
@@ -277,13 +290,18 @@ public class LinkedList<T> implements List<T>, Deque<T> {
     @Override
     @SuppressWarnings("unchecked")
     public boolean addAll(Collection<? extends T> c) {
+        if (c.size() == 0) {
+            return false;
+        }
+
         for (Object e : c) {
             this.addLast((T) e);
         }
+
         if (c.size() != 0) {
             modCount++;
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -293,10 +311,36 @@ public class LinkedList<T> implements List<T>, Deque<T> {
             return false;
         }
 
-        Object[] array = c.toArray();
-        for (int i = array.length - 1; i >= 0; i--) {
-            add(index, (T) array[i]);
+        Node<T> prev;
+        Node<T> node;
+        if (index == size) {
+            node = null;
+            prev = tail;
+        } else {
+            node = getNodeByIndex(index);
+            prev = node.getPrev();
         }
+
+        Object[] array = c.toArray();
+        for (Object e : array) {
+            Node<T> newNode = new Node<>((T)e, prev, null);
+            if (prev == null) {
+                head = newNode;
+            } else {
+                prev.setNext(newNode);
+            }
+            prev = newNode;
+        }
+
+        if (node == null) {
+            tail = prev;
+        } else {
+            prev.setNext(node);
+            node.setPrev(prev);
+        }
+
+        size += array.length;
+        modCount++;
 
         return true;
     }
@@ -304,10 +348,10 @@ public class LinkedList<T> implements List<T>, Deque<T> {
     @Override
     public boolean removeAll(Collection<?> c) {
         boolean modified = false;
-        for (int i = 0; i < size; ++i) {
-            if (c.contains(this.get(i))) {
-                this.remove(this.get(i));
-                --i;
+        Iterator<?> it = iterator();
+        while (it.hasNext()) {
+            if (c.contains(it.next())) {
+                it.remove();
                 modified = true;
             }
         }
@@ -318,10 +362,10 @@ public class LinkedList<T> implements List<T>, Deque<T> {
     @Override
     public boolean retainAll(Collection<?> c) {
         boolean modified = false;
-        for (int i = 0; i < size; ++i) {
-            if (!c.contains(this.get(i))) {
-                this.remove(this.get(i));
-                --i;
+        Iterator<?> it = iterator();
+        while (it.hasNext()) {
+            if (!c.contains(it.next())) {
+                it.remove();
                 modified = true;
             }
         }
@@ -412,7 +456,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
 
     @Override
     public void clear() {
-        head = null;
+        head = tail = null;
         size = 0;
         modCount++;
     }

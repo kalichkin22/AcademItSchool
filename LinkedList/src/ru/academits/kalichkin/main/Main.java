@@ -13,31 +13,31 @@ public class Main {
 
         //list.addFirst(null);
         //list.addLast(500);
-
         //System.out.println(list2.getFirst());
         //System.out.println(list.getLast());
         //System.out.println(list.offerFirst(100));
         //System.out.println(list.offerLast(200));
-        //list.removeFirst();
-        //list.removeLast();
+        //System.out.println(list.removeFirst());
+        //System.out.println(list.removeLast());
         //System.out.println(list.pollFirst());
         //System.out.println(list.pollLast());
+        //System.out.println(list.peekFirst());
+        //System.out.println(list.peekLast());
         //System.out.println(list.size());
         //System.out.println(list.peekLast());
-        //System.out.println(list.remove(null));
+        //System.out.println(list.remove(new Integer(2)));
         //System.out.println(list.removeLastOccurrence(null));
         //list.add(3, 5);
         //System.out.println(list.lastIndexOf(null));
         //System.out.println(list.containsAll(list2));
         //System.out.println(list.removeAll(list2));
-        //System.out.println(list.retainAll(list2));
+        System.out.println(list.retainAll(list2));
+        //System.out.println(list.addAll(4, list2));
+        //list2.clear();
+        //System.out.println(list.get(2));
 
         //System.out.println(list.size());
-        //System.out.println(list);
-
-        for (Integer e : list) {
-            System.out.println(e);
-        }
+        System.out.println(list);
 
     }
 }
