@@ -318,10 +318,6 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         for (Object e : c) {
             addBefore((T)e, node);
         }
-
-        size += c.size();
-        modCount++;
-
         return true;
     }
 
