@@ -310,36 +310,16 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         if (c.size() == 0) {
             return false;
         }
-
-        Node<T> prev;
-        Node<T> node;
         if (index == size) {
-            node = null;
-            prev = tail;
-        } else {
-            node = getNodeByIndex(index);
-            prev = node.getPrev();
+            return addAll(c);
         }
 
-        Object[] array = c.toArray();
-        for (Object e : array) {
-            Node<T> newNode = new Node<>((T)e, prev, null);
-            if (prev == null) {
-                head = newNode;
-            } else {
-                prev.setNext(newNode);
-            }
-            prev = newNode;
+        Node<T> node = getNodeByIndex(index);
+        for (Object e : c) {
+            addBefore((T)e, node);
         }
 
-        if (node == null) {
-            tail = prev;
-        } else {
-            prev.setNext(node);
-            node.setPrev(prev);
-        }
-
-        size += array.length;
+        size += c.size();
         modCount++;
 
         return true;

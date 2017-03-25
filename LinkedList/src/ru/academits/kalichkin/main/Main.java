@@ -31,8 +31,8 @@ public class Main {
         //System.out.println(list.lastIndexOf(null));
         //System.out.println(list.containsAll(list2));
         //System.out.println(list.removeAll(list2));
-        System.out.println(list.retainAll(list2));
-        //System.out.println(list.addAll(4, list2));
+        //System.out.println(list.retainAll(list2));
+        System.out.println(list.addAll(5, list2));
         //list2.clear();
         //System.out.println(list.get(2));
 
