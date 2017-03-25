@@ -9,7 +9,7 @@ import java.util.Iterator;
 
 public class Main {
     public static void main(String[] args) {
-        HashTable<Integer> table = new HashTable<>( 0, 20, 3, 4, 56, 6, null);
+        HashTable<Integer> table = new HashTable<>( 0, 20, 3, 4, 56, 6, null,15);
 
         ArrayList<Integer> list = new ArrayList<>(Arrays.asList(null, 20, 3, 15));
 
@@ -22,7 +22,6 @@ public class Main {
         //table.clear();
         //System.out.println(table.size());
         System.out.println(table);
-
 
         for (Object e : table) {
             System.out.println(e);

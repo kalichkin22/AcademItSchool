@@ -182,7 +182,7 @@ public class HashTable<T> implements Collection<T> {
 
         @Override
         public boolean hasNext() {
-            return count != size;
+            return count < size;
         }
 
         @Override
