@@ -195,11 +195,12 @@ public class HashTable<T> implements Collection<T> {
             }
 
             int i = indexArray;
-            int j = indexList;
 
             while (table[i] == null || table[i].size() == 0) {
                 i++;
             }
+
+            int j = indexList;
 
             if (j < table[i].size() - 1) {
                 indexList = j + 1;
