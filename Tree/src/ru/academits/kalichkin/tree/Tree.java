@@ -83,6 +83,7 @@ public class Tree<T> {
         return true;
     }
 
+
     public void bfs() {
         if (root == null) {
             return;
@@ -105,22 +106,19 @@ public class Tree<T> {
     }
 
 
-    public void dfsRec() {
+    public void dfsRec(TreeNode<T> root) {
         if (root == null) {
             return;
         }
         System.out.println(root.getData());
 
-        if (root.getLeft() != null) {
-            root = root.getLeft();
-            dfsRec();
-        }
-        if (root.getRight() != null) {
-            root = root.getRight();
-            dfsRec();
-        }
+        dfsRec(root.getLeft());
+        dfsRec(root.getRight());
     }
 
+    public TreeNode<T> getRoot() {
+        return root;
+    }
 
     public void dfs() {
         if (root == null) {
