@@ -9,6 +9,7 @@ public class Tree<T> {
     private TreeNode<T> root;
     private Comparator<T> comparator;
 
+
     public Tree(Comparator<T> comparator) {
         this.comparator = comparator;
     }
@@ -38,33 +39,6 @@ public class Tree<T> {
         }
     }
 
-/*
-    public boolean add(T data) {
-        return addNode(root, data);
-    }
-
-    private boolean addNode(TreeNode<T> node, T data) {
-        if (root == null) {
-            root = new TreeNode<T>(data);
-            return true;
-        }
-        if (comparator.compare(data, node.getData()) < 0) {
-            if (node.getLeft() == null) {
-                node.setLeft(new TreeNode<T>(data));
-                return true;
-            }
-            return addNode(node.getLeft(), data);
-        }
-        if (comparator.compare(data, node.getData()) > 0) {
-            if (node.getRight() == null) {
-                node.setRight(new TreeNode<T>(data));
-                return true;
-            }
-            return addNode(node.getRight(), data);
-        }
-        return false;
-    }
-*/
 
     public boolean contains(T data) {
         TreeNode<T> node = root;
@@ -78,6 +52,73 @@ public class Tree<T> {
 
             if (node == null) {
                 return false;
+            }
+        }
+        return true;
+    }
+
+
+    public boolean remove(T data) {
+        if (root == null) {
+            return false;
+        }
+        TreeNode<T> node = root;
+        TreeNode<T> parent = null;
+
+        while (comparator.compare(data, node.getData()) != 0) {
+            if (comparator.compare(data, node.getData()) < 0) {
+                parent = node;
+                node = node.getLeft();
+            } else if (comparator.compare(data, node.getData()) > 0) {
+                parent = node;
+                node = node.getRight();
+            }
+            if (node == null) {
+                return false;
+            }
+        }
+
+        if (node.getRight() == null) {
+            if (node == root) {
+                root = node.getLeft();
+            } else {
+                if (comparator.compare(node.getData(), parent.getData()) < 0) {
+                    parent.setLeft(node.getLeft());
+                } else {
+                    parent.setRight(node.getLeft());
+                }
+            }
+        } else if (node.getRight().getLeft() == null) {
+            node.getRight().setLeft(node.getLeft());
+            if (node == root) {
+                root = node.getRight();
+            } else {
+                if (comparator.compare(node.getData(), parent.getData()) < 0) {
+                    parent.setLeft(node.getRight());
+                } else {
+                    parent.setRight(node.getRight());
+                }
+            }
+        } else {
+            TreeNode<T> min = node.getRight().getLeft();
+            TreeNode<T> prev = node.getRight();
+
+            while (min.getLeft() != null) {
+                prev = min;
+                min = min.getLeft();
+            }
+            prev.setLeft(min.getRight());
+            min.setLeft(node.getLeft());
+            min.setRight(node.getRight());
+
+            if (node == root) {
+                root = min;
+            } else {
+                if (comparator.compare(node.getData(), parent.getData()) < 0) {
+                    parent.setLeft(min);
+                } else {
+                    parent.setRight(min);
+                }
             }
         }
         return true;
@@ -116,9 +157,11 @@ public class Tree<T> {
         dfsRec(root.getRight());
     }
 
+
     public TreeNode<T> getRoot() {
         return root;
     }
+
 
     public void dfs() {
         if (root == null) {
