@@ -84,6 +84,10 @@ public class Tree<T> {
     }
 
     public void bfs() {
+        if (root == null) {
+            return;
+        }
+
         Queue<TreeNode<T>> queue = new LinkedList<>();
         queue.add(root);
 
@@ -102,16 +106,42 @@ public class Tree<T> {
 
 
     public void dfsRec() {
+        if (root == null) {
+            return;
+        }
         System.out.println(root.getData());
 
         if (root.getLeft() != null) {
+            root = root.getLeft();
             dfsRec();
         }
         if (root.getRight() != null) {
+            root = root.getRight();
             dfsRec();
         }
     }
 
+
+    public void dfs() {
+        if (root == null) {
+            return;
+        }
+
+        Stack<TreeNode<T>> stack = new Stack<>();
+        stack.push(root);
+
+        while (!stack.empty()) {
+            TreeNode<T> node = stack.pop();
+            System.out.println(node.getData());
+
+            if (node.getRight() != null) {
+                stack.push(node.getRight());
+            }
+            if (node.getLeft() != null) {
+                stack.push(node.getLeft());
+            }
+        }
+    }
 }
 
 

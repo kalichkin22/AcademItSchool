@@ -18,6 +18,7 @@ public class Main {
         //tree.bfs();
 
         tree.dfsRec();
-       // System.out.println(tree.contains(20));
+        //tree.dfs();
+        // System.out.println(tree.contains(20));
     }
 }
