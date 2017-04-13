@@ -16,10 +16,10 @@ public class Main {
         tree.add(14);
 
         System.out.println(tree.remove(10));
-        tree.bfs();
+        //tree.bfs();
 
         //tree.dfsRec(tree.getRoot());
-        //tree.dfs();
-        // System.out.println(tree.contains(20));
+        tree.dfs();
+        //System.out.println(tree.contains(7));
     }
 }

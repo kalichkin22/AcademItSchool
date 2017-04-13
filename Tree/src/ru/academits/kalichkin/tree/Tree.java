@@ -65,14 +65,15 @@ public class Tree<T> {
         TreeNode<T> node = root;
         TreeNode<T> parent = null;
 
-        while (comparator.compare(data, node.getData()) != 0) {
+        while (!data.equals(node.getData())) {
             if (comparator.compare(data, node.getData()) < 0) {
                 parent = node;
                 node = node.getLeft();
-            } else if (comparator.compare(data, node.getData()) > 0) {
+            } else {
                 parent = node;
                 node = node.getRight();
             }
+
             if (node == null) {
                 return false;
             }
@@ -90,6 +91,7 @@ public class Tree<T> {
             }
         } else if (node.getRight().getLeft() == null) {
             node.getRight().setLeft(node.getLeft());
+
             if (node == root) {
                 root = node.getRight();
             } else {
@@ -161,7 +163,6 @@ public class Tree<T> {
     public TreeNode<T> getRoot() {
         return root;
     }
-
 
     public void dfs() {
         if (root == null) {
