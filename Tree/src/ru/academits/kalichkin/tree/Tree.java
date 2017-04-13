@@ -101,37 +101,17 @@ public class Tree<T> {
     }
 
 
-    public void dfsRec () {
+    public void dfsRec() {
         System.out.println(root.getData());
 
         if (root.getLeft() != null) {
-            root = root.getLeft();
             dfsRec();
         }
         if (root.getRight() != null) {
-            root = root.getRight();
             dfsRec();
         }
     }
 
-    public void dfs() {
-        Stack<TreeNode<T>> stack = new Stack<>();
-        while (root != null || !stack.empty()) {
-            if (!stack.empty()) {
-                root = stack.pop();
-                System.out.println(root.getData());
-                if (root.getRight() != null) {
-                    root = root.getRight();
-                } else {
-                    root = null;
-                }
-            }
-            while (root != null) {
-                stack.push(root);
-                root = root.getLeft();
-            }
-        }
-    }
 }
 
 
