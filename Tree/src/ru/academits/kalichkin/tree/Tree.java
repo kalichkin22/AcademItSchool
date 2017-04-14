@@ -1,5 +1,6 @@
 package ru.academits.kalichkin.tree;
 
+
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -9,9 +10,31 @@ public class Tree<T> {
     private TreeNode<T> root;
     private Comparator<T> comparator;
 
-
     public Tree(Comparator<T> comparator) {
         this.comparator = comparator;
+    }
+
+    public Tree() {
+
+    }
+
+    private int resultCompare(T data, T data2) {
+        int result;
+        if (data != null && data2 != null) {
+            if (comparator != null) {
+                result = comparator.compare(data, data2);
+            } else {
+                Comparable<T> comparable = (Comparable<T>) data;
+                result = comparable.compareTo(data2);
+            }
+            return result;
+        } else {
+            if (data == null && data2 == null) {
+                return 0;
+            } else {
+                return -1;
+            }
+        }
     }
 
 
@@ -25,7 +48,8 @@ public class Tree<T> {
 
         while (node != null) {
             parent = node;
-            if (comparator.compare(data, node.getData()) < 0) {
+
+            if (resultCompare(data, node.getData()) < 0) {
                 node = node.getLeft();
                 if (node == null) {
                     parent.setLeft(new TreeNode<>(data));
@@ -42,9 +66,8 @@ public class Tree<T> {
 
     public boolean contains(T data) {
         TreeNode<T> node = root;
-
-        while (!data.equals(node.getData())) {
-            if (comparator.compare(data, node.getData()) < 0) {
+        while (resultCompare(data, node.getData()) != 0) {
+            if (resultCompare(data, node.getData()) < 0) {
                 node = node.getLeft();
             } else {
                 node = node.getRight();
@@ -65,8 +88,8 @@ public class Tree<T> {
         TreeNode<T> node = root;
         TreeNode<T> parent = null;
 
-        while (!data.equals(node.getData())) {
-            if (comparator.compare(data, node.getData()) < 0) {
+        while (resultCompare(data, node.getData()) != 0) {
+            if (resultCompare(data, node.getData()) < 0) {
                 parent = node;
                 node = node.getLeft();
             } else {
@@ -84,12 +107,13 @@ public class Tree<T> {
                 root = node.getLeft();
             } else {
                 assert parent != null;
-                if (comparator.compare(node.getData(), parent.getData()) < 0) {
+                if (resultCompare(node.getData(), parent.getData()) < 0) {
                     parent.setLeft(node.getLeft());
                 } else {
                     parent.setRight(node.getLeft());
                 }
             }
+
         } else if (node.getRight().getLeft() == null) {
             node.getRight().setLeft(node.getLeft());
 
@@ -97,7 +121,7 @@ public class Tree<T> {
                 root = node.getRight();
             } else {
                 assert parent != null;
-                if (comparator.compare(node.getData(), parent.getData()) < 0) {
+                if (resultCompare(node.getData(), parent.getData()) < 0) {
                     parent.setLeft(node.getRight());
                 } else {
                     parent.setRight(node.getRight());
@@ -119,7 +143,7 @@ public class Tree<T> {
                 root = min;
             } else {
                 assert parent != null;
-                if (comparator.compare(node.getData(), parent.getData()) < 0) {
+                if (resultCompare(node.getData(), parent.getData()) < 0) {
                     parent.setLeft(min);
                 } else {
                     parent.setRight(min);
