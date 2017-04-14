@@ -83,6 +83,7 @@ public class Tree<T> {
             if (node == root) {
                 root = node.getLeft();
             } else {
+                assert parent != null;
                 if (comparator.compare(node.getData(), parent.getData()) < 0) {
                     parent.setLeft(node.getLeft());
                 } else {
@@ -95,6 +96,7 @@ public class Tree<T> {
             if (node == root) {
                 root = node.getRight();
             } else {
+                assert parent != null;
                 if (comparator.compare(node.getData(), parent.getData()) < 0) {
                     parent.setLeft(node.getRight());
                 } else {
@@ -116,6 +118,7 @@ public class Tree<T> {
             if (node == root) {
                 root = min;
             } else {
+                assert parent != null;
                 if (comparator.compare(node.getData(), parent.getData()) < 0) {
                     parent.setLeft(min);
                 } else {

@@ -15,11 +15,11 @@ public class Main {
         tree.add(11);
         tree.add(14);
 
-        System.out.println(tree.remove(10));
+        //System.out.println(tree.remove(12));
         //tree.bfs();
 
         //tree.dfsRec(tree.getRoot());
-        tree.dfs();
-        //System.out.println(tree.contains(7));
+        //tree.dfs();
+        System.out.println(tree.contains(14));
     }
 }
