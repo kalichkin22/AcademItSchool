@@ -1,10 +1,7 @@
 package ru.academits.kalichkin.tree;
 
 
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 public class Tree<T> {
     private TreeNode<T> root;
@@ -65,15 +62,14 @@ public class Tree<T> {
 
 
     public boolean contains(T data) {
-        TreeNode<T> node = root;
-        while (resultCompare(data, node.getData()) != 0) {
-            if (resultCompare(data, node.getData()) < 0) {
-                node = node.getLeft();
+        while (resultCompare(data, root.getData()) != 0) {
+            if (resultCompare(data, root.getData()) < 0) {
+                root = root.getLeft();
             } else {
-                node = node.getRight();
+                root = root.getRight();
             }
 
-            if (node == null) {
+            if (root == null) {
                 return false;
             }
         }
@@ -101,6 +97,7 @@ public class Tree<T> {
                 return false;
             }
         }
+
 
         if (node.getRight() == null) {
             if (node == root) {
@@ -196,18 +193,20 @@ public class Tree<T> {
             return;
         }
 
-        Stack<TreeNode<T>> stack = new Stack<>();
-        stack.push(root);
+        ArrayList<TreeNode<T>> stack = new ArrayList<>();
+        stack.add(root);
 
-        while (!stack.empty()) {
-            TreeNode<T> node = stack.pop();
+        while (!stack.isEmpty()) {
+            TreeNode<T> node = stack.get(0);
             System.out.println(node.getData());
+            stack.remove(0);
 
             if (node.getRight() != null) {
-                stack.push(node.getRight());
+                stack.add(0, node.getRight());
             }
+
             if (node.getLeft() != null) {
-                stack.push(node.getLeft());
+                stack.add(0, node.getLeft());
             }
         }
     }

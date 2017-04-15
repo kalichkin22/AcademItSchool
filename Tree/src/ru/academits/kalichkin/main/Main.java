@@ -12,13 +12,13 @@ public class Main {
         tree.add(7);
         tree.add(12);
         tree.add(11);
-        tree.add(null);
+        tree.add(14);
 
         //System.out.println(tree.remove(11));
-        tree.bfs();
+        //tree.bfs();
 
         //tree.dfsRec(tree.getRoot());
-        //tree.dfs();
-        //System.out.println(tree.contains(null));
+        tree.dfs();
+        //System.out.println(tree.contains(10));
     }
 }
