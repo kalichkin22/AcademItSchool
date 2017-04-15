@@ -98,7 +98,7 @@ public class Tree<T> {
             }
         }
 
-
+        // если узел не имеет детей
         if (node.getRight() == null) {
             if (node == root) {
                 root = node.getLeft();
@@ -111,6 +111,7 @@ public class Tree<T> {
                 }
             }
 
+            // если узел имеет детей
         } else if (node.getRight().getLeft() == null) {
             node.getRight().setLeft(node.getLeft());
 
@@ -124,9 +125,12 @@ public class Tree<T> {
                     parent.setRight(node.getRight());
                 }
             }
+
+            // если узел является корнем, то берем наименьшего ребенка из правой ветви
         } else {
             TreeNode<T> min = node.getRight().getLeft();
             TreeNode<T> prev = node.getRight();
+
 
             while (min.getLeft() != null) {
                 prev = min;
