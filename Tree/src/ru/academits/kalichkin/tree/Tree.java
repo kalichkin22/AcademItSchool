@@ -201,16 +201,18 @@ public class Tree<T> {
         stack.add(root);
 
         while (!stack.isEmpty()) {
-            TreeNode<T> node = stack.get(0);
+            TreeNode<T> node = stack.get(stack.size() - 1);
             System.out.println(node.getData());
-            stack.remove(0);
+
 
             if (node.getRight() != null) {
-                stack.add(0, node.getRight());
+                stack.add(node.getRight());
+                break;
             }
 
             if (node.getLeft() != null) {
-                stack.add(0, node.getLeft());
+                stack.add(node.getLeft());
+                break;
             }
         }
     }
