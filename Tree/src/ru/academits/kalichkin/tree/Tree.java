@@ -15,7 +15,7 @@ public class Tree<T> {
     }
 
     private int resultCompare(T data, T data2) {
-        int result = 0;
+        int result;
         if (data != null && data2 != null) {
             if (comparator != null) {
                 result = comparator.compare(data, data2);
@@ -24,16 +24,12 @@ public class Tree<T> {
                 result = comparable.compareTo(data2);
             }
             return result;
+        } else if (data == null && data2 == null) {
+            return 0;
         } else {
-            if (data2 == null) {
-                return 0;
-            } else {
-                return -1;
-            }
+            return -1;
         }
-
     }
-
 
     public void add(T data) {
         if (root == null) {
