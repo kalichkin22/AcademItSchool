@@ -28,6 +28,6 @@ public class Main {
 
         //tree.dfsRec(tree.getRoot());
         //tree.dfs();
-       //System.out.println(tree.contains(30));
+       System.out.println(tree.contains(null));
     }
 }
