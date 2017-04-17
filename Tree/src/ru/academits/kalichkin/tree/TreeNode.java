@@ -1,8 +1,7 @@
 package ru.academits.kalichkin.tree;
 
 
-
-public class TreeNode<T>  {
+public class TreeNode<T> {
     private T data;
     private TreeNode<T> left;
     private TreeNode<T> right;
@@ -36,6 +35,9 @@ public class TreeNode<T>  {
         this.right = right;
     }
 
+    public String toString() {
+        return data.toString();
+    }
 }
 
 

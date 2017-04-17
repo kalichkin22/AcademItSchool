@@ -22,11 +22,11 @@ public class Main {
         tree.add(30);
 
 
-        // System.out.println(tree.remove(20))
+        //System.out.println(tree.remove(15))
         // tree.bfs();
 
-        tree.dfsRec(tree.getRoot());
+        //tree.dfsRec(tree.getRoot());
         //tree.dfs();
-        //System.out.println(tree.contains(10));
+        System.out.println(tree.contains(30));
     }
 }

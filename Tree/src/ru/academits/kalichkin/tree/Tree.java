@@ -1,6 +1,5 @@
 package ru.academits.kalichkin.tree;
 
-
 import java.util.*;
 
 public class Tree<T> {
@@ -60,13 +59,15 @@ public class Tree<T> {
         }
     }
 
-
     public boolean contains(T data) {
-        while (resultCompare(data, root.getData()) != 0) {
-            if (resultCompare(data, root.getData()) < 0) {
+        while (true) {
+            int result = resultCompare(data, root.getData());
+            if (result < 0) {
                 root = root.getLeft();
-            } else {
+            } else if (result > 0) {
                 root = root.getRight();
+            } else {
+                break;
             }
 
             if (root == null) {
@@ -77,20 +78,25 @@ public class Tree<T> {
     }
 
 
+
+
+
     public boolean remove(T data) {
         if (root == null) {
             return false;
         }
         TreeNode<T> node = root;
         TreeNode<T> parent = null;
-
-        while (resultCompare(data, node.getData()) != 0) {
-            if (resultCompare(data, node.getData()) < 0) {
+        while (true) {
+            int result = resultCompare(data, node.getData());
+            if (result < 0) {
                 parent = node;
                 node = node.getLeft();
-            } else {
+            } else if (result > 0) {
                 parent = node;
                 node = node.getRight();
+            } else {
+                break;
             }
 
             if (node == null) {
@@ -111,7 +117,7 @@ public class Tree<T> {
                 }
             }
 
-            // если узел имеет детей
+            // если узел имеет одного ребенка
         } else if (node.getRight().getLeft() == null) {
             node.getRight().setLeft(node.getLeft());
 
@@ -165,7 +171,7 @@ public class Tree<T> {
 
         while (!queue.isEmpty()) {
             TreeNode<T> element = queue.remove();
-            System.out.println(element.getData());
+            System.out.print(element.getData() + " ");
 
             if (element.getLeft() != null) {
                 queue.add(element.getLeft());
@@ -181,7 +187,7 @@ public class Tree<T> {
         if (root == null) {
             return;
         }
-        System.out.println(root.getData());
+        System.out.print(root.getData() + " ");
 
         dfsRec(root.getLeft());
         dfsRec(root.getRight());
@@ -201,18 +207,16 @@ public class Tree<T> {
         stack.add(root);
 
         while (!stack.isEmpty()) {
-            TreeNode<T> node = stack.get(stack.size() - 1);
-            System.out.println(node.getData());
+            TreeNode<T> node = stack.remove(stack.size() - 1);
+            System.out.print(node.getData() + " ");
 
 
             if (node.getRight() != null) {
                 stack.add(node.getRight());
-                break;
             }
 
             if (node.getLeft() != null) {
                 stack.add(node.getLeft());
-                break;
             }
         }
     }
