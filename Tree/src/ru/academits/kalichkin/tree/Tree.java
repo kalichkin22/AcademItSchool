@@ -59,6 +59,7 @@ public class Tree<T> {
         }
     }
 
+
     public boolean contains(T data) {
         while (true) {
             int result = resultCompare(data, root.getData());
@@ -76,9 +77,6 @@ public class Tree<T> {
         }
         return true;
     }
-
-
-
 
 
     public boolean remove(T data) {
