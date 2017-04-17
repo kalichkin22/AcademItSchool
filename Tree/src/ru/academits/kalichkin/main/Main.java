@@ -20,13 +20,14 @@ public class Main {
         tree.add(21);
         tree.add(26);
         tree.add(30);
+        tree.add(null);
 
 
-        //System.out.println(tree.remove(15))
-        // tree.bfs();
+        //System.out.println(tree.remove(null));
+        //tree.bfs();
 
         //tree.dfsRec(tree.getRoot());
         //tree.dfs();
-        System.out.println(tree.contains(30));
+       //System.out.println(tree.contains(30));
     }
 }
