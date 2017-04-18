@@ -17,18 +17,19 @@ public class Tree<T> {
     private int resultCompare(T data, T data2) {
         if (data == null && data2 == null) {
             return 0;
+        } else if (data != null && data2 == null) {
+            return 1;
+        } else if (data == null) {
+            return -1;
         } else {
             int result;
-            if (data != null && data2 != null) {
-                if (comparator != null) {
-                    result = comparator.compare(data, data2);
-                } else {
-                    Comparable<T> comparable = (Comparable<T>) data;
-                    result = comparable.compareTo(data2);
-                }
-                return result;
+            if (comparator != null) {
+                result = comparator.compare(data, data2);
+            } else {
+                Comparable<T> comparable = (Comparable<T>) data;
+                result = comparable.compareTo(data2);
             }
-            return -1;
+            return result;
         }
     }
 
@@ -59,17 +60,18 @@ public class Tree<T> {
 
 
     public boolean contains(T data) {
+        TreeNode<T> node = root;
         while (true) {
-            int result = resultCompare(data, root.getData());
+            int result = resultCompare(data, node.getData());
             if (result < 0) {
-                root = root.getLeft();
+                node = node.getLeft();
             } else if (result > 0) {
-                root = root.getRight();
+                node = node.getRight();
             } else {
                 break;
             }
 
-            if (root == null) {
+            if (node == null) {
                 return false;
             }
         }
@@ -81,8 +83,11 @@ public class Tree<T> {
         if (root == null) {
             return false;
         }
+
         TreeNode<T> node = root;
         TreeNode<T> parent = null;
+
+        // Находим удаляемый узел.
         while (true) {
             int result = resultCompare(data, node.getData());
             if (result < 0) {
@@ -100,20 +105,22 @@ public class Tree<T> {
             }
         }
 
-        // если узел не имеет детей
+        // Случай 1: Если нет детей справа, левый ребенок встает на место удаляемого.
         if (node.getRight() == null) {
             if (node == root) {
                 root = node.getLeft();
             } else {
                 assert parent != null;
-                if (resultCompare(node.getData(), parent.getData()) < 0) {
+                if (resultCompare(parent.getData(), node.getData()) > 0) {
+                    // Если значение родителя больше текущего, левый ребенок текущего узла становится левым ребенком родителя.
                     parent.setLeft(node.getLeft());
                 } else {
+                    // Если значение родителя меньше или равно текущему, левый ребенок текущего узла становится правым ребенком родителя.
                     parent.setRight(node.getLeft());
                 }
             }
 
-            // если узел имеет одного ребенка
+            // Случай 2: Если у правого ребенка нет детей слева, то он занимает место удаляемого узла.
         } else if (node.getRight().getLeft() == null) {
             node.getRight().setLeft(node.getLeft());
 
@@ -121,24 +128,31 @@ public class Tree<T> {
                 root = node.getRight();
             } else {
                 assert parent != null;
-                if (resultCompare(node.getData(), parent.getData()) < 0) {
+                if (resultCompare(parent.getData(), node.getData()) > 0) {
+                    // Если значение родителя больше текущего, правый ребенок текущего узла становится левым ребенком родителя.
                     parent.setLeft(node.getRight());
                 } else {
+                    // Если значение родителя меньше или равно текущему, правый ребенок текущего узла становится правым ребенком родителя.
                     parent.setRight(node.getRight());
                 }
             }
 
-            // если узел является корнем или у него два ребенка, то берем наименьшего ребенка из правой ветви
+
+            // Случай 3: Если у правого ребенка есть дети слева, крайний левый ребенок из правого поддерева заменяет удаляемый узел.
         } else {
             TreeNode<T> min = node.getRight().getLeft();
             TreeNode<T> prev = node.getRight();
 
-
+            // Найдем крайний левый узел.
             while (min.getLeft() != null) {
                 prev = min;
                 min = min.getLeft();
             }
+
+            // Левое поддерево родителя становится правым поддеревом крайнего левого узла.
             prev.setLeft(min.getRight());
+
+            // Левый и правый ребенок текущего узла становится левым и правым ребенком крайнего левого.
             min.setLeft(node.getLeft());
             min.setRight(node.getRight());
 
@@ -146,9 +160,12 @@ public class Tree<T> {
                 root = min;
             } else {
                 assert parent != null;
-                if (resultCompare(node.getData(), parent.getData()) < 0) {
+                if (resultCompare(parent.getData(), node.getData()) > 0) {
+
+                    // Если значение родителя больше текущего, крайний левый узел становится левым ребенком родителя.
                     parent.setLeft(min);
                 } else {
+                    // Если значение родителя меньше или равно текущему, крайний левый узел становится правым ребенком родителя.
                     parent.setRight(min);
                 }
             }
