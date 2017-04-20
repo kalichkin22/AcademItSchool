@@ -81,7 +81,7 @@ public class Graph<T> {
                 stack.add(vertex);
             }
 
-            if (stack.isEmpty() && matrix.length != visitedVertex.size()) {
+            if (stack.isEmpty()) {
                 for (int i = 0; i < matrix.length; i++) {
                     if (!visitedVertex.contains(i)) {
                         stack.add(i);
