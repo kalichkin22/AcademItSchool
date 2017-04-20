@@ -4,7 +4,6 @@ import java.util.*;
 
 public class Graph<T> {
     private int[][] matrix;
-    private Set<Integer> set;
 
     public Graph(int n) {
         matrix = new int[n][n];
@@ -15,9 +14,9 @@ public class Graph<T> {
         matrix[end][begin] = 1;
     }
 
-    private int getNotVisitedVertex(int vertex) {
+    private int getNotVisitedVertex(int vertex, Set<Integer> visitedVertex) {
         for (int i = 0; i < matrix.length; i++) {
-            if (matrix[vertex][i] == 1 && !set.contains(i)) {
+            if (matrix[vertex][i] == 1 && !visitedVertex.contains(i)) {
                 return i;
             }
         }
@@ -27,19 +26,28 @@ public class Graph<T> {
 
     public void bfs(int begin) {
         Queue<Integer> queue = new LinkedList<>();
-        set = new HashSet<>();
+        Set<Integer> visitedVertex = new HashSet<>();
         int numberVertex;
 
-        set.add(begin);
+        visitedVertex.add(begin);
         queue.add(begin);
         System.out.println(begin);
 
         while (!queue.isEmpty()) {
             int currentVertex = queue.remove();
-            while ((numberVertex = getNotVisitedVertex(currentVertex)) != -1) {
+            while ((numberVertex = getNotVisitedVertex(currentVertex, visitedVertex)) != -1) {
                 queue.add(numberVertex);
-                set.add(numberVertex);
+                visitedVertex.add(numberVertex);
                 System.out.println(numberVertex);
+            }
+
+            if (queue.isEmpty() && matrix.length != visitedVertex.size()) {
+                for (int i = 0; i < matrix.length; i++) {
+                    if (!visitedVertex.contains(i)) {
+                        queue.add(i);
+                        break;
+                    }
+                }
             }
         }
     }
@@ -47,22 +55,33 @@ public class Graph<T> {
 
     public void dfs(int begin) {
         ArrayList<Integer> stack = new ArrayList<>();
-        set = new HashSet<>();
+        Set<Integer> visitedVertex = new HashSet<>();
         stack.add(begin);
-        set.add(begin);
+        visitedVertex.add(begin);
 
         System.out.println(begin);
 
         while (!stack.isEmpty()) {
             int currentVertex = stack.get(stack.size() - 1);
-            int vertex = getNotVisitedVertex(currentVertex);
+            int vertex = getNotVisitedVertex(currentVertex, visitedVertex);
+
             if (vertex == -1) {
                 stack.remove(stack.size() - 1);
             } else {
-                set.add(vertex);
+                visitedVertex.add(vertex);
                 System.out.println(vertex);
                 stack.add(vertex);
+            }
+
+            if (stack.isEmpty() && matrix.length != visitedVertex.size()) {
+                for (int i = 0; i < matrix.length; i++) {
+                    if (!visitedVertex.contains(i)) {
+                        stack.add(i);
+                        break;
+                    }
+                }
             }
         }
     }
 }
+
