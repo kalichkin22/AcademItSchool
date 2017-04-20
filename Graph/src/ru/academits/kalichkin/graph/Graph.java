@@ -41,13 +41,22 @@ public class Graph<T> {
                 System.out.println(numberVertex);
             }
 
-            if (queue.isEmpty() && matrix.length != visitedVertex.size()) {
+            if (queue.isEmpty()) {
                 for (int i = 0; i < matrix.length; i++) {
                     if (!visitedVertex.contains(i)) {
                         queue.add(i);
                         break;
                     }
                 }
+            }
+
+            if (matrix.length != visitedVertex.size()) {
+                for (int i = 0; i < matrix.length; i++) {
+                    if (!visitedVertex.contains(i)) {
+                        System.out.println(i);
+                    }
+                }
+                break;
             }
         }
     }
@@ -80,6 +89,15 @@ public class Graph<T> {
                         break;
                     }
                 }
+            }
+
+            if (matrix.length != visitedVertex.size()) {
+                for (int i = 0; i < matrix.length; i++) {
+                    if (!visitedVertex.contains(i)) {
+                        System.out.println(i);
+                    }
+                }
+                break;
             }
         }
     }
