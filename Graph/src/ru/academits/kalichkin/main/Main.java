@@ -13,8 +13,8 @@ public class Main {
         graph.addEdge(1, 4);
 
 
-        //graph.bfs(0);
-        graph.dfs(0);
+        graph.bfs(0);
+        //graph.dfs(0);
 
     }
 }

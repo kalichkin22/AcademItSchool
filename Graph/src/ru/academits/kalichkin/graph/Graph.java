@@ -48,15 +48,14 @@ public class Graph<T> {
                         break;
                     }
                 }
-            }
-
-            if (matrix.length != visitedVertex.size()) {
-                for (int i = 0; i < matrix.length; i++) {
-                    if (!visitedVertex.contains(i)) {
-                        System.out.println(i);
+                if (matrix.length != visitedVertex.size()) {
+                    for (int i = 0; i < matrix.length; i++) {
+                        if (!visitedVertex.contains(i)) {
+                            System.out.println(i);
+                        }
                     }
+                    break;
                 }
-                break;
             }
         }
     }
@@ -89,15 +88,14 @@ public class Graph<T> {
                         break;
                     }
                 }
-            }
-
-            if (matrix.length != visitedVertex.size()) {
-                for (int i = 0; i < matrix.length; i++) {
-                    if (!visitedVertex.contains(i)) {
-                        System.out.println(i);
+                if (matrix.length != visitedVertex.size()) {
+                    for (int i = 0; i < matrix.length; i++) {
+                        if (!visitedVertex.contains(i)) {
+                            System.out.println(i);
+                        }
                     }
+                    break;
                 }
-                break;
             }
         }
     }
