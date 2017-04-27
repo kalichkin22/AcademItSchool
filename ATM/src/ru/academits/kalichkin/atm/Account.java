@@ -59,25 +59,27 @@ public class Account {
         int newNominal = 0;
         if (sum > 0) {
             for (Banknotes banknotes : cash) {
-                if (nominal == banknotes.getNominal() && remainSum == 0) {
-                    if (countBanknote <= banknotes.getCount()) {
-                        banknotes.setCount(banknotes.getCount() - countBanknote);
-                    } else if (countBanknote > banknotes.getCount()) {
-                        newNominal = sum - nominal * banknotes.getCount();
-                        banknotes.setCount(0);
+                if (nominal == banknotes.getNominal()) {
+                    if (remainSum == 0) {
+                        if (countBanknote <= banknotes.getCount()) {
+                            banknotes.setCount(banknotes.getCount() - countBanknote);
+                        } else if (countBanknote > banknotes.getCount()) {
+                            newNominal = sum - nominal * banknotes.getCount();
+                            banknotes.setCount(0);
+                        }
+                        isPrintBalance = true;
+                    } else {
+                        if (countBanknote <= banknotes.getCount()) {
+                            banknotes.setCount(banknotes.getCount() - countBanknote);
+                            newNominal = remainSum;
+                            sum = sum - (banknotes.getNominal() * countBanknote);
+                        } else if (countBanknote > banknotes.getCount()) {
+                            newNominal = sum - (banknotes.getNominal() * banknotes.getCount() + remainSum);
+                            banknotes.setCount(0);
+                            sum = sum - (banknotes.getNominal() * banknotes.getCount());
+                        }
+                        isPrintBalance = true;
                     }
-                    isPrintBalance = true;
-                } else if (remainSum != 0 && nominal == banknotes.getNominal()) {
-                    if (countBanknote <= banknotes.getCount()) {
-                        banknotes.setCount(banknotes.getCount() - countBanknote);
-                        newNominal = remainSum;
-                        sum = sum - (banknotes.getNominal() * countBanknote);
-                    } else if (countBanknote > banknotes.getCount()) {
-                        newNominal = remainSum;
-                        banknotes.setCount(0);
-                        sum = sum - (banknotes.getNominal() * countBanknote);
-                    }
-                    isPrintBalance = true;
                 }
             }
 
@@ -99,6 +101,46 @@ public class Account {
         } else {
             System.out.println("Таких банкнот не существует!");
         }
+    }
+
+
+    public void withDraw2(int sum, int nominal) {
+        int q = nominal;
+        int x = 0;
+
+        while (sum > 0) {
+            for (int j = 0; j < cash.length; j++) {
+                x = q;
+                if (x == cash[j].getNominal()) {
+                    x = 0;
+                    x += sum / q;
+                    if (x <= cash[j].getCount()) {
+                        cash[j].setCount(cash[j].getCount() - x);
+                        sum = sum - cash[j].getNominal() * x;
+                        if (cash[j].getNominal() == cash[0].getNominal()) {
+                            q = cash[0].getNominal();
+                        } else {
+                            q = cash[j - 1].getNominal();
+                        }
+                    } else {
+                        int count = cash[j].getCount();
+                        sum = sum - cash[j].getNominal() * count;
+                        cash[j].setCount(0);
+                        if (cash[j].getNominal() == cash[0].getNominal()) {
+                            q = cash[0].getNominal();
+                        } else {
+                            q = cash[j - 1].getNominal();
+                        }
+
+                    }
+                    if (sum <= 0) {
+                        System.out.println(getBalance());
+                        return;
+                    }
+                }
+            }
+        }
+        System.out.println(getBalance());
     }
 }
 

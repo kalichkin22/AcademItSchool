@@ -46,7 +46,7 @@ public class Main {
                     System.out.println("Какими банкнотами произвести выдачу? ");
                     int banknote = scanner3.nextInt();
 
-                    account.withDraw(sum, banknote);
+                    account.withDraw2(sum, banknote);
                     break;
                 case 4:
                     System.out.println("До свидания!");
