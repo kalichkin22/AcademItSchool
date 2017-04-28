@@ -1,17 +1,16 @@
 package ru.academits.kalichkin.atm;
 
+import java.util.*;
+
 public class Account {
-    private Banknotes[] cash;
+    private LinkedList<Banknotes> cash;
     private int balance;
     private static final int MAX_BANKNOTES = 100;
 
     public Account() {
-        Banknotes _50 = new Banknotes(50, 10);
-        Banknotes _100 = new Banknotes(100, 10);
-        Banknotes _500 = new Banknotes(500, 10);
-        Banknotes _1000 = new Banknotes(1000, 10);
-        Banknotes _5000 = new Banknotes(5000, 10);
-        this.cash = new Banknotes[]{_50, _100, _500, _1000, _5000};
+        cash = new LinkedList<>(Arrays.asList(new Banknotes(50, 10),
+                new Banknotes(100, 10), new Banknotes(500, 10),
+                new Banknotes(1000, 10), new Banknotes(5000, 10)));
     }
 
     public int getBalance() {
@@ -50,38 +49,43 @@ public class Account {
         int newNominal = nominal;
         int countBanknote;
 
-        while (sum > 0) {
-            for (int j = 0; j < cash.length; j++) {
-                if (newNominal == cash[j].getNominal()) {
+        while (sum != 0) {
+            for (int j = 0; j < cash.size(); j++) {
+                if (newNominal == cash.get(j).getNominal()) {
                     countBanknote = 0;
                     countBanknote += sum / newNominal;
-                    if (countBanknote <= cash[j].getCount()) {
-                        cash[j].setCount(cash[j].getCount() - countBanknote);
-                        sum = sum - cash[j].getNominal() * countBanknote;
-                        if (cash[j].getNominal() == cash[0].getNominal()) {
-                            newNominal = cash[0].getNominal();
-                        } else {
-                            newNominal = cash[j - 1].getNominal();
+                    if (countBanknote <= cash.get(j).getCount()) {
+                        cash.get(j).setCount(cash.get(j).getCount() - countBanknote);
+                        sum = sum - cash.get(j).getNominal() * countBanknote;
+                        if (sum != 0 && sum < newNominal && cash.get(j).getNominal() != cash.peekFirst().getNominal()) {
+                            newNominal = cash.get(j - 1).getNominal();
+                        } else if (sum > 0 && sum < newNominal){
+                            System.out.println("К сожалению, недостаточно банкнот имеющегося номинала для выдачи суммы");
+                            return;
                         }
                     } else {
-                        int count = cash[j].getCount();
-                        sum = sum - cash[j].getNominal() * count;
-                        cash[j].setCount(0);
-                        if (cash[j].getNominal() == cash[0].getNominal()) {
-                            newNominal = cash[0].getNominal();
-                        } else {
-                            newNominal = cash[j - 1].getNominal();
-                        }
+                        int count = cash.get(j).getCount();
+                        sum = sum - cash.get(j).getNominal() * count;
+                        cash.get(j).setCount(0);
+                        cash.remove(cash.get(j));
 
-                    }
-                    if (sum <= 0) {
-                        System.out.println(getBalance());
-                        return;
+                        if (sum < cash.get(j).getNominal()) {
+                            newNominal = cash.peekFirst().getNominal();
+                        } else {
+                            newNominal = cash.peekLast().getNominal();
+                        }
                     }
                 }
             }
         }
-        //System.out.println(getBalance());
+        System.out.println("Баланс: " + getBalance());
     }
 }
+
+
+
+
+
+
+
 
