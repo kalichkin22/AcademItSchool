@@ -14,6 +14,10 @@ public class Account {
                 new Banknotes(1000, 10), new Banknotes(5000, 10)));
     }
 
+    public int getFirst() {
+        return cash.peekFirst().getNominal();
+    }
+
     public int getBalance() {
         int balance = 0;
         for (Banknotes aCash : cash) {
@@ -42,6 +46,15 @@ public class Account {
             return false;
         }
 
+        if (!cash.contains(new Banknotes(nominal, 0))) {
+            if (nominal == 50 || nominal == 100 || nominal == 500 || nominal == 1000 || nominal == 5000) {
+                cash.add(new Banknotes(nominal, 0));
+            } else {
+                System.out.println("Таких банкнот не существует!");
+                return false;
+            }
+        }
+
         for (Banknotes banknote : cash) {
             if (nominal == banknote.getNominal()) {
                 banknote.setCount(banknote.getCount() + count);
@@ -66,6 +79,11 @@ public class Account {
         if (nominal % cash.peekFirst().getNominal() != 0) {
             System.out.println("Таких банкнот не существует!");
             return;
+        }
+
+        if ((sum - cash.getFirst().getCount() * cash.getFirst().getNominal()) % 100 == cash.getFirst().getNominal()
+                && nominal == cash.getFirst().getNominal()) {
+            throw new NotSuchCountBanknote();
         }
 
         int newNominal = nominal;
