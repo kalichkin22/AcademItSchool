@@ -70,6 +70,7 @@ public class Account {
                 if (newNominal == cash.get(i).getNominal()) {
                     countBanknote = 0;
                     countBanknote += sum / newNominal;
+
                     if (countBanknote <= cash.get(i).getCount()) {
                         cash.get(i).setCount(cash.get(i).getCount() - countBanknote);
                         sum = sum - cash.get(i).getNominal() * countBanknote;
