@@ -2,8 +2,12 @@ package ru.academits.kalichkin.main;
 
 import ru.academits.kalichkin.atm.Account;
 import ru.academits.kalichkin.exception.NotSuchCountBanknote;
+import ru.academits.kalichkin.exception.NotSuchNominal;
+import ru.academits.kalichkin.exception.TooMuchException;
+import ru.academits.kalichkin.exception.TooMuchSum;
 
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Main {
@@ -62,6 +66,14 @@ public class Main {
                 System.out.println("Неверная операция, можно вводить только цифры.");
             } catch (NotSuchCountBanknote e) {
                 System.out.println("К сожалению, недостаточно банкнот имеющегося номинала для выдачи суммы.");
+            } catch (NoSuchElementException e) {
+                System.out.println("Таких банкнот не существует!");
+            } catch (TooMuchException e) {
+                System.out.println("Банкомат не может принять такое количество банкнот");
+            } catch (TooMuchSum e) {
+                System.out.println("В банкомате нет такой суммы");
+            } catch (NotSuchNominal e) {
+                System.out.println("Сумма должна быть кратна " + account.getFirst());
             }
         }
     }

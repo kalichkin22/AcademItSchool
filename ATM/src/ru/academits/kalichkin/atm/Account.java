@@ -1,6 +1,9 @@
 package ru.academits.kalichkin.atm;
 
 import ru.academits.kalichkin.exception.NotSuchCountBanknote;
+import ru.academits.kalichkin.exception.NotSuchNominal;
+import ru.academits.kalichkin.exception.TooMuchException;
+import ru.academits.kalichkin.exception.TooMuchSum;
 
 import java.util.*;
 
@@ -35,23 +38,21 @@ public class Account {
     }
 
     public boolean deposit(int nominal, int count) {
-        if (nominal % cash.peekFirst().getNominal() != 0) {
-            System.out.println("Таких банкнот не существует!");
-            return false;
+        int multipleNominal = 50;
+        if (nominal % multipleNominal != 0) {
+            throw new NoSuchElementException();
         }
 
         int maxCount = MAX_BANKNOTES - getCountBanknotes();
         if (count + getCountBanknotes() > MAX_BANKNOTES) {
-            System.out.println("Банкомат не может принять такое количество банкнот, сейчас можно внести максимум " + maxCount);
-            return false;
+            throw new TooMuchException();
         }
 
         if (!cash.contains(new Banknotes(nominal, 0))) {
             if (nominal == 50 || nominal == 100 || nominal == 500 || nominal == 1000 || nominal == 5000) {
                 cash.add(new Banknotes(nominal, 0));
             } else {
-                System.out.println("Таких банкнот не существует!");
-                return false;
+                throw new NoSuchElementException();
             }
         }
 
@@ -67,18 +68,15 @@ public class Account {
 
     public void withDraw(int sum, int nominal) {
         if (sum > getBalance()) {
-            System.out.println("В банкомате нет такой суммы");
-            return;
+            throw new TooMuchSum();
         }
 
         if (sum % cash.peekFirst().getNominal() != 0) {
-            System.out.println("Сумма должна быть кратна " + cash.peekFirst().getNominal());
-            return;
+            throw new NotSuchNominal();
         }
 
         if (nominal % cash.peekFirst().getNominal() != 0) {
-            System.out.println("Таких банкнот не существует!");
-            return;
+            throw new NoSuchElementException();
         }
 
         if ((sum - cash.getFirst().getCount() * cash.getFirst().getNominal()) % 100 == cash.getFirst().getNominal()
