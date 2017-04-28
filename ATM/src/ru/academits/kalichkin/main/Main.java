@@ -53,7 +53,7 @@ public class Main {
                         System.out.println("До свидания!");
                         break;
                     default:
-                        System.out.print("Неизвестная операция, попробуйте еще раз: ");
+                        System.out.print("Неизвестная операция, попробуйте еще раз." + System.lineSeparator());
                 }
 
                 if (number == 4) {
