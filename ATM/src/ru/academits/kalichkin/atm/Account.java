@@ -94,7 +94,7 @@ public class Account {
                 }
             }
         }
-        System.out.println(getBalance());
+        System.out.println("Баланс: " + getBalance());
     }
 }
 
