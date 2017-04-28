@@ -1,5 +1,7 @@
 package ru.academits.kalichkin.atm;
 
+import ru.academits.kalichkin.exception.NotSuchCountBanknote;
+
 import java.util.*;
 
 public class Account {
@@ -28,21 +30,25 @@ public class Account {
         return count;
     }
 
-    public void deposit(int nominal, int count) {
+    public boolean deposit(int nominal, int count) {
+        if (nominal % cash.peekFirst().getNominal() != 0) {
+            System.out.println("Таких банкнот не существует!");
+            return false;
+        }
+
         int maxCount = MAX_BANKNOTES - getCountBanknotes();
+        if (count + getCountBanknotes() > MAX_BANKNOTES) {
+            System.out.println("Банкомат не может принять такое количество банкнот, сейчас можно внести максимум " + maxCount);
+            return false;
+        }
+
         for (Banknotes banknote : cash) {
             if (nominal == banknote.getNominal()) {
-                if (count + getCountBanknotes() <= MAX_BANKNOTES) {
-                    banknote.setCount(banknote.getCount() + count);
-                } else {
-                    banknote.setCount(maxCount);
-                    System.out.println("Банкомат не может принять такое количество банкнот, сейчас можно внести максимум " + maxCount);
-                }
-                System.out.println("Баланс: " + getBalance());
-                return;
+                banknote.setCount(banknote.getCount() + count);
+                return true;
             }
         }
-        System.out.println("Таких банкнот не существует! За Вами уже выехали!!!");
+        return false;
     }
 
 
@@ -77,8 +83,7 @@ public class Account {
                         if (sum != 0 && sum < newNominal && cash.get(i).getNominal() != cash.peekFirst().getNominal()) {
                             newNominal = cash.get(i - 1).getNominal();
                         } else if (sum > 0 && sum < newNominal) {
-                            System.out.println("К сожалению, недостаточно банкнот имеющегося номинала для выдачи суммы");
-                            return;
+                            throw new NotSuchCountBanknote();
                         }
                     } else {
                         int count = cash.get(i).getCount();
@@ -90,7 +95,6 @@ public class Account {
                 }
             }
         }
-        System.out.println("Баланс: " + getBalance());
     }
 }
 

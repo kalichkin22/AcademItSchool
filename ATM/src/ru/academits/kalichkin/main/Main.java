@@ -1,6 +1,7 @@
 package ru.academits.kalichkin.main;
 
 import ru.academits.kalichkin.atm.Account;
+import ru.academits.kalichkin.exception.NotSuchCountBanknote;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -27,26 +28,25 @@ public class Main {
                     System.out.println("Баланс составляет: " + account.getBalance());
                     break;
                 case 2:
-                    Scanner scanner2 = new Scanner(System.in);
-
                     System.out.println("Введите номинал банкноты: ");
-                    int nominalDeposit = scanner2.nextInt();
+                    int nominalDeposit = scanner.nextInt();
 
-                    System.out.println("Введите количество банкноты: ");
-                    int countDeposit = scanner2.nextInt();
+                    System.out.println("Введите количество банкнот: ");
+                    int countDeposit = scanner.nextInt();
 
-                    account.deposit(nominalDeposit, countDeposit);
+                    if (account.deposit(nominalDeposit, countDeposit)) {
+                        System.out.println("Баланс: " + account.getBalance());
+                    }
                     break;
                 case 3:
-                    Scanner scanner3 = new Scanner(System.in);
-
                     System.out.println("Введите сумму выдачи, кратную 50: ");
-                    int sum = scanner3.nextInt();
+                    int sum = scanner.nextInt();
 
                     System.out.println("Какими банкнотами произвести выдачу? ");
-                    int banknote = scanner3.nextInt();
+                    int banknote = scanner.nextInt();
 
                     account.withDraw(sum, banknote);
+                    System.out.println("Баланс: " + account.getBalance());
                     break;
                 case 4:
                     System.out.println("До свидания!");
@@ -57,6 +57,8 @@ public class Main {
 
         } catch (InputMismatchException e) {
             System.out.println("Неверная операция, можно вводить только цифры.");
+        } catch (NotSuchCountBanknote e) {
+            System.out.println("К сожалению, недостаточно банкнот имеющегося номинала для выдачи суммы.");
         }
     }
 
