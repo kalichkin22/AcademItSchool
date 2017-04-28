@@ -4,7 +4,6 @@ import java.util.*;
 
 public class Account {
     private LinkedList<Banknotes> cash;
-    private int balance;
     private static final int MAX_BANKNOTES = 100;
 
     public Account() {
@@ -14,6 +13,7 @@ public class Account {
     }
 
     public int getBalance() {
+        int balance = 0;
         for (Banknotes aCash : cash) {
             balance += aCash.getNominal() * aCash.getCount();
         }
@@ -45,9 +45,21 @@ public class Account {
         System.out.println("Таких банкнот не существует! За Вами уже выехали!!!");
     }
 
+    @SuppressWarnings("LoopStatementThatDoesntLoop")
     public void withDraw(int sum, int nominal) {
+        if (sum > getBalance()) {
+            System.out.println("В банкомате нет такой суммы");
+            return;
+        }
+
+        if (sum % 50 != 0) {
+            System.out.println("Сумма должна быть кратна 50!");
+            return;
+        }
+
         int newNominal = nominal;
         int countBanknote;
+        boolean isDraw = false;
 
         while (sum != 0) {
             for (int j = 0; j < cash.size(); j++) {
@@ -59,10 +71,11 @@ public class Account {
                         sum = sum - cash.get(j).getNominal() * countBanknote;
                         if (sum != 0 && sum < newNominal && cash.get(j).getNominal() != cash.peekFirst().getNominal()) {
                             newNominal = cash.get(j - 1).getNominal();
-                        } else if (sum > 0 && sum < newNominal){
+                        } else if (sum > 0 && sum < newNominal) {
                             System.out.println("К сожалению, недостаточно банкнот имеющегося номинала для выдачи суммы");
                             return;
                         }
+                        isDraw = true;
                     } else {
                         int count = cash.get(j).getCount();
                         sum = sum - cash.get(j).getNominal() * count;
@@ -74,11 +87,18 @@ public class Account {
                         } else {
                             newNominal = cash.peekLast().getNominal();
                         }
+                        isDraw = true;
                     }
                 }
             }
+            if (isDraw) {
+                System.out.println("Баланс: " + getBalance());
+                break;
+            } else {
+                System.out.println("К сожалению выдача невозможна, попробуйте другими номиналами банкнот!");
+                break;
+            }
         }
-        System.out.println("Баланс: " + getBalance());
     }
 }
 

@@ -19,40 +19,46 @@ public class Main {
                     "4. Выйти"
             );
 
-            System.out.println("Выбирете номер операции: ");
-            int number = scanner.nextInt();
+            while (true) {
+                System.out.println("Выбирете номер операции: ");
+                int number = scanner.nextInt();
 
-            switch (number) {
-                case 1:
-                    System.out.println("Баланс составляет: " + account.getBalance());
+                switch (number) {
+                    case 1:
+                        System.out.println("Баланс составляет: " + account.getBalance());
+                        break;
+                    case 2:
+                        Scanner scanner2 = new Scanner(System.in);
+
+                        System.out.println("Введите номинал банкноты: ");
+                        int nominalDeposit = scanner2.nextInt();
+
+                        System.out.println("Введите количество банкноты: ");
+                        int countDeposit = scanner2.nextInt();
+
+                        account.deposit(nominalDeposit, countDeposit);
+                        break;
+                    case 3:
+                        Scanner scanner3 = new Scanner(System.in);
+
+                        System.out.println("Введите сумму выдачи, кратную 50: ");
+                        int sum = scanner3.nextInt();
+
+                        System.out.println("Какими банкнотами произвести выдачу? ");
+                        int banknote = scanner3.nextInt();
+
+                        account.withDraw(sum, banknote);
+                        break;
+                    case 4:
+                        System.out.println("До свидания!");
+                        break;
+                    default:
+                        System.out.print("Неизвестная операция, попробуйте еще раз: ");
+                }
+
+                if (number == 4) {
                     break;
-                case 2:
-                    Scanner scanner2 = new Scanner(System.in);
-
-                    System.out.println("Введите номинал банкноты: ");
-                    int nominalDeposit = scanner2.nextInt();
-
-                    System.out.println("Введите количество банкноты: ");
-                    int countDeposit = scanner2.nextInt();
-
-                    account.deposit(nominalDeposit, countDeposit);
-                    break;
-                case 3:
-                    Scanner scanner3 = new Scanner(System.in);
-
-                    System.out.println("Введите сумму выдачи, кратную 50: ");
-                    int sum = scanner3.nextInt();
-
-                    System.out.println("Какими банкнотами произвести выдачу? ");
-                    int banknote = scanner3.nextInt();
-
-                    account.withDraw(sum, banknote);
-                    break;
-                case 4:
-                    System.out.println("До свидания!");
-                    break;
-                default:
-                    System.out.print("Неизвестная операция, попробуйте еще раз.");
+                }
             }
         } catch (InputMismatchException e) {
             System.out.println("Неверная операция, можно вводить только цифры.");
