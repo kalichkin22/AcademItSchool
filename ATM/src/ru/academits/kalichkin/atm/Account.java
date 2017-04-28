@@ -52,12 +52,12 @@ public class Account {
             return;
         }
 
-        if (sum % 50 != 0) {
-            System.out.println("Сумма должна быть кратна 50!");
+        if (sum % cash.peekFirst().getNominal() != 0) {
+            System.out.println("Сумма должна быть кратна " + cash.peekFirst().getNominal());
             return;
         }
 
-        if (nominal % 50 != 0) {
+        if (nominal % cash.peekFirst().getNominal() != 0) {
             System.out.println("Таких банкнот не существует!");
             return;
         }
@@ -66,30 +66,25 @@ public class Account {
         int countBanknote;
 
         while (sum != 0) {
-            for (int j = 0; j < cash.size(); j++) {
-                if (newNominal == cash.get(j).getNominal()) {
+            for (int i = 0; i < cash.size(); i++) {
+                if (newNominal == cash.get(i).getNominal()) {
                     countBanknote = 0;
                     countBanknote += sum / newNominal;
-                    if (countBanknote <= cash.get(j).getCount()) {
-                        cash.get(j).setCount(cash.get(j).getCount() - countBanknote);
-                        sum = sum - cash.get(j).getNominal() * countBanknote;
-                        if (sum != 0 && sum < newNominal && cash.get(j).getNominal() != cash.peekFirst().getNominal()) {
-                            newNominal = cash.get(j - 1).getNominal();
+                    if (countBanknote <= cash.get(i).getCount()) {
+                        cash.get(i).setCount(cash.get(i).getCount() - countBanknote);
+                        sum = sum - cash.get(i).getNominal() * countBanknote;
+                        if (sum != 0 && sum < newNominal && cash.get(i).getNominal() != cash.peekFirst().getNominal()) {
+                            newNominal = cash.get(i - 1).getNominal();
                         } else if (sum > 0 && sum < newNominal) {
                             System.out.println("К сожалению, недостаточно банкнот имеющегося номинала для выдачи суммы");
                             return;
                         }
                     } else {
-                        int count = cash.get(j).getCount();
-                        sum = sum - cash.get(j).getNominal() * count;
-                        cash.get(j).setCount(0);
-                        cash.remove(cash.get(j));
-
-                        if (sum < cash.get(j).getNominal()) {
-                            newNominal = cash.peekFirst().getNominal();
-                        } else {
-                            newNominal = cash.peekLast().getNominal();
-                        }
+                        int count = cash.get(i).getCount();
+                        sum = sum - cash.get(i).getNominal() * count;
+                        cash.get(i).setCount(0);
+                        cash.remove(cash.get(i));
+                        newNominal = cash.peekLast().getNominal();
                     }
                 }
             }
