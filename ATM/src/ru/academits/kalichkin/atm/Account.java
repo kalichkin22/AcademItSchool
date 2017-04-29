@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Account {
     private LinkedList<Banknotes> cash;
-    private Banknotes[] banknotes;
+    private static Banknotes[] banknotes;
     public static final int MAX_COUNT_BANKNOTES = 100;
 
     public Account() {
@@ -16,9 +16,15 @@ public class Account {
         cash = new LinkedList<>(Arrays.asList(banknotes));
     }
 
+
     public LinkedList<Banknotes> getBanknotes() {
         return cash;
     }
+
+    public static Banknotes[] getValuesBanknotes () {
+        return banknotes;
+    }
+
 
     private void validateNominal(Collection<Banknotes> collection, int nominal) {
         for (Banknotes banknote : collection) {

@@ -68,7 +68,7 @@ public class Main {
             } catch (NotSuchCountBanknoteException e) {
                 System.out.println("К сожалению, недостаточно банкнот имеющегося номинала для выдачи суммы." + System.lineSeparator());
             } catch (NoSuchElementException e) {
-                System.out.println("Банкомат нет банкнот такого номинала." + System.lineSeparator());
+                System.out.println("В банкомате нет банкнот такого номинала." + System.lineSeparator());
             } catch (TooMuchCountBanknoteException e) {
                 System.out.println("Банкомат не может принять такое количество банкнот." + System.lineSeparator());
             } catch (TooMuchSumException e) {
@@ -86,7 +86,14 @@ public class Main {
         for (Banknotes banknote : banknotes) {
             System.out.printf("Номинал: %d, колличество: %d" + System.lineSeparator(), banknote.getNominal(), banknote.getCount());
         }
+        LinkedList<Banknotes> banknotes1 = new LinkedList<>(Arrays.asList(Account.getValuesBanknotes()));
+        for (Banknotes banknote : banknotes1) {
+            if (!banknotes.contains(banknote)) {
+                System.out.printf("Номинал: %d, колличество: %d" + System.lineSeparator(), banknote.getNominal(), 0);
+            }
+        }
     }
+
 
     private static void getBanknoteWithDraw(LinkedList<Banknotes> banknotes) {
         System.out.println("Выданы банкноты следюущих номиналов:");
