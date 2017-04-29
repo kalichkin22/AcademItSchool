@@ -49,23 +49,7 @@ public class Account {
         return count;
     }
 
-    public int getNominal(Banknotes banknote) {
-        return banknote.getNominal();
-    }
 
-    public int getCountNominal(Banknotes banknote) {
-        int count = 0;
-        for (Banknotes aCash : cash) {
-            if (banknote.getNominal() == aCash.getNominal()) {
-                count = aCash.getCount();
-            }
-        }
-        return count;
-    }
-
-    public int size() {
-        return cash.size();
-    }
 
     public boolean deposit(int nominal, int count) {
         if (count + getCountAllBanknotes() > MAX_COUNT_BANKNOTES) {
