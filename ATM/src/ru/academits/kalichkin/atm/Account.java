@@ -16,10 +16,14 @@ public class Account {
         cash = new LinkedList<>(Arrays.asList(banknotes));
     }
 
-    private boolean validNominal(int nominal) {
-        for (Banknotes aValid : banknotes) {
-            if (aValid.getNominal() == nominal) {
-                return true;
+    public LinkedList<Banknotes> getBanknotes() {
+        return cash;
+    }
+
+    private void validateNominal(int nominal) {
+        for (Banknotes banknote : banknotes) {
+            if (banknote.getNominal() == nominal) {
+                return;
             }
         }
         throw new NoSuchElementException();
@@ -33,13 +37,15 @@ public class Account {
         return cash.peekFirst().getNominal();
     }
 
+
     public int getBalance() {
         int balance = 0;
-        for (Banknotes aCash : cash) {
-            balance += aCash.getNominal() * aCash.getCount();
+        for (Banknotes banknote : cash) {
+            balance += banknote.getNominal() * banknote.getCount();
         }
         return balance;
     }
+
 
     public int getCountAllBanknotes() {
         int count = 0;
@@ -50,25 +56,22 @@ public class Account {
     }
 
 
-
     public boolean deposit(int nominal, int count) {
         if (count + getCountAllBanknotes() > MAX_COUNT_BANKNOTES) {
             throw new TooMuchCountBanknoteException();
         }
 
+        validateNominal(nominal);
+
         Banknotes newBanknote = new Banknotes(nominal, 0);
         if (!cash.contains(newBanknote)) {
-            if (validNominal(nominal)) {
-                if (cash.isEmpty()) {
-                    cash.addFirst(newBanknote);
-                } else if (nominal < cash.peekFirst().getNominal()) {
-                    cash.addFirst(newBanknote);
-                } else {
-                    cash.add(newBanknote);
-                }
+            if (cash.isEmpty()) {
+                cash.addFirst(newBanknote);
+            } else if (nominal < cash.peekFirst().getNominal()) {
+                cash.addFirst(newBanknote);
+            } else {
+                cash.add(newBanknote);
             }
-        } else {
-            validNominal(nominal);
         }
 
         for (Banknotes banknote : cash) {
@@ -81,8 +84,8 @@ public class Account {
     }
 
 
-    public void withDraw(int sum, int nominal) {
-        validNominal(nominal);
+    public LinkedList<Banknotes> withDraw(int sum, int nominal) {
+        validateNominal(nominal);
 
         if (sum > getBalance()) {
             throw new TooMuchSumException();
@@ -101,6 +104,7 @@ public class Account {
 
         int newNominal = nominal;
         int countBanknote;
+        LinkedList<Banknotes> newCash = new LinkedList<>();
 
         while (sum != 0) {
             for (int i = 0; i < cash.size(); i++) {
@@ -116,22 +120,41 @@ public class Account {
                         } else if (sum > 0 && sum < newNominal) {
                             throw new NotSuchCountBanknoteException();
                         }
+
+                        Banknotes newBanknote = new Banknotes(cash.get(i).getNominal(), countBanknote);
+
                         if (cash.get(i).getCount() == 0) {
                             cash.remove(cash.get(i));
+                        }
+
+                        if (newBanknote.getCount() != 0) {
+                            newCash.add(newBanknote);
                         }
                     } else {
                         int count = cash.get(i).getCount();
                         sum = sum - cash.get(i).getNominal() * count;
+                        Banknotes newBanknote = new Banknotes(cash.get(i).getNominal(),cash.get(i).getCount());
                         cash.remove(cash.get(i));
                         newNominal = cash.peekLast().getNominal();
+                        newCash.add(newBanknote);
                     }
                 }
             }
         }
+        return newCash;
     }
+
 
     public String toString() {
         return Arrays.toString(cash.toArray());
+    }
+
+    public int getNominalBanknote(Banknotes banknote) {
+        return banknote.getNominal();
+    }
+
+    public int getCountBanknote(Banknotes banknote) {
+        return banknote.getCount();
     }
 }
 
