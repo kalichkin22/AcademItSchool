@@ -21,7 +21,7 @@ public class Account {
         return cash;
     }
 
-    public static Banknotes[] getValuesBanknotes () {
+    public Banknotes[] getValuesBanknotes () {
         return banknotes;
     }
 

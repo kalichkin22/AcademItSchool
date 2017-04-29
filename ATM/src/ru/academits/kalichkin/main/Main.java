@@ -28,7 +28,7 @@ public class Main {
                     case 1:
                         System.out.println("Баланс составляет: " + account.getBalance());
                         System.out.println("Лимит банкомата на число купюр " + Account.MAX_COUNT_BANKNOTES);
-                        getCountBanknote(account.getBanknotes());
+                        getCountBanknote(account.getBanknotes(), account.getValuesBanknotes());
                         System.out.println();
                         break;
                     case 2:
@@ -42,7 +42,7 @@ public class Main {
                             System.out.println("Баланс: " + account.getBalance());
                         }
                         System.out.println("Лимит банкомата на число купюр: " + Account.MAX_COUNT_BANKNOTES);
-                        getCountBanknote(account.getBanknotes());
+                        getCountBanknote(account.getBanknotes(), account.getValuesBanknotes());
                         System.out.println();
                         break;
                     case 3:
@@ -81,13 +81,12 @@ public class Main {
         }
     }
 
-    private static void getCountBanknote(LinkedList<Banknotes> banknotes) {
+    private static void getCountBanknote(LinkedList<Banknotes> banknotes, Banknotes[] banknotes2) {
         System.out.println("В банкомате имеются банкноты следюущих номиналов:");
         for (Banknotes banknote : banknotes) {
             System.out.printf("Номинал: %d, колличество: %d" + System.lineSeparator(), banknote.getNominal(), banknote.getCount());
         }
-        LinkedList<Banknotes> banknotes1 = new LinkedList<>(Arrays.asList(Account.getValuesBanknotes()));
-        for (Banknotes banknote : banknotes1) {
+        for (Banknotes banknote : banknotes2) {
             if (!banknotes.contains(banknote)) {
                 System.out.printf("Номинал: %d, колличество: %d" + System.lineSeparator(), banknote.getNominal(), 0);
             }
