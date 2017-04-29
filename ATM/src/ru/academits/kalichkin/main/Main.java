@@ -86,9 +86,10 @@ public class Main {
         for (Banknotes banknote : banknotes) {
             System.out.printf("Номинал: %d, колличество: %d" + System.lineSeparator(), banknote.getNominal(), banknote.getCount());
         }
+        System.out.println("В банкомате нет следующих банкнот:");
         for (Banknotes banknote : banknotes2) {
             if (!banknotes.contains(banknote)) {
-                System.out.printf("Номинал: %d, колличество: %d" + System.lineSeparator(), banknote.getNominal(), 0);
+                System.out.printf("Номинал: %d" + System.lineSeparator(), banknote.getNominal());
             }
         }
     }
