@@ -148,14 +148,6 @@ public class Account {
     public String toString() {
         return Arrays.toString(cash.toArray());
     }
-
-    public int getNominalBanknote(Banknotes banknote) {
-        return banknote.getNominal();
-    }
-
-    public int getCountBanknote(Banknotes banknote) {
-        return banknote.getCount();
-    }
 }
 
 
