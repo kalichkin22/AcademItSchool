@@ -39,6 +39,6 @@ public class Banknotes {
         }
         Banknotes p = (Banknotes) o;
 
-        return nominal == p.nominal && count == p.count;
+        return nominal == p.nominal;
     }
 }

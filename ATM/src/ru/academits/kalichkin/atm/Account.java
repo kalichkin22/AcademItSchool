@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Account {
     private LinkedList<Banknotes> cash;
-    private static Banknotes[] banknotes;
+    private Banknotes[] banknotes;
     public static final int MAX_COUNT_BANKNOTES = 100;
 
     public Account() {
@@ -21,8 +21,9 @@ public class Account {
         return cash;
     }
 
-    public Banknotes[] getValuesBanknotes () {
-        return banknotes;
+    public Banknotes[] getValuesBanknotes() {
+        Banknotes[] newBanknotes = banknotes;
+        return newBanknotes;
     }
 
 
@@ -109,21 +110,20 @@ public class Account {
         }
 
         int newNominal = nominal;
-        int countBanknote;
         LinkedList<Banknotes> cashWithDraw = new LinkedList<>();
 
         while (sum != 0) {
             for (int i = 0; i < cash.size(); i++) {
 
                 if (newNominal == cash.get(i).getNominal()) {
-                    countBanknote = 0;
+                    int countBanknote = 0;
                     countBanknote += sum / newNominal;
                     Banknotes banknoteWithDraw;
 
                     if (countBanknote <= cash.get(i).getCount()) {
                         cash.get(i).setCount(cash.get(i).getCount() - countBanknote);
                         sum = sum - cash.get(i).getNominal() * countBanknote;
-                        if (sum != 0 && sum < newNominal && cash.get(i).getNominal() != getFirstBanknoteNominal) {
+                        if (sum != 0 && sum < newNominal && cash.get(i).getNominal() != cash.peek().getNominal()) {
                             newNominal = cash.get(i - 1).getNominal();
                         } else if (sum > 0 && sum < newNominal) {
                             throw new NotSuchCountBanknoteException();
@@ -141,7 +141,7 @@ public class Account {
                     } else {
                         int count = cash.get(i).getCount();
                         sum = sum - cash.get(i).getNominal() * count;
-                        banknoteWithDraw = new Banknotes(cash.get(i).getNominal(),cash.get(i).getCount());
+                        banknoteWithDraw = new Banknotes(cash.get(i).getNominal(), cash.get(i).getCount());
                         cash.remove(cash.get(i));
                         newNominal = cash.peekLast().getNominal();
                         cashWithDraw.add(banknoteWithDraw);
