@@ -68,7 +68,7 @@ public class Main {
             } catch (NotSuchCountBanknoteException e) {
                 System.out.println("К сожалению, недостаточно банкнот имеющегося номинала для выдачи суммы." + System.lineSeparator());
             } catch (NoSuchElementException e) {
-                System.out.println("Банкомат не знает таких банкнот." + System.lineSeparator());
+                System.out.println("Банкомат нет банкнот такого номинала." + System.lineSeparator());
             } catch (TooMuchCountBanknoteException e) {
                 System.out.println("Банкомат не может принять такое количество банкнот." + System.lineSeparator());
             } catch (TooMuchSumException e) {
