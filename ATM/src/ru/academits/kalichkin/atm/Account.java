@@ -108,6 +108,7 @@ public class Account {
 
         while (sum != 0) {
             for (int i = 0; i < cash.size(); i++) {
+                Banknotes banknoteWithDraw;
                 if (newNominal == cash.get(i).getNominal()) {
                     countBanknote = 0;
                     countBanknote += sum / newNominal;
@@ -121,22 +122,22 @@ public class Account {
                             throw new NotSuchCountBanknoteException();
                         }
 
-                        Banknotes newBanknote = new Banknotes(cash.get(i).getNominal(), countBanknote);
+                        banknoteWithDraw = new Banknotes(cash.get(i).getNominal(), countBanknote);
 
                         if (cash.get(i).getCount() == 0) {
                             cash.remove(cash.get(i));
                         }
 
-                        if (newBanknote.getCount() != 0) {
-                            newCash.add(newBanknote);
+                        if (banknoteWithDraw.getCount() != 0) {
+                            newCash.add(banknoteWithDraw);
                         }
                     } else {
                         int count = cash.get(i).getCount();
                         sum = sum - cash.get(i).getNominal() * count;
-                        Banknotes newBanknote = new Banknotes(cash.get(i).getNominal(),cash.get(i).getCount());
+                        banknoteWithDraw = new Banknotes(cash.get(i).getNominal(),cash.get(i).getCount());
                         cash.remove(cash.get(i));
                         newNominal = cash.peekLast().getNominal();
-                        newCash.add(newBanknote);
+                        newCash.add(banknoteWithDraw);
                     }
                 }
             }
