@@ -53,7 +53,7 @@ public class Main {
 
                         account.withDraw(sum, banknote);
                         System.out.println("Баланс: " + account.getBalance());
-                        System.out.println("Число доступных купюр: " + account.getCountAllBanknotes() + System.lineSeparator());
+                        System.out.println("Число доступных банкнот: " + account.getCountAllBanknotes() + System.lineSeparator());
                         break;
                     case 4:
                         System.out.println("До свидания!");
