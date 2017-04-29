@@ -1,10 +1,7 @@
 package ru.academits.kalichkin.main;
 
 import ru.academits.kalichkin.atm.Account;
-import ru.academits.kalichkin.exception.NotSuchCountBanknote;
-import ru.academits.kalichkin.exception.NotSuchNominal;
-import ru.academits.kalichkin.exception.TooMuchException;
-import ru.academits.kalichkin.exception.TooMuchSum;
+import ru.academits.kalichkin.exception.*;
 
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
@@ -16,21 +13,23 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Добрый день!" + System.lineSeparator() +
-                "Вас приветствует Банк Банков!" + System.lineSeparator() +
-                "1. Узнать баланс счета" + System.lineSeparator() +
-                "2. Пополнить баланс" + System.lineSeparator() +
-                "3. Снять деньги" + System.lineSeparator() +
-                "4. Выйти"
-        );
-
+                "Вас приветствует Банк Банков!");
         while (true) {
             try {
+                System.out.println(
+                        "1. Узнать баланс счета" + System.lineSeparator() +
+                                "2. Пополнить баланс" + System.lineSeparator() +
+                                "3. Снять деньги" + System.lineSeparator() +
+                                "4. Выйти"
+                );
                 System.out.println("Выбирете номер операции: ");
-                int number = scanner.nextInt();
+                int numberCommand = scanner.nextInt();
 
-                switch (number) {
+                switch (numberCommand) {
                     case 1:
                         System.out.println("Баланс составляет: " + account.getBalance());
+                        System.out.println("Лимит банкомата на число купюр " + Account.getMaxBanknotes());
+                        System.out.println("Число доступных купюр: " + account.getCountBanknotes() + System.lineSeparator());
                         break;
                     case 2:
                         System.out.println("Введите номинал банкноты: ");
@@ -42,9 +41,11 @@ public class Main {
                         if (account.deposit(nominalDeposit, countDeposit)) {
                             System.out.println("Баланс: " + account.getBalance());
                         }
+                        System.out.println("Лимит банкомата на число купюр " + Account.getMaxBanknotes());
+                        System.out.println("Число доступных купюр: " + account.getCountBanknotes() + System.lineSeparator());
                         break;
                     case 3:
-                        System.out.println("Введите сумму выдачи кратную: " + account.getFirst());
+                        System.out.println("Введите сумму выдачи кратную: " + account.getMinNominal());
                         int sum = scanner.nextInt();
 
                         System.out.println("Какими банкнотами произвести выдачу? ");
@@ -52,28 +53,30 @@ public class Main {
 
                         account.withDraw(sum, banknote);
                         System.out.println("Баланс: " + account.getBalance());
+                        System.out.println("Лимит банкомата на число купюр " + account.getCountBanknotes());
+                        System.out.println("Число доступных купюр: " + account.getCountBanknotes() + System.lineSeparator());
                         break;
                     case 4:
                         System.out.println("До свидания!");
-                        break;
+                        return;
                     default:
-                        System.out.print("Неизвестная операция, попробуйте еще раз." + System.lineSeparator());
+                        System.out.println("Неизвестная операция, попробуйте еще раз.");
                 }
-                if (number == 4) {
-                    break;
-                }
+
             } catch (InputMismatchException e) {
-                System.out.println("Неверная операция, можно вводить только цифры.");
-            } catch (NotSuchCountBanknote e) {
-                System.out.println("К сожалению, недостаточно банкнот имеющегося номинала для выдачи суммы.");
+                System.out.println("Неверная операция, можно вводить только цифры." + System.lineSeparator());
+            } catch (NotSuchCountBanknoteException e) {
+                System.out.println("К сожалению, недостаточно банкнот имеющегося номинала для выдачи суммы." + System.lineSeparator());
             } catch (NoSuchElementException e) {
-                System.out.println("Таких банкнот не существует!");
-            } catch (TooMuchException e) {
-                System.out.println("Банкомат не может принять такое количество банкнот");
-            } catch (TooMuchSum e) {
-                System.out.println("В банкомате нет такой суммы");
-            } catch (NotSuchNominal e) {
-                System.out.println("Сумма должна быть кратна " + account.getFirst());
+                System.out.println("Банкомат не знает таких банкнот." + System.lineSeparator());
+            } catch (TooMuchCountBanknoteException e) {
+                System.out.println("Банкомат не может принять такое количество банкнот" + System.lineSeparator());
+            } catch (TooMuchSumException e) {
+                System.out.println("В банкомате нет такой суммы." + System.lineSeparator());
+            } catch (NotSuchNominalException e) {
+                System.out.println("Сумма должна быть кратна " + account.getMinNominal() + System.lineSeparator());
+            } catch (NotHaveBanknotesException e) {
+                System.out.println("В банкомате нет денег. Попробуйте позже." + System.lineSeparator());
             }
         }
     }
