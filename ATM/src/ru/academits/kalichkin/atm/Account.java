@@ -7,7 +7,7 @@ import java.util.*;
 public class Account {
     private LinkedList<Banknotes> cash;
     private Banknotes[] banknotes;
-    private static final int MAX_BANKNOTES = 100;
+    public static final int MAX_COUNT_BANKNOTES = 100;
 
     public Account() {
         banknotes = new Banknotes[]{new Banknotes(50, 10),
@@ -25,9 +25,6 @@ public class Account {
         throw new NoSuchElementException();
     }
 
-    public static int getMaxBanknotes() {
-        return MAX_BANKNOTES;
-    }
 
     public int getMinNominal() {
         if (cash.peekFirst() == null) {
@@ -44,7 +41,7 @@ public class Account {
         return balance;
     }
 
-    public int getCountBanknotes() {
+    public int getCountAllBanknotes() {
         int count = 0;
         for (Banknotes aCash : cash) {
             count += aCash.getCount();
@@ -52,8 +49,26 @@ public class Account {
         return count;
     }
 
+    public int getNominal(Banknotes banknote) {
+        return banknote.getNominal();
+    }
+
+    public int getCountNominal(Banknotes banknote) {
+        int count = 0;
+        for (Banknotes aCash : cash) {
+            if (banknote.getNominal() == aCash.getNominal()) {
+                count = aCash.getCount();
+            }
+        }
+        return count;
+    }
+
+    public int size() {
+        return cash.size();
+    }
+
     public boolean deposit(int nominal, int count) {
-        if (count + getCountBanknotes() > MAX_BANKNOTES) {
+        if (count + getCountAllBanknotes() > MAX_COUNT_BANKNOTES) {
             throw new TooMuchCountBanknoteException();
         }
 
@@ -89,12 +104,14 @@ public class Account {
             throw new TooMuchSumException();
         }
 
-        if (sum % cash.peekFirst().getNominal() != 0) {
+        int getFirstBanknoteNominal = cash.peekFirst().getNominal();
+        if (sum % getFirstBanknoteNominal != 0) {
             throw new NotSuchNominalException();
         }
 
-        if ((sum - cash.getFirst().getCount() * cash.getFirst().getNominal()) % 100 == cash.getFirst().getNominal()
-                && nominal == cash.getFirst().getNominal()) {
+        int multiplyFirstBanknote = 100;
+        if ((sum - cash.getFirst().getCount() * getFirstBanknoteNominal) % multiplyFirstBanknote == getFirstBanknoteNominal
+                && nominal == getFirstBanknoteNominal) {
             throw new NotSuchCountBanknoteException();
         }
 
@@ -110,7 +127,7 @@ public class Account {
                     if (countBanknote <= cash.get(i).getCount()) {
                         cash.get(i).setCount(cash.get(i).getCount() - countBanknote);
                         sum = sum - cash.get(i).getNominal() * countBanknote;
-                        if (sum != 0 && sum < newNominal && cash.get(i).getNominal() != cash.peekFirst().getNominal()) {
+                        if (sum != 0 && sum < newNominal && cash.get(i).getNominal() != getFirstBanknoteNominal) {
                             newNominal = cash.get(i - 1).getNominal();
                         } else if (sum > 0 && sum < newNominal) {
                             throw new NotSuchCountBanknoteException();

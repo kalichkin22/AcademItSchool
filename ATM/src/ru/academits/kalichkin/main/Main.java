@@ -28,8 +28,8 @@ public class Main {
                 switch (numberCommand) {
                     case 1:
                         System.out.println("Баланс составляет: " + account.getBalance());
-                        System.out.println("Лимит банкомата на число купюр " + Account.getMaxBanknotes());
-                        System.out.println("Число доступных купюр: " + account.getCountBanknotes() + System.lineSeparator());
+                        System.out.println("Лимит банкомата на число купюр " + Account.MAX_COUNT_BANKNOTES);
+                        System.out.println("Число доступных купюр: " + account.getCountAllBanknotes() + System.lineSeparator());
                         break;
                     case 2:
                         System.out.println("Введите номинал банкноты: ");
@@ -41,8 +41,8 @@ public class Main {
                         if (account.deposit(nominalDeposit, countDeposit)) {
                             System.out.println("Баланс: " + account.getBalance());
                         }
-                        System.out.println("Лимит банкомата на число купюр " + Account.getMaxBanknotes());
-                        System.out.println("Число доступных купюр: " + account.getCountBanknotes() + System.lineSeparator());
+                        System.out.println("Лимит банкомата на число купюр: " + Account.MAX_COUNT_BANKNOTES);
+                        System.out.println("Число доступных купюр: " + account.getCountAllBanknotes() + System.lineSeparator());
                         break;
                     case 3:
                         System.out.println("Введите сумму выдачи кратную: " + account.getMinNominal());
@@ -53,8 +53,7 @@ public class Main {
 
                         account.withDraw(sum, banknote);
                         System.out.println("Баланс: " + account.getBalance());
-                        System.out.println("Лимит банкомата на число купюр " + account.getCountBanknotes());
-                        System.out.println("Число доступных купюр: " + account.getCountBanknotes() + System.lineSeparator());
+                        System.out.println("Число доступных купюр: " + account.getCountAllBanknotes() + System.lineSeparator());
                         break;
                     case 4:
                         System.out.println("До свидания!");
@@ -70,7 +69,7 @@ public class Main {
             } catch (NoSuchElementException e) {
                 System.out.println("Банкомат не знает таких банкнот." + System.lineSeparator());
             } catch (TooMuchCountBanknoteException e) {
-                System.out.println("Банкомат не может принять такое количество банкнот" + System.lineSeparator());
+                System.out.println("Банкомат не может принять такое количество банкнот." + System.lineSeparator());
             } catch (TooMuchSumException e) {
                 System.out.println("В банкомате нет такой суммы." + System.lineSeparator());
             } catch (NotSuchNominalException e) {
