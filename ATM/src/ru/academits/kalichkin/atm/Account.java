@@ -108,11 +108,11 @@ public class Account {
 
         while (sum != 0) {
             for (int i = 0; i < cash.size(); i++) {
-                Banknotes banknoteWithDraw;
+
                 if (newNominal == cash.get(i).getNominal()) {
                     countBanknote = 0;
                     countBanknote += sum / newNominal;
-
+                    Banknotes banknoteWithDraw;
                     if (countBanknote <= cash.get(i).getCount()) {
                         cash.get(i).setCount(cash.get(i).getCount() - countBanknote);
                         sum = sum - cash.get(i).getNominal() * countBanknote;
