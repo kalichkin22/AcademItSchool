@@ -104,7 +104,7 @@ public class Account {
 
         int newNominal = nominal;
         int countBanknote;
-        LinkedList<Banknotes> newCash = new LinkedList<>();
+        LinkedList<Banknotes> cashWithDraw = new LinkedList<>();
 
         while (sum != 0) {
             for (int i = 0; i < cash.size(); i++) {
@@ -113,6 +113,7 @@ public class Account {
                     countBanknote = 0;
                     countBanknote += sum / newNominal;
                     Banknotes banknoteWithDraw;
+
                     if (countBanknote <= cash.get(i).getCount()) {
                         cash.get(i).setCount(cash.get(i).getCount() - countBanknote);
                         sum = sum - cash.get(i).getNominal() * countBanknote;
@@ -129,7 +130,7 @@ public class Account {
                         }
 
                         if (banknoteWithDraw.getCount() != 0) {
-                            newCash.add(banknoteWithDraw);
+                            cashWithDraw.add(banknoteWithDraw);
                         }
                     } else {
                         int count = cash.get(i).getCount();
@@ -137,12 +138,12 @@ public class Account {
                         banknoteWithDraw = new Banknotes(cash.get(i).getNominal(),cash.get(i).getCount());
                         cash.remove(cash.get(i));
                         newNominal = cash.peekLast().getNominal();
-                        newCash.add(banknoteWithDraw);
+                        cashWithDraw.add(banknoteWithDraw);
                     }
                 }
             }
         }
-        return newCash;
+        return cashWithDraw;
     }
 
 
