@@ -20,8 +20,8 @@ public class Account {
         return cash;
     }
 
-    private void validateNominal(int nominal) {
-        for (Banknotes banknote : banknotes) {
+    private void validateNominal(Collection<Banknotes> collection, int nominal) {
+        for (Banknotes banknote : collection) {
             if (banknote.getNominal() == nominal) {
                 return;
             }
@@ -61,7 +61,7 @@ public class Account {
             throw new TooMuchCountBanknoteException();
         }
 
-        validateNominal(nominal);
+        validateNominal(Arrays.asList(banknotes), nominal);
 
         Banknotes newBanknote = new Banknotes(nominal, 0);
         if (!cash.contains(newBanknote)) {
@@ -85,7 +85,7 @@ public class Account {
 
 
     public LinkedList<Banknotes> withDraw(int sum, int nominal) {
-        validateNominal(nominal);
+        validateNominal(cash, nominal);
 
         if (sum > getBalance()) {
             throw new TooMuchSumException();
