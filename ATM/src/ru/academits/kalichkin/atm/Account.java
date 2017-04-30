@@ -87,10 +87,6 @@ public class Account {
             throw new NotSuchNominalException();
         }
 
-        if ((sum / getMinNominal() * firstBanknoteNominal) % getMinNominal() == firstBanknoteNominal
-                && nominal == firstBanknoteNominal) {
-            throw new NotSuchCountBanknoteException();
-        }
 
         int newNominal = nominal;
         ArrayList<Banknotes> cashWithDraw = new ArrayList<>();
@@ -107,7 +103,7 @@ public class Account {
                         sum = sum - cash.get(i).getNominal() * countBanknote;
                         if (sum != 0 && sum < newNominal && cash.get(i).getNominal() != firstBanknoteNominal) {
                             newNominal = cash.get(i - 1).getNominal();
-                            if (cash.get(i).getCount() == 0) {
+                            if (cash.get(i).getCount() == 0 || countBanknote == 0) {
                                 break;
                             }
                         } else if (sum > 0 && sum < newNominal) {
@@ -125,8 +121,8 @@ public class Account {
 
                         sum = sum - cash.get(i).getNominal() * cash.get(i).getCount();
                         banknoteWithDraw = new Banknotes(cash.get(i).getNominal(), cash.get(i).getCount());
-                        cash.get(i).setCount(0);
                         newNominal = cash.get(cash.size() - 1).getNominal();
+                        cash.get(i).setCount(0);
                         cashWithDraw.add(banknoteWithDraw);
                     }
                 }
