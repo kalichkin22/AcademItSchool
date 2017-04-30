@@ -5,31 +5,23 @@ import ru.academits.kalichkin.exception.*;
 import java.util.*;
 
 public class Account {
-    private LinkedList<Banknotes> cash;
-    private Banknotes[] banknotes;
+    private ArrayList<Banknotes> cash;
     public static final int MAX_COUNT_BANKNOTES = 100;
 
     public Account() {
-        banknotes = new Banknotes[]{new Banknotes(10, 10),new Banknotes(50, 10),
+        cash = new ArrayList<>(Arrays.asList(new Banknotes(10, 10), new Banknotes(50, 10),
                 new Banknotes(100, 10), new Banknotes(500, 10),
-                new Banknotes(1000, 10), new Banknotes(5000, 10)};
-        cash = new LinkedList<>(Arrays.asList(banknotes));
+                new Banknotes(1000, 10), new Banknotes(5000, 10)));
     }
 
 
-    public LinkedList<Banknotes> getBanknotes() {
+    public ArrayList<Banknotes> getBanknotes() {
         return cash;
     }
 
-    public Banknotes[] getValuesBanknotes() {
-        Banknotes[] newBanknotes;
-        newBanknotes = banknotes;
-        return newBanknotes;
-    }
 
-
-    private void validateNominal(Collection<Banknotes> collection, int nominal) {
-        for (Banknotes banknote : collection) {
+    private void validateNominal(ArrayList<Banknotes> cash, int nominal) {
+        for (Banknotes banknote : cash) {
             if (banknote.getNominal() == nominal) {
                 return;
             }
@@ -39,10 +31,12 @@ public class Account {
 
 
     public int getMinNominal() {
-        if (cash.peekFirst() == null) {
-            throw new NotHaveBanknotesException();
+        for (Banknotes banknote : cash) {
+            if (banknote.getCount() != 0) {
+                return banknote.getNominal();
+            }
         }
-        return cash.peekFirst().getNominal();
+        throw new NotHaveBanknotesException();
     }
 
 
@@ -69,18 +63,7 @@ public class Account {
             throw new TooMuchCountBanknoteException();
         }
 
-        validateNominal(Arrays.asList(banknotes), nominal);
-
-        Banknotes newBanknote = new Banknotes(nominal, 0);
-        if (!cash.contains(newBanknote)) {
-            if (cash.isEmpty()) {
-                cash.addFirst(newBanknote);
-            } else if (nominal < cash.peekFirst().getNominal()) {
-                cash.addFirst(newBanknote);
-            } else {
-                cash.add(newBanknote);
-            }
-        }
+        validateNominal(cash, nominal);
 
         for (Banknotes banknote : cash) {
             if (nominal == banknote.getNominal()) {
@@ -92,30 +75,28 @@ public class Account {
     }
 
 
-    public LinkedList<Banknotes> withDraw(int sum, int nominal) {
+    public ArrayList<Banknotes> withDraw(int sum, int nominal) {
         validateNominal(cash, nominal);
 
         if (sum > getBalance()) {
             throw new TooMuchSumException();
         }
 
-        int getFirstBanknoteNominal = cash.peekFirst().getNominal();
-        if (sum % getFirstBanknoteNominal != 0) {
+        int firstBanknoteNominal = cash.get(0).getNominal();
+        if (sum % firstBanknoteNominal != 0) {
             throw new NotSuchNominalException();
         }
 
-        int lastMultiplyBanknoteInSum = 100;
-        if ((sum - cash.getFirst().getCount() * getFirstBanknoteNominal) % lastMultiplyBanknoteInSum == getFirstBanknoteNominal
-                && nominal == getFirstBanknoteNominal) {
+        if ((sum / getMinNominal() * firstBanknoteNominal) % getMinNominal() == firstBanknoteNominal
+                && nominal == firstBanknoteNominal) {
             throw new NotSuchCountBanknoteException();
         }
 
         int newNominal = nominal;
-        LinkedList<Banknotes> cashWithDraw = new LinkedList<>();
+        ArrayList<Banknotes> cashWithDraw = new ArrayList<>();
 
         while (sum != 0) {
             for (int i = 0; i < cash.size(); i++) {
-
                 if (newNominal == cash.get(i).getNominal()) {
                     int countBanknote = 0;
                     countBanknote += sum / newNominal;
@@ -124,27 +105,28 @@ public class Account {
                     if (countBanknote <= cash.get(i).getCount()) {
                         cash.get(i).setCount(cash.get(i).getCount() - countBanknote);
                         sum = sum - cash.get(i).getNominal() * countBanknote;
-                        if (sum != 0 && sum < newNominal && cash.get(i).getNominal() != cash.peek().getNominal()) {
+                        if (sum != 0 && sum < newNominal && cash.get(i).getNominal() != firstBanknoteNominal) {
                             newNominal = cash.get(i - 1).getNominal();
+                            if (cash.get(i).getCount() == 0) {
+                                break;
+                            }
                         } else if (sum > 0 && sum < newNominal) {
                             throw new NotSuchCountBanknoteException();
                         }
 
                         banknoteWithDraw = new Banknotes(cash.get(i).getNominal(), countBanknote);
+                        cashWithDraw.add(banknoteWithDraw);
 
-                        if (cash.get(i).getCount() == 0) {
-                            cash.remove(cash.get(i));
-                        }
-
-                        if (banknoteWithDraw.getCount() != 0) {
-                            cashWithDraw.add(banknoteWithDraw);
-                        }
                     } else {
-                        int count = cash.get(i).getCount();
-                        sum = sum - cash.get(i).getNominal() * count;
+                        if (cash.get(i).getCount() == 0 && cash.get(i).getNominal() != firstBanknoteNominal) {
+                            newNominal = cash.get(i - 1).getNominal();
+                            break;
+                        }
+
+                        sum = sum - cash.get(i).getNominal() * cash.get(i).getCount();
                         banknoteWithDraw = new Banknotes(cash.get(i).getNominal(), cash.get(i).getCount());
-                        cash.remove(cash.get(i));
-                        newNominal = cash.peekLast().getNominal();
+                        cash.get(i).setCount(0);
+                        newNominal = cash.get(cash.size() - 1).getNominal();
                         cashWithDraw.add(banknoteWithDraw);
                     }
                 }
@@ -152,7 +134,6 @@ public class Account {
         }
         return cashWithDraw;
     }
-
 
     public String toString() {
         return Arrays.toString(cash.toArray());

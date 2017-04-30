@@ -28,7 +28,7 @@ public class Main {
                     case 1:
                         System.out.println("Баланс составляет: " + account.getBalance());
                         System.out.println("Лимит банкомата на число купюр " + Account.MAX_COUNT_BANKNOTES);
-                        countBanknote(account.getBanknotes(), account.getValuesBanknotes());
+                        countBanknote(account.getBanknotes());
                         System.out.println("Всего банкнот: " + account.getCountAllBanknotes());
                         System.out.println();
                         break;
@@ -43,7 +43,7 @@ public class Main {
                             System.out.println("Баланс: " + account.getBalance());
                         }
                         System.out.println("Лимит банкомата на число купюр: " + Account.MAX_COUNT_BANKNOTES);
-                        countBanknote(account.getBanknotes(), account.getValuesBanknotes());
+                        countBanknote(account.getBanknotes());
                         System.out.println("Всего банкнот: " + account.getCountAllBanknotes());
                         System.out.println();
                         break;
@@ -83,28 +83,19 @@ public class Main {
         }
     }
 
-    private static void countBanknote(LinkedList<Banknotes> banknotes, Banknotes[] banknotes2) {
-        if (banknotes.isEmpty()){
-            System.out.println("В банкомате нет банкнот");
-        } else {
-            System.out.println("В банкомате имеются банкноты следюущих номиналов:");
-        }
+
+    private static void countBanknote(ArrayList<Banknotes> banknotes) {
+        System.out.println("В банкомате имеются банкноты следюущих номиналов:");
         for (Banknotes banknote : banknotes) {
             System.out.printf("Номинал: %d, колличество: %d%n", banknote.getNominal(), banknote.getCount());
-        }
-
-        for (Banknotes banknote : banknotes2) {
-            if (!banknotes.contains(banknote)) {
-                System.out.printf("Номинал: %d, колличество: %d%n", banknote.getNominal(), 0);
-            }
         }
     }
 
 
-    private static void banknoteWithDraw(LinkedList<Banknotes> banknotes) {
+    private static void banknoteWithDraw(ArrayList<Banknotes> banknotes) {
         System.out.println("Выданы банкноты следюущих номиналов:");
         for (Banknotes banknote : banknotes) {
-            System.out.printf("Номинал: %d, колличество: %d%n" , banknote.getNominal(), banknote.getCount());
+            System.out.printf("Номинал: %d, колличество: %d%n", banknote.getNominal(), banknote.getCount());
         }
     }
 }
