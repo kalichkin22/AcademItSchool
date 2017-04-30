@@ -104,8 +104,8 @@ public class Account {
             throw new NotSuchNominalException();
         }
 
-        int multiplyBanknote50 = 100;
-        if ((sum - cash.getFirst().getCount() * getFirstBanknoteNominal) % multiplyBanknote50 == getFirstBanknoteNominal
+        int lastMultiplyBanknoteInSum = 100;
+        if ((sum - cash.getFirst().getCount() * getFirstBanknoteNominal) % lastMultiplyBanknoteInSum == getFirstBanknoteNominal
                 && nominal == getFirstBanknoteNominal) {
             throw new NotSuchCountBanknoteException();
         }
