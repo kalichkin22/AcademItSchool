@@ -29,6 +29,7 @@ public class Main {
                         System.out.println("Баланс составляет: " + account.getBalance());
                         System.out.println("Лимит банкомата на число купюр " + Account.MAX_COUNT_BANKNOTES);
                         countBanknote(account.getBanknotes(), account.getValuesBanknotes());
+                        System.out.println("Всего банкнот: " + account.getCountAllBanknotes());
                         System.out.println();
                         break;
                     case 2:
@@ -43,6 +44,7 @@ public class Main {
                         }
                         System.out.println("Лимит банкомата на число купюр: " + Account.MAX_COUNT_BANKNOTES);
                         countBanknote(account.getBanknotes(), account.getValuesBanknotes());
+                        System.out.println("Всего банкнот: " + account.getCountAllBanknotes());
                         System.out.println();
                         break;
                     case 3:
