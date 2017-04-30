@@ -22,7 +22,8 @@ public class Account {
     }
 
     public Banknotes[] getValuesBanknotes() {
-        Banknotes[] newBanknotes = banknotes;
+        Banknotes[] newBanknotes;
+        newBanknotes = banknotes;
         return newBanknotes;
     }
 
