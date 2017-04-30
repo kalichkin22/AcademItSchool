@@ -87,7 +87,6 @@ public class Account {
             throw new NotSuchNominalException();
         }
 
-
         int newNominal = nominal;
         ArrayList<Banknotes> cashWithDraw = new ArrayList<>();
 
