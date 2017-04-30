@@ -10,7 +10,7 @@ public class Account {
     public static final int MAX_COUNT_BANKNOTES = 100;
 
     public Account() {
-        banknotes = new Banknotes[]{new Banknotes(50, 10),
+        banknotes = new Banknotes[]{new Banknotes(10, 10),new Banknotes(50, 10),
                 new Banknotes(100, 10), new Banknotes(500, 10),
                 new Banknotes(1000, 10), new Banknotes(5000, 10)};
         cash = new LinkedList<>(Arrays.asList(banknotes));
