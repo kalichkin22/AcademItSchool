@@ -16,7 +16,7 @@ public class Account {
 
 
     public ArrayList<Banknotes> getBanknotes() {
-        return cash;
+        return new ArrayList<>(cash);
     }
 
 
