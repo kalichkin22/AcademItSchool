@@ -78,6 +78,11 @@ public class Account {
     public ArrayList<Banknotes> withDraw(int sum, int nominal) {
         validateNominal(cash, nominal);
 
+        Banknotes banknote = new Banknotes(nominal, 0);
+        if (cash.contains(banknote)) {
+            throw new NotSuchCountBanknoteException();
+        }
+
         if (sum > getBalance()) {
             throw new TooMuchSumException();
         }
@@ -117,7 +122,6 @@ public class Account {
                             newNominal = cash.get(i - 1).getNominal();
                             break;
                         }
-
                         sum = sum - cash.get(i).getNominal() * cash.get(i).getCount();
                         banknoteWithDraw = new Banknotes(cash.get(i).getNominal(), cash.get(i).getCount());
                         newNominal = cash.get(cash.size() - 1).getNominal();
