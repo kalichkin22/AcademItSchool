@@ -45,9 +45,13 @@ public class AppView implements View {
 
         comboBox.addActionListener(e -> {
             itemsComboBox2();
-            double temperature = Double.parseDouble(tfTemperature.getText());
-            listeners.forEach(listener -> listener.needConvertTemperature(temperature, comboBox.getSelectedItem().toString(),
-                    comboBox2.getSelectedItem().toString()));
+            try {
+                double temperature = Double.parseDouble(tfTemperature.getText());
+                listeners.forEach(listener -> listener.needConvertTemperature(temperature, comboBox.getSelectedItem().toString(),
+                        comboBox2.getSelectedItem().toString()));
+            } catch (NumberFormatException ex) {
+                tfTemperature.setText(Integer.toString(0));
+            }
         });
     }
 
