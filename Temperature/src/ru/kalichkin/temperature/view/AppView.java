@@ -1,5 +1,6 @@
 package ru.kalichkin.temperature.view;
 
+import ru.kalichkin.temperature.common.FindTemperature;
 import ru.kalichkin.temperature.common.View;
 import ru.kalichkin.temperature.common.ViewListener;
 
@@ -15,8 +16,7 @@ public class AppView implements View {
     private final JButton convertButton = new JButton("Convert");
     private final JLabel resultLabel = new JLabel();
 
-    private final String[] items = {"Celsius", "Fahrenheit", "Kelvin"};
-    private JComboBox comboBox = new JComboBox(items);
+    private JComboBox comboBox = new JComboBox(FindTemperature.items);
     private JComboBox comboBox2 = new JComboBox();
 
     private final static boolean SHOULD_WEIGHT_X = true;
@@ -24,7 +24,7 @@ public class AppView implements View {
 
     private void createFrame() {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(400, 300));
+        frame.setMinimumSize(new Dimension(400, 250));
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
@@ -86,7 +86,6 @@ public class AppView implements View {
         c.weightx = 0;
         c.gridx = 0;
         c.gridy = 4;
-        tfTemperature.setText(Integer.toString(0));
         tfTemperature.setFont(new Font("Verdana", Font.ITALIC, 25));
         tfTemperature.setHorizontalAlignment(JLabel.CENTER);
         contentPane.add(tfTemperature, c);
@@ -147,7 +146,7 @@ public class AppView implements View {
 
     private void itemsComboBox2() {
         comboBox2.removeAllItems();
-        for (String item : items) {
+        for (String item : FindTemperature.items) {
             if (!comboBox.getSelectedItem().equals(item)) {
                 comboBox2.addItem(item);
             }
