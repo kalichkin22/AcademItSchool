@@ -14,7 +14,7 @@ public class AppView implements View {
     private final JFrame frame = new JFrame("Temperature converter");
     private final JTextField tfTemperature = new JTextField();
     private final JButton convertButton = new JButton("Convert");
-    private final JLabel resultLabel = new JLabel();
+    private final JTextField resultLabel = new JTextField();
 
     private JComboBox comboBox = new JComboBox(FindTemperature.items);
     private JComboBox comboBox2 = new JComboBox();
@@ -93,11 +93,11 @@ public class AppView implements View {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 100;
         c.weightx = 0.0;
-        c.gridwidth = 3;
         c.gridx = 1;
         c.gridy = 4;
-        resultLabel.setVerticalAlignment(JLabel.CENTER);
+        resultLabel.setFont(new Font("Verdana", Font.ITALIC, 25));
         resultLabel.setHorizontalAlignment(JLabel.CENTER);
+        resultLabel.setEditable(false);
         contentPane.add(resultLabel, c);
 
         c.fill = GridBagConstraints.HORIZONTAL;
