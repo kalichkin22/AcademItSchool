@@ -274,9 +274,6 @@ public class AppView implements View {
     }
 
     class CountBanknote extends JDialog {
-        private String title;
-        private ArrayList<Banknotes> list;
-
         CountBanknote(Frame owner, String title, boolean modal) {
             super(owner, title, modal);
         }
