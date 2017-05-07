@@ -65,7 +65,7 @@ public class AppView implements View {
                         "Выберете номинал банкноты:", banknote,
                         "Выберете количество банкнот:", count, slider
                 };
-                int option = JOptionPane.showConfirmDialog(frame, command, "Deposit", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                int option = JOptionPane.showConfirmDialog(frame, command, "Пополнение счета", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
                 if (option == JOptionPane.OK_OPTION) {
                     int nominal = (int) banknote.getSelectedItem();
                     listeners.forEach(listener -> listener.needDeposit(nominal, slider.getValue()));
@@ -117,7 +117,7 @@ public class AppView implements View {
                         "Выберете номинал банкноты:", banknote
                 };
 
-                int option = JOptionPane.showConfirmDialog(frame, command, "Withdraw", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                int option = JOptionPane.showConfirmDialog(frame, command, "Снятие средств", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
                 if (option == JOptionPane.OK_OPTION) {
                     try {
                         int nominal = (int) banknote.getSelectedItem();
@@ -174,7 +174,6 @@ public class AppView implements View {
         c.gridy = GridBagConstraints.RELATIVE;
         contentPane.add(buttonBalance, c);
         buttonBalance.setFont(font);
-        buttonBalance.setBackground(Color.BLUE);
 
         c.insets = new Insets(0, 20, 0, 10);
         c.anchor = GridBagConstraints.WEST;
@@ -249,8 +248,10 @@ public class AppView implements View {
     }
 
     private void createFrameCountBanknote(String title, ArrayList<Banknotes> list) {
-        JFrame frameCountBanknote = new JFrame(title);
-        frameCountBanknote.setLocationRelativeTo(null);
+        CountBanknote countBanknote = new CountBanknote(frame, title, true);
+        countBanknote.setLocationRelativeTo(null);
+        countBanknote.setMinimumSize(new Dimension(400, 150));
+        countBanknote.pack();
 
         String[] columnNames = {"Номинал", "Количество"};
 
@@ -258,7 +259,6 @@ public class AppView implements View {
         String[][] data = new String[banknotes.length][columnNames.length];
 
         for (int i = 0; i < banknotes.length; i++) {
-            data[i][0] = Integer.toString(banknotes[i].getNominal());
             for (int j = 0; j < columnNames.length; j++) {
                 data[i][j] = Integer.toString(banknotes[i].getCount());
                 data[i][0] = Integer.toString(banknotes[i].getNominal());
@@ -269,9 +269,16 @@ public class AppView implements View {
         table.setFont(new Font("TimesNewRoman", Font.PLAIN, 15));
         table.setEnabled(false);
         JScrollPane scrollPane = new JScrollPane(table);
-        frameCountBanknote.getContentPane().add(scrollPane);
-        frameCountBanknote.setPreferredSize(new Dimension(400, 150));
-        frameCountBanknote.pack();
-        frameCountBanknote.setVisible(true);
+        countBanknote.getContentPane().add(scrollPane);
+        countBanknote.setVisible(true);
+    }
+
+    class CountBanknote extends JDialog {
+        private String title;
+        private ArrayList<Banknotes> list;
+
+        CountBanknote(Frame owner, String title, boolean modal) {
+            super(owner, title, modal);
+        }
     }
 }
