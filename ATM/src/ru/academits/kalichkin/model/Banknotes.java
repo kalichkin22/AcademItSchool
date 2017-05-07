@@ -1,4 +1,4 @@
-package ru.academits.kalichkin.atm;
+package ru.academits.kalichkin.model;
 
 
 public class Banknotes {

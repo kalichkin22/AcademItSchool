@@ -1,12 +1,15 @@
-package ru.academits.kalichkin.main;
+package ru.academits.kalichkin.view;
 
-import ru.academits.kalichkin.atm.Account;
-import ru.academits.kalichkin.atm.Banknotes;
 import ru.academits.kalichkin.exception.*;
+import ru.academits.kalichkin.model.Account;
+import ru.academits.kalichkin.model.Banknotes;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
-public class Main {
+public class ConsoleView {
     public static void main(String[] args) {
         Account account = new Account();
 
@@ -28,7 +31,7 @@ public class Main {
                     case 1:
                         System.out.println("Баланс составляет: " + account.getBalance());
                         System.out.println("Лимит банкомата на число купюр " + Account.MAX_COUNT_BANKNOTES);
-                        countBanknote(account.getBanknotes());
+                        PrintCountBanknote(account.getBanknotes());
                         System.out.println("Всего банкнот: " + account.getCountAllBanknotes());
                         System.out.println();
                         break;
@@ -43,7 +46,7 @@ public class Main {
                             System.out.println("Баланс: " + account.getBalance());
                         }
                         System.out.println("Лимит банкомата на число купюр: " + Account.MAX_COUNT_BANKNOTES);
-                        countBanknote(account.getBanknotes());
+                        PrintCountBanknote(account.getBanknotes());
                         System.out.println("Всего банкнот: " + account.getCountAllBanknotes());
                         System.out.println();
                         break;
@@ -54,7 +57,7 @@ public class Main {
                         System.out.println("Какими банкнотами произвести выдачу? ");
                         int banknote = scanner.nextInt();
 
-                        banknoteWithDraw(account.withDraw(sum, banknote));
+                        PrintBanknoteWithDraw(account.withDraw(sum, banknote));
                         System.out.println("Баланс: " + account.getBalance());
                         System.out.println("Число доступных банкнот: " + account.getCountAllBanknotes() + System.lineSeparator());
                         break;
@@ -84,20 +87,14 @@ public class Main {
     }
 
 
-    private static void countBanknote(ArrayList<Banknotes> banknotes) {
+    private static void PrintCountBanknote(ArrayList<Banknotes> banknotes) {
         System.out.println("В банкомате имеются банкноты следюущих номиналов:");
-        for (Banknotes banknote : banknotes) {
-            System.out.printf("Номинал: %d, колличество: %d%n", banknote.getNominal(), banknote.getCount());
-        }
+        banknotes.forEach(banknote -> System.out.printf("Номинал: %d, колличество: %d%n", banknote.getNominal(), banknote.getCount()));
     }
 
 
-    private static void banknoteWithDraw(ArrayList<Banknotes> banknotes) {
+    private static void PrintBanknoteWithDraw(ArrayList<Banknotes> banknotes) {
         System.out.println("Выданы банкноты следюущих номиналов:");
-        for (Banknotes banknote : banknotes) {
-            System.out.printf("Номинал: %d, колличество: %d%n", banknote.getNominal(), banknote.getCount());
-        }
+        banknotes.forEach(banknote -> System.out.printf("Номинал: %d, колличество: %d%n", banknote.getNominal(), banknote.getCount()));
     }
 }
-
-
