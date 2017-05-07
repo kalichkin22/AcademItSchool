@@ -1,5 +1,6 @@
 package ru.academits.kalichkin.view;
 
+import jdk.nashorn.internal.scripts.JD;
 import ru.academits.kalichkin.common.View;
 import ru.academits.kalichkin.common.ViewListener;
 import ru.academits.kalichkin.exception.*;
@@ -248,10 +249,10 @@ public class AppView implements View {
     }
 
     private void createFrameCountBanknote(String title, ArrayList<Banknotes> list) {
-        CountBanknote countBanknote = new CountBanknote(frame, title, true);
-        countBanknote.setLocationRelativeTo(null);
+        JDialog countBanknote = new JDialog(frame, title, true);
         countBanknote.setMinimumSize(new Dimension(400, 150));
         countBanknote.pack();
+        countBanknote.setLocationRelativeTo(null);
 
         String[] columnNames = {"Номинал", "Количество"};
 
@@ -271,11 +272,5 @@ public class AppView implements View {
         JScrollPane scrollPane = new JScrollPane(table);
         countBanknote.getContentPane().add(scrollPane);
         countBanknote.setVisible(true);
-    }
-
-    class CountBanknote extends JDialog {
-        CountBanknote(Frame owner, String title, boolean modal) {
-            super(owner, title, modal);
-        }
     }
 }
