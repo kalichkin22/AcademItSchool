@@ -2,7 +2,6 @@ package ru.academits.kalichkin.model;
 
 import ru.academits.kalichkin.exception.*;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Account {
@@ -134,7 +133,7 @@ public class Account {
         while (sum != 0) {
             for (int i = 0; i < cash.size(); i++) {
                 if (newNominal == cash.get(i).getNominal()) {
-                    if (sum / nominal > cash.get(i).getNominal()) {
+                    if (sum / newNominal > cash.get(i).getNominal()) {
                         throw new NotSuchCountBanknoteException();
                     }
                     int countBanknote = 0;
