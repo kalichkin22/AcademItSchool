@@ -1,6 +1,5 @@
 package ru.academits.kalichkin.view;
 
-import jdk.nashorn.internal.scripts.JD;
 import ru.academits.kalichkin.common.View;
 import ru.academits.kalichkin.common.ViewListener;
 import ru.academits.kalichkin.exception.*;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class AppView implements View {
-    private final ArrayList<ViewListener> listeners = new ArrayList<>();
+    private  ArrayList<ViewListener> listener = new ArrayList<>();
 
     private final JFrame frame = new JFrame("ATM");
 
@@ -33,19 +32,18 @@ public class AppView implements View {
     }
 
     private void initEvents() {
-        Toolkit.getDefaultToolkit().getImage("atm.png");
         buttonCountBalance.addActionListener(e -> {
-            listeners.forEach(ViewListener::needGetBanknote);
+            listener.forEach(ViewListener::needGetBanknote);
         });
 
         buttonBalance.addActionListener(e -> {
-            listeners.forEach(ViewListener::needGetBalance);
+            listener.forEach(ViewListener::needGetBalance);
         });
 
         buttonDeposit.addActionListener(e -> {
             try {
-                Integer[] items = listeners.get(0).needGetNominalBanknote();
-                int validCountBanknote = listeners.get(0).needValidCountBanknote();
+                Integer[] items = listener.get(0).needGetNominalBanknote();
+                int validCountBanknote = listener.get(0).needValidCountBanknote();
 
                 JComboBox<Integer> banknote = new JComboBox<>(items);
                 JLabel count = new JLabel();
@@ -66,10 +64,11 @@ public class AppView implements View {
                         "Выберете номинал банкноты:", banknote,
                         "Выберете количество банкнот:", count, slider
                 };
+
                 int option = JOptionPane.showConfirmDialog(frame, command, "Пополнение счета", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
                 if (option == JOptionPane.OK_OPTION) {
                     int nominal = (int) banknote.getSelectedItem();
-                    listeners.forEach(listener -> listener.needDeposit(nominal, slider.getValue()));
+                    listener.forEach(listener -> listener.needDeposit(nominal, slider.getValue()));
                     JOptionPane.showMessageDialog(frame, "Банкноты успешно внесены");
                 }
             } catch (IllegalArgumentException el) {
@@ -80,9 +79,9 @@ public class AppView implements View {
 
         buttonWithDraw.addActionListener(e -> {
             try {
-                int minNominal = listeners.get(0).needGetMinNominal();
-                int balance = listeners.get(0).getBalance();
-                Integer[] items = listeners.get(0).needGetNominalBanknote();
+                int minNominal = listener.get(0).needGetMinNominal();
+                int balance = listener.get(0).getBalance();
+                Integer[] items = listener.get(0).needGetNominalBanknote();
 
                 JComboBox<Integer> banknote = new JComboBox<>(items);
                 JTextField sum = new JTextField();
@@ -122,7 +121,7 @@ public class AppView implements View {
                 if (option == JOptionPane.OK_OPTION) {
                     try {
                         int nominal = (int) banknote.getSelectedItem();
-                        listeners.forEach(listener -> listener.needWithDraw(Integer.parseInt(sum.getText()), nominal));
+                        listener.forEach(listener -> listener.needWithDraw(Integer.parseInt(sum.getText()), nominal));
                     } catch (NotSuchCountBanknoteException el) {
                         JOptionPane.showMessageDialog(frame, "К сожалению, недостаточно банкнот имеющегося номинала для выдачи суммы.");
                     } catch (TooMuchSumException el) {
@@ -223,54 +222,30 @@ public class AppView implements View {
     @Override
     public void onGetBanknote(ArrayList<Banknotes> list) {
         String title = "В банкомате имеются следующие банкноты:";
-        createFrameCountBanknote(title, list);
+        CountBanknotesDialog dialog = new CountBanknotesDialog(frame, title, true, list);
+        dialog.createDialog();
     }
 
     @Override
     public void onWithDraw(ArrayList<Banknotes> list) {
         String title = "Выданы следующие банкноты:";
-        createFrameCountBanknote(title, list);
+        CountBanknotesDialog dialog = new CountBanknotesDialog(frame, title, true, list);
+        dialog.createDialog();
     }
 
 
     @Override
     public void addViewListener(ViewListener listener) {
-        if (!listeners.contains(listener)) {
-            listeners.add(listener);
+        if (!this.listener.contains(listener)) {
+            this.listener.add(listener);
         }
     }
 
 
     @Override
     public void removeViewListener(ViewListener listener) {
-        if (!listeners.contains(listener)) {
-            listeners.add(listener);
+        if (!this.listener.contains(listener)) {
+            this.listener.add(listener);
         }
-    }
-
-    private void createFrameCountBanknote(String title, ArrayList<Banknotes> list) {
-        JDialog countBanknote = new JDialog(frame, title, true);
-        countBanknote.setMinimumSize(new Dimension(400, 150));
-        countBanknote.pack();
-        countBanknote.setLocationRelativeTo(null);
-
-        String[] columnNames = {"Номинал", "Количество"};
-
-        Banknotes[] banknotes = list.toArray(new Banknotes[list.size()]);
-        String[][] data = new String[banknotes.length][columnNames.length];
-
-        for (int i = 0; i < banknotes.length; i++) {
-            for (int j = 0; j < columnNames.length; j++) {
-                data[i][j] = Integer.toString(banknotes[i].getCount());
-                data[i][0] = Integer.toString(banknotes[i].getNominal());
-            }
-        }
-
-        JTable table = new JTable(data, columnNames);
-        table.setFont(new Font("TimesNewRoman", Font.PLAIN, 15));
-        table.setEnabled(false);
-        JScrollPane scrollPane = new JScrollPane(table);
-        countBanknote.getContentPane().add(scrollPane);
-        countBanknote.setVisible(true);
     }
 }
