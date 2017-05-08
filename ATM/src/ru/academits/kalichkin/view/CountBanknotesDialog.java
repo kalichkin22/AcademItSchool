@@ -9,8 +9,8 @@ import java.util.ArrayList;
 class CountBanknotesDialog extends JDialog {
     private ArrayList<Banknotes> list;
 
-    CountBanknotesDialog(Frame owner, String title, boolean modal, ArrayList<Banknotes> list) {
-        super(owner, title, modal);
+    CountBanknotesDialog(Frame owner, String title, ArrayList<Banknotes> list) {
+        super(owner, title, true);
         this.list = list;
     }
 

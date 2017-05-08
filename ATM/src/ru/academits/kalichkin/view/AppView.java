@@ -12,10 +12,8 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class AppView implements View {
-    private  ArrayList<ViewListener> listener = new ArrayList<>();
-
+    private ViewListener listener;
     private final JFrame frame = new JFrame("ATM");
-
     private final JButton buttonBalance = new JButton("Узнать баланс счета");
     private final JButton buttonDeposit = new JButton("Пополнить баланс");
     private final JButton buttonWithDraw = new JButton("Снять деньги");
@@ -33,42 +31,19 @@ public class AppView implements View {
 
     private void initEvents() {
         buttonCountBalance.addActionListener(e -> {
-            listener.forEach(ViewListener::needGetBanknote);
+            listener.needGetBanknote();
         });
 
         buttonBalance.addActionListener(e -> {
-            listener.forEach(ViewListener::needGetBalance);
+            listener.needGetBalance();
         });
 
         buttonDeposit.addActionListener(e -> {
             try {
-                Integer[] items = listener.get(0).needGetNominalBanknote();
-                int validCountBanknote = listener.get(0).needValidCountBanknote();
-
-                JComboBox<Integer> banknote = new JComboBox<>(items);
-                JLabel count = new JLabel();
-                JSlider slider = new JSlider(1, validCountBanknote);
-
-                count.setFont(new Font("Helvetica", Font.PLAIN, 16));
-                count.setHorizontalAlignment(SwingConstants.CENTER);
-                count.setText(String.valueOf(slider.getValue()));
-
-                slider.setPaintTrack(true);
-                slider.setMinorTickSpacing(1);
-                slider.setPaintTicks(true);
-                slider.setPaintLabels(true);
-
-                slider.addChangeListener(e1 -> count.setText(String.valueOf(slider.getValue())));
-
-                Object[] command = {
-                        "Выберете номинал банкноты:", banknote,
-                        "Выберете количество банкнот:", count, slider
-                };
-
-                int option = JOptionPane.showConfirmDialog(frame, command, "Пополнение счета", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                DepositDialog dialog = new DepositDialog(listener);
+                int option = JOptionPane.showConfirmDialog(frame, dialog.createData(), "Пополнение счета", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
                 if (option == JOptionPane.OK_OPTION) {
-                    int nominal = (int) banknote.getSelectedItem();
-                    listener.forEach(listener -> listener.needDeposit(nominal, slider.getValue()));
+                    listener.needDeposit(dialog.getBanknote(), dialog.getSlider());
                     JOptionPane.showMessageDialog(frame, "Банкноты успешно внесены");
                 }
             } catch (IllegalArgumentException el) {
@@ -79,55 +54,18 @@ public class AppView implements View {
 
         buttonWithDraw.addActionListener(e -> {
             try {
-                int minNominal = listener.get(0).needGetMinNominal();
-                int balance = listener.get(0).getBalance();
-                Integer[] items = listener.get(0).needGetNominalBanknote();
+                WithdrawDialog dialog = new WithdrawDialog(listener);
 
-                JComboBox<Integer> banknote = new JComboBox<>(items);
-                JTextField sum = new JTextField();
-                JSlider slider = new JSlider(minNominal, balance);
-                slider.setValueIsAdjusting(true);
-                slider.setValue(minNominal);
-
-                sum.setFont(new Font("Helvetica", Font.PLAIN, 16));
-                sum.setHorizontalAlignment(SwingConstants.CENTER);
-                sum.setText(String.valueOf(slider.getValue()));
-
-                slider.setMajorTickSpacing(5000);
-                slider.setPaintTicks(true);
-                slider.addChangeListener(e12 -> sum.setText(String.valueOf(slider.getValue())));
-
-
-                sum.addKeyListener(new KeyAdapter() {
-                    @Override
-                    public void keyReleased(KeyEvent ke) {
-                        String typed = sum.getText();
-                        slider.setValue(0);
-                        if (!typed.matches("^\\d+$") || Integer.parseInt(sum.getText()) > balance) {
-                            return;
-                        }
-                        slider.setValue(Integer.parseInt(typed));
-                    }
-                });
-
-
-                Object[] command = {
-                        "Введите сумму выдачи, кратную: " + minNominal,
-                        "Баланс: " + balance, sum, slider,
-                        "Выберете номинал банкноты:", banknote
-                };
-
-                int option = JOptionPane.showConfirmDialog(frame, command, "Снятие средств", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                int option = JOptionPane.showConfirmDialog(frame, dialog.createData(), "Снятие средств", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
                 if (option == JOptionPane.OK_OPTION) {
                     try {
-                        int nominal = (int) banknote.getSelectedItem();
-                        listener.forEach(listener -> listener.needWithDraw(Integer.parseInt(sum.getText()), nominal));
+                        listener.needWithDraw(dialog.getSum(), dialog.getBanknote());
                     } catch (NotSuchCountBanknoteException el) {
                         JOptionPane.showMessageDialog(frame, "К сожалению, недостаточно банкнот имеющегося номинала для выдачи суммы.");
                     } catch (TooMuchSumException el) {
                         JOptionPane.showMessageDialog(frame, "В банкомате нет такой суммы.");
                     } catch (NotSuchNominalException el) {
-                        JOptionPane.showMessageDialog(frame, "Сумма должна быть кратна " + minNominal);
+                        JOptionPane.showMessageDialog(frame, "Сумма должна быть кратна " + listener.needGetMinNominal());
                     } catch (NoSuchElementException el) {
                         JOptionPane.showMessageDialog(frame, "В банкомате нет банкнот такого номинала.");
                     }
@@ -222,30 +160,20 @@ public class AppView implements View {
     @Override
     public void onGetBanknote(ArrayList<Banknotes> list) {
         String title = "В банкомате имеются следующие банкноты:";
-        CountBanknotesDialog dialog = new CountBanknotesDialog(frame, title, true, list);
+        CountBanknotesDialog dialog = new CountBanknotesDialog(frame, title, list);
         dialog.createDialog();
     }
 
     @Override
     public void onWithDraw(ArrayList<Banknotes> list) {
         String title = "Выданы следующие банкноты:";
-        CountBanknotesDialog dialog = new CountBanknotesDialog(frame, title, true, list);
+        CountBanknotesDialog dialog = new CountBanknotesDialog(frame, title, list);
         dialog.createDialog();
     }
 
 
     @Override
-    public void addViewListener(ViewListener listener) {
-        if (!this.listener.contains(listener)) {
-            this.listener.add(listener);
-        }
-    }
-
-
-    @Override
-    public void removeViewListener(ViewListener listener) {
-        if (!this.listener.contains(listener)) {
-            this.listener.add(listener);
-        }
+    public void viewListener(ViewListener listener) {
+        this.listener = listener;
     }
 }
