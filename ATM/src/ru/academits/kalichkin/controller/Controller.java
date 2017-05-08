@@ -4,10 +4,6 @@ package ru.academits.kalichkin.controller;
 import ru.academits.kalichkin.common.View;
 import ru.academits.kalichkin.common.ViewListener;
 import ru.academits.kalichkin.model.Account;
-import ru.academits.kalichkin.model.Banknotes;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class Controller implements ViewListener {
     private final View view;

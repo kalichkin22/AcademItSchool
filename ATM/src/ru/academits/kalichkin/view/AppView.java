@@ -7,6 +7,7 @@ import ru.academits.kalichkin.model.Banknotes;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
@@ -29,15 +30,11 @@ public class AppView implements View {
     }
 
     private void initEvents() {
-        buttonCountBalance.addActionListener(e -> {
-            listener.needGetBanknote();
-        });
+        buttonCountBalance.addActionListener(e -> listener.needGetBanknote());
 
-        buttonBalance.addActionListener(e -> {
-            listener.needGetBalance();
-        });
+        buttonBalance.addActionListener(e -> listener.needGetBalance());
 
-        buttonDeposit.addActionListener(e -> {
+        buttonDeposit.addActionListener((ActionEvent e) -> {
             try {
                 DepositDialog dialog = new DepositDialog(listener);
                 if (dialog.show(frame)) {
@@ -150,7 +147,7 @@ public class AppView implements View {
         label.setFont(new Font("Helvetica", Font.PLAIN, 25));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         Icon icon = new ImageIcon("balance.png");
-        JOptionPane.showMessageDialog(frame, label, "Баланс счета", 0, icon);
+        JOptionPane.showMessageDialog(frame, label, "Баланс счета", JOptionPane.ERROR_MESSAGE, icon);
 
     }
 

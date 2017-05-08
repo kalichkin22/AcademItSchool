@@ -5,7 +5,7 @@ public class Banknotes {
     private int nominal;
     private int count;
 
-    public Banknotes(int nominal, int count) {
+    Banknotes(int nominal, int count) {
         this.nominal = nominal;
         this.count = count;
     }
@@ -22,7 +22,7 @@ public class Banknotes {
         return count;
     }
 
-    public void setCount(int count) {
+    void setCount(int count) {
         this.count = count;
     }
 

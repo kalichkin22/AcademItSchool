@@ -32,7 +32,7 @@ class WithdrawDialog {
     }
 
 
-    private void createView() {
+    private Object[] createData() {
         slider.setValueIsAdjusting(true);
         slider.setValue(minNominal);
 
@@ -55,17 +55,13 @@ class WithdrawDialog {
                 slider.setValue(Integer.parseInt(typed));
             }
         });
-    }
-
-    Object[] getData() {
-        createView();
         return new Object[]{"Введите сумму выдачи, кратную: " + minNominal, "Баланс: " + balance, sum, slider,
                 "Выберете номинал банкноты:", banknote};
     }
 
 
     boolean show(JFrame frame) {
-        int option = JOptionPane.showConfirmDialog(frame, getData(), "Снятие средств", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        int option = JOptionPane.showConfirmDialog(frame, createData(), "Снятие средств", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         return option == JOptionPane.OK_OPTION;
     }
 }

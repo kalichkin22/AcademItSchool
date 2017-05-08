@@ -39,17 +39,6 @@ public class Account {
         throw new NotHaveBanknotesException();
     }
 
-    public int getCountMinNominal() {
-        int count = 0;
-        for (Banknotes banknote : cash) {
-            if (banknote.getCount() != 0) {
-                count = banknote.getCount();
-                return count;
-            }
-        }
-        return count;
-    }
-
     public Integer[] getNominalBanknote() {
         Integer[] items = new Integer[cash.size()];
         for (int i = 0; i < cash.size(); i++) {
@@ -74,17 +63,6 @@ public class Account {
             count += aCash.getCount();
         }
         return count;
-    }
-
-
-    private Banknotes findBanknote(int nominalBanknote) {
-        Banknotes banknote = null;
-        for (Banknotes nominal : cash) {
-            if (nominalBanknote == nominal.getNominal()) {
-                banknote = nominal;
-            }
-        }
-        return banknote;
     }
 
 
