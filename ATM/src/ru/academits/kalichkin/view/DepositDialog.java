@@ -17,11 +17,11 @@ class DepositDialog {
         banknote = new JComboBox<>(listener.needGetNominalBanknote());
     }
 
-    int getBanknote() {
+    int getBanknoteNominal() {
         return (int) banknote.getSelectedItem();
     }
 
-    int getSlider() {
+    int getSliderValue() {
         return slider.getValue();
     }
 

@@ -7,7 +7,6 @@ import ru.academits.kalichkin.model.Banknotes;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
@@ -43,7 +42,7 @@ public class AppView implements View {
                 DepositDialog dialog = new DepositDialog(listener);
                 int option = JOptionPane.showConfirmDialog(frame, dialog.createData(), "Пополнение счета", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
                 if (option == JOptionPane.OK_OPTION) {
-                    listener.needDeposit(dialog.getBanknote(), dialog.getSlider());
+                    listener.needDeposit(dialog.getBanknoteNominal(), dialog.getSliderValue());
                     JOptionPane.showMessageDialog(frame, "Банкноты успешно внесены");
                 }
             } catch (IllegalArgumentException el) {
@@ -59,7 +58,7 @@ public class AppView implements View {
                 int option = JOptionPane.showConfirmDialog(frame, dialog.createData(), "Снятие средств", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
                 if (option == JOptionPane.OK_OPTION) {
                     try {
-                        listener.needWithDraw(dialog.getSum(), dialog.getBanknote());
+                        listener.needWithDraw(dialog.getSum(), dialog.getBanknoteNominal());
                     } catch (NotSuchCountBanknoteException el) {
                         JOptionPane.showMessageDialog(frame, "К сожалению, недостаточно банкнот имеющегося номинала для выдачи суммы.");
                     } catch (TooMuchSumException el) {

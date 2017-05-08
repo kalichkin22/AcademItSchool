@@ -23,7 +23,7 @@ public class WithdrawDialog {
         banknote = new JComboBox<>(listener.needGetNominalBanknote());
     }
 
-    int getBanknote() {
+    int getBanknoteNominal() {
         return (int) banknote.getSelectedItem();
     }
 
