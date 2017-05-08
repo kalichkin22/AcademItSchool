@@ -10,7 +10,7 @@ public class AtmApp {
         View view = new AppView();
         Account account = new Account();
         Controller controller = new Controller(account, view);
-        view.getViewListener(controller);
+        view.addViewListener(controller);
         view.startApplication();
     }
 }
