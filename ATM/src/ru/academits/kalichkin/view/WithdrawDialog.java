@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class WithdrawDialog {
+class WithdrawDialog {
     private JSlider slider;
     private JTextField sum;
     private JComboBox<Integer> banknote;
@@ -32,7 +32,7 @@ public class WithdrawDialog {
     }
 
 
-    Object[] createData() {
+    private void createView() {
         slider.setValueIsAdjusting(true);
         slider.setValue(minNominal);
 
@@ -42,7 +42,7 @@ public class WithdrawDialog {
 
         slider.setMajorTickSpacing(5000);
         slider.setPaintTicks(true);
-        slider.addChangeListener(e12 -> sum.setText(String.valueOf(slider.getValue())));
+        slider.addChangeListener(e -> sum.setText(String.valueOf(slider.getValue())));
 
         sum.addKeyListener(new KeyAdapter() {
             @Override
@@ -55,9 +55,17 @@ public class WithdrawDialog {
                 slider.setValue(Integer.parseInt(typed));
             }
         });
+    }
 
-
+    Object[] getData() {
+        createView();
         return new Object[]{"Введите сумму выдачи, кратную: " + minNominal, "Баланс: " + balance, sum, slider,
                 "Выберете номинал банкноты:", banknote};
+    }
+
+
+    boolean show(JFrame frame) {
+        int option = JOptionPane.showConfirmDialog(frame, getData(), "Снятие средств", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        return option == JOptionPane.OK_OPTION;
     }
 }

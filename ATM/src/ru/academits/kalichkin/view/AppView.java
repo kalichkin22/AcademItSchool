@@ -40,9 +40,8 @@ public class AppView implements View {
         buttonDeposit.addActionListener(e -> {
             try {
                 DepositDialog dialog = new DepositDialog(listener);
-                int option = JOptionPane.showConfirmDialog(frame, dialog.createData(), "Пополнение счета", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-                if (option == JOptionPane.OK_OPTION) {
-                    listener.needDeposit(dialog.getBanknoteNominal(), dialog.getSliderValue());
+                if (dialog.show(frame)) {
+                    listener.needDeposit(dialog.getBanknoteNominal(), dialog.getCountBanknote());
                     JOptionPane.showMessageDialog(frame, "Банкноты успешно внесены");
                 }
             } catch (IllegalArgumentException el) {
@@ -54,21 +53,20 @@ public class AppView implements View {
         buttonWithDraw.addActionListener(e -> {
             try {
                 WithdrawDialog dialog = new WithdrawDialog(listener);
-
-                int option = JOptionPane.showConfirmDialog(frame, dialog.createData(), "Снятие средств", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-                if (option == JOptionPane.OK_OPTION) {
-                    try {
+                try {
+                    if (dialog.show(frame)) {
                         listener.needWithDraw(dialog.getSum(), dialog.getBanknoteNominal());
-                    } catch (NotSuchCountBanknoteException el) {
-                        JOptionPane.showMessageDialog(frame, "К сожалению, недостаточно банкнот имеющегося номинала для выдачи суммы.");
-                    } catch (TooMuchSumException el) {
-                        JOptionPane.showMessageDialog(frame, "В банкомате нет такой суммы.");
-                    } catch (NotSuchNominalException el) {
-                        JOptionPane.showMessageDialog(frame, "Сумма должна быть кратна " + listener.needGetMinNominal());
-                    } catch (NoSuchElementException el) {
-                        JOptionPane.showMessageDialog(frame, "В банкомате нет банкнот такого номинала.");
                     }
+                } catch (NotSuchCountBanknoteException el) {
+                    JOptionPane.showMessageDialog(frame, "К сожалению, недостаточно банкнот имеющегося номинала для выдачи суммы.");
+                } catch (TooMuchSumException el) {
+                    JOptionPane.showMessageDialog(frame, "В банкомате нет такой суммы.");
+                } catch (NotSuchNominalException el) {
+                    JOptionPane.showMessageDialog(frame, "Сумма должна быть кратна " + listener.needGetMinNominal());
+                } catch (NoSuchElementException el) {
+                    JOptionPane.showMessageDialog(frame, "В банкомате нет банкнот такого номинала.");
                 }
+
             } catch (NotHaveBanknotesException el) {
                 JOptionPane.showMessageDialog(frame, "В банкомате нет денег. Попробуйте позже.");
             } catch (NumberFormatException el) {
@@ -172,7 +170,7 @@ public class AppView implements View {
 
 
     @Override
-    public void viewListener(ViewListener listener) {
+    public void getViewListener(ViewListener listener) {
         this.listener = listener;
     }
 }

@@ -21,12 +21,12 @@ class DepositDialog {
         return (int) banknote.getSelectedItem();
     }
 
-    int getSliderValue() {
+    int getCountBanknote() {
         return slider.getValue();
     }
 
 
-    Object[] createData() {
+    private void createView() {
         slider.setPaintTrack(true);
         slider.setMinorTickSpacing(1);
         slider.setPaintTicks(true);
@@ -35,7 +35,15 @@ class DepositDialog {
 
         count.setHorizontalAlignment(SwingConstants.CENTER);
         count.setFont(new Font("Helvetica", Font.PLAIN, 16));
+    }
 
+    Object[] getData() {
+        createView();
         return new Object[]{"Выберете номинал банкноты:", banknote, "Выберете количество банкнот:", count, slider};
+    }
+
+    boolean show(JFrame frame){
+        int option = JOptionPane.showConfirmDialog(frame, getData(), "Пополнение счета", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        return option == JOptionPane.OK_OPTION;
     }
 }
