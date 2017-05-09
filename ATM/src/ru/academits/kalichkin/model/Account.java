@@ -20,28 +20,29 @@ public class Account {
     }
 
 
-    private Banknotes findBanknote(int nominal) {
-        Banknotes banknote = null;
-        for (Banknotes e : cash) {
-            if (e.getNominal() == nominal) {
-                banknote = e;
-                break;
-            }
-        }
-        return banknote;
-    }
-
-
-    private Banknotes findBanknoteLessThat(int nominal) {
-        Banknotes banknote = null;
+    private int indexBanknote(int nominal) {
+        int index = 0;
         for (int i = 0; i < cash.size(); i++) {
             if (cash.get(i).getNominal() == nominal) {
-                banknote = cash.get(i - 1);
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
+
+    private Banknotes findBanknote(int index) {
+        Banknotes banknote = null;
+        for (int i = 0; i < cash.size(); i++) {
+            if (index == i) {
+                banknote = cash.get(i);
                 break;
             }
         }
         return banknote;
     }
+
 
     private Banknotes findLastBanknote() {
         return cash.get(cash.size() - 1);
@@ -49,7 +50,7 @@ public class Account {
 
 
     private void validateNominal(int nominal) {
-        if (findBanknote(nominal).getNominal() == nominal) {
+        if (findBanknote(indexBanknote(nominal)).getNominal() == nominal) {
             return;
         }
         throw new NoSuchElementException();
@@ -98,7 +99,7 @@ public class Account {
         }
         validateNominal(nominal);
 
-        Banknotes banknote = findBanknote(nominal);
+        Banknotes banknote = findBanknote(indexBanknote(nominal));
         banknote.setCount(banknote.getCount() + count);
     }
 
@@ -127,23 +128,23 @@ public class Account {
         int newNominal = nominal;
         ArrayList<Banknotes> cashWithDraw = new ArrayList<>();
 
-        if (sum / newNominal > findBanknote(nominal).getNominal()) {
+        if (sum / newNominal > findBanknote(indexBanknote(nominal)).getNominal()) {
             throw new NotSuchCountBanknoteException();
         }
 
         while (sum > 0) {
-            Banknotes banknote = findBanknote(newNominal);
+            Banknotes banknote = findBanknote(indexBanknote(newNominal));
             int countBanknote = 0;
             countBanknote += sum / newNominal;
 
             if (banknote.getCount() == 0 && banknote.getNominal() != firstBanknoteNominal) {
-                newNominal = findBanknoteLessThat(newNominal).getNominal();
+                newNominal = findBanknote(indexBanknote(newNominal) - 1).getNominal();
             }
             if (countBanknote <= banknote.getCount()) {
                 banknote.setCount(banknote.getCount() - countBanknote);
                 sum = sum - banknote.getNominal() * countBanknote;
                 if (sum != 0 && sum < newNominal && banknote.getNominal() != firstBanknoteNominal) {
-                    newNominal = findBanknoteLessThat(newNominal).getNominal();
+                    newNominal = findBanknote(indexBanknote(newNominal) - 1).getNominal();
                 } else if (sum > 0 && sum < newNominal) {
                     throw new NotSuchCountBanknoteException();
                 }
