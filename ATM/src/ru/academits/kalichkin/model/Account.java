@@ -33,14 +33,7 @@ public class Account {
 
 
     private Banknotes findBanknote(int index) {
-        Banknotes banknote = null;
-        for (int i = 0; i < cash.size(); i++) {
-            if (index == i) {
-                banknote = cash.get(i);
-                break;
-            }
-        }
-        return banknote;
+       return cash.get(index);
     }
 
 
