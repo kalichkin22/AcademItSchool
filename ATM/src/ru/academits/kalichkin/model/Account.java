@@ -127,11 +127,12 @@ public class Account {
         int newNominal = nominal;
         ArrayList<Banknotes> cashWithDraw = new ArrayList<>();
 
+        if (sum / newNominal > findBanknote(nominal).getNominal()) {
+            throw new NotSuchCountBanknoteException();
+        }
+
         while (sum > 0) {
             Banknotes banknote = findBanknote(newNominal);
-            if (sum / newNominal > banknote.getNominal()) {
-                throw new NotSuchCountBanknoteException();
-            }
             int countBanknote = 0;
             countBanknote += sum / newNominal;
 
