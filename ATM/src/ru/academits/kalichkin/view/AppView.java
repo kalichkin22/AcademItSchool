@@ -17,7 +17,7 @@ public class AppView implements View {
     private final JButton buttonBalance = new JButton("Узнать баланс счета");
     private final JButton buttonDeposit = new JButton("Пополнить баланс");
     private final JButton buttonWithDraw = new JButton("Снять деньги");
-    private final JButton buttonCountBalance = new JButton("Количество банкнот");
+    private final JButton buttonCountBanknote = new JButton("Количество банкнот");
 
     private final static boolean SHOULD_WEIGHT_X = true;
 
@@ -30,7 +30,7 @@ public class AppView implements View {
     }
 
     private void initEvents() {
-        buttonCountBalance.addActionListener(e -> listener.needGetBanknote());
+        buttonCountBanknote.addActionListener(e -> listener.needGetBanknote());
 
         buttonBalance.addActionListener(e -> listener.needGetBalance());
 
@@ -124,8 +124,8 @@ public class AppView implements View {
         c.insets = new Insets(30, 20, 0, 10);
         c.anchor = GridBagConstraints.WEST;
         c.gridx = GridBagConstraints.RELATIVE;
-        contentPane.add(buttonCountBalance, c);
-        buttonCountBalance.setFont(font);
+        contentPane.add(buttonCountBanknote, c);
+        buttonCountBanknote.setFont(font);
     }
 
 
