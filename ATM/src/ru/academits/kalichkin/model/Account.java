@@ -37,6 +37,7 @@ public class Account {
         for (int i = 0; i < cash.size(); i++) {
             if (cash.get(i).getNominal() == nominal) {
                 banknote = cash.get(i - 1);
+                break;
             }
         }
         return banknote;
