@@ -19,12 +19,20 @@ public class Account {
         return new ArrayList<>(cash);
     }
 
-
-    private void validateNominal(ArrayList<Banknotes> cash, int nominal) {
-        for (Banknotes banknote : cash) {
-            if (banknote.getNominal() == nominal) {
-                return;
+    private Banknotes findBanknote(int nominal) {
+        Banknotes banknote = null;
+        for (Banknotes e : cash) {
+            if (e.getNominal() == nominal) {
+                banknote = e;
+                break;
             }
+        }
+        return banknote;
+    }
+
+    private void validateNominal(int nominal) {
+        if (findBanknote(nominal).getNominal() == nominal) {
+            return;
         }
         throw new NoSuchElementException();
     }
@@ -66,21 +74,16 @@ public class Account {
     }
 
 
-    public boolean deposit(int nominal, int count) {
+    public void deposit(int nominal, int count) {
         if (count + getCountAllBanknotes() > MAX_COUNT_BANKNOTES) {
             throw new TooMuchCountBanknoteException();
         }
+        validateNominal(nominal);
 
-        validateNominal(cash, nominal);
-
-        for (Banknotes banknote : cash) {
-            if (nominal == banknote.getNominal()) {
-                banknote.setCount(banknote.getCount() + count);
-                return true;
-            }
-        }
-        return false;
+        Banknotes banknote = findBanknote(nominal);
+        banknote.setCount(banknote.getCount() + count);
     }
+
 
 
     public ArrayList<Banknotes> withDraw(int sum, int nominal) {
@@ -88,7 +91,7 @@ public class Account {
             throw new NotHaveBanknotesException();
         }
 
-        validateNominal(cash, nominal);
+        validateNominal(nominal);
 
         Banknotes banknote = new Banknotes(nominal, 0);
         if (cash.contains(banknote)) {

@@ -42,9 +42,9 @@ public class ConsoleView {
                         System.out.println("Введите количество банкнот: ");
                         int countDeposit = scanner.nextInt();
 
-                        if (account.deposit(nominalDeposit, countDeposit)) {
-                            System.out.println("Баланс: " + account.getBalance());
-                        }
+                        account.deposit(nominalDeposit, countDeposit);
+                        System.out.println("Баланс: " + account.getBalance());
+
                         System.out.println("Лимит банкомата на число купюр: " + Account.MAX_COUNT_BANKNOTES);
                         PrintCountBanknote(account.getBanknotes());
                         System.out.println("Всего банкнот: " + account.getCountAllBanknotes());
