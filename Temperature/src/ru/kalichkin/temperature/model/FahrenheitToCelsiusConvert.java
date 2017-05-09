@@ -1,3 +1,4 @@
+
 package ru.kalichkin.temperature.model;
 
 import ru.kalichkin.temperature.common.TemperatureConverter;

@@ -1,3 +1,4 @@
+import ru.kalichkin.temperature.common.TemperatureConverter;
 import ru.kalichkin.temperature.common.View;
 import ru.kalichkin.temperature.controller.Controller;
 import ru.kalichkin.temperature.view.AppView;

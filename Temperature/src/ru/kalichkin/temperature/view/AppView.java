@@ -16,15 +16,16 @@ public class AppView implements View {
     private final JButton convertButton = new JButton("Convert");
     private final JTextField resultLabel = new JTextField();
 
-    private JComboBox comboBox = new JComboBox(FindTemperature.items);
-    private JComboBox comboBox2 = new JComboBox();
+    private JComboBox<String> comboBox = new JComboBox<>(FindTemperature.items);
+    private JComboBox<String> comboBox2 = new JComboBox<>();
+    private JLabel infoLabel = new JLabel();
 
     private final static boolean SHOULD_WEIGHT_X = true;
 
 
     private void createFrame() {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(400, 250));
+        frame.setMinimumSize(new Dimension(400, 280));
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
@@ -36,10 +37,9 @@ public class AppView implements View {
                 double temperature = Double.parseDouble(tfTemperature.getText());
                 listeners.forEach(listener -> listener.needConvertTemperature(temperature, comboBox.getSelectedItem().toString(),
                         comboBox2.getSelectedItem().toString()));
-
+                infoLabel.setText("");
             } catch (NumberFormatException ex) {
-                tfTemperature.setText(JOptionPane.showInputDialog(tfTemperature, "Temperature must be number," +
-                        " please enter below."));
+                infoLabel.setText("Температура должна быть цифрой.");
             }
         });
 
@@ -50,6 +50,7 @@ public class AppView implements View {
                 listeners.forEach(listener -> listener.needConvertTemperature(temperature, comboBox.getSelectedItem().toString(),
                         comboBox2.getSelectedItem().toString()));
             } catch (NumberFormatException ex) {
+                infoLabel.setText("");
                 tfTemperature.setText(Integer.toString(0));
             }
         });
@@ -100,6 +101,15 @@ public class AppView implements View {
         resultLabel.setEditable(false);
         contentPane.add(resultLabel, c);
 
+        c.gridwidth = 2;
+        c.ipady = 0;
+        c.anchor = GridBagConstraints.CENTER;
+        c.gridx = 0;
+        c.gridy = 5;
+        contentPane.add(infoLabel, c);
+        infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        infoLabel.setForeground(Color.RED);
+
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 0;
         c.weighty = 1.0;
@@ -107,7 +117,7 @@ public class AppView implements View {
         c.insets = new Insets(10, 0, 0, 0);
         c.gridx = 1;
         c.gridwidth = 2;
-        c.gridy = 5;
+        c.gridy = 6;
         contentPane.add(convertButton, c);
     }
 
