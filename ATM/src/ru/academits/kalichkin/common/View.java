@@ -13,6 +13,7 @@ public interface View {
 
     void onWithDraw(ArrayList<Banknotes> list);
 
-    void addViewListener(ViewListener listener);
+    void setViewListener(ViewListener listener);
 }
+
 

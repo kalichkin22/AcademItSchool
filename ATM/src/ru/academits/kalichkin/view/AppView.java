@@ -46,7 +46,6 @@ public class AppView implements View {
             }
         });
 
-
         buttonWithDraw.addActionListener(e -> {
             try {
                 WithdrawDialog dialog = new WithdrawDialog(listener);
@@ -167,7 +166,7 @@ public class AppView implements View {
 
 
     @Override
-    public void getViewListener(ViewListener listener) {
+    public void setViewListener(ViewListener listener) {
         this.listener = listener;
     }
 }

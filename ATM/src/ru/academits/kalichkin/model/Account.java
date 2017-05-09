@@ -104,7 +104,6 @@ public class Account {
             throw new NotSuchNominalException();
         }
 
-
         int newNominal = nominal;
         ArrayList<Banknotes> cashWithDraw = new ArrayList<>();
 
@@ -147,6 +146,7 @@ public class Account {
         }
         return cashWithDraw;
     }
+
 
     public String toString() {
         return Arrays.toString(cash.toArray());
