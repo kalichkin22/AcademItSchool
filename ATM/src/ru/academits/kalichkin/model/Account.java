@@ -19,6 +19,7 @@ public class Account {
         return new ArrayList<>(cash);
     }
 
+
     private Banknotes findBanknote(int nominal) {
         Banknotes banknote = null;
         for (Banknotes e : cash) {
@@ -29,6 +30,22 @@ public class Account {
         }
         return banknote;
     }
+
+
+    private Banknotes findBanknoteLessThat(int nominal) {
+        Banknotes banknote = null;
+        for (int i = 0; i < cash.size(); i++) {
+            if (cash.get(i).getNominal() == nominal) {
+                banknote = cash.get(i - 1);
+            }
+        }
+        return banknote;
+    }
+
+    private Banknotes findLastBanknote() {
+        return cash.get(cash.size() - 1);
+    }
+
 
     private void validateNominal(int nominal) {
         if (findBanknote(nominal).getNominal() == nominal) {
@@ -85,7 +102,6 @@ public class Account {
     }
 
 
-
     public ArrayList<Banknotes> withDraw(int sum, int nominal) {
         if (getBalance() == 0) {
             throw new NotHaveBanknotesException();
@@ -93,8 +109,8 @@ public class Account {
 
         validateNominal(nominal);
 
-        Banknotes banknote = new Banknotes(nominal, 0);
-        if (cash.contains(banknote)) {
+        Banknotes banknoteEmpty = new Banknotes(nominal, 0);
+        if (cash.contains(banknoteEmpty)) {
             throw new NotSuchCountBanknoteException();
         }
 
@@ -110,42 +126,41 @@ public class Account {
         int newNominal = nominal;
         ArrayList<Banknotes> cashWithDraw = new ArrayList<>();
 
-        while (sum != 0) {
-            for (int i = 0; i < cash.size(); i++) {
-                if (newNominal == cash.get(i).getNominal()) {
-                    if (sum / newNominal > cash.get(i).getNominal()) {
-                        throw new NotSuchCountBanknoteException();
-                    }
-                    int countBanknote = 0;
-                    countBanknote += sum / newNominal;
-
-                    if (countBanknote <= cash.get(i).getCount()) {
-                        cash.get(i).setCount(cash.get(i).getCount() - countBanknote);
-                        sum = sum - cash.get(i).getNominal() * countBanknote;
-                        if (sum != 0 && sum < newNominal && cash.get(i).getNominal() != firstBanknoteNominal) {
-                            newNominal = cash.get(i - 1).getNominal();
-                        } else if (sum > 0 && sum < newNominal) {
-                            throw new NotSuchCountBanknoteException();
-                        }
-                        if (countBanknote == 0) {
-                            break;
-                        }
-                        Banknotes banknoteWithDraw = new Banknotes(cash.get(i).getNominal(), countBanknote);
-                        cashWithDraw.add(banknoteWithDraw);
-
-                    } else {
-                        if (cash.get(i).getCount() == 0 && cash.get(i).getNominal() != firstBanknoteNominal) {
-                            newNominal = cash.get(i - 1).getNominal();
-                            break;
-                        }
-                        sum = sum - cash.get(i).getNominal() * cash.get(i).getCount();
-                        Banknotes banknoteWithDraw = new Banknotes(cash.get(i).getNominal(), cash.get(i).getCount());
-                        newNominal = cash.get(cash.size() - 1).getNominal();
-                        cash.get(i).setCount(0);
-                        cashWithDraw.add(banknoteWithDraw);
-                    }
-                }
+        while (sum > 0) {
+            Banknotes banknote = findBanknote(newNominal);
+            if (sum / newNominal > banknote.getNominal()) {
+                throw new NotSuchCountBanknoteException();
             }
+            int countBanknote = 0;
+            countBanknote += sum / newNominal;
+
+            if (banknote.getCount() == 0 && banknote.getNominal() != firstBanknoteNominal) {
+                newNominal = findBanknoteLessThat(newNominal).getNominal();
+            }
+            if (countBanknote <= banknote.getCount()) {
+                banknote.setCount(banknote.getCount() - countBanknote);
+                sum = sum - banknote.getNominal() * countBanknote;
+                if (sum != 0 && sum < newNominal && banknote.getNominal() != firstBanknoteNominal) {
+                    newNominal = findBanknoteLessThat(newNominal).getNominal();
+                } else if (sum > 0 && sum < newNominal) {
+                    throw new NotSuchCountBanknoteException();
+                }
+                if (countBanknote != 0) {
+                    Banknotes banknoteWithDraw = new Banknotes(banknote.getNominal(), countBanknote);
+                    cashWithDraw.add(banknoteWithDraw);
+                }
+            } else {
+                sum = sum - banknote.getNominal() * banknote.getCount();
+                if (findLastBanknote().getCount() != 0 && sum > findLastBanknote().getNominal()) {
+                    newNominal = findLastBanknote().getNominal();
+                }
+                if (banknote.getCount() != 0) {
+                    Banknotes banknoteWithDraw = new Banknotes(banknote.getNominal(), banknote.getCount());
+                    cashWithDraw.add(banknoteWithDraw);
+                }
+                banknote.setCount(0);
+            }
+
         }
         return cashWithDraw;
     }
