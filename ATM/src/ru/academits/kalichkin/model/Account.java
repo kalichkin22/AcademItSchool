@@ -123,7 +123,10 @@ public class Account {
         int newNominal = nominal;
         ArrayList<Banknotes> cashWithDraw = new ArrayList<>();
 
-        if (sum / newNominal > findBanknote(nominal).getNominal()) {
+
+        if ((sum / getMinNominal()) % getMinNominal() != 0) {
+            throw new NotSuchCountBanknoteException();
+        } else if (sum / newNominal > findBanknote(nominal).getNominal() && newNominal != getMinNominal()) {
             throw new NotSuchCountBanknoteException();
         }
 
