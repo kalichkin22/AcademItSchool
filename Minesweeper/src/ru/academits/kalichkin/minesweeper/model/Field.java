@@ -125,8 +125,13 @@ public class Field {
 
 
     public void draw() {
-        for (Cell[] row : field) {
-            for (Cell cell : row) {
+        for (int i = 0; i < field.length + 1; i++) {
+            System.out.print(i + "  ");
+        }
+        System.out.println();
+        for (int i = 0; i < field.length; i++) {
+            System.out.print(i + 1 + " ");
+            for (Cell cell : field[i]) {
                 System.out.printf("%s", cell);
             }
             System.out.println();
