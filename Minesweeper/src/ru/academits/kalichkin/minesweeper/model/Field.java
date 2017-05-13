@@ -82,7 +82,6 @@ public class Field {
                     this.field[click.row][click.column].setFlag(true);
                     numberOfFlags++;
                 } else {
-                    field[click.row][click.column].setFlag(false);
                     numberOfFlags--;
                 }
                 break;
