@@ -7,7 +7,7 @@ public class Cell {
     private int amountMinesNear;
 
 
-    public Cell() {
+    Cell() {
         this.isOpen = false;
         this.isFlag = false;
     }
@@ -18,7 +18,7 @@ public class Cell {
     }
 
 
-    public void setMine() {
+    void setMine() {
         isMine = true;
     }
 
@@ -28,7 +28,7 @@ public class Cell {
     }
 
 
-    public void setOpen() {
+    private void setOpen() {
         isOpen = true;
     }
 
@@ -38,22 +38,22 @@ public class Cell {
     }
 
 
-    public void setFlag(boolean isFlag) {
+    void setFlag(boolean isFlag) {
         this.isFlag = isFlag;
     }
 
 
-    public int getAmountMinesNear() {
+    int getAmountMinesNear() {
         return amountMinesNear;
     }
 
 
-    public void setAmountMinesNear(int amountMinesNear) {
+    void setAmountMinesNear(int amountMinesNear) {
         this.amountMinesNear = amountMinesNear;
     }
 
 
-    public Action actionCell(int button) {
+    Action actionCell(int button) {
         if (button != 0 && button != 1) {
             throw new IllegalArgumentException();
         }
@@ -73,7 +73,7 @@ public class Cell {
     }
 
 
-    public void show() {
+    void show() {
         this.setOpen();
     }
 

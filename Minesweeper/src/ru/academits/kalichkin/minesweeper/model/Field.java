@@ -90,7 +90,7 @@ public class Field {
     }
 
 
-    public void showAll() {
+    private void showAll() {
         for (Cell[] row : field) {
             for (Cell cell : row) {
                 cell.show();
