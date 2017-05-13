@@ -14,7 +14,7 @@ public class Text {
         try {
             while (true) {
                 try {
-                    System.out.println("Выведите кооридинаты ячейки: ");
+                    System.out.println("Введите кооридинаты ячейки: ");
                     System.out.println("Строка: ");
                     int row = scanner.nextInt() - 1;
 
