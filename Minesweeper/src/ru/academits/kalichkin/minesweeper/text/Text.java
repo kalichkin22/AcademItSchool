@@ -13,7 +13,6 @@ public class Text implements View {
 
     private void initEvents() {
         Scanner scanner = new Scanner(System.in);
-
         try {
             while (true) {
                 try {
@@ -32,22 +31,9 @@ public class Text implements View {
 
                     Click click = new Click(row, column, button);
 
-                    listener.needClick(click);
-
-                    if (listener.needCheckDefeat(click)) {
-                        listener.needShowAll();
-                        listener.needDraw();
-                        System.out.println("Вы проиграли!");
-                        System.out.println("Угадано мин: " + listener.getCountFlagTrue());
+                    if (listener.needClick(click)) {
                         return;
                     }
-
-                    if (listener.needCheckWin()) {
-                        listener.needDraw();
-                        System.out.println("Вы проиграли!");
-                        return;
-                    }
-
 
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Выход за границы поля, попробуйте еще раз.");
@@ -86,15 +72,28 @@ public class Text implements View {
 
 
     @Override
-    public boolean onCheckDefeat(Click click) {
-        return listener.needGetCell(click.row, click.column).isMine()
-                && !listener.needGetCell(click.row, click.column).isFlag() && listener.needGetCell(click.row, click.column).isOpen();
+    public void setViewListener(ViewListener listener) {
+        this.listener = listener;
     }
 
 
     @Override
-    public void setViewListener(ViewListener listener) {
-        this.listener = listener;
+    public boolean onCheckFinish(Click click) {
+        boolean isFinish = false;
+        if (listener.needCheckDefeat(click)) {
+            listener.needShowAll();
+            listener.needDraw();
+            System.out.println("Вы проиграли!");
+            System.out.println("Угадано мин: " + listener.getCountFlagTrue());
+            isFinish = true;
+        }
+
+        if (listener.needCheckWin()) {
+            listener.needDraw();
+            System.out.println("Вы проиграли!");
+            isFinish = true;
+        }
+        return isFinish;
     }
 
 

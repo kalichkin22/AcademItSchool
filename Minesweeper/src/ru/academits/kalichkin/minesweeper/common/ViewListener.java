@@ -10,15 +10,13 @@ public interface ViewListener {
 
     void needDraw();
 
-    void needClick(Click click);
+    boolean needClick(Click click);
 
     int getCountFlagTrue();
 
     boolean needCheckDefeat(Click click);
 
     boolean needCheckWin();
-
-    Cell needGetCell(int row, int column);
 
     void needShowAll();
 }

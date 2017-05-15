@@ -2,7 +2,6 @@ package ru.academits.kalichkin.minesweeper.controller;
 
 import ru.academits.kalichkin.minesweeper.common.View;
 import ru.academits.kalichkin.minesweeper.common.ViewListener;
-import ru.academits.kalichkin.minesweeper.model.Cell;
 import ru.academits.kalichkin.minesweeper.model.Click;
 import ru.academits.kalichkin.minesweeper.model.Field;
 
@@ -17,8 +16,8 @@ public class Controller implements ViewListener {
     }
 
     @Override
-    public void needClick(Click click) {
-        field.actionCell(click);
+    public boolean needClick(Click click) {
+        return view.onCheckFinish(field.actionCell(click));
     }
 
 
@@ -33,6 +32,7 @@ public class Controller implements ViewListener {
         field.setMines();
     }
 
+
     @Override
     public void needSetNumberMinesNear() {
         field.setNumberMinesNear();
@@ -46,7 +46,9 @@ public class Controller implements ViewListener {
 
 
     public boolean needCheckDefeat(Click click) {
-        return view.onCheckDefeat(click);
+        return field.getCell(click.row, click.column).isMine()
+                && !field.getCell(click.row, click.column).isFlag() && field.getCell(click.row, click.column).isOpen();
+
     }
 
 
@@ -54,11 +56,6 @@ public class Controller implements ViewListener {
         return field.isWin();
     }
 
-
-    @Override
-    public Cell needGetCell(int row, int column) {
-        return field.getCell(row, column);
-    }
 
 
     @Override

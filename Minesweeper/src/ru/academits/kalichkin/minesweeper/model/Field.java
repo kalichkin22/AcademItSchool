@@ -64,7 +64,7 @@ public class Field {
     }
 
 
-    public void actionCell(Click click) {
+    public Click actionCell(Click click) {
         Action clickResult = field[click.row][click.column].actionCell(click.button);
         switch (clickResult) {
             case OPEN:
@@ -95,6 +95,7 @@ public class Field {
                 numberOfFlags--;
                 break;
         }
+        return click;
     }
 
 
