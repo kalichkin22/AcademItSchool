@@ -7,7 +7,6 @@ public class Cell {
     private boolean isQuestion;
     private int amountMinesNear;
 
-
     Cell() {
         this.isOpen = false;
         this.isFlag = false;
@@ -30,7 +29,7 @@ public class Cell {
     }
 
 
-    private void setOpen() {
+    void setOpen() {
         this.isOpen = true;
     }
 
@@ -45,6 +44,16 @@ public class Cell {
     }
 
 
+    boolean isQuestion() {
+        return isQuestion;
+    }
+
+
+    void setQuestion(boolean question) {
+        isQuestion = question;
+    }
+
+
     int getAmountMinesNear() {
         return amountMinesNear;
     }
@@ -56,7 +65,7 @@ public class Cell {
 
 
     Action actionCell(int button) {
-        if (button != 0 && button != 1) {
+        if (button != 0 && button != 1 && button != 2) {
             throw new IllegalArgumentException();
         }
         if (!isOpen) {
@@ -66,20 +75,19 @@ public class Cell {
             } else if (button == 1) {
                 if (isFlag) {
                     this.setFlag(false);
-                    return Action.QUESTION;
-                }else if (isQuestion) {
+                    return Action.SET_QUESTION;
+                } else if (isQuestion) {
                     this.setQuestion(false);
                 } else {
                     return Action.SET_FLAG;
                 }
             }
+        } else {
+            if (button == 2) {
+                return Action.OPEN_AROUND;
+            }
         }
         return Action.NOT_ACTION;
-    }
-
-
-    void show() {
-        this.setOpen();
     }
 
 
@@ -116,10 +124,6 @@ public class Cell {
             s = "[$]";
         }
         return s;
-    }
-
-    void setQuestion(boolean question) {
-        isQuestion = question;
     }
 }
 

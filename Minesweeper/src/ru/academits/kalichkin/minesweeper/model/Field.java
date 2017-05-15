@@ -8,7 +8,7 @@ public class Field {
     private int numberOfFlags;
 
 
-    public Field(int fieldSize , int numberOfMines) {
+    public Field(int fieldSize, int numberOfMines) {
         this.numberOfMines = numberOfMines;
         field = new Cell[fieldSize][fieldSize];
 
@@ -90,10 +90,21 @@ public class Field {
                 }
                 break;
 
-            case QUESTION:
+            case SET_QUESTION:
                 this.field[click.row][click.column].setQuestion(true);
                 numberOfFlags--;
                 break;
+
+            case OPEN_AROUND:
+                if (field[click.row][click.column].getAmountMinesNear() == checkMinesNear(click)) {
+                    for (int i = -1; i <= 1; i++) {
+                        for (int j = -1; j <= 1; j++) {
+                            if(!field[click.row + i][click.column + j].isMine() || !field[click.row + i][click.column + j].isQuestion()) {
+                                field[click.row + i][click.column + j].setOpen();
+                            }
+                        }
+                    }
+                }
         }
         return click;
     }
@@ -102,7 +113,7 @@ public class Field {
     public void showAll() {
         for (Cell[] row : field) {
             for (Cell cell : row) {
-                cell.show();
+                cell.setOpen();
             }
         }
     }
@@ -130,9 +141,22 @@ public class Field {
                 }
             }
         }
-        return countNotOpen == numberOfMines;
+        return countNotOpen == numberOfMines || numberOfMines == getCountFlagTrue();
     }
 
+
+    private int checkMinesNear(Click click) {
+        int mines = 0;
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (this.field[click.row + i][click.column + j].isFlag() && this.field[click.row + i][click.column + j].isMine()) {
+                    mines++;
+                }
+            }
+        }
+
+        return mines;
+    }
 
     public int size() {
         return field.length;

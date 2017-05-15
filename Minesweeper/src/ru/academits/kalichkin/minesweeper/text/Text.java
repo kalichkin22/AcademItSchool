@@ -89,8 +89,9 @@ public class Text implements View {
         }
 
         if (listener.needCheckWin()) {
+            listener.needShowAll();
             listener.needDraw();
-            System.out.println("Вы проиграли!");
+            System.out.println("Вы выиграли!");
             isFinish = true;
         }
         return isFinish;
