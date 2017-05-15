@@ -34,7 +34,7 @@ public class Text implements View {
 
                     listener.needClick(click);
 
-                    if (listener.needCheckFinish(click)) {
+                    if (listener.needCheckDefeat(click)) {
                         listener.needShowAll();
                         listener.needDraw();
                         System.out.println("Вы проиграли!");
@@ -60,6 +60,7 @@ public class Text implements View {
         }
     }
 
+
     @Override
     public void startApplication() {
         listener.needSetMines();
@@ -83,11 +84,13 @@ public class Text implements View {
         }
     }
 
+
     @Override
-    public boolean onCheckFinish(Click click) {
+    public boolean onCheckDefeat(Click click) {
         return listener.needGetCell(click.row, click.column).isMine()
                 && !listener.needGetCell(click.row, click.column).isFlag() && listener.needGetCell(click.row, click.column).isOpen();
     }
+
 
     @Override
     public void setViewListener(ViewListener listener) {

@@ -7,6 +7,7 @@ public class Field {
     private int numberOfMines;
     private int numberOfFlags;
 
+
     public Field(int fieldSize , int numberOfMines) {
         this.numberOfMines = numberOfMines;
         field = new Cell[fieldSize][fieldSize];
@@ -17,6 +18,7 @@ public class Field {
             }
         }
     }
+
 
     public void setMines() {
         Random random = new Random();
@@ -32,6 +34,7 @@ public class Field {
             countMines++;
         }
     }
+
 
     public void setNumberMinesNear() {
         for (int row = 0; row < field.length; row++) {
@@ -89,6 +92,7 @@ public class Field {
 
             case QUESTION:
                 this.field[click.row][click.column].setQuestion(true);
+                numberOfFlags--;
                 break;
         }
     }
@@ -114,7 +118,6 @@ public class Field {
         }
         return count;
     }
-
 
 
     public boolean isWin() {

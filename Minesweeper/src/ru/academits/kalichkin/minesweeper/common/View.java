@@ -8,7 +8,7 @@ public interface View {
 
     void onDraw(Field field);
 
-    boolean onCheckFinish(Click click);
+    boolean onCheckDefeat(Click click);
 
     void setViewListener(ViewListener listener);
 }

@@ -30,8 +30,8 @@ public class Cell {
     }
 
 
-    public void setOpen(boolean isOpen) {
-        this.isOpen = isOpen;
+    private void setOpen() {
+        this.isOpen = true;
     }
 
 
@@ -61,7 +61,7 @@ public class Cell {
         }
         if (!isOpen) {
             if (button == 0 && !isFlag && !isQuestion) {
-                this.setOpen(true);
+                this.setOpen();
                 return Action.OPEN;
             } else if (button == 1) {
                 if (isFlag) {
@@ -79,7 +79,7 @@ public class Cell {
 
 
     void show() {
-        this.setOpen(true);
+        this.setOpen();
     }
 
 

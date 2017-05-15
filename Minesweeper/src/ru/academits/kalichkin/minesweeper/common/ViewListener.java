@@ -14,7 +14,7 @@ public interface ViewListener {
 
     int getCountFlagTrue();
 
-    boolean needCheckFinish(Click click);
+    boolean needCheckDefeat(Click click);
 
     boolean needCheckWin();
 

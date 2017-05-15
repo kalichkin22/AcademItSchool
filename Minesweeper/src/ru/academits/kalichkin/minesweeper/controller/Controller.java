@@ -45,8 +45,8 @@ public class Controller implements ViewListener {
     }
 
 
-    public boolean needCheckFinish(Click click) {
-        return view.onCheckFinish(click);
+    public boolean needCheckDefeat(Click click) {
+        return view.onCheckDefeat(click);
     }
 
 
