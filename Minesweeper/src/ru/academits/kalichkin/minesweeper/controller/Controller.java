@@ -57,7 +57,6 @@ public class Controller implements ViewListener {
     }
 
 
-
     @Override
     public void needShowAll() {
         field.showAll();

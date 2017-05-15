@@ -26,7 +26,7 @@ public class Text implements View {
                     System.out.println("Столбец: ");
                     int column = scanner.nextInt() - 1;
 
-                    System.out.println("Если хотите открыть ячейку введите 0, если поставить флаг, то 1");
+                    System.out.println("Если хотите открыть ячейку введите 0, если поставить флаг, то 1, если открыть соседние ячейки, то 2");
                     int button = scanner.nextInt();
 
                     Click click = new Click(row, column, button);
