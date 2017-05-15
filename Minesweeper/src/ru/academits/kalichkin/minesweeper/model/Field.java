@@ -7,7 +7,7 @@ public class Field {
     private int numberOfMines;
     private int numberOfFlags;
 
-    public Field(int fieldSize, int numberOfMines) {
+    public Field(int fieldSize , int numberOfMines) {
         this.numberOfMines = numberOfMines;
         field = new Cell[fieldSize][fieldSize];
 
@@ -16,7 +16,9 @@ public class Field {
                 field[i][j] = new Cell();
             }
         }
+    }
 
+    public void setMines() {
         Random random = new Random();
         int countMines = 0;
         while (countMines < numberOfMines) {
@@ -29,7 +31,9 @@ public class Field {
             field[row][column].setMine();
             countMines++;
         }
+    }
 
+    public void setNumberMinesNear() {
         for (int row = 0; row < field.length; row++) {
             for (int column = 0; column < field.length; column++) {
                 if (!field[column][row].isMine()) {
@@ -72,9 +76,6 @@ public class Field {
                         }
                     }
                 }
-                if (this.field[click.row][click.column].isMine()) {
-                    showAll();
-                }
                 break;
 
             case SET_FLAG:
@@ -85,11 +86,15 @@ public class Field {
                     numberOfFlags--;
                 }
                 break;
+
+            case QUESTION:
+                this.field[click.row][click.column].setQuestion(true);
+                break;
         }
     }
 
 
-    private void showAll() {
+    public void showAll() {
         for (Cell[] row : field) {
             for (Cell cell : row) {
                 cell.show();
@@ -110,7 +115,9 @@ public class Field {
         return count;
     }
 
-    public boolean getWin() {
+
+
+    public boolean isWin() {
         int countNotOpen = 0;
         for (Cell[] row : field) {
             for (Cell cell : row) {
@@ -123,17 +130,7 @@ public class Field {
     }
 
 
-    public void draw() {
-        for (int i = 0; i < field.length + 1; i++) {
-            System.out.print(i + "  ");
-        }
-        System.out.println();
-        for (int i = 0; i < field.length; i++) {
-            System.out.print(i + 1 + " ");
-            for (Cell cell : field[i]) {
-                System.out.printf("%s", cell);
-            }
-            System.out.println();
-        }
+    public int size() {
+        return field.length;
     }
 }

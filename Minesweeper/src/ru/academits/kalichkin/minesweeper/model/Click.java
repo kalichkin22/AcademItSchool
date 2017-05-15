@@ -2,8 +2,8 @@ package ru.academits.kalichkin.minesweeper.model;
 
 
 public class Click {
-    int row;
-    int column;
+    public int row;
+    public int column;
     int button;
 
     public Click(int row, int column, int button) {

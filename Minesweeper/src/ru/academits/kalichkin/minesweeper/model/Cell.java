@@ -4,12 +4,14 @@ public class Cell {
     private boolean isMine;
     private boolean isOpen;
     private boolean isFlag;
+    private boolean isQuestion;
     private int amountMinesNear;
 
 
     Cell() {
         this.isOpen = false;
         this.isFlag = false;
+        this.isQuestion = false;
     }
 
 
@@ -28,8 +30,8 @@ public class Cell {
     }
 
 
-    private void setOpen() {
-        isOpen = true;
+    public void setOpen(boolean isOpen) {
+        this.isOpen = isOpen;
     }
 
 
@@ -58,12 +60,15 @@ public class Cell {
             throw new IllegalArgumentException();
         }
         if (!isOpen) {
-            if (button == 0 && !isFlag) {
-                this.setOpen();
+            if (button == 0 && !isFlag && !isQuestion) {
+                this.setOpen(true);
                 return Action.OPEN;
             } else if (button == 1) {
                 if (isFlag) {
                     this.setFlag(false);
+                    return Action.QUESTION;
+                }else if (isQuestion) {
+                    this.setQuestion(false);
                 } else {
                     return Action.SET_FLAG;
                 }
@@ -74,7 +79,7 @@ public class Cell {
 
 
     void show() {
-        this.setOpen();
+        this.setOpen(true);
     }
 
 
@@ -95,10 +100,26 @@ public class Cell {
         if (isFlag) {
             s = "[f]";
         }
+        if (isQuestion) {
+            s = "[?]";
+        }
+
         if (isFlag && !isMine() && isOpen) {
-            s = "[̶f̶]";
+            s = "[̶f]";
+        }
+
+        if (isQuestion && !isMine() && isOpen) {
+            s = "[&]";
+        }
+
+        if (isQuestion && isMine() && isOpen) {
+            s = "[$]";
         }
         return s;
+    }
+
+    void setQuestion(boolean question) {
+        isQuestion = question;
     }
 }
 
