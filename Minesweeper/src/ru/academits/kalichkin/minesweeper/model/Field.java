@@ -149,16 +149,16 @@ public class Field {
 
 
     private int checkMinesNear(Click click) {
-        int mines = 0;
+        int countMines = 0;
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 Cell cell = this.field[click.row + i][click.column + j];
                 if (cell.isFlag() && cell.isMine()) {
-                    mines++;
+                    countMines++;
                 }
             }
         }
-        return mines;
+        return countMines;
     }
 
 
