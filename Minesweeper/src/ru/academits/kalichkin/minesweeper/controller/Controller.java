@@ -2,6 +2,7 @@ package ru.academits.kalichkin.minesweeper.controller;
 
 import ru.academits.kalichkin.minesweeper.common.View;
 import ru.academits.kalichkin.minesweeper.common.ViewListener;
+import ru.academits.kalichkin.minesweeper.model.Cell;
 import ru.academits.kalichkin.minesweeper.model.Click;
 import ru.academits.kalichkin.minesweeper.model.Field;
 
@@ -60,6 +61,11 @@ public class Controller implements ViewListener {
     @Override
     public void needShowAll() {
         field.showAll();
+    }
+
+    @Override
+    public int needGetSize() {
+       return field.size();
     }
 
 }

@@ -19,4 +19,6 @@ public interface ViewListener {
     boolean needCheckWin();
 
     void needShowAll();
+
+    int needGetSize();
 }

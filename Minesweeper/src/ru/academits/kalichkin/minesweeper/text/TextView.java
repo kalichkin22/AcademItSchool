@@ -5,6 +5,7 @@ import ru.academits.kalichkin.minesweeper.common.ViewListener;
 import ru.academits.kalichkin.minesweeper.model.Click;
 import ru.academits.kalichkin.minesweeper.model.Field;
 
+import java.awt.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 

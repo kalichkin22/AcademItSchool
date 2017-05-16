@@ -107,25 +107,27 @@ public class Cell {
                 s = "[*]";
             }
 
-            if (isFlag && !isMine()) {
-                s = "[̶f]";
-            }
-
-            if (isQuestion && !isMine()) {
-                s = "[&]";
-            }
-
-            if (isQuestion && isMine()) {
-                s = "[$]";
-            }
         }
 
         if (isFlag) {
             s = "[f]";
         }
+        if (isFlag && !isMine() && isOpen) {
+            s = "[̶f]";
+        }
+
         if (isQuestion) {
             s = "[?]";
         }
+
+        if (isQuestion && !isMine()&& isOpen) {
+            s = "[&]";
+        }
+
+        if (isQuestion && isMine() && isOpen) {
+            s = "[$]";
+        }
+
         return s;
     }
 }
