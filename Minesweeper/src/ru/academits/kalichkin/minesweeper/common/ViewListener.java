@@ -1,6 +1,7 @@
 package ru.academits.kalichkin.minesweeper.common;
 
 import ru.academits.kalichkin.minesweeper.model.Click;
+import ru.academits.kalichkin.minesweeper.model.Field;
 
 public interface ViewListener {
     void needSetMines();

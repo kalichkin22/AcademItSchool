@@ -11,4 +11,5 @@ public interface View {
     void setViewListener(ViewListener listener);
 
     boolean onCheckFinish(Click click);
+
 }

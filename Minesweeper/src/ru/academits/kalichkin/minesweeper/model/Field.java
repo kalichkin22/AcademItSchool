@@ -99,12 +99,15 @@ public class Field {
                 if (field[click.row][click.column].getAmountMinesNear() == checkMinesNear(click)) {
                     for (int i = -1; i <= 1; i++) {
                         for (int j = -1; j <= 1; j++) {
-                            if(!field[click.row + i][click.column + j].isMine() || !field[click.row + i][click.column + j].isQuestion()) {
+                            Cell cell = field[click.row + i][click.column + j];
+                            if (!cell.isMine() || !cell.isQuestion() || !cell.isFlag()) {
                                 field[click.row + i][click.column + j].setOpen();
                             }
                         }
                     }
                 }
+            case NOT_ACTION:
+                break;
         }
         return click;
     }
@@ -149,14 +152,15 @@ public class Field {
         int mines = 0;
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (this.field[click.row + i][click.column + j].isFlag() && this.field[click.row + i][click.column + j].isMine()) {
+                Cell cell = this.field[click.row + i][click.column + j];
+                if (cell.isFlag() && cell.isMine()) {
                     mines++;
                 }
             }
         }
-
         return mines;
     }
+
 
     public int size() {
         return field.length;

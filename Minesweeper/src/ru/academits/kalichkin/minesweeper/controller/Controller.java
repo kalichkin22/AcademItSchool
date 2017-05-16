@@ -61,6 +61,7 @@ public class Controller implements ViewListener {
     public void needShowAll() {
         field.showAll();
     }
+
 }
 
 

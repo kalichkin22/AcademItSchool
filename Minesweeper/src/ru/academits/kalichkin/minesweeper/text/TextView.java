@@ -8,7 +8,7 @@ import ru.academits.kalichkin.minesweeper.model.Field;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Text implements View {
+public class TextView implements View {
     private ViewListener listener;
 
     private void initEvents() {
@@ -34,6 +34,7 @@ public class Text implements View {
                     if (listener.needClick(click)) {
                         return;
                     }
+
 
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Выход за границы поля, попробуйте еще раз.");
