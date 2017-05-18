@@ -54,40 +54,13 @@ public class Cell {
     }
 
 
-    int getAmountMinesNear() {
+    public int getAmountMinesNear() {
         return amountMinesNear;
     }
 
 
     void setAmountMinesNear(int amountMinesNear) {
         this.amountMinesNear = amountMinesNear;
-    }
-
-
-    Action actionCell(int button) {
-        if (button != 0 && button != 1 && button != 2) {
-            throw new IllegalArgumentException();
-        }
-        if (!isOpen) {
-            if (button == 0 && !isFlag && !isQuestion) {
-                this.setOpen();
-                return Action.OPEN;
-            } else if (button == 1) {
-                if (isFlag) {
-                    this.setFlag(false);
-                    return Action.SET_QUESTION;
-                } else if (isQuestion) {
-                    this.setQuestion(false);
-                } else {
-                    return Action.SET_FLAG;
-                }
-            }
-        } else {
-            if (button == 2) {
-                return Action.OPEN_AROUND;
-            }
-        }
-        return Action.NOT_ACTION;
     }
 
 
@@ -106,13 +79,13 @@ public class Cell {
             if (isMine) {
                 s = "[*]";
             }
-
         }
 
         if (isFlag) {
             s = "[f]";
         }
-        if (isFlag && !isMine() && isOpen) {
+
+        if (isFlag && !isMine && isOpen) {
             s = "[̶f]";
         }
 
@@ -120,11 +93,11 @@ public class Cell {
             s = "[?]";
         }
 
-        if (isQuestion && !isMine()&& isOpen) {
+        if (isQuestion && !isMine && isOpen) {
             s = "[&]";
         }
 
-        if (isQuestion && isMine() && isOpen) {
+        if (isQuestion && isMine && isOpen) {
             s = "[$]";
         }
 

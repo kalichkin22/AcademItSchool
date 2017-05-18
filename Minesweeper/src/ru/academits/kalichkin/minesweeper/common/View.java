@@ -1,9 +1,9 @@
 package ru.academits.kalichkin.minesweeper.common;
 
+import ru.academits.kalichkin.minesweeper.model.Action;
 import ru.academits.kalichkin.minesweeper.model.Click;
 import ru.academits.kalichkin.minesweeper.model.Field;
 
-import java.awt.*;
 
 public interface View {
     void startApplication();
@@ -14,4 +14,5 @@ public interface View {
 
     boolean onCheckFinish(Click click);
 
+    Action onAction(int button);
 }

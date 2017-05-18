@@ -6,24 +6,37 @@ public class Field {
     private Cell[][] field;
     private int numberOfMines;
     private int numberOfFlags;
+    private int fieldRow;
+    private int fieldColumn;
 
 
-    public Field(int fieldSize, int numberOfMines) {
+    public Field(int fieldRow, int fieldColumn, int numberOfMines) {
+        this.fieldRow = fieldRow;
+        this.fieldColumn = fieldColumn;
         this.numberOfMines = numberOfMines;
-        field = new Cell[fieldSize][fieldSize];
 
-        for (int i = 0; i < fieldSize; i++) {
-            for (int j = 0; j < fieldSize; j++) {
+        field = new Cell[fieldRow][fieldColumn];
+
+        for (int i = 0; i < fieldRow; i++) {
+            for (int j = 0; j < fieldColumn; j++) {
                 field[i][j] = new Cell();
             }
         }
     }
 
 
+    public int getFieldRow() {
+        return fieldRow;
+    }
+
+    public int getFieldColumn() {
+        return fieldColumn;
+    }
+
     public void setMines() {
         Random random = new Random();
         int countMines = 0;
-        while (countMines < numberOfMines) {
+        while (countMines < this.numberOfMines) {
             int row;
             int column;
             do {
@@ -59,54 +72,59 @@ public class Field {
     }
 
 
-    public Cell getCell(int x, int y) {
-        return field[x][y];
+    public Cell getCell(int row, int column) {
+        return field[row][column];
     }
 
 
     public Click actionCell(Click click) {
-        Action clickResult = field[click.row][click.column].actionCell(click.button);
-        switch (clickResult) {
+        Cell cell = this.field[click.getRow()][click.getColumn()];
+        switch (click.getAction()) {
             case OPEN:
-                if (field[click.row][click.column].getAmountMinesNear() == 0) {
-                    for (int i = -1; i <= 1; i++) {
-                        for (int j = -1; j <= 1; j++) {
-                            if ((click.row + i >= 0) && (click.row + i < field.length)
-                                    && (click.column + j >= 0) && (click.column + j < field.length)) {
-                                Click fakeClick = new Click(click.row + i, click.column + j, click.button);
-                                actionCell(fakeClick);
+                if (!cell.isOpen()) {
+                    if (!cell.isFlag() && !cell.isQuestion()) {
+                        cell.setOpen();
+                        if (cell.getAmountMinesNear() == 0) {
+                            for (int i = -1; i <= 1; i++) {
+                                for (int j = -1; j <= 1; j++) {
+                                    if ((click.getRow() + i >= 0) && (click.getRow() + i < field.length)
+                                            && (click.getColumn() + j >= 0) && (click.getColumn() + j < field.length)) {
+                                        Click fakeClick = new Click(click.getRow() + i, click.getColumn() + j, click.getAction());
+                                        actionCell(fakeClick);
+                                    }
+                                }
                             }
                         }
                     }
                 }
                 break;
 
-            case SET_FLAG:
-                if (!this.field[click.row][click.column].isFlag() && numberOfFlags < numberOfMines) {
-                    this.field[click.row][click.column].setFlag(true);
-                    numberOfFlags++;
-                } else {
-                    numberOfFlags--;
+            case SET_MARKED:
+                if (!cell.isOpen()) {
+                    if (cell.isQuestion()) {
+                        cell.setQuestion(false);
+                    } else if (!cell.isFlag() && numberOfFlags < numberOfMines) {
+                        cell.setFlag(true);
+                        numberOfFlags++;
+                    } else if (cell.isFlag()) {
+                        cell.setFlag(false);
+                        numberOfFlags--;
+                        cell.setQuestion(true);
+                    }
                 }
-                break;
-
-            case SET_QUESTION:
-                this.field[click.row][click.column].setQuestion(true);
-                numberOfFlags--;
                 break;
 
             case OPEN_AROUND:
-                if (field[click.row][click.column].getAmountMinesNear() == checkMinesNear(click)) {
+                if (cell.getAmountMinesNear() == checkMinesNear(click)) {
                     for (int i = -1; i <= 1; i++) {
                         for (int j = -1; j <= 1; j++) {
-                            Cell cell = field[click.row + i][click.column + j];
-                            if (!cell.isMine() || !cell.isQuestion() || !cell.isFlag()) {
-                                field[click.row + i][click.column + j].setOpen();
+                            Cell cell2 = field[click.getRow() + i][click.getColumn() + j];
+                            if (!cell2.isMine() || !cell2.isQuestion() || !cell2.isFlag()) {
+                                field[click.getRow() + i][click.getColumn() + j].setOpen();
                             }
                         }
                     }
                 }
-            case NOT_ACTION:
                 break;
         }
         return click;
@@ -152,7 +170,7 @@ public class Field {
         int countMines = 0;
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                Cell cell = this.field[click.row + i][click.column + j];
+                Cell cell = this.field[click.getRow() + i][click.getColumn() + j];
                 if (cell.isFlag() && cell.isMine()) {
                     countMines++;
                 }
@@ -165,4 +183,5 @@ public class Field {
     public int size() {
         return field.length;
     }
+
 }
