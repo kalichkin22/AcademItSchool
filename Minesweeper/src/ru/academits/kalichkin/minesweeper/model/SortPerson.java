@@ -1,4 +1,6 @@
-package ru.academits.kalichkin.minesweeper.common;
+package ru.academits.kalichkin.minesweeper.model;
+
+import ru.academits.kalichkin.minesweeper.model.PersonWin;
 
 import java.util.Comparator;
 

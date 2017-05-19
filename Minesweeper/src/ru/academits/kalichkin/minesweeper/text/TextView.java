@@ -1,6 +1,7 @@
 package ru.academits.kalichkin.minesweeper.text;
 
 import ru.academits.kalichkin.minesweeper.common.*;
+import ru.academits.kalichkin.minesweeper.model.PersonWin;
 import ru.academits.kalichkin.minesweeper.model.Action;
 import ru.academits.kalichkin.minesweeper.model.Click;
 import ru.academits.kalichkin.minesweeper.model.Field;

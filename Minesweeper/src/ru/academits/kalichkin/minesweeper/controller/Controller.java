@@ -1,7 +1,5 @@
 package ru.academits.kalichkin.minesweeper.controller;
 
-import ru.academits.kalichkin.minesweeper.common.HighScores;
-import ru.academits.kalichkin.minesweeper.common.PersonWin;
 import ru.academits.kalichkin.minesweeper.common.View;
 import ru.academits.kalichkin.minesweeper.common.ViewListener;
 import ru.academits.kalichkin.minesweeper.model.*;

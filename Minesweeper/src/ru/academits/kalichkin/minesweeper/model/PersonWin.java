@@ -1,4 +1,4 @@
-package ru.academits.kalichkin.minesweeper.common;
+package ru.academits.kalichkin.minesweeper.model;
 
 import java.util.Objects;
 
