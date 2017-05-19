@@ -29,7 +29,6 @@ public class Controller implements ViewListener {
     }
 
 
-
     @Override
     public void needDraw() {
         view.onDraw(field);
@@ -90,7 +89,7 @@ public class Controller implements ViewListener {
     @Override
     public void needUserLevel(int row, int column, int numberOfMines) {
         if (row < 8 || column < 8
-                || row > 24 || column > 30) {
+                || row > 30 || column > 24) {
             throw new IllegalArgumentException();
         }
 

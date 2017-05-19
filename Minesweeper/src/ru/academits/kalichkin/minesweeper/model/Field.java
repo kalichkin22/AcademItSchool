@@ -51,15 +51,15 @@ public class Field {
 
 
     private void setNumberMinesNear() {
-        for (int row = 0; row < fieldRow; row++) {
-            for (int column = 0; column < fieldColumn; column++) {
+        for (int row = 0; row < fieldColumn; row++) {
+            for (int column = 0; column < fieldRow; column++) {
                 if (!field[column][row].isMine()) {
                     int count = 0;
                     for (int i = -1; i <= 1; i++) {
                         for (int j = -1; j <= 1; j++) {
                             int x = row + i;
                             int y = column + j;
-                            if (x < 0 || y < 0 || x > fieldRow - 1 || y > fieldColumn - 1) {
+                            if (x < 0 || y < 0 || x > fieldColumn - 1 || y > fieldRow - 1) {
                                 x = row;
                                 y = column;
                             }

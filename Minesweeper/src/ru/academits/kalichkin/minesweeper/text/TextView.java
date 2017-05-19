@@ -1,22 +1,18 @@
 package ru.academits.kalichkin.minesweeper.text;
 
-import ru.academits.kalichkin.minesweeper.common.HighScores;
-import ru.academits.kalichkin.minesweeper.common.View;
-import ru.academits.kalichkin.minesweeper.common.ViewListener;
+import ru.academits.kalichkin.minesweeper.common.*;
 import ru.academits.kalichkin.minesweeper.model.Action;
 import ru.academits.kalichkin.minesweeper.model.Click;
 import ru.academits.kalichkin.minesweeper.model.Field;
 
-
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class TextView implements View {
     private ViewListener listener;
-    private Click click;
+    private TimerGame timerGame;
+    private Scanner scanner = new Scanner(System.in);
 
     private void initEvents() {
-        Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println(
                     "1. Начать игру" + System.lineSeparator() +
@@ -28,80 +24,18 @@ public class TextView implements View {
 
             switch (numberCommand) {
                 case 1:
+                    timerGame = new TimerGame();
                     System.out.println("Выберете уровень игры: ");
                     System.out.println("1. Новичек " + System.lineSeparator() +
                             "2. Любитель" + System.lineSeparator() +
                             "3. Профессионал" + System.lineSeparator() +
                             "4. Пользовательский");
-
-
-                    int number = scanner.nextInt();
-                    switch (number) {
-                        case 1:
-                            listener.needBeginnerLevel();
-                            break;
-                        case 2:
-                            listener.needIntermediateLevel();
-                            break;
-                        case 3:
-                            listener.needExpertLevel();
-                            break;
-                        case 4:
-                            System.out.println("Введите количество строк, не менее 8 и не более 24: ");
-                            int row = scanner.nextInt();
-
-                            System.out.println("Введите количество столбцов, не менее 8 и не более 30: ");
-                            int column = scanner.nextInt();
-
-                            System.out.println("Введите количество мин: ");
-                            int numberOfMines = scanner.nextInt();
-                            try {
-                                listener.needUserLevel(row, column, numberOfMines);
-                            } catch (IllegalArgumentException e) {
-                                System.out.println("Границы поля должны быть не меньше, чем 8х8 и не больше, чем 24х30");
-                                return;
-                            }
-                            break;
-                        default:
-                            System.out.println("Такого уровня нет, попробуйте еще раз!");
-                            return;
-                    }
-
-                    try {
-                        do {
-                            try {
-                                listener.needDraw();
-
-                                System.out.println("Введите кооридинаты ячейки: ");
-                                System.out.println("Строка: ");
-
-                                int row = scanner.nextInt() - 1;
-
-                                System.out.println("Столбец: ");
-                                int column = scanner.nextInt() - 1;
-
-                                System.out.println("Введите номер команды: " + System.lineSeparator() +
-                                        "0. Открыть ячейку" + System.lineSeparator() +
-                                        "1. Поставить флаг" + System.lineSeparator() +
-                                        "2. Открыть соседние ячейки");
-                                int button = scanner.nextInt();
-
-                                Action action = listener.needAction(button);
-                                click = new Click(row, column, action);
-
-                            } catch (ArrayIndexOutOfBoundsException e) {
-                                System.out.println("Выход за границы поля, попробуйте еще раз.");
-                            } catch (IllegalArgumentException e) {
-                                System.out.println("Номер клавиши должен быть 0 или 1");
-                            }
-
-                        } while (!listener.needClick(click));
-                    } catch (InputMismatchException e) {
-                        System.out.println("Координаты ячейки должны быть цифрой");
-                    }
+                    setLevel(scanner.nextInt());
+                    setClick();
                     break;
                 case 2:
-                    System.out.println(HighScores.readScores());
+                    printHighScores(HighScores.readScores());
+                    System.out.println();
                     break;
                 case 3:
                     return;
@@ -144,19 +78,17 @@ public class TextView implements View {
             listener.needDraw();
             System.out.println("Вы проиграли!");
             System.out.println("Угадано мин: " + listener.getCountFlagTrue() + System.lineSeparator());
-            System.out.println("Введите свое имя: ");
-            String name = scanner.nextLine();
-            //HighScores.writeScores(name, listener.getCountFlagTrue());
             isFinish = true;
         }
 
         if (listener.needCheckWin()) {
+            String time = timerGame.stopTimer();
             listener.needShowAll();
             listener.needDraw();
             System.out.println("Вы выиграли!" + System.lineSeparator());
             System.out.println("Введите свое имя: ");
             String name = scanner.nextLine();
-            //HighScores.writeScores(name, listener.getCountFlagTrue());
+            HighScores.writeScores(name, time);
             isFinish = true;
         }
         return isFinish;
@@ -173,6 +105,74 @@ public class TextView implements View {
             return Action.OPEN_AROUND;
         }
         return Action.NOT_ACTION;
+    }
+
+
+    private void setLevel(int number) {
+        switch (number) {
+            case 1:
+                listener.needBeginnerLevel();
+                break;
+            case 2:
+                listener.needIntermediateLevel();
+                break;
+            case 3:
+                listener.needExpertLevel();
+                break;
+            case 4:
+                System.out.println("Введите количество строк, не менее 8 и не более 24: ");
+                int row = scanner.nextInt();
+
+                System.out.println("Введите количество столбцов, не менее 8 и не более 30: ");
+                int column = scanner.nextInt();
+
+                System.out.println("Введите количество мин: ");
+                int numberOfMines = scanner.nextInt();
+                try {
+                    listener.needUserLevel(row, column, numberOfMines);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Границы поля должны быть не меньше, чем 8х8 и не больше, чем 24х30");
+                    return;
+                }
+                break;
+            default:
+                System.out.println("Такого уровня нет, попробуйте еще раз!");
+        }
+    }
+
+    private void setClick() {
+        Click click;
+        do {
+            listener.needDraw();
+
+            System.out.println("Введите кооридинаты ячейки: ");
+            System.out.println("Строка: ");
+
+            int row = scanner.nextInt() - 1;
+
+            System.out.println("Столбец: ");
+            int column = scanner.nextInt() - 1;
+
+            System.out.println("Введите номер команды: " + System.lineSeparator() +
+                    "0. Открыть ячейку" + System.lineSeparator() +
+                    "1. Поставить флаг" + System.lineSeparator() +
+                    "2. Открыть соседние ячейки");
+            int button = scanner.nextInt();
+
+            Action action = listener.needAction(button);
+            click = new Click(row, column, action);
+            timerGame.startTimer();
+
+        } while (!listener.needClick(click));
+    }
+
+    private void printHighScores(List<PersonWin> list) {
+        Comparator<PersonWin> comparator = new SortPerson();
+        list.sort(comparator);
+        System.out.println("Таблица рекордов: ");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.printf("%d. %s - %s", i + 1, list.get(i).getName(), list.get(i).getTime() + System.lineSeparator());
+        }
     }
 
 }
