@@ -1,7 +1,7 @@
 package ru.academits.kalichkin.minesweeper.common;
 
-
 import java.util.Objects;
+
 
 public class PersonWin {
     private String name;

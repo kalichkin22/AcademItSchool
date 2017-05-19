@@ -1,4 +1,4 @@
-package ru.academits.kalichkin.minesweeper.common;
+package ru.academits.kalichkin.minesweeper.model;
 
 
 import javax.swing.*;
@@ -9,13 +9,17 @@ public class TimerGame {
     private Timer timer = new Timer();
     private String timeStop;
 
+    public Timer getTimer() {
+        return timer;
+    }
 
     public void startTimer() {
         TimerTask timerTask = new TimerTask() {
             volatile int time;
             Runnable refresher = new Runnable() {
                 public void run() {
-                    timeStop = String.format("%02d:%02d", time / 60, time % 60);
+                    int multiplyTime = 60;
+                    timeStop = String.format("%02d:%02d", time / multiplyTime, time % multiplyTime);
                 }
             };
 
@@ -24,7 +28,8 @@ public class TimerGame {
                 SwingUtilities.invokeLater(refresher);
             }
         };
-        timer.scheduleAtFixedRate(timerTask, 0, 1000);
+        int period = 1000;
+        timer.scheduleAtFixedRate(timerTask, 0, period);
     }
 
     public String stopTimer() {

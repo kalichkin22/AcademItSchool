@@ -1,16 +1,39 @@
 package ru.academits.kalichkin.minesweeper.controller;
 
+import ru.academits.kalichkin.minesweeper.common.HighScores;
+import ru.academits.kalichkin.minesweeper.common.PersonWin;
 import ru.academits.kalichkin.minesweeper.common.View;
 import ru.academits.kalichkin.minesweeper.common.ViewListener;
-import ru.academits.kalichkin.minesweeper.model.Action;
-import ru.academits.kalichkin.minesweeper.model.Cell;
-import ru.academits.kalichkin.minesweeper.model.Click;
-import ru.academits.kalichkin.minesweeper.model.Field;
+import ru.academits.kalichkin.minesweeper.model.*;
+
+import java.io.FileNotFoundException;
+import java.util.List;
 
 
 public class Controller implements ViewListener {
     private View view;
     private Field field;
+    private TimerGame timerGame;
+    private HighScores highScores;
+
+    private static final int MIN_COUNT_ROW = 8;
+    private static final int MAX_COUNT_ROW = 30;
+    private static final int MIN_COUNT_COLUMN = 8;
+    private static final int MAX_COUNT_COLUMN = 24;
+
+    private static final int BEGINNER_MINES = 10;
+    private static final int BEGINNER_NUMBER_ROWS = 9;
+    private static final int BEGINNER_NUMBER_COLUMNS = 9;
+
+    private static final int INTERMEDIATE_MINES = 50;
+    private static final int INTERMEDIATE_NUMBER_ROWS = 15;
+    private static final int INTERMEDIATE_NUMBER_COLUMNS = 15;
+
+
+    private static final int EXPERT_MINES = 100;
+    private static final int EXPERT_NUMBER_ROWS = 20;
+    private static final int EXPERT_NUMBER_COLUMNS = 20;
+
 
     public Controller(Field field, View view) {
         this.view = view;
@@ -54,12 +77,6 @@ public class Controller implements ViewListener {
 
 
     @Override
-    public int needGetSize() {
-        return field.size();
-    }
-
-
-    @Override
     public Cell needGetCell(int row, int column) {
         return field.getCell(row, column);
     }
@@ -73,27 +90,55 @@ public class Controller implements ViewListener {
 
     @Override
     public void needBeginnerLevel() {
-        field = new Field(9, 9, 10);
+        field = new Field(BEGINNER_NUMBER_ROWS, BEGINNER_NUMBER_COLUMNS, BEGINNER_MINES);
     }
 
     @Override
     public void needIntermediateLevel() {
-        field = new Field(15, 15, 50);
+        field = new Field(INTERMEDIATE_NUMBER_ROWS, INTERMEDIATE_NUMBER_COLUMNS, INTERMEDIATE_MINES);
     }
 
     @Override
     public void needExpertLevel() {
-        field = new Field(20, 20, 70);
+        field = new Field(EXPERT_NUMBER_ROWS, EXPERT_NUMBER_COLUMNS, EXPERT_MINES);
     }
 
     @Override
     public void needUserLevel(int row, int column, int numberOfMines) {
-        if (row < 8 || column < 8
-                || row > 30 || column > 24) {
+        if (row < MIN_COUNT_ROW || column < MIN_COUNT_COLUMN
+                || row > MAX_COUNT_ROW || column > MAX_COUNT_COLUMN) {
             throw new IllegalArgumentException();
         }
 
         field = new Field(row, column, numberOfMines);
+    }
+
+    @Override
+    public void needStartTimer() {
+        timerGame = new TimerGame();
+        timerGame.startTimer();
+    }
+
+    @Override
+    public String needStopTimer() {
+        return timerGame.stopTimer();
+    }
+
+    @Override
+    public void needWriteScores(String fileName, String name, String time) throws FileNotFoundException {
+        highScores = new HighScores(fileName);
+        highScores.writeScores(name, time);
+    }
+
+    @Override
+    public String needScoresFilename() {
+        return highScores.getFilename();
+    }
+
+    @Override
+    public List<PersonWin> needReadScores(String fileName) throws FileNotFoundException {
+        highScores = new HighScores(fileName);
+        return highScores.readScores();
     }
 }
 
