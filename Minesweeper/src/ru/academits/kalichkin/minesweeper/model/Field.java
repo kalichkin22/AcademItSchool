@@ -8,6 +8,7 @@ public class Field {
     private int numberOfFlags;
     private int fieldRow;
     private int fieldColumn;
+    private int countClick;
 
 
     public Field(int fieldRow, int fieldColumn, int numberOfMines) {
@@ -33,32 +34,32 @@ public class Field {
         return fieldColumn;
     }
 
-    public void setMines() {
-        Random random = new Random();
+    private void setMines() {
         int countMines = 0;
+        Random random = new Random();
         while (countMines < this.numberOfMines) {
             int row;
             int column;
             do {
-                row = random.nextInt(field.length);
-                column = random.nextInt(field.length);
+                row = random.nextInt(fieldRow);
+                column = random.nextInt(fieldColumn);
             } while (field[row][column].isMine());
-            field[row][column].setMine();
+            field[row][column].setMine(true);
             countMines++;
         }
     }
 
 
-    public void setNumberMinesNear() {
-        for (int row = 0; row < field.length; row++) {
-            for (int column = 0; column < field.length; column++) {
+    private void setNumberMinesNear() {
+        for (int row = 0; row < fieldRow; row++) {
+            for (int column = 0; column < fieldColumn; column++) {
                 if (!field[column][row].isMine()) {
                     int count = 0;
                     for (int i = -1; i <= 1; i++) {
                         for (int j = -1; j <= 1; j++) {
                             int x = row + i;
                             int y = column + j;
-                            if (x < 0 || y < 0 || x > field.length - 1 || y > field.length - 1) {
+                            if (x < 0 || y < 0 || x > fieldRow - 1 || y > fieldColumn - 1) {
                                 x = row;
                                 y = column;
                             }
@@ -76,19 +77,49 @@ public class Field {
         return field[row][column];
     }
 
+    private Cell cellWithoutMine(Click click) {
+        Cell cell;
+        for (Cell[] row : field) {
+            for (Cell cell2 : row) {
+                if (cell2 == field[click.getRow()][click.getColumn()]) {
+                    continue;
+                }
+                if (!cell2.isMine()) {
+                    cell = cell2;
+                    return cell;
+                }
+            }
+        }
+        return null;
+    }
 
     public Click actionCell(Click click) {
         Cell cell = this.field[click.getRow()][click.getColumn()];
+
+        if (countClick == 0) {
+            setMines();
+            if (cell.isMine()) {
+                cell.setMine(false);
+                Cell cell2 = cellWithoutMine(click);
+
+                if (cell2 != null) {
+                    cell2.setMine(true);
+                }
+            }
+            setNumberMinesNear();
+        }
+
         switch (click.getAction()) {
             case OPEN:
                 if (!cell.isOpen()) {
+                    countClick++;
                     if (!cell.isFlag() && !cell.isQuestion()) {
                         cell.setOpen();
                         if (cell.getAmountMinesNear() == 0) {
                             for (int i = -1; i <= 1; i++) {
                                 for (int j = -1; j <= 1; j++) {
-                                    if ((click.getRow() + i >= 0) && (click.getRow() + i < field.length)
-                                            && (click.getColumn() + j >= 0) && (click.getColumn() + j < field.length)) {
+                                    if ((click.getRow() + i >= 0) && (click.getRow() + i < fieldRow)
+                                            && (click.getColumn() + j >= 0) && (click.getColumn() + j < fieldColumn)) {
                                         Click fakeClick = new Click(click.getRow() + i, click.getColumn() + j, click.getAction());
                                         actionCell(fakeClick);
                                     }

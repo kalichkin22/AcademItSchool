@@ -6,10 +6,6 @@ import ru.academits.kalichkin.minesweeper.model.Click;
 
 
 public interface ViewListener {
-    void needSetMines();
-
-    void needSetNumberMinesNear();
-
     void needDraw();
 
     boolean needClick(Click click);

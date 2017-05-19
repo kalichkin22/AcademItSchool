@@ -29,17 +29,6 @@ public class Controller implements ViewListener {
     }
 
 
-    @Override
-    public void needSetMines() {
-        field.setMines();
-    }
-
-
-    @Override
-    public void needSetNumberMinesNear() {
-        field.setNumberMinesNear();
-    }
-
 
     @Override
     public void needDraw() {
@@ -100,6 +89,11 @@ public class Controller implements ViewListener {
 
     @Override
     public void needUserLevel(int row, int column, int numberOfMines) {
+        if (row < 8 || column < 8
+                || row > 24 || column > 30) {
+            throw new IllegalArgumentException();
+        }
+
         field = new Field(row, column, numberOfMines);
     }
 }

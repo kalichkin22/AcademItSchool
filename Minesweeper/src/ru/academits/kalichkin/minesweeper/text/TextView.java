@@ -30,8 +30,8 @@ public class TextView implements View {
                 case 1:
                     System.out.println("Выберете уровень игры: ");
                     System.out.println("1. Новичек " + System.lineSeparator() +
-                            "2. Средний" + System.lineSeparator() +
-                            "3. Эксперт" + System.lineSeparator() +
+                            "2. Любитель" + System.lineSeparator() +
+                            "3. Профессионал" + System.lineSeparator() +
                             "4. Пользовательский");
 
 
@@ -47,24 +47,25 @@ public class TextView implements View {
                             listener.needExpertLevel();
                             break;
                         case 4:
-                            System.out.println("Введите количество строк: ");
+                            System.out.println("Введите количество строк, не менее 8 и не более 24: ");
                             int row = scanner.nextInt();
 
-                            System.out.println("Введите количество столбцов: ");
+                            System.out.println("Введите количество столбцов, не менее 8 и не более 30: ");
                             int column = scanner.nextInt();
 
                             System.out.println("Введите количество мин: ");
                             int numberOfMines = scanner.nextInt();
-
-                            listener.needUserLevel(row, column, numberOfMines);
+                            try {
+                                listener.needUserLevel(row, column, numberOfMines);
+                            } catch (IllegalArgumentException e) {
+                                System.out.println("Границы поля должны быть не меньше, чем 8х8 и не больше, чем 24х30");
+                                return;
+                            }
                             break;
                         default:
                             System.out.println("Такого уровня нет, попробуйте еще раз!");
                             return;
                     }
-
-                    listener.needSetMines();
-                    listener.needSetNumberMinesNear();
 
                     try {
                         do {
@@ -93,13 +94,14 @@ public class TextView implements View {
                             } catch (IllegalArgumentException e) {
                                 System.out.println("Номер клавиши должен быть 0 или 1");
                             }
-                        } while (!listener.needClick(click));
 
+                        } while (!listener.needClick(click));
                     } catch (InputMismatchException e) {
                         System.out.println("Координаты ячейки должны быть цифрой");
                     }
                     break;
                 case 2:
+                    System.out.println(HighScores.readScores());
                     break;
                 case 3:
                     return;
@@ -136,11 +138,15 @@ public class TextView implements View {
     @Override
     public boolean onCheckFinish(Click click) {
         boolean isFinish = false;
+        Scanner scanner = new Scanner(System.in);
         if (listener.needCheckDefeat(click)) {
             listener.needShowAll();
             listener.needDraw();
             System.out.println("Вы проиграли!");
             System.out.println("Угадано мин: " + listener.getCountFlagTrue() + System.lineSeparator());
+            System.out.println("Введите свое имя: ");
+            String name = scanner.nextLine();
+            //HighScores.writeScores(name, listener.getCountFlagTrue());
             isFinish = true;
         }
 
@@ -148,6 +154,9 @@ public class TextView implements View {
             listener.needShowAll();
             listener.needDraw();
             System.out.println("Вы выиграли!" + System.lineSeparator());
+            System.out.println("Введите свое имя: ");
+            String name = scanner.nextLine();
+            //HighScores.writeScores(name, listener.getCountFlagTrue());
             isFinish = true;
         }
         return isFinish;

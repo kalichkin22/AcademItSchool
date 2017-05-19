@@ -19,8 +19,8 @@ public class Cell {
     }
 
 
-    void setMine() {
-        isMine = true;
+    void setMine(boolean isMine) {
+        this.isMine = isMine;
     }
 
 
