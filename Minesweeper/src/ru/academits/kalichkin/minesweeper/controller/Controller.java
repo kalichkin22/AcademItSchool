@@ -12,7 +12,7 @@ public class Controller implements ViewListener {
     private View view;
     private Field field;
     private TimerGame timerGame;
-    private HighScores highScores;
+    private HighScores highScores = new HighScores();
 
     private static final int MIN_COUNT_ROW = 8;
     private static final int MAX_COUNT_ROW = 30;
@@ -124,19 +124,17 @@ public class Controller implements ViewListener {
 
     @Override
     public void needWriteScores(String fileName, String name, String time) throws FileNotFoundException {
-        highScores = new HighScores(fileName);
-        highScores.writeScores(name, time);
+        highScores.writeScores(fileName, name, time);
     }
 
     @Override
     public String needScoresFilename() {
-        return highScores.getFilename();
+        return highScores.getFileName();
     }
 
     @Override
     public List<PersonWin> needReadScores(String fileName) throws FileNotFoundException {
-        highScores = new HighScores(fileName);
-        return highScores.readScores();
+        return highScores.readScores(fileName);
     }
 }
 

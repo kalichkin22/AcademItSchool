@@ -10,17 +10,13 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 public class HighScores {
-    private String filename;
+    private String fileName;
 
-    public HighScores(String filename) {
-        this.filename = filename;
+    public String getFileName() {
+        return fileName;
     }
 
-    public String getFilename() {
-        return filename;
-    }
-
-    public ArrayList<PersonWin> readScores() throws FileNotFoundException {
+    public ArrayList<PersonWin> readScores(String filename) throws FileNotFoundException {
         ArrayList<PersonWin> list = new ArrayList<>();
         try (Scanner scanner = new Scanner(new FileInputStream(filename))) {
             while (scanner.hasNext()) {
@@ -28,16 +24,15 @@ public class HighScores {
                 list.add(person);
             }
         }
-        Comparator<PersonWin> comparator = new SortPerson();
-        list.sort(comparator);
+        list.sort(Comparator.comparing(PersonWin::getTime));
         return list;
     }
 
-    public void writeScores(String name, String time) throws FileNotFoundException {
+    public void writeScores(String filename, String name, String time) throws FileNotFoundException {
+        this.fileName = filename;
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(filename, true))) {
             PersonWin person = new PersonWin(name, time);
-            writer.print(person);
-            writer.print(System.lineSeparator());
+            writer.println(person);
         }
     }
 }

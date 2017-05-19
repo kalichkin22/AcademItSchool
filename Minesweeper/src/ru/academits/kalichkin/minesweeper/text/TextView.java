@@ -59,7 +59,8 @@ public class TextView implements View {
 
     @Override
     public void onDraw(Field field) {
-        for (int i = 0; i < field.getFieldColumn() + 1; i++) {
+        System.out.print("   ");
+        for (int i = 1; i < field.getFieldColumn() + 1; i++) {
             if (i < 10) {
                 System.out.printf("%2d ", i);
             } else {
@@ -164,39 +165,33 @@ public class TextView implements View {
 
     private void setClick() {
         Click click;
-        do {
-            listener.needDraw();
-            listener.needStartTimer();
-
-            System.out.println("Введите номер команды: " + System.lineSeparator() +
-                    "0. Открыть ячейку" + System.lineSeparator() +
-                    "1. Поставить флаг" + System.lineSeparator() +
-                    "2. Открыть соседние ячейки");
-            int button = scanner.nextInt();
-            System.out.println("Если хотите отменить выбор, нажмите 0, если нет, то любую цифру");
-            int choice = scanner.nextInt();
-
-            if (choice == 0) {
+        try {
+            do {
+                listener.needDraw();
+                listener.needStartTimer();
                 System.out.println("Введите номер команды: " + System.lineSeparator() +
                         "0. Открыть ячейку" + System.lineSeparator() +
                         "1. Поставить флаг" + System.lineSeparator() +
-                        "2. Открыть соседние ячейки");
-                button = scanner.nextInt();
-            }
-            System.out.println("Введите кооридинаты ячейки: ");
-            System.out.println("Строка: ");
+                        "2. Открыть соседние ячейки" + System.lineSeparator() +
+                        "3. Если захотите отменить команду, введите -1");
 
-            int row = scanner.nextInt() - 1;
+                int button = scanner.nextInt();
 
-            System.out.println("Столбец: ");
-            int column = scanner.nextInt() - 1;
+                System.out.println("Введите кооридинаты ячейки: ");
+                System.out.println("Строка: ");
 
+                int row = scanner.nextInt() - 1;
 
-            Action action = listener.needAction(button);
-            click = new Click(row, column, action);
+                System.out.println("Столбец: ");
+                int column = scanner.nextInt() - 1;
 
+                Action action = listener.needAction(button);
+                click = new Click(row, column, action);
 
-        } while (!listener.needClick(click));
+            } while (!listener.needClick(click));
+        } catch (ArrayIndexOutOfBoundsException e) {
+            setClick();
+        }
     }
 
     private void printHighScores(List<PersonWin> list) {
