@@ -9,10 +9,6 @@ public class TimerGame {
     private Timer timer = new Timer();
     private String timeStop;
 
-    public Timer getTimer() {
-        return timer;
-    }
-
     public void startTimer() {
         TimerTask timerTask = new TimerTask() {
             volatile int time;
