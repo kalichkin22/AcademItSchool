@@ -12,7 +12,7 @@ import java.util.*;
 public class TextView implements View {
     private ViewListener listener;
     private Scanner scanner = new Scanner(System.in);
-    private final String scoresFileName = "scores.txt";
+    public static final String SCORES_FILE_NAME = "scores.txt";
 
     private void initEvents() {
         while (true) {
@@ -36,7 +36,7 @@ public class TextView implements View {
                     break;
                 case 2:
                     try {
-                        printHighScores(listener.needReadScores(scoresFileName));
+                        printHighScores(listener.needReadScores(SCORES_FILE_NAME));
                     } catch (FileNotFoundException e) {
                         System.out.printf("Файл %s не найден", listener.needScoresFilename());
                     }
@@ -89,37 +89,6 @@ public class TextView implements View {
 
 
     @Override
-    public boolean onCheckFinish(Click click) {
-        boolean isFinish = false;
-        Scanner scanner = new Scanner(System.in);
-        if (listener.needCheckDefeat(click)) {
-            listener.needStopTimer();
-            listener.needShowAll();
-            listener.needDraw();
-            System.out.println("Вы проиграли!");
-            System.out.println("Угадано мин: " + listener.getCountFlagTrue() + System.lineSeparator());
-            isFinish = true;
-        }
-
-        if (listener.needCheckWin()) {
-            String time = listener.needStopTimer();
-            listener.needShowAll();
-            listener.needDraw();
-            System.out.println("Вы выиграли!" + System.lineSeparator());
-            System.out.println("Введите свое имя: ");
-            String name = scanner.nextLine();
-            try {
-                listener.needWriteScores(scoresFileName, name, time);
-            } catch (FileNotFoundException e) {
-                System.out.printf("Файл %s не найден", listener.needScoresFilename());
-            }
-            isFinish = true;
-        }
-        return isFinish;
-    }
-
-
-    @Override
     public Action onAction(int button) {
         if (button == 0) {
             return Action.OPEN;
@@ -129,6 +98,25 @@ public class TextView implements View {
             return Action.OPEN_AROUND;
         }
         return Action.NOT_ACTION;
+    }
+
+    @Override
+    public void onDefeat() {
+        listener.needDraw();
+        System.out.println("Вы проиграли!");
+        System.out.println("Угадано мин: " + listener.getCountFlagTrue() + System.lineSeparator());
+    }
+
+    @Override
+    public String onIsWin() {
+        String name = "";
+        while (name.equals("")) {
+            listener.needDraw();
+            System.out.println("Вы выиграли!" + System.lineSeparator());
+            System.out.println("Введите свое имя: ");
+            name = scanner.nextLine();
+        }
+        return name;
     }
 
 
@@ -165,22 +153,22 @@ public class TextView implements View {
     }
 
     private void setClick() {
-        Click click;
         try {
+            Click click;
             do {
                 listener.needDraw();
 
                 System.out.println("Введите номер команды: " + System.lineSeparator() +
                         "0. Открыть ячейку" + System.lineSeparator() +
                         "1. Поставить флаг" + System.lineSeparator() +
-                        "2. Открыть соседние ячейки" + System.lineSeparator() +
-                        "3. Если захотите отменить команду, введите -1");
+                        "2. Открыть соседние ячейки");
 
                 int button = scanner.nextInt();
 
                 System.out.println("Введите кооридинаты ячейки: ");
-                System.out.println("Строка: ");
+                System.out.println("Если хотите отменить команду, введите в столбец -1");
 
+                System.out.println("Строка: ");
                 int row = scanner.nextInt() - 1;
 
                 System.out.println("Столбец: ");
@@ -189,7 +177,8 @@ public class TextView implements View {
                 Action action = listener.needAction(button);
                 click = new Click(row, column, action);
                 listener.needStartTimer();
-            } while (!listener.needClick(click));
+            } while (listener.needClick(click));
+
         } catch (ArrayIndexOutOfBoundsException e) {
             setClick();
         }

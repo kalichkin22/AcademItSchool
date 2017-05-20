@@ -17,12 +17,6 @@ public interface ViewListener {
 
     int getCountFlagTrue();
 
-    boolean needCheckDefeat(Click click);
-
-    boolean needCheckWin();
-
-    void needShowAll();
-
     Cell needGetCell(int row, int column);
 
     Action needAction(int button);
@@ -36,8 +30,6 @@ public interface ViewListener {
     void needUserLevel(int row, int column, int numberOfMines);
 
     void needStartTimer();
-
-    String needStopTimer();
 
     void needWriteScores(String fileName, String name, String time) throws FileNotFoundException;
 

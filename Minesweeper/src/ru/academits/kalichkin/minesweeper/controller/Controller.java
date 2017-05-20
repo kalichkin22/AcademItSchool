@@ -3,6 +3,7 @@ package ru.academits.kalichkin.minesweeper.controller;
 import ru.academits.kalichkin.minesweeper.common.View;
 import ru.academits.kalichkin.minesweeper.common.ViewListener;
 import ru.academits.kalichkin.minesweeper.model.*;
+import ru.academits.kalichkin.minesweeper.text.TextView;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -40,7 +41,23 @@ public class Controller implements ViewListener {
 
     @Override
     public boolean needClick(Click click) {
-        return view.onCheckFinish(field.actionCell(click));
+        field.actionCell(click);
+        if (field.getCell(click.getRow(), click.getColumn()).isMine()
+                && !field.getCell(click.getRow(), click.getColumn()).isFlag() && field.getCell(click.getRow(), click.getColumn()).isOpen()) {
+            timerGame.stopTimer();
+            field.showAll();
+            view.onDefeat();
+            return false;
+        } else if (field.isWin()) {
+            field.showAll();
+            try {
+                highScores.writeScores(TextView.SCORES_FILE_NAME, view.onIsWin(), timerGame.stopTimer());
+            } catch (FileNotFoundException e) {
+                System.out.printf("Файл %s не найден", TextView.SCORES_FILE_NAME);
+            }
+            return false;
+        }
+        return true;
     }
 
 
@@ -53,24 +70,6 @@ public class Controller implements ViewListener {
     @Override
     public void needDraw() {
         view.onDraw(field);
-    }
-
-
-    public boolean needCheckDefeat(Click click) {
-        return field.getCell(click.getRow(), click.getColumn()).isMine()
-                && !field.getCell(click.getRow(), click.getColumn()).isFlag() && field.getCell(click.getRow(), click.getColumn()).isOpen();
-
-    }
-
-
-    public boolean needCheckWin() {
-        return field.isWin();
-    }
-
-
-    @Override
-    public void needShowAll() {
-        field.showAll();
     }
 
 
@@ -96,7 +95,6 @@ public class Controller implements ViewListener {
         field = new Field(INTERMEDIATE_NUMBER_ROWS, INTERMEDIATE_NUMBER_COLUMNS, INTERMEDIATE_MINES);
     }
 
-
     @Override
     public void needExpertLevel() {
         field = new Field(EXPERT_NUMBER_ROWS, EXPERT_NUMBER_COLUMNS, EXPERT_MINES);
@@ -113,17 +111,10 @@ public class Controller implements ViewListener {
         field = new Field(row, column, numberOfMines);
     }
 
-
     @Override
     public void needStartTimer() {
         timerGame = new TimerGame();
         timerGame.startTimer();
-    }
-
-
-    @Override
-    public String needStopTimer() {
-        return timerGame.stopTimer();
     }
 
 
