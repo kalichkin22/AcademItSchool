@@ -93,6 +93,7 @@ public class Field {
         return null;
     }
 
+
     public Click actionCell(Click click) {
         Cell cell = this.field[click.getRow()][click.getColumn()];
 
@@ -209,10 +210,4 @@ public class Field {
         }
         return countMines;
     }
-
-
-    public int size() {
-        return field.length;
-    }
-
 }

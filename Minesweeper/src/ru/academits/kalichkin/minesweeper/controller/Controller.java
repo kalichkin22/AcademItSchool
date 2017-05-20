@@ -27,7 +27,6 @@ public class Controller implements ViewListener {
     private static final int INTERMEDIATE_NUMBER_ROWS = 15;
     private static final int INTERMEDIATE_NUMBER_COLUMNS = 15;
 
-
     private static final int EXPERT_MINES = 100;
     private static final int EXPERT_NUMBER_ROWS = 20;
     private static final int EXPERT_NUMBER_COLUMNS = 20;
@@ -37,6 +36,7 @@ public class Controller implements ViewListener {
         this.view = view;
         this.field = field;
     }
+
 
     @Override
     public boolean needClick(Click click) {
@@ -96,10 +96,12 @@ public class Controller implements ViewListener {
         field = new Field(INTERMEDIATE_NUMBER_ROWS, INTERMEDIATE_NUMBER_COLUMNS, INTERMEDIATE_MINES);
     }
 
+
     @Override
     public void needExpertLevel() {
         field = new Field(EXPERT_NUMBER_ROWS, EXPERT_NUMBER_COLUMNS, EXPERT_MINES);
     }
+
 
     @Override
     public void needUserLevel(int row, int column, int numberOfMines) {
@@ -111,26 +113,31 @@ public class Controller implements ViewListener {
         field = new Field(row, column, numberOfMines);
     }
 
+
     @Override
     public void needStartTimer() {
         timerGame = new TimerGame();
         timerGame.startTimer();
     }
 
+
     @Override
     public String needStopTimer() {
         return timerGame.stopTimer();
     }
+
 
     @Override
     public void needWriteScores(String fileName, String name, String time) throws FileNotFoundException {
         highScores.writeScores(fileName, name, time);
     }
 
+
     @Override
     public String needScoresFilename() {
         return highScores.getFileName();
     }
+
 
     @Override
     public List<PersonWin> needReadScores(String fileName) throws FileNotFoundException {

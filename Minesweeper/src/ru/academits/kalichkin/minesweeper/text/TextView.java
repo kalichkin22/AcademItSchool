@@ -93,6 +93,7 @@ public class TextView implements View {
         boolean isFinish = false;
         Scanner scanner = new Scanner(System.in);
         if (listener.needCheckDefeat(click)) {
+            listener.needStopTimer();
             listener.needShowAll();
             listener.needDraw();
             System.out.println("Вы проиграли!");
@@ -168,7 +169,7 @@ public class TextView implements View {
         try {
             do {
                 listener.needDraw();
-                listener.needStartTimer();
+
                 System.out.println("Введите номер команды: " + System.lineSeparator() +
                         "0. Открыть ячейку" + System.lineSeparator() +
                         "1. Поставить флаг" + System.lineSeparator() +
@@ -187,7 +188,7 @@ public class TextView implements View {
 
                 Action action = listener.needAction(button);
                 click = new Click(row, column, action);
-
+                listener.needStartTimer();
             } while (!listener.needClick(click));
         } catch (ArrayIndexOutOfBoundsException e) {
             setClick();
