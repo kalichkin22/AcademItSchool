@@ -169,10 +169,23 @@ public class TextView implements View {
                 System.out.println("Если хотите отменить команду, введите в столбец -1");
 
                 System.out.println("Строка: ");
-                int row = scanner.nextInt() - 1;
+                int row = -1;
+                int rowCancel = scanner.nextInt();
+                if (rowCancel == -1) {
+                    setClick();
+                } else {
+                    row = rowCancel - 1;
+                }
 
                 System.out.println("Столбец: ");
-                int column = scanner.nextInt() - 1;
+                int column = -1;
+                int columnCancel = scanner.nextInt();
+
+                if (columnCancel == -1) {
+                    setClick();
+                } else {
+                    column = columnCancel - 1;
+                }
 
                 Action action = listener.needAction(button);
                 click = new Click(row, column, action);
