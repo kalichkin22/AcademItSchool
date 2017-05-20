@@ -94,7 +94,7 @@ public class Field {
     }
 
 
-    public Click actionCell(Click click) {
+    public void actionCell(Click click) {
         Cell cell = this.field[click.getRow()][click.getColumn()];
 
         if (countClick == 0) {
@@ -159,7 +159,6 @@ public class Field {
                 }
                 break;
         }
-        return click;
     }
 
 
