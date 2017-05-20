@@ -12,7 +12,7 @@ import java.util.*;
 public class TextView implements View {
     private ViewListener listener;
     private Scanner scanner = new Scanner(System.in);
-    public static final String SCORES_FILE_NAME = "scores.txt";
+    private final String scoresFileName = "scores.txt";
 
     private void initEvents() {
         while (true) {
@@ -36,7 +36,7 @@ public class TextView implements View {
                     break;
                 case 2:
                     try {
-                        printHighScores(listener.needReadScores(SCORES_FILE_NAME));
+                        printHighScores(listener.needReadScores(scoresFileName));
                     } catch (FileNotFoundException e) {
                         System.out.printf("Файл %s не найден", listener.needScoresFilename());
                     }
