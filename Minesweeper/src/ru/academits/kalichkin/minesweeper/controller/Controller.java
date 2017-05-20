@@ -121,12 +121,6 @@ public class Controller implements ViewListener {
 
 
     @Override
-    public String needScoresFilename() {
-        return highScores.getFileName();
-    }
-
-
-    @Override
     public List<PersonWin> needReadScores(String fileName) throws FileNotFoundException {
         return highScores.readScores(fileName);
     }
