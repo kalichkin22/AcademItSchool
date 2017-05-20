@@ -51,9 +51,9 @@ public class Controller implements ViewListener {
         } else if (field.isWin()) {
             field.showAll();
             try {
-                highScores.writeScores(highScores.getFileName(), view.onIsWin(), timerGame.stopTimer());
+                highScores.writeScores(TextView.SCORES_FILE_NAME, view.onIsWin(), timerGame.stopTimer());
             } catch (FileNotFoundException e) {
-                System.out.printf("Файл %s не найден", highScores.getFileName());
+                System.out.printf("Файл %s не найден", TextView.SCORES_FILE_NAME);
             }
             return false;
         }
