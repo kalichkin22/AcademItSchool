@@ -15,6 +15,8 @@ public class Controller implements ViewListener {
     private TimerGame timerGame;
     private HighScores highScores = new HighScores();
 
+    public static final String SCORES_FILE_NAME = "scores.txt";
+
     private static final int MIN_COUNT_ROW = 8;
     private static final int MAX_COUNT_ROW = 30;
     private static final int MIN_COUNT_COLUMN = 8;
@@ -51,9 +53,9 @@ public class Controller implements ViewListener {
         } else if (field.isWin()) {
             field.showAll();
             try {
-                highScores.writeScores(TextView.SCORES_FILE_NAME, view.onIsWin(), timerGame.stopTimer());
+                highScores.writeScores(SCORES_FILE_NAME, view.onIsWin(), timerGame.stopTimer());
             } catch (FileNotFoundException e) {
-                System.out.printf("Файл %s не найден", TextView.SCORES_FILE_NAME);
+                System.out.printf("Файл %s не найден", SCORES_FILE_NAME);
             }
             return false;
         }

@@ -1,6 +1,7 @@
 package ru.academits.kalichkin.minesweeper.text;
 
 import ru.academits.kalichkin.minesweeper.common.*;
+import ru.academits.kalichkin.minesweeper.controller.Controller;
 import ru.academits.kalichkin.minesweeper.model.PersonWin;
 import ru.academits.kalichkin.minesweeper.model.Action;
 import ru.academits.kalichkin.minesweeper.model.Click;
@@ -12,7 +13,6 @@ import java.util.*;
 public class TextView implements View {
     private ViewListener listener;
     private Scanner scanner = new Scanner(System.in);
-    public static final String SCORES_FILE_NAME = "scores.txt";
 
     private void initEvents() {
         while (true) {
@@ -36,7 +36,7 @@ public class TextView implements View {
                     break;
                 case 2:
                     try {
-                        printHighScores(listener.needReadScores(SCORES_FILE_NAME));
+                        printHighScores(listener.needReadScores(Controller.SCORES_FILE_NAME));
                     } catch (FileNotFoundException e) {
                         System.out.printf("Файл %s не найден", listener.needScoresFilename());
                     }
