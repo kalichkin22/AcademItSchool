@@ -155,7 +155,7 @@ public class TextView implements View {
                     listener.needUserLevel(row, column, numberOfMines);
                 } catch (IllegalArgumentException e) {
                     System.out.println("Границы поля должны быть не меньше, чем 8х8 и не больше, чем 24х30");
-                    return;
+                    setLevel(4);
                 }
                 break;
             default:
