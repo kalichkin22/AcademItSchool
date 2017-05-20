@@ -43,7 +43,6 @@ public class Controller implements ViewListener {
 
     @Override
     public boolean needClick(Click click) {
-        timerGame.startTimer();
         field.actionCell(click);
         if (field.getCell(click.getRow(), click.getColumn()).isMine()
                 && !field.getCell(click.getRow(), click.getColumn()).isFlag() && field.getCell(click.getRow(), click.getColumn()).isOpen()) {
@@ -112,6 +111,12 @@ public class Controller implements ViewListener {
         }
 
         field = new Field(row, column, numberOfMines);
+    }
+
+    @Override
+    public void needStartTimer() {
+        timerGame = new TimerGame();
+        timerGame.startTimer();
     }
 
 

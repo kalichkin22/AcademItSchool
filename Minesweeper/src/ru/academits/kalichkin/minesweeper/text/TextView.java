@@ -189,6 +189,7 @@ public class TextView implements View {
 
                 Action action = listener.needAction(button);
                 click = new Click(row, column, action);
+                listener.needStartTimer();
             } while (listener.needClick(click));
 
         } catch (ArrayIndexOutOfBoundsException e) {
