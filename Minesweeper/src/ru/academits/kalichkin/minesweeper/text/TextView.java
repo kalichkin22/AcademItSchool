@@ -38,7 +38,7 @@ public class TextView implements View {
                     try {
                         printHighScores(listener.needReadScores(Controller.SCORES_FILE_NAME));
                     } catch (FileNotFoundException e) {
-                        System.out.printf("Файл %s не найден", listener.needScoresFilename());
+                        System.out.printf("Файл %s не найден", Controller.SCORES_FILE_NAME);
                     }
                     System.out.println();
                     break;
