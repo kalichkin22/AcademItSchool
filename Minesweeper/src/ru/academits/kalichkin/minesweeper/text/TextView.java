@@ -153,8 +153,8 @@ public class TextView implements View {
     }
 
     private void setClick() {
+        Click click;
         try {
-            Click click;
             do {
                 listener.needDraw();
 
@@ -169,7 +169,7 @@ public class TextView implements View {
                 System.out.println("Если хотите отменить команду, введите в столбец -1");
 
                 System.out.println("Строка: ");
-                int row = -1;
+                int row = 0;
                 int rowCancel = scanner.nextInt();
                 if (rowCancel == -1) {
                     setClick();
@@ -178,7 +178,7 @@ public class TextView implements View {
                 }
 
                 System.out.println("Столбец: ");
-                int column = -1;
+                int column = 0;
                 int columnCancel = scanner.nextInt();
 
                 if (columnCancel == -1) {
@@ -191,8 +191,8 @@ public class TextView implements View {
                 click = new Click(row, column, action);
                 listener.needStartTimer();
             } while (listener.needClick(click));
-
         } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Выход за границы поля.");
             setClick();
         }
     }
