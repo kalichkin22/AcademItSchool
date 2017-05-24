@@ -196,6 +196,11 @@ public class Field {
         return countNotOpen == numberOfMines || numberOfMines == getCountFlagTrue();
     }
 
+    public boolean isDefeat(Click click) {
+        return field[click.getRow()][click.getColumn()].isMine()
+                && !field[click.getRow()][click.getColumn()].isFlag() && field[click.getRow()][click.getColumn()].isOpen();
+    }
+
 
     private int checkMinesNear(Click click) {
         int countMines = 0;

@@ -20,7 +20,7 @@ public class AppView implements View {
     private JLabel labelTime = new JLabel("Time");
     private JButton newGame = new JButton("New game");
     private JPanel gamePanel = new JPanel();
-    private GameField gameField;
+    private GameField2 gameField2;
 
 
     private void createFrame() {
@@ -32,10 +32,23 @@ public class AppView implements View {
 
     private void initEvents() {
         listener.needDraw();
-        Action action = listener.needAction(gameField.getButton());
-        Click click = new Click(gameField.getRow(), gameField.getColumn(), action);
-        listener.needClick(click);
+        gameField2.setBackground(Color.white);
+        gameField2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                Action action = listener.needAction(e.getButton());
+                Click click = new Click(e.getX() / 30, e.getY() / 30, action);
+                listener.needClick(click);
+                listener.needStartTimer();
+                gameField2.repaint();
+            }
+        });
 
+        newGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
     }
 
 
@@ -87,8 +100,8 @@ public class AppView implements View {
 
     @Override
     public void onDraw(Field field) {
-        gameField = new GameField(field);
-        gamePanel.add(gameField);
+        gameField2 = new GameField2(field);
+        gamePanel.add(gameField2);
     }
 
 
@@ -113,7 +126,7 @@ public class AppView implements View {
 
     @Override
     public void onDefeat() {
-
+        System.out.println("вывываываы");
     }
 
     @Override

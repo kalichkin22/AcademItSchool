@@ -14,8 +14,6 @@ public interface ViewListener {
 
     int getCountFlagTrue();
 
-    Cell needGetCell(int row, int column);
-
     Action needAction(int button);
 
     void needBeginnerLevel();
@@ -29,12 +27,4 @@ public interface ViewListener {
     void needStartTimer();
 
     List<PersonWin> needReadScores(String fileName) throws FileNotFoundException;
-
-    int needGetFieldRow();
-
-    int needGetFieldColumn();
-
-    Field needGetField();
-
-    String needTime();
 }

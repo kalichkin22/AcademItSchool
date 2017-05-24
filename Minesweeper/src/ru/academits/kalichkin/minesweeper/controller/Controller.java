@@ -43,8 +43,7 @@ public class Controller implements ViewListener {
     @Override
     public boolean needClick(Click click) {
         field.actionCell(click);
-        if (field.getCell(click.getRow(), click.getColumn()).isMine()
-                && !field.getCell(click.getRow(), click.getColumn()).isFlag() && field.getCell(click.getRow(), click.getColumn()).isOpen()) {
+        if (field.isDefeat(click)) {
             timerGame.stopTimer();
             field.showAll();
             view.onDefeat();
@@ -71,12 +70,6 @@ public class Controller implements ViewListener {
     @Override
     public void needDraw() {
         view.onDraw(field);
-    }
-
-
-    @Override
-    public Cell needGetCell(int row, int column) {
-        return field.getCell(row, column);
     }
 
 
@@ -122,26 +115,6 @@ public class Controller implements ViewListener {
     @Override
     public List<PersonWin> needReadScores(String fileName) throws FileNotFoundException {
         return highScores.readScores(fileName);
-    }
-
-    @Override
-    public int needGetFieldRow() {
-        return field.getFieldRow();
-    }
-
-    @Override
-    public int needGetFieldColumn() {
-        return field.getFieldColumn();
-    }
-
-    @Override
-    public Field needGetField() {
-        return field;
-    }
-
-    @Override
-    public String needTime() {
-        return timerGame.getTime();
     }
 }
 
