@@ -1,9 +1,6 @@
 package ru.academits.kalichkin.minesweeper.common;
 
-import ru.academits.kalichkin.minesweeper.model.PersonWin;
-import ru.academits.kalichkin.minesweeper.model.Action;
-import ru.academits.kalichkin.minesweeper.model.Cell;
-import ru.academits.kalichkin.minesweeper.model.Click;
+import ru.academits.kalichkin.minesweeper.model.*;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -32,4 +29,12 @@ public interface ViewListener {
     void needStartTimer();
 
     List<PersonWin> needReadScores(String fileName) throws FileNotFoundException;
+
+    int needGetFieldRow();
+
+    int needGetFieldColumn();
+
+    Field needGetField();
+
+    String needTime();
 }

@@ -28,6 +28,10 @@ public class TimerGame {
         timer.scheduleAtFixedRate(timerTask, 0, period);
     }
 
+    public String getTime() {
+        return timeStop;
+    }
+
     public String stopTimer() {
         timer.cancel();
         return timeStop;

@@ -157,7 +157,6 @@ public class TextView implements View {
         try {
             do {
                 listener.needDraw();
-
                 System.out.println("Введите номер команды: " + System.lineSeparator() +
                         "0. Открыть ячейку" + System.lineSeparator() +
                         "1. Поставить флаг" + System.lineSeparator() +
@@ -166,13 +165,12 @@ public class TextView implements View {
                 int button = scanner.nextInt();
 
                 System.out.println("Введите кооридинаты ячейки: ");
-                System.out.println("Если хотите отменить команду, введите в столбец -1");
-
+                System.out.println("Если хотите отменить команду, введите -1");
                 System.out.println("Строка: ");
-                int row = 0;
+                int row = -1;
                 int rowCancel = scanner.nextInt();
                 if (rowCancel == -1) {
-                    setClick();
+                    return;
                 } else {
                     row = rowCancel - 1;
                 }
@@ -182,7 +180,7 @@ public class TextView implements View {
                 int columnCancel = scanner.nextInt();
 
                 if (columnCancel == -1) {
-                    setClick();
+                    return;
                 } else {
                     column = columnCancel - 1;
                 }
@@ -192,7 +190,7 @@ public class TextView implements View {
                 listener.needStartTimer();
             } while (listener.needClick(click));
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Выход за границы поля.");
+            System.out.println("Выход за границы поля, попробуйте еще раз");
             setClick();
         }
     }

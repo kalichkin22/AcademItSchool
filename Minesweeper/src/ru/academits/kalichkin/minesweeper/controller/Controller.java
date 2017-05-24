@@ -3,7 +3,6 @@ package ru.academits.kalichkin.minesweeper.controller;
 import ru.academits.kalichkin.minesweeper.common.View;
 import ru.academits.kalichkin.minesweeper.common.ViewListener;
 import ru.academits.kalichkin.minesweeper.model.*;
-import ru.academits.kalichkin.minesweeper.text.TextView;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -123,6 +122,26 @@ public class Controller implements ViewListener {
     @Override
     public List<PersonWin> needReadScores(String fileName) throws FileNotFoundException {
         return highScores.readScores(fileName);
+    }
+
+    @Override
+    public int needGetFieldRow() {
+        return field.getFieldRow();
+    }
+
+    @Override
+    public int needGetFieldColumn() {
+        return field.getFieldColumn();
+    }
+
+    @Override
+    public Field needGetField() {
+        return field;
+    }
+
+    @Override
+    public String needTime() {
+        return timerGame.getTime();
     }
 }
 
