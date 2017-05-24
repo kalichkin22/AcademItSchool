@@ -17,7 +17,7 @@ public class AppView implements View {
     private ViewListener listener;
     private final JFrame frame = new JFrame("Minesweeper");
     private JLabel labelMines = new JLabel("Mines");
-    private JLabel labelTime = new JLabel();
+    private JLabel labelTime = new JLabel("Time");
     private JButton newGame = new JButton("New game");
     private JPanel gamePanel = new JPanel();
     private GameField2 gameField2;
@@ -25,7 +25,7 @@ public class AppView implements View {
 
     private void createFrame() {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(300, 400));
+        frame.setMinimumSize(new Dimension(350, 400));
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
@@ -40,16 +40,9 @@ public class AppView implements View {
                 Click click = new Click(e.getX() / 30, e.getY() / 30, action);
                 listener.needClick(click);
                 listener.needStartTimer();
-                labelTime.setText(listener.needGetTime());
                 gameField2.repaint();
             }
         });
-
-        newGame.addActionListener(e -> {
-            listener.needDraw();
-        });
-
-
     }
 
 
@@ -63,9 +56,7 @@ public class AppView implements View {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(20, 20, 0, 20);
 
-        c.ipady = 0;
-        c.weighty = 0.0;
-        c.gridwidth = 1;
+
         c.anchor = GridBagConstraints.CENTER;
         c.gridx = 0;
         c.gridy = 0;
@@ -81,11 +72,10 @@ public class AppView implements View {
         c.gridy = 0;
         contentPane.add(labelTime, c);
 
-        GridBagConstraints c1 = new GridBagConstraints();
-        c1.gridwidth = 3;
-        c1.gridx = 0;
-        c1.gridy = 1;
-        contentPane.add(gamePanel, c1);
+        c.gridx = 0;
+        c.gridy = 1;
+        c.gridwidth = 3;
+        contentPane.add(gamePanel, c);
     }
 
 

@@ -109,11 +109,10 @@ public class Field {
             }
             setNumberMinesNear();
         }
-
+        countClick++;
         switch (click.getAction()) {
             case OPEN:
                 if (!cell.isOpen()) {
-                    countClick++;
                     if (!cell.isFlag() && !cell.isQuestion()) {
                         cell.setOpen();
                         if (cell.getAmountMinesNear() == 0) {

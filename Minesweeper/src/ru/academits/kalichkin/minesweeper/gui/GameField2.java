@@ -13,7 +13,6 @@ import java.io.IOException;
 
 
 public class GameField2 extends JPanel {
-    private static final int[] COLOR_OF_NUMBERS = {0x0000FF, 0x008000, 0xFF0000, 0x800000, 0x0};
     private Field field;
     private static final int BLOCK_SIZE = 30;
 
@@ -21,6 +20,7 @@ public class GameField2 extends JPanel {
     GameField2(Field field) {
         this.field = field;
         this.setLayout(new GridLayout(field.getFieldRow(), field.getFieldColumn()));
+        this.setMinimumSize(new Dimension(720, 900));
         JLabel[][] labels = new JLabel[field.getFieldRow()][field.getFieldColumn()];
 
         for (int i = 0; i < field.getFieldRow(); i++) {
@@ -47,9 +47,11 @@ public class GameField2 extends JPanel {
         }
     }
 
+
     private void paintImage(Graphics g, Image image, int x, int y, Color color) {
         g.drawImage(image, x * BLOCK_SIZE + 1, y * BLOCK_SIZE + 1, color, null);
     }
+
 
     private void paint(Graphics g, int x, int y) throws IOException {
         Cell cell = field.getCell(x, y);
@@ -62,12 +64,16 @@ public class GameField2 extends JPanel {
 
             if (cell.isFlag()) {
                 BufferedImage img = ImageIO.read(new File("Flag.png"));
-                paintImage(g, img, x, y, Color.white);
+                paintImage(g, img, x, y, Color.lightGray);
+            } else if (cell.isQuestion()) {
+                BufferedImage img = ImageIO.read(new File("question.png"));
+                paintImage(g, img, x, y, Color.lightGray);
             }
-        } else if (cell.isMine()) {
-            BufferedImage img = ImageIO.read(new File("mine24.png"));
+        } else if (cell.isMine() && !cell.isFlag()) {
+            BufferedImage img = ImageIO.read(new File("mine.png"));
             BufferedImage img2 = ImageIO.read(new File("bang.png"));
             paintImage(g, cell.isMine() ? img : img2, x, y, Color.white);
+
         } else if (cell.getAmountMinesNear() > 0) {
             if (cell.getAmountMinesNear() == 1) {
                 BufferedImage img1 = ImageIO.read(new File("1.png"));
@@ -95,6 +101,26 @@ public class GameField2 extends JPanel {
                 paintImage(g, img8, x, y, Color.white);
             }
         }
+
+        if (cell.isFlag() && cell.isOpen()) {
+            BufferedImage img = ImageIO.read(new File("Flag.png"));
+            paintImage(g, img, x, y, Color.white);
+        }
+
+        if (cell.isFlag() && !cell.isMine() && cell.isOpen()) {
+            BufferedImage img = ImageIO.read(new File("broken_flag.png"));
+            paintImage(g, img, x, y, Color.white);
+        }
+
+        if (cell.isQuestion() && !cell.isMine() && cell.isOpen()) {
+            BufferedImage img = ImageIO.read(new File("Question2.png"));
+            paintImage(g, img, x, y, Color.white);
+        }
+
+        if (cell.isQuestion() && cell.isMine() && cell.isOpen()) {
+
+        }
+
     }
 }
 

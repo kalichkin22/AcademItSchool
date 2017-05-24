@@ -44,7 +44,7 @@ public class Cell {
     }
 
 
-    boolean isQuestion() {
+    public boolean isQuestion() {
         return isQuestion;
     }
 
