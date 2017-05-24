@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TimerGame {
+public class TimerGame extends JLabel{
     private Timer timer = new Timer();
     private String timeStop;
 

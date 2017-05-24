@@ -2,7 +2,6 @@ package ru.academits.kalichkin.minesweeper.gui;
 
 
 import ru.academits.kalichkin.minesweeper.model.*;
-import ru.academits.kalichkin.minesweeper.model.Action;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,9 +13,9 @@ import java.io.IOException;
 
 
 public class GameField2 extends JPanel {
-    private static final int BLOCK_SIZE = 30;
     private static final int[] COLOR_OF_NUMBERS = {0x0000FF, 0x008000, 0xFF0000, 0x800000, 0x0};
     private Field field;
+    private static final int BLOCK_SIZE = 30;
 
 
     GameField2(Field field) {
@@ -28,7 +27,7 @@ public class GameField2 extends JPanel {
             for (int j = 0; j < field.getFieldColumn(); j++) {
                 labels[i][j] = new JLabel();
                 this.add(labels[i][j]);
-                labels[i][j].setPreferredSize(new Dimension(30, 30));
+                labels[i][j].setPreferredSize(new Dimension(BLOCK_SIZE, BLOCK_SIZE));
             }
         }
     }
@@ -49,15 +48,8 @@ public class GameField2 extends JPanel {
     }
 
     private void paintImage(Graphics g, Image image, int x, int y, Color color) {
-        g.drawImage(image, x * BLOCK_SIZE + 2, y * BLOCK_SIZE + 1, color, null);
+        g.drawImage(image, x * BLOCK_SIZE + 1, y * BLOCK_SIZE + 1, color, null);
     }
-
-    private void paintString(Graphics g, String str, int x, int y, Color color) {
-        g.setColor(color);
-        g.setFont(new Font("Helvetica", Font.PLAIN, 25));
-        g.drawString(str, x * BLOCK_SIZE + 8, y * BLOCK_SIZE + 26);
-    }
-
 
     private void paint(Graphics g, int x, int y) throws IOException {
         Cell cell = field.getCell(x, y);
@@ -67,17 +59,44 @@ public class GameField2 extends JPanel {
         if (!cell.isOpen()) {
             g.setColor(Color.lightGray);
             g.fill3DRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, true);
+
             if (cell.isFlag()) {
                 BufferedImage img = ImageIO.read(new File("Flag.png"));
-                paintImage(g, img, x, y, Color.lightGray);
+                paintImage(g, img, x, y, Color.white);
             }
         } else if (cell.isMine()) {
             BufferedImage img = ImageIO.read(new File("mine24.png"));
             BufferedImage img2 = ImageIO.read(new File("bang.png"));
             paintImage(g, cell.isMine() ? img : img2, x, y, Color.white);
         } else if (cell.getAmountMinesNear() > 0) {
-            paintString(g, Integer.toString(cell.getAmountMinesNear()), x, y, new Color(COLOR_OF_NUMBERS[cell.getAmountMinesNear() - 1]));
+            if (cell.getAmountMinesNear() == 1) {
+                BufferedImage img1 = ImageIO.read(new File("1.png"));
+                paintImage(g, img1, x, y, Color.white);
+            } else if (cell.getAmountMinesNear() == 2) {
+                BufferedImage img2 = ImageIO.read(new File("2.png"));
+                paintImage(g, img2, x, y, Color.white);
+            } else if (cell.getAmountMinesNear() == 3) {
+                BufferedImage img3 = ImageIO.read(new File("3.png"));
+                paintImage(g, img3, x, y, Color.white);
+            } else if (cell.getAmountMinesNear() == 4) {
+                BufferedImage img4 = ImageIO.read(new File("4.png"));
+                paintImage(g, img4, x, y, Color.white);
+            } else if (cell.getAmountMinesNear() == 5) {
+                BufferedImage img5 = ImageIO.read(new File("5.png"));
+                paintImage(g, img5, x, y, Color.white);
+            } else if (cell.getAmountMinesNear() == 6) {
+                BufferedImage img6 = ImageIO.read(new File("6.png"));
+                paintImage(g, img6, x, y, Color.white);
+            } else if (cell.getAmountMinesNear() == 7) {
+                BufferedImage img7 = ImageIO.read(new File("7.png"));
+                paintImage(g, img7, x, y, Color.white);
+            } else if (cell.getAmountMinesNear() == 8) {
+                BufferedImage img8 = ImageIO.read(new File("8.png"));
+                paintImage(g, img8, x, y, Color.white);
+            }
         }
     }
 }
+
+
 

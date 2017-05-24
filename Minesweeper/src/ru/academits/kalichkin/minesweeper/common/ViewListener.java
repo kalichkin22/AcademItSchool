@@ -27,4 +27,8 @@ public interface ViewListener {
     void needStartTimer();
 
     List<PersonWin> needReadScores(String fileName) throws FileNotFoundException;
+
+    Field needGetField();
+
+    String needGetTime();
 }

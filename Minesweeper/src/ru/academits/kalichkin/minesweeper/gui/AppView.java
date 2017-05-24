@@ -17,7 +17,7 @@ public class AppView implements View {
     private ViewListener listener;
     private final JFrame frame = new JFrame("Minesweeper");
     private JLabel labelMines = new JLabel("Mines");
-    private JLabel labelTime = new JLabel("Time");
+    private JLabel labelTime = new JLabel();
     private JButton newGame = new JButton("New game");
     private JPanel gamePanel = new JPanel();
     private GameField2 gameField2;
@@ -40,15 +40,16 @@ public class AppView implements View {
                 Click click = new Click(e.getX() / 30, e.getY() / 30, action);
                 listener.needClick(click);
                 listener.needStartTimer();
+                labelTime.setText(listener.needGetTime());
                 gameField2.repaint();
             }
         });
 
-        newGame.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
+        newGame.addActionListener(e -> {
+            listener.needDraw();
         });
+
+
     }
 
 

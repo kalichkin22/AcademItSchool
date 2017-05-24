@@ -116,6 +116,16 @@ public class Controller implements ViewListener {
     public List<PersonWin> needReadScores(String fileName) throws FileNotFoundException {
         return highScores.readScores(fileName);
     }
+
+    @Override
+    public Field needGetField() {
+        return field;
+    }
+
+    @Override
+    public String needGetTime() {
+        return timerGame.getTime();
+    }
 }
 
 

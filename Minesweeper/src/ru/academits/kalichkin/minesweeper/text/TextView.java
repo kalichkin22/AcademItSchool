@@ -167,7 +167,7 @@ public class TextView implements View {
                 System.out.println("Введите кооридинаты ячейки: ");
                 System.out.println("Если хотите отменить команду, введите -1");
                 System.out.println("Строка: ");
-                int row = -1;
+                int row;
                 int rowCancel = scanner.nextInt();
                 if (rowCancel == -1) {
                     return;
@@ -176,7 +176,7 @@ public class TextView implements View {
                 }
 
                 System.out.println("Столбец: ");
-                int column = 0;
+                int column;
                 int columnCancel = scanner.nextInt();
 
                 if (columnCancel == -1) {
