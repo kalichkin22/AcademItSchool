@@ -126,6 +126,11 @@ public class Controller implements ViewListener {
     public String needGetTime() {
         return timerGame.getTime();
     }
+
+    @Override
+    public int needNumberOfMines() {
+        return field.getNumberOfMines();
+    }
 }
 
 

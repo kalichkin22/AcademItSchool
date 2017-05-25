@@ -31,4 +31,6 @@ public interface ViewListener {
     Field needGetField();
 
     String needGetTime();
+
+    int needNumberOfMines();
 }

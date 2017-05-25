@@ -7,18 +7,21 @@ import ru.academits.kalichkin.minesweeper.model.*;
 import ru.academits.kalichkin.minesweeper.model.Action;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.*;
 
 public class AppView implements View {
     private ViewListener listener;
     private final JFrame frame = new JFrame("Minesweeper");
-    private JLabel labelMines = new JLabel("Mines");
-    private JLabel labelTime = new JLabel("Time");
+    private JLabel labelMines = new JLabel();
+    private JLabel labelTime = new JLabel();
     private JButton newGame = new JButton();
     private JPanel gamePanel = new JPanel();
     private GameField2 gameField2;
+    private int countClickFlag;
 
     private final static boolean SHOULD_WEIGHT_X = true;
 
@@ -37,10 +40,16 @@ public class AppView implements View {
             @Override
             public void mouseReleased(MouseEvent e) {
                 Action action = listener.needAction(e.getButton());
+                if (e.getButton() == 3 && countClickFlag < 10) {
+                    countClickFlag++;
+                }
                 Click click = new Click(e.getX() / GameField2.BLOCK_SIZE, e.getY() / GameField2.BLOCK_SIZE, action);
                 listener.needClick(click);
                 listener.needStartTimer();
                 gameField2.repaint();
+
+                labelMines.setText(String.valueOf(listener.needNumberOfMines() - countClickFlag));
+                labelTime.setText("00:00");
             }
         });
     }
@@ -56,35 +65,39 @@ public class AppView implements View {
             c.weightx = 0.5;
         }
 
-        c.ipadx = 0;
+
         c.fill = GridBagConstraints.CENTER;
-        c.insets = new Insets(0, 20, 0, 0);
-
-
         c.anchor = GridBagConstraints.CENTER;
+
         c.gridx = 0;
         c.gridy = 0;
         contentPane.add(labelMines, c);
+        labelMines.setForeground(Color.BLACK);
+        labelMines.setText(String.valueOf(listener.needNumberOfMines()));
+        labelMines.setBorder(new BasicBorders.FieldBorder(Color.lightGray,Color.DARK_GRAY,Color.LIGHT_GRAY,Color.DARK_GRAY));
+        labelMines.setPreferredSize(new Dimension(60,35));
+        labelMines.setHorizontalAlignment(SwingConstants.CENTER);
+        labelMines.setFont(new Font("Helvetica", Font.PLAIN, 20));
 
-        c.insets = new Insets(0, 0, 0, 0);
         c.gridx = 1;
         c.gridy = 0;
         newGame.setIcon(new ImageIcon(getClass().getResource("/resources/Happy.png")));
-        newGame.setBackground(Color.lightGray);
         newGame.setBorderPainted(false);
         contentPane.add(newGame, c);
 
-        c.anchor = GridBagConstraints.CENTER;
-        c.insets = new Insets(0, 0, 0, 20);
         c.gridx = 2;
         c.gridy = 0;
+        labelTime.setPreferredSize(new Dimension(60,35));
+        labelTime.setHorizontalAlignment(SwingConstants.CENTER);
+        labelTime.setText("00:00");
+        labelTime.setFont(new Font("Helvetica", Font.PLAIN, 20));
+        labelTime.setBorder(new BasicBorders.FieldBorder(Color.lightGray,Color.DARK_GRAY,Color.LIGHT_GRAY,Color.DARK_GRAY));
         contentPane.add(labelTime, c);
 
-        c.insets = new Insets(0, 20, 0, 20);
-        c.anchor = GridBagConstraints.CENTER;
         c.gridx = 0;
         c.gridy = 1;
         c.gridwidth = 3;
+        gamePanel.setBorder(new BasicBorders.FieldBorder(Color.lightGray, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
         contentPane.add(gamePanel, c);
     }
 

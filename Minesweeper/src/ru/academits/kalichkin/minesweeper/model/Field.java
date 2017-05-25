@@ -213,4 +213,8 @@ public class Field {
         }
         return countMines;
     }
+
+    public int getNumberOfMines() {
+        return numberOfMines;
+    }
 }
