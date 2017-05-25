@@ -25,7 +25,7 @@ public class AppView implements View {
 
     private void createFrame() {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(350, 400));
+        frame.setMinimumSize(new Dimension(330, 400));
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
