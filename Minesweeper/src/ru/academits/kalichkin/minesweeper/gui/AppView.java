@@ -22,6 +22,7 @@ public class AppView implements View {
     private JPanel gamePanel = new JPanel();
     private GameField2 gameField2;
     private JMenuItem menu = new JMenuItem();
+    private Click click;
 
     private final static boolean SHOULD_WEIGHT_X = true;
 
@@ -42,11 +43,10 @@ public class AppView implements View {
                 Action action = listener.needAction(e.getButton());
                 int row = e.getX() / GameField2.BLOCK_SIZE;
                 int column = e.getY() / GameField2.BLOCK_SIZE;
-                Click click = new Click(row, column, action);
+                click = new Click(row, column, action);
                 listener.needClick(click);
 
                 labelMines.setText(String.valueOf(listener.needNumberOfFlags()));
-
                 gameField2.repaint();
             }
         });
@@ -152,6 +152,7 @@ public class AppView implements View {
 
     @Override
     public void onDefeat() {
+        gameField2.getLabel(click.getColumn(), click.getRow()).setIcon(new ImageIcon(getClass().getResource("/resources/bang.png")));
         newGame.setIcon(new ImageIcon(getClass().getResource("/resources/Sad.png")));
     }
 

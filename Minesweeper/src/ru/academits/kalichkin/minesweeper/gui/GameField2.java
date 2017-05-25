@@ -15,6 +15,7 @@ import java.io.IOException;
 public class GameField2 extends JPanel {
     private Field field;
     static final int BLOCK_SIZE = 30;
+    private JLabel[][] labels;
 
     private static final String FLAG = "/resources/flag.png";
     private static final String QUESTION = "/resources/question.png";
@@ -36,7 +37,7 @@ public class GameField2 extends JPanel {
         this.field = field;
         this.setLayout(new GridLayout(field.getFieldRow(), field.getFieldColumn()));
         this.setMinimumSize(new Dimension(720, 900));
-        JLabel[][] labels = new JLabel[field.getFieldRow()][field.getFieldColumn()];
+        labels = new JLabel[field.getFieldRow()][field.getFieldColumn()];
 
         for (int i = 0; i < field.getFieldRow(); i++) {
             for (int j = 0; j < field.getFieldColumn(); j++) {
@@ -87,9 +88,7 @@ public class GameField2 extends JPanel {
             }
         } else if (cell.isMine() && !cell.isFlag()) {
             BufferedImage mine = ImageIO.read(getClass().getResource(MINE));
-            BufferedImage bang = ImageIO.read(getClass().getResource(BANG));
-            addImage(g, cell.isMine() ? mine : bang, x, y, Color.white);
-
+            addImage(g, mine, x, y, Color.white);
         } else if (cell.getAmountMinesNear() > 0) {
             if (cell.getAmountMinesNear() == 1) {
                 BufferedImage img1 = ImageIO.read(getClass().getResource(NUMBER_1));
@@ -118,24 +117,37 @@ public class GameField2 extends JPanel {
             }
         }
 
-        if (cell.isFlag() && cell.isOpen()) {
+        if (cell.isFlag() && cell.isOpen())
+
+        {
             BufferedImage flag = ImageIO.read(getClass().getResource(FLAG));
             addImage(g, flag, x, y, Color.white);
         }
 
-        if (cell.isFlag() && !cell.isMine() && cell.isOpen()) {
+        if (cell.isFlag() && !cell.isMine() && cell.isOpen())
+
+        {
             BufferedImage brokenFlag = ImageIO.read(getClass().getResource(BROKEN_FLAG));
             addImage(g, brokenFlag, x, y, Color.white);
         }
 
-        if (cell.isQuestion() && !cell.isMine() && cell.isOpen()) {
+        if (cell.isQuestion() && !cell.isMine() && cell.isOpen())
+
+        {
             BufferedImage question = ImageIO.read(getClass().getResource(QUESTION_WITHOUT_MINE));
             addImage(g, question, x, y, Color.white);
         }
 
-        if (cell.isQuestion() && cell.isMine() && cell.isOpen()) {
+        if (cell.isQuestion() && cell.isMine() && cell.isOpen())
+
+        {
 
         }
+
+    }
+
+    JLabel getLabel(int x, int y) {
+        return labels[x][y];
     }
 }
 
