@@ -7,14 +7,29 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.JLabel;
 import java.awt.*;
+
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 
 public class GameField2 extends JPanel {
     private Field field;
     static final int BLOCK_SIZE = 30;
+
+    private static final String FLAG = "/resources/flag.png";
+    private static final String QUESTION = "/resources/question.png";
+    private static final String MINE = "/resources/mine.png";
+    private static final String BANG = "/resources/bang.png";
+    private static final String NUMBER_1 = "/resources/1.png";
+    private static final String NUMBER_2 = "/resources/2.png";
+    private static final String NUMBER_3 = "/resources/3.png";
+    private static final String NUMBER_4 = "/resources/4.png";
+    private static final String NUMBER_5 = "/resources/5.png";
+    private static final String NUMBER_6 = "/resources/6.png";
+    private static final String NUMBER_7 = "/resources/7.png";
+    private static final String NUMBER_8 = "/resources/8.png";
+    private static final String BROKEN_FLAG = "/resources/broken_flag.png";
+    private static final String QUESTION_WITHOUT_MINE = "/resources/Question2.png";
 
 
     GameField2(Field field) {
@@ -49,7 +64,8 @@ public class GameField2 extends JPanel {
 
 
     private void addImage(Graphics g, Image image, int x, int y, Color color) {
-        g.drawImage(image, x * BLOCK_SIZE + 1, y * BLOCK_SIZE + 1, color, null);
+        int offset = 1;
+        g.drawImage(image, x * BLOCK_SIZE + offset, y * BLOCK_SIZE + offset, color, null);
     }
 
 
@@ -63,64 +79,63 @@ public class GameField2 extends JPanel {
             g.fill3DRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, true);
 
             if (cell.isFlag()) {
-                BufferedImage img = ImageIO.read(new File("Flag.png"));
-                addImage(g, img, x, y, Color.lightGray);
+                BufferedImage flag = ImageIO.read(getClass().getResource(FLAG));
+                addImage(g, flag, x, y, Color.lightGray);
             } else if (cell.isQuestion()) {
-                BufferedImage img = ImageIO.read(new File("question.png"));
-                addImage(g, img, x, y, Color.lightGray);
+                BufferedImage question = ImageIO.read(getClass().getResource(QUESTION));
+                addImage(g, question, x, y, Color.lightGray);
             }
         } else if (cell.isMine() && !cell.isFlag()) {
-            BufferedImage img = ImageIO.read(new File("mine.png"));
-            BufferedImage img2 = ImageIO.read(new File("bang.png"));
-            addImage(g, cell.isMine() ? img : img2, x, y, Color.white);
+            BufferedImage mine = ImageIO.read(getClass().getResource(MINE));
+            BufferedImage bang = ImageIO.read(getClass().getResource(BANG));
+            addImage(g, cell.isMine() ? mine : bang, x, y, Color.white);
 
         } else if (cell.getAmountMinesNear() > 0) {
             if (cell.getAmountMinesNear() == 1) {
-                BufferedImage img1 = ImageIO.read(new File("1.png"));
+                BufferedImage img1 = ImageIO.read(getClass().getResource(NUMBER_1));
                 addImage(g, img1, x, y, Color.white);
             } else if (cell.getAmountMinesNear() == 2) {
-                BufferedImage img2 = ImageIO.read(new File("2.png"));
+                BufferedImage img2 = ImageIO.read(getClass().getResource(NUMBER_2));
                 addImage(g, img2, x, y, Color.white);
             } else if (cell.getAmountMinesNear() == 3) {
-                BufferedImage img3 = ImageIO.read(new File("3.png"));
+                BufferedImage img3 = ImageIO.read(getClass().getResource(NUMBER_3));
                 addImage(g, img3, x, y, Color.white);
             } else if (cell.getAmountMinesNear() == 4) {
-                BufferedImage img4 = ImageIO.read(new File("4.png"));
+                BufferedImage img4 = ImageIO.read(getClass().getResource(NUMBER_4));
                 addImage(g, img4, x, y, Color.white);
             } else if (cell.getAmountMinesNear() == 5) {
-                BufferedImage img5 = ImageIO.read(new File("5.png"));
+                BufferedImage img5 = ImageIO.read(getClass().getResource(NUMBER_5));
                 addImage(g, img5, x, y, Color.white);
             } else if (cell.getAmountMinesNear() == 6) {
-                BufferedImage img6 = ImageIO.read(new File("6.png"));
+                BufferedImage img6 = ImageIO.read(getClass().getResource(NUMBER_6));
                 addImage(g, img6, x, y, Color.white);
             } else if (cell.getAmountMinesNear() == 7) {
-                BufferedImage img7 = ImageIO.read(new File("7.png"));
+                BufferedImage img7 = ImageIO.read(getClass().getResource(NUMBER_7));
                 addImage(g, img7, x, y, Color.white);
             } else if (cell.getAmountMinesNear() == 8) {
-                BufferedImage img8 = ImageIO.read(new File("8.png"));
+                BufferedImage img8 = ImageIO.read(getClass().getResource(NUMBER_8));
                 addImage(g, img8, x, y, Color.white);
             }
         }
 
         if (cell.isFlag() && cell.isOpen()) {
-            BufferedImage img = ImageIO.read(new File("Flag.png"));
-            addImage(g, img, x, y, Color.white);
+            BufferedImage flag = ImageIO.read(getClass().getResource(FLAG));
+            addImage(g, flag, x, y, Color.white);
         }
 
         if (cell.isFlag() && !cell.isMine() && cell.isOpen()) {
-            BufferedImage img = ImageIO.read(new File("broken_flag.png"));
-            addImage(g, img, x, y, Color.white);
+            BufferedImage brokenFlag = ImageIO.read(getClass().getResource(BROKEN_FLAG));
+            addImage(g, brokenFlag, x, y, Color.white);
         }
 
         if (cell.isQuestion() && !cell.isMine() && cell.isOpen()) {
-            BufferedImage img = ImageIO.read(new File("Question2.png"));
-            addImage(g, img, x, y, Color.white);
+            BufferedImage question = ImageIO.read(getClass().getResource(QUESTION_WITHOUT_MINE));
+            addImage(g, question, x, y, Color.white);
         }
 
         if (cell.isQuestion() && cell.isMine() && cell.isOpen()) {
 
         }
-
     }
 }
 

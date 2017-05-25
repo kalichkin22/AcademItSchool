@@ -10,6 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Area;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
 
 public class AppView implements View {
@@ -131,6 +133,5 @@ public class AppView implements View {
     public String onIsWin() {
         return null;
     }
-
 }
 
