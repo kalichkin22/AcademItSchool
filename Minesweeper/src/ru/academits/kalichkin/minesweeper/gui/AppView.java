@@ -10,13 +10,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
 public class AppView implements View {
     private ViewListener listener;
     private final JFrame frame = new JFrame("Minesweeper");
     private JLabel labelMines = new JLabel("Mines");
     private JLabel labelTime = new JLabel("Time");
-    private JButton newGame = new JButton("New game");
+    private JLabel newGame = new JLabel();
     private JPanel gamePanel = new JPanel();
     private GameField2 gameField2;
 
@@ -69,6 +70,7 @@ public class AppView implements View {
         c.weightx = 0.5;
         c.gridx = 1;
         c.gridy = 0;
+        newGame.setIcon(new ImageIcon("Happy"));
         contentPane.add(newGame, c);
 
         c.weightx = 0.5;
