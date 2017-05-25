@@ -23,7 +23,6 @@ public class AppView implements View {
     private GameField2 gameField2;
     private JMenuItem menu = new JMenuItem();
 
-    private int countClickFlag;
     private final static boolean SHOULD_WEIGHT_X = true;
 
 
@@ -41,20 +40,19 @@ public class AppView implements View {
             public void mouseReleased(MouseEvent e) {
                 labelTime.setText(listener.needStartTimer());
                 Action action = listener.needAction(e.getButton());
-
-                if (e.getButton() == MouseEvent.BUTTON3 && countClickFlag < 10) {
-                    countClickFlag++;
-                }
-
-                Click click = new Click(e.getX() / GameField2.BLOCK_SIZE, e.getY() / GameField2.BLOCK_SIZE, action);
+                int row = e.getX() / GameField2.BLOCK_SIZE;
+                int column = e.getY() / GameField2.BLOCK_SIZE;
+                Click click = new Click(row, column, action);
                 listener.needClick(click);
-                labelMines.setText(String.valueOf(listener.needNumberOfMines() - countClickFlag));
+
+                labelMines.setText(String.valueOf(listener.needNumberOfFlags()));
 
                 gameField2.repaint();
             }
         });
 
         newGame.addActionListener(e -> {
+            countClickFlag = 0;
             gamePanel.removeAll();
             listener.needBeginnerLevel();
             addComponentsToPanel(frame);
@@ -87,7 +85,7 @@ public class AppView implements View {
         c.gridy = 1;
         contentPane.add(labelMines, c);
         labelMines.setForeground(Color.BLACK);
-        labelMines.setText(String.valueOf(listener.needNumberOfMines()));
+        labelMines.setText(String.valueOf(listener.needNumberOfFlags()));
         labelMines.setBorder(new BasicBorders.FieldBorder(Color.lightGray, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
         labelMines.setPreferredSize(new Dimension(60, 35));
         labelMines.setHorizontalAlignment(SwingConstants.CENTER);

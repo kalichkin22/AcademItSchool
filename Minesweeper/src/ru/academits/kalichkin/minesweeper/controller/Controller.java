@@ -119,7 +119,7 @@ public class Controller implements ViewListener {
 
     @Override
     public Field needGetField() {
-        return field;
+        return field.getField();
     }
 
     @Override
@@ -128,8 +128,13 @@ public class Controller implements ViewListener {
     }
 
     @Override
-    public int needNumberOfMines() {
-        return field.getNumberOfMines();
+    public int needNumberOfFlags() {
+        return field.getNumberOfFlags();
+    }
+
+    @Override
+    public Cell needGetCell(int row, int column) {
+        return field.getCell(row, column);
     }
 }
 

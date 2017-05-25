@@ -32,5 +32,7 @@ public interface ViewListener {
 
     String needGetTime();
 
-    int needNumberOfMines();
+    int needNumberOfFlags();
+
+    Cell needGetCell(int row, int column);
 }

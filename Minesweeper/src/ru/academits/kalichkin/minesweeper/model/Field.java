@@ -214,7 +214,11 @@ public class Field {
         return countMines;
     }
 
-    public int getNumberOfMines() {
-        return numberOfMines;
+    public int getNumberOfFlags() {
+        return numberOfMines - numberOfFlags;
+    }
+
+    public Field getField() {
+        return new Field(fieldRow, fieldColumn, numberOfMines);
     }
 }
