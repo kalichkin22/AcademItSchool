@@ -28,11 +28,5 @@ public interface ViewListener {
 
     List<PersonWin> needReadScores(String fileName) throws FileNotFoundException;
 
-    Field needGetField();
-
-    String needGetTime();
-
     int needNumberOfFlags();
-
-    Cell needGetCell(int row, int column);
 }

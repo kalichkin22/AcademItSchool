@@ -117,24 +117,10 @@ public class Controller implements ViewListener {
         return highScores.readScores(fileName);
     }
 
-    @Override
-    public Field needGetField() {
-        return field.getField();
-    }
-
-    @Override
-    public String needGetTime() {
-        return timerGame.getTime();
-    }
 
     @Override
     public int needNumberOfFlags() {
         return field.getNumberOfFlags();
-    }
-
-    @Override
-    public Cell needGetCell(int row, int column) {
-        return field.getCell(row, column);
     }
 }
 
