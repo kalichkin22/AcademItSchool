@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class GameField2 extends JPanel {
     private Field field;
-    private static final int BLOCK_SIZE = 30;
+    public static final int BLOCK_SIZE = 30;
 
 
     GameField2(Field field) {

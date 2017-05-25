@@ -22,6 +22,8 @@ public class AppView implements View {
     private JPanel gamePanel = new JPanel();
     private GameField2 gameField2;
 
+    private final static boolean SHOULD_WEIGHT_X = true;
+
 
     private void createFrame() {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -37,7 +39,7 @@ public class AppView implements View {
             @Override
             public void mouseReleased(MouseEvent e) {
                 Action action = listener.needAction(e.getButton());
-                Click click = new Click(e.getX() / 30, e.getY() / 30, action);
+                Click click = new Click(e.getX() / GameField2.BLOCK_SIZE, e.getY() / GameField2.BLOCK_SIZE, action);
                 listener.needClick(click);
                 listener.needStartTimer();
                 gameField2.repaint();
@@ -51,6 +53,10 @@ public class AppView implements View {
         contentPane.setLayout(gbl);
 
         GridBagConstraints c = new GridBagConstraints();
+
+        if (SHOULD_WEIGHT_X) {
+            c.weightx = 0.5;
+        }
 
         c.ipadx = 0;
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -72,6 +78,7 @@ public class AppView implements View {
         c.gridy = 0;
         contentPane.add(labelTime, c);
 
+        c.anchor = GridBagConstraints.CENTER;
         c.gridx = 0;
         c.gridy = 1;
         c.gridwidth = 3;
