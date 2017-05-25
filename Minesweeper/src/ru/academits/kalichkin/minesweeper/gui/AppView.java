@@ -127,7 +127,7 @@ public class AppView implements View {
 
     @Override
     public void onDefeat() {
-        System.out.println("вывываываы");
+        newGame.setIcon(new ImageIcon(getClass().getResource("/resources/Sad.png")));
     }
 
     @Override
