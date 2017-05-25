@@ -7,15 +7,15 @@ import java.util.TimerTask;
 
 public class TimerGame extends JLabel{
     private Timer timer = new Timer();
-    private String timeStop;
+    private String timeOut;
 
-    public void startTimer() {
+    public String startTimer() {
         TimerTask timerTask = new TimerTask() {
             volatile int time;
             Runnable refresher = new Runnable() {
                 public void run() {
                     int multiplyTime = 60;
-                    timeStop = String.format("%02d:%02d", time / multiplyTime, time % multiplyTime);
+                    timeOut = String.format("%02d:%02d", time / multiplyTime, time % multiplyTime);
                 }
             };
 
@@ -26,14 +26,15 @@ public class TimerGame extends JLabel{
         };
         int period = 1000;
         timer.scheduleAtFixedRate(timerTask, 0, period);
+        return timeOut;
     }
 
     public String getTime() {
-        return timeStop;
+        return timeOut;
     }
 
     public String stopTimer() {
         timer.cancel();
-        return timeStop;
+        return timeOut;
     }
 }

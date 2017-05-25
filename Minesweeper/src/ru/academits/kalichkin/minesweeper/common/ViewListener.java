@@ -24,7 +24,7 @@ public interface ViewListener {
 
     void needUserLevel(int row, int column, int numberOfMines);
 
-    void needStartTimer();
+    String needStartTimer();
 
     List<PersonWin> needReadScores(String fileName) throws FileNotFoundException;
 

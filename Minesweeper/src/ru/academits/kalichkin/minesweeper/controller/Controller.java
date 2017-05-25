@@ -106,9 +106,9 @@ public class Controller implements ViewListener {
     }
 
     @Override
-    public void needStartTimer() {
+    public String needStartTimer() {
         timerGame = new TimerGame();
-        timerGame.startTimer();
+        return timerGame.startTimer();
     }
 
 
