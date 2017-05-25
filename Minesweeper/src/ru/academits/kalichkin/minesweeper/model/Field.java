@@ -146,12 +146,18 @@ public class Field {
                 break;
 
             case OPEN_AROUND:
+                if (!cell.isOpen()) {
+                    return;
+                }
                 if (cell.getAmountMinesNear() == checkMinesNear(click)) {
                     for (int i = -1; i <= 1; i++) {
                         for (int j = -1; j <= 1; j++) {
-                            Cell cell2 = field[click.getRow() + i][click.getColumn() + j];
-                            if (!cell2.isMine() || !cell2.isQuestion() || !cell2.isFlag()) {
-                                field[click.getRow() + i][click.getColumn() + j].setOpen();
+                            if ((click.getRow() + i >= 0) && (click.getRow() + i < fieldRow)
+                                    && (click.getColumn() + j >= 0) && (click.getColumn() + j < fieldColumn)) {
+                                Cell cell2 = field[click.getRow() + i][click.getColumn() + j];
+                                if (!cell2.isMine() && !cell2.isQuestion() && !cell2.isFlag()) {
+                                    field[click.getRow() + i][click.getColumn() + j].setOpen();
+                                }
                             }
                         }
                     }
