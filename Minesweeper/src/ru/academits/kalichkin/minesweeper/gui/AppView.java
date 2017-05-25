@@ -52,7 +52,6 @@ public class AppView implements View {
         });
 
         newGame.addActionListener(e -> {
-            countClickFlag = 0;
             gamePanel.removeAll();
             listener.needBeginnerLevel();
             addComponentsToPanel(frame);
