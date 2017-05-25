@@ -11,7 +11,6 @@ import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.*;
 
 public class AppView implements View {
     private ViewListener listener;
@@ -40,7 +39,7 @@ public class AppView implements View {
             @Override
             public void mouseReleased(MouseEvent e) {
                 Action action = listener.needAction(e.getButton());
-                if (e.getButton() == 3 && countClickFlag < 10) {
+                if (e.getButton() == MouseEvent.BUTTON3 && countClickFlag < 10) {
                     countClickFlag++;
                 }
                 Click click = new Click(e.getX() / GameField2.BLOCK_SIZE, e.getY() / GameField2.BLOCK_SIZE, action);
@@ -127,9 +126,9 @@ public class AppView implements View {
 
     @Override
     public Action onAction(int button) {
-        if (button == 1) {
+        if (button == MouseEvent.BUTTON1) {
             return Action.OPEN;
-        } else if (button == 3) {
+        } else if (button == MouseEvent.BUTTON3) {
             return Action.SET_MARKED;
         } else if (button == MouseEvent.MOUSE_WHEEL) {
             return Action.OPEN_AROUND;
