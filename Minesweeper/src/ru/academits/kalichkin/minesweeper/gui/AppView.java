@@ -10,16 +10,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Area;
-import java.awt.geom.Rectangle2D;
-import java.io.File;
 
 public class AppView implements View {
     private ViewListener listener;
     private final JFrame frame = new JFrame("Minesweeper");
     private JLabel labelMines = new JLabel("Mines");
     private JLabel labelTime = new JLabel("Time");
-    private JLabel newGame = new JLabel();
+    private JButton newGame = new JButton();
     private JPanel gamePanel = new JPanel();
     private GameField2 gameField2;
 
@@ -61,7 +58,7 @@ public class AppView implements View {
 
         c.ipadx = 0;
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(20, 20, 0, 20);
+        c.insets = new Insets(0, 20, 0, 0);
 
 
         c.anchor = GridBagConstraints.CENTER;
@@ -69,17 +66,20 @@ public class AppView implements View {
         c.gridy = 0;
         contentPane.add(labelMines, c);
 
-        c.weightx = 0.5;
         c.gridx = 1;
         c.gridy = 0;
-        newGame.setIcon(new ImageIcon("Happy"));
+        newGame.setIcon(new ImageIcon(getClass().getResource("/resources/Happy.png")));
+        newGame.setBackground(Color.lightGray);
+        newGame.setBorderPainted(false);
         contentPane.add(newGame, c);
 
-        c.weightx = 0.5;
+        c.anchor = GridBagConstraints.CENTER;
+        c.insets = new Insets(0, 0, 0, 20);
         c.gridx = 2;
         c.gridy = 0;
         contentPane.add(labelTime, c);
 
+        c.insets = new Insets(0, 20, 0, 20);
         c.anchor = GridBagConstraints.CENTER;
         c.gridx = 0;
         c.gridy = 1;
