@@ -143,7 +143,7 @@ public class AppView implements View {
             return Action.OPEN;
         } else if (button == MouseEvent.BUTTON3) {
             return Action.SET_MARKED;
-        } else if (button == MouseEvent.MOUSE_WHEEL) {
+        } else if (button == MouseEvent.BUTTON2) {
             return Action.OPEN_AROUND;
         }
         return Action.NOT_ACTION;
