@@ -57,7 +57,7 @@ public class AppView implements View {
         }
 
         c.ipadx = 0;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.CENTER;
         c.insets = new Insets(0, 20, 0, 0);
 
 
@@ -66,6 +66,7 @@ public class AppView implements View {
         c.gridy = 0;
         contentPane.add(labelMines, c);
 
+        c.insets = new Insets(0, 0, 0, 0);
         c.gridx = 1;
         c.gridy = 0;
         newGame.setIcon(new ImageIcon(getClass().getResource("/resources/Happy.png")));
