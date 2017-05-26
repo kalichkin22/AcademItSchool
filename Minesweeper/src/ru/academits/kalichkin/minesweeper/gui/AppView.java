@@ -25,9 +25,9 @@ public class AppView implements View {
     private Click click;
 
     private final static boolean SHOULD_WEIGHT_X = true;
-    private static final String SMILE_HAPPY = "/resources/Happy.png";
-    private static final String SMILE_SAD = "/resources/Sad.png";
-    private static final String BANG = "/resources/bang.png";
+    private static final String SMILE_HAPPY = "/res/Happy.png";
+    private static final String SMILE_SAD = "/res/Sad.png";
+    private static final String BANG = "/res/bang.png";
 
 
     private void createFrame() {

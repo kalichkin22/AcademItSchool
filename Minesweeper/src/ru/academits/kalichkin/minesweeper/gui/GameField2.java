@@ -17,19 +17,19 @@ public class GameField2 extends JPanel {
     static final int BLOCK_SIZE = 30;
     private JLabel[][] labels;
 
-    private static final String FLAG = "/resources/flag.png";
-    private static final String QUESTION = "/resources/question.png";
-    private static final String MINE = "/resources/mine.png";
-    private static final String NUMBER_1 = "/resources/1.png";
-    private static final String NUMBER_2 = "/resources/2.png";
-    private static final String NUMBER_3 = "/resources/3.png";
-    private static final String NUMBER_4 = "/resources/4.png";
-    private static final String NUMBER_5 = "/resources/5.png";
-    private static final String NUMBER_6 = "/resources/6.png";
-    private static final String NUMBER_7 = "/resources/7.png";
-    private static final String NUMBER_8 = "/resources/8.png";
-    private static final String BROKEN_FLAG = "/resources/broken_flag.png";
-    private static final String QUESTION_WITHOUT_MINE = "/resources/Question2.png";
+    private static final String FLAG = "/res/flag.png";
+    private static final String QUESTION = "/res/question.png";
+    private static final String MINE = "/res/mine.png";
+    private static final String NUMBER_1 = "/res/1.png";
+    private static final String NUMBER_2 = "/res/2.png";
+    private static final String NUMBER_3 = "/res/3.png";
+    private static final String NUMBER_4 = "/res/4.png";
+    private static final String NUMBER_5 = "/res/5.png";
+    private static final String NUMBER_6 = "/res/6.png";
+    private static final String NUMBER_7 = "/res/7.png";
+    private static final String NUMBER_8 = "/res/8.png";
+    private static final String BROKEN_FLAG = "/res/broken_flag.png";
+    private static final String QUESTION_WITHOUT_MINE = "/res/Question2.png";
 
 
     GameField2(Field field) {
