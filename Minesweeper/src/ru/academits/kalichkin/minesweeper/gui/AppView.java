@@ -65,7 +65,6 @@ public class AppView implements View {
     }
 
 
-
     private void addComponentsToPanel(Container contentPane) {
         GridBagLayout gbl = new GridBagLayout();
         contentPane.setLayout(gbl);
@@ -161,7 +160,9 @@ public class AppView implements View {
 
     @Override
     public String onIsWin() {
-        return null;
+        gameField2.repaint();
+        Object[] message = new Object[]{"ВЫ ВЫИГРАЛИ! ПОЗДРАВЛЯЕМ!!!", "Введите Ваше имя:"};
+        return JOptionPane.showInputDialog(frame, message, "Конец игры", JOptionPane.PLAIN_MESSAGE);
     }
 }
 

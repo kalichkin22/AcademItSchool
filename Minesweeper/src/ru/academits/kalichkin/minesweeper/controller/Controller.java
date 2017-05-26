@@ -107,6 +107,7 @@ public class Controller implements ViewListener {
         field = new Field(row, column, numberOfMines);
     }
 
+
     @Override
     public void needStartTimer() {
         timerGame = new TimerGame();
@@ -124,6 +125,7 @@ public class Controller implements ViewListener {
     public int needNumberOfFlags() {
         return field.getNumberOfFlags();
     }
+
 
     @Override
     public String needGetTime() {

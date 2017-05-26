@@ -137,9 +137,7 @@ public class GameField2 extends JPanel {
             addImage(g, question, x, y, Color.white);
         }
 
-        if (cell.isQuestion() && cell.isMine() && cell.isOpen())
-
-        {
+        if (cell.isQuestion() && cell.isMine() && cell.isOpen()) {
 
         }
 
