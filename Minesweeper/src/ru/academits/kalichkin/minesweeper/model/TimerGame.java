@@ -16,8 +16,8 @@ public class TimerGame extends JLabel {
             Runnable refresher = new Runnable() {
                 public void run() {
                     int multiplyTime = 60;
-                    TimerGame.this.setText(String.format("%02d:%02d", time / multiplyTime, time % multiplyTime));
                     timeStop = String.format("%02d:%02d", time / multiplyTime, time % multiplyTime);
+                    TimerGame.this.setText(timeStop);
                 }
             };
 
