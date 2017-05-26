@@ -1,7 +1,9 @@
 package ru.academits.kalichkin.minesweeper.common;
 
 import ru.academits.kalichkin.minesweeper.model.*;
+import ru.academits.kalichkin.minesweeper.model.Action;
 
+import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.List;
 
@@ -24,9 +26,11 @@ public interface ViewListener {
 
     void needUserLevel(int row, int column, int numberOfMines);
 
-    String needStartTimer();
+    void needStartTimer();
 
     List<PersonWin> needReadScores(String fileName) throws FileNotFoundException;
 
     int needNumberOfFlags();
+
+    String needGetTime();
 }

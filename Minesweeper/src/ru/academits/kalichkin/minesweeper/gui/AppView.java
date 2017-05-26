@@ -17,14 +17,17 @@ public class AppView implements View {
     private ViewListener listener;
     private final JFrame frame = new JFrame("Minesweeper");
     private JLabel labelMines = new JLabel();
-    private JLabel labelTime = new JLabel();
     private JButton newGame = new JButton();
     private JPanel gamePanel = new JPanel();
+    private JLabel labelTime = new JLabel();
     private GameField2 gameField2;
     private JMenuItem menu = new JMenuItem();
     private Click click;
 
     private final static boolean SHOULD_WEIGHT_X = true;
+    private static final String SMILE_HAPPY = "/resources/Happy.png";
+    private static final String SMILE_SAD = "/resources/Sad.png";
+    private static final String BANG = "/resources/bang.png";
 
 
     private void createFrame() {
@@ -36,16 +39,17 @@ public class AppView implements View {
 
     private void initEvents() {
         gameField2.setBackground(Color.white);
+        listener.needStartTimer();
         gameField2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                labelTime.setText(listener.needStartTimer());
                 Action action = listener.needAction(e.getButton());
                 int row = e.getX() / GameField2.BLOCK_SIZE;
                 int column = e.getY() / GameField2.BLOCK_SIZE;
                 click = new Click(row, column, action);
                 listener.needClick(click);
 
+                labelTime.setText(listener.needGetTime());
                 labelMines.setText(String.valueOf(listener.needNumberOfFlags()));
                 gameField2.repaint();
             }
@@ -53,11 +57,13 @@ public class AppView implements View {
 
         newGame.addActionListener(e -> {
             gamePanel.removeAll();
+            labelTime.setText("00:00");
             listener.needBeginnerLevel();
             addComponentsToPanel(frame);
             initEvents();
         });
     }
+
 
 
     private void addComponentsToPanel(Container contentPane) {
@@ -70,15 +76,12 @@ public class AppView implements View {
             c.weightx = 0.5;
         }
 
-
         c.fill = GridBagConstraints.CENTER;
         c.anchor = GridBagConstraints.CENTER;
-
 
         c.gridx = 0;
         c.gridy = 0;
         contentPane.add(menu, c);
-
 
         c.gridx = 0;
         c.gridy = 1;
@@ -92,15 +95,15 @@ public class AppView implements View {
 
         c.gridx = 1;
         c.gridy = 1;
-        newGame.setIcon(new ImageIcon(getClass().getResource("/resources/Happy.png")));
+        newGame.setIcon(new ImageIcon(getClass().getResource(SMILE_HAPPY)));
         newGame.setBorderPainted(false);
         contentPane.add(newGame, c);
 
         c.gridx = 2;
         c.gridy = 1;
+
         labelTime.setPreferredSize(new Dimension(60, 35));
         labelTime.setHorizontalAlignment(SwingConstants.CENTER);
-        labelTime.setText("00:00");
         labelTime.setFont(new Font("Helvetica", Font.PLAIN, 20));
         labelTime.setBorder(new BasicBorders.FieldBorder(Color.lightGray, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
         contentPane.add(labelTime, c);
@@ -152,8 +155,8 @@ public class AppView implements View {
 
     @Override
     public void onDefeat() {
-        gameField2.getLabel(click.getColumn(), click.getRow()).setIcon(new ImageIcon(getClass().getResource("/resources/bang.png")));
-        newGame.setIcon(new ImageIcon(getClass().getResource("/resources/Sad.png")));
+        gameField2.getLabel(click.getColumn(), click.getRow()).setIcon(new ImageIcon(getClass().getResource(BANG)));
+        newGame.setIcon(new ImageIcon(getClass().getResource(SMILE_SAD)));
     }
 
     @Override

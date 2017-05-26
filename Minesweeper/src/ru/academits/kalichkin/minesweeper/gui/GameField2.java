@@ -20,7 +20,6 @@ public class GameField2 extends JPanel {
     private static final String FLAG = "/resources/flag.png";
     private static final String QUESTION = "/resources/question.png";
     private static final String MINE = "/resources/mine.png";
-    private static final String BANG = "/resources/bang.png";
     private static final String NUMBER_1 = "/resources/1.png";
     private static final String NUMBER_2 = "/resources/2.png";
     private static final String NUMBER_3 = "/resources/3.png";
