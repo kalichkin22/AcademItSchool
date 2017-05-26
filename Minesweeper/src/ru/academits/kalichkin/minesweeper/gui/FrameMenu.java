@@ -11,7 +11,6 @@ import java.io.FileNotFoundException;
 
 class FrameMenu extends JFrame {
     private ViewListener listener;
-    private JButton newGame = new JButton("Начать игру");
     private JButton scores = new JButton("Таблица рекордов");
     private JButton setting = new JButton("Настройки");
     private JButton about = new JButton("О игре");
@@ -57,33 +56,25 @@ class FrameMenu extends JFrame {
 
         c.gridx = 0;
         c.gridy = 0;
-        contentPane.add(newGame, c);
-        newGame.setFont(font);
-        newGame.setBorder(new BasicBorders.ButtonBorder(Color.LIGHT_GRAY, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
-        newGame.setFocusPainted(true);
-
-
-        c.gridx = 0;
-        c.gridy = 1;
         contentPane.add(scores, c);
         scores.setFont(font);
         scores.setBorder(new BasicBorders.ButtonBorder(Color.LIGHT_GRAY, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
         scores.setFocusPainted(true);
 
         c.gridx = 0;
-        c.gridy = 2;
+        c.gridy = 1;
         contentPane.add(setting, c);
         setting.setFont(font);
         setting.setBorder(new BasicBorders.ButtonBorder(Color.LIGHT_GRAY, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
 
         c.gridx = 0;
-        c.gridy = 3;
+        c.gridy = 2;
         contentPane.add(about, c);
         about.setFont(font);
         about.setBorder(new BasicBorders.ButtonBorder(Color.LIGHT_GRAY, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
 
         c.gridx = 0;
-        c.gridy = 4;
+        c.gridy = 3;
         contentPane.add(exit, c);
         exit.setFont(font);
         exit.setBorder(new BasicBorders.ButtonBorder(Color.LIGHT_GRAY, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
