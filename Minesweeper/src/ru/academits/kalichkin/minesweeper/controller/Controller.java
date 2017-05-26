@@ -128,6 +128,9 @@ public class Controller implements ViewListener {
     }
 
 
+    public void needNewGame() {
+        this.field = field.getField();
+    }
 }
 
 

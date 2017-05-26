@@ -31,4 +31,6 @@ public interface ViewListener {
     List<PersonWin> needReadScores(String fileName) throws FileNotFoundException;
 
     int needNumberOfFlags();
+
+    void needNewGame();
 }

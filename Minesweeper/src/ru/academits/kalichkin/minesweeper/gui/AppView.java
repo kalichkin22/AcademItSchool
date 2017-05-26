@@ -22,7 +22,7 @@ public class AppView implements View {
     private JLabel labelMines = new JLabel();
     private JButton newGame = new JButton();
     private JPanel gamePanel = new JPanel();
-    private GameField2 gameField2;
+    private GameField gameField;
     private JLabel timerGame;
     private JButton menu = new JButton("Меню");
     private Click click;
@@ -42,18 +42,18 @@ public class AppView implements View {
 
     private void initEvents() {
         listener.needDraw();
-        gameField2.setBackground(Color.white);
-        gameField2.addMouseListener(new MouseAdapter() {
+        gameField.setBackground(Color.white);
+        gameField.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 Action action = listener.needAction(e.getButton());
-                int row = e.getX() / GameField2.BLOCK_SIZE;
-                int column = e.getY() / GameField2.BLOCK_SIZE;
+                int row = e.getX() / GameField.BLOCK_SIZE;
+                int column = e.getY() / GameField.BLOCK_SIZE;
                 click = new Click(row, column, action);
                 listener.needClick(click);
 
                 labelMines.setText(String.valueOf(listener.needNumberOfFlags()));
-                gameField2.repaint();
+                gameField.repaint();
             }
         });
 
@@ -61,7 +61,7 @@ public class AppView implements View {
             frame.remove(timerGame);
             gamePanel.removeAll();
             timerGame = new TimerGame();
-            listener.needBeginnerLevel();
+            listener.needNewGame();
             addComponentsToPanel(frame);
             initEvents();
         });
@@ -146,8 +146,8 @@ public class AppView implements View {
 
     @Override
     public void onDraw(Field field) {
-        gameField2 = new GameField2(field);
-        gamePanel.add(gameField2);
+        gameField = new GameField(field);
+        gamePanel.add(gameField);
     }
 
 
@@ -172,13 +172,13 @@ public class AppView implements View {
 
     @Override
     public void onDefeat() {
-        gameField2.getLabel(click.getColumn(), click.getRow()).setIcon(new ImageIcon(getClass().getResource(BANG)));
+        gameField.getLabel(click.getColumn(), click.getRow()).setIcon(new ImageIcon(getClass().getResource(BANG)));
         newGame.setIcon(new ImageIcon(getClass().getResource(SMILE_SAD)));
     }
 
     @Override
     public String onIsWin() {
-        gameField2.repaint();
+        gameField.repaint();
         Object[] message = new Object[]{"   ВЫ ВЫИГРАЛИ! ПОЗДРАВЛЯЕМ!!!", "Введите Ваше имя без пробелов:"};
         String name = JOptionPane.showInputDialog(frame, message, "Конец игры", JOptionPane.PLAIN_MESSAGE);
 
