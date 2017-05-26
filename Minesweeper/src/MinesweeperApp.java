@@ -4,6 +4,7 @@ import ru.academits.kalichkin.minesweeper.gui.AppView;
 import ru.academits.kalichkin.minesweeper.model.Field;
 
 
+
 public class MinesweeperApp {
     public static void main(String[] args) {
         View view = new AppView();

@@ -20,7 +20,7 @@ public class AppView implements View {
     private JButton newGame = new JButton();
     private JPanel gamePanel = new JPanel();
     private GameField2 gameField2;
-    private TimerGame timerGame = new TimerGame();
+    private JLabel timerGame;
     private JMenuItem setting = new JMenuItem("Setting");
     private Click click;
 
@@ -39,7 +39,6 @@ public class AppView implements View {
 
     private void initEvents() {
         listener.needDraw();
-        listener.needStartTimer(timerGame);
         gameField2.setBackground(Color.white);
         gameField2.addMouseListener(new MouseAdapter() {
             @Override
@@ -104,6 +103,7 @@ public class AppView implements View {
 
         c.gridx = 2;
         c.gridy = 1;
+        timerGame = listener.needStartTimer();
         timerGame.setPreferredSize(new Dimension(85, 50));
         timerGame.setForeground(Color.DARK_GRAY);
         timerGame.setHorizontalAlignment(SwingConstants.CENTER);
