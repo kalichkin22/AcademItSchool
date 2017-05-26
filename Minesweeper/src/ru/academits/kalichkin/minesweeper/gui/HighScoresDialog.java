@@ -10,7 +10,7 @@ import java.util.List;
 class HighScoresDialog extends JDialog {
     private List<PersonWin> list;
 
-    HighScoresDialog(Frame owner, String title, List<PersonWin> list) {
+    HighScoresDialog(JFrame owner, String title, List<PersonWin> list) {
         super(owner, title, true);
         this.list = list;
     }

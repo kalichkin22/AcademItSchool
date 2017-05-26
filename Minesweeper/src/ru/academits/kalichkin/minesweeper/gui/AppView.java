@@ -66,11 +66,8 @@ public class AppView implements View {
             initEvents();
         });
 
-        menu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                FrameMenu menu = new FrameMenu("Меню", listener);
-            }
+        menu.addActionListener(e -> {
+            FrameMenu menu = new FrameMenu(frame,"Меню", listener);
         });
 
     }

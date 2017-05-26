@@ -7,10 +7,13 @@ import ru.academits.kalichkin.minesweeper.controller.Controller;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 
 class FrameMenu extends JFrame {
     private ViewListener listener;
+    private JFrame owner;
     private JButton scores = new JButton("Таблица рекордов");
     private JButton setting = new JButton("Настройки");
     private JButton about = new JButton("О игре");
@@ -19,14 +22,19 @@ class FrameMenu extends JFrame {
     private final static boolean SHOULD_WEIGHT_X = true;
 
 
-    FrameMenu(String title, ViewListener listener) throws HeadlessException {
+    FrameMenu(JFrame owner, String title, ViewListener listener) throws HeadlessException {
         super(title);
         this.listener = listener;
+        this.owner = owner;
         this.setMinimumSize(new Dimension(300, 400));
         this.setLocationRelativeTo(null);
-        this.setVisible(true);
         addComponentsToPanel(this);
         initEvents();
+
+        this.setVisible(true);
+        if (this.isVisible()) {
+            owner.setVisible(false);
+        }
     }
 
 
@@ -40,7 +48,13 @@ class FrameMenu extends JFrame {
             }
         });
 
-
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                owner.setVisible(true);
+            }
+        });
 
     }
 
