@@ -29,7 +29,8 @@ public class GameField2 extends JPanel {
     private static final String NUMBER_7 = "/res/7.png";
     private static final String NUMBER_8 = "/res/8.png";
     private static final String BROKEN_FLAG = "/res/broken_flag.png";
-    private static final String QUESTION_WITHOUT_MINE = "/res/Question2.png";
+    private static final String QUESTION_WITHOUT_MINE = "/res/Question-30.png";
+    private static final String QUESTION_WITH_MINE = "/res/Question3.png";
 
 
     GameField2(Field field) {
@@ -116,31 +117,25 @@ public class GameField2 extends JPanel {
             }
         }
 
-        if (cell.isFlag() && cell.isOpen())
-
-        {
+        if (cell.isFlag() && cell.isOpen()) {
             BufferedImage flag = ImageIO.read(getClass().getResource(FLAG));
             addImage(g, flag, x, y, Color.white);
         }
 
-        if (cell.isFlag() && !cell.isMine() && cell.isOpen())
-
-        {
+        if (cell.isFlag() && !cell.isMine() && cell.isOpen()) {
             BufferedImage brokenFlag = ImageIO.read(getClass().getResource(BROKEN_FLAG));
             addImage(g, brokenFlag, x, y, Color.white);
         }
 
-        if (cell.isQuestion() && !cell.isMine() && cell.isOpen())
-
-        {
+        if (cell.isQuestion() && !cell.isMine() && cell.isOpen()) {
             BufferedImage question = ImageIO.read(getClass().getResource(QUESTION_WITHOUT_MINE));
             addImage(g, question, x, y, Color.white);
         }
 
         if (cell.isQuestion() && cell.isMine() && cell.isOpen()) {
-
+            BufferedImage question = ImageIO.read(getClass().getResource(QUESTION_WITH_MINE));
+            addImage(g, question, x, y, Color.white);
         }
-
     }
 
     JLabel getLabel(int x, int y) {
