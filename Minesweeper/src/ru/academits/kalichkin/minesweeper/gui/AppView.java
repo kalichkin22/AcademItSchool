@@ -32,7 +32,7 @@ public class AppView implements View {
 
     private void createFrame() {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(330, 400));
+        frame.setMinimumSize(new Dimension(300, 400));
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
@@ -85,12 +85,12 @@ public class AppView implements View {
         c.gridx = 0;
         c.gridy = 1;
         contentPane.add(labelMines, c);
-        labelMines.setForeground(Color.BLACK);
+        labelMines.setForeground(Color.DARK_GRAY);
         labelMines.setText(String.valueOf(listener.needNumberOfFlags()));
         labelMines.setBorder(new BasicBorders.FieldBorder(Color.lightGray, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
-        labelMines.setPreferredSize(new Dimension(60, 35));
+        labelMines.setPreferredSize(new Dimension(85, 50));
         labelMines.setHorizontalAlignment(SwingConstants.CENTER);
-        labelMines.setFont(new Font("Helvetica", Font.PLAIN, 20));
+        labelMines.setFont(new Font("Helvetica", Font.PLAIN, 25));
 
         c.gridx = 1;
         c.gridy = 1;
@@ -100,10 +100,10 @@ public class AppView implements View {
 
         c.gridx = 2;
         c.gridy = 1;
-
-        labelTime.setPreferredSize(new Dimension(60, 35));
+        labelTime.setPreferredSize(new Dimension(85, 50));
+        labelTime.setForeground(Color.DARK_GRAY);
         labelTime.setHorizontalAlignment(SwingConstants.CENTER);
-        labelTime.setFont(new Font("Helvetica", Font.PLAIN, 20));
+        labelTime.setFont(new Font("Helvetica", Font.PLAIN, 25));
         labelTime.setBorder(new BasicBorders.FieldBorder(Color.lightGray, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
         contentPane.add(labelTime, c);
 
