@@ -21,7 +21,7 @@ public class AppView implements View {
     private JPanel gamePanel = new JPanel();
     private GameField2 gameField2;
     private TimerGame timerGame = new TimerGame();
-    private JMenuItem menu = new JMenuItem();
+    private JMenuItem setting = new JMenuItem("Setting");
     private Click click;
 
     private final static boolean SHOULD_WEIGHT_X = true;
@@ -81,7 +81,10 @@ public class AppView implements View {
 
         c.gridx = 0;
         c.gridy = 0;
-        contentPane.add(menu, c);
+        setting.setBackground(Color.lightGray);
+        setting.setBorder(new BasicBorders.MenuBarBorder(Color.LIGHT_GRAY, Color.DARK_GRAY));
+        setting.setFont(new Font("Helvetica", Font.PLAIN, 15));
+        contentPane.add(setting, c);
 
         c.gridx = 0;
         c.gridy = 1;
