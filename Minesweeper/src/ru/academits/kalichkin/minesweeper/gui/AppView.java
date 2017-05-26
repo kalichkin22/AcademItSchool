@@ -86,16 +86,18 @@ public class AppView implements View {
             c.weightx = 0.5;
         }
 
-        c.fill = GridBagConstraints.CENTER;
-        c.anchor = GridBagConstraints.CENTER;
-
+        c.anchor = GridBagConstraints.FIRST_LINE_START;
         c.gridx = 0;
         c.gridy = 0;
         menu.setBorderPainted(false);
-        menu.setBorder(new BasicBorders.MenuBarBorder(Color.LIGHT_GRAY, Color.DARK_GRAY));
-        menu.setBackground(Color.lightGray);
+        menu.setForeground(Color.DARK_GRAY);
         menu.setFont(new Font("Helvetica", Font.PLAIN, 15));
+        menu.setBorder(new BasicBorders.MenuBarBorder(Color.LIGHT_GRAY, Color.DARK_GRAY));
         contentPane.add(menu, c);
+
+
+        c.fill = GridBagConstraints.CENTER;
+        c.anchor = GridBagConstraints.CENTER;
 
         c.gridx = 0;
         c.gridy = 1;
