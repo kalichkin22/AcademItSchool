@@ -2,10 +2,7 @@ package ru.academits.kalichkin.minesweeper.text;
 
 import ru.academits.kalichkin.minesweeper.common.*;
 import ru.academits.kalichkin.minesweeper.controller.Controller;
-import ru.academits.kalichkin.minesweeper.model.PersonWin;
-import ru.academits.kalichkin.minesweeper.model.Action;
-import ru.academits.kalichkin.minesweeper.model.Click;
-import ru.academits.kalichkin.minesweeper.model.Field;
+import ru.academits.kalichkin.minesweeper.model.*;
 
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -13,6 +10,7 @@ import java.util.*;
 public class TextView implements View {
     private ViewListener listener;
     private Scanner scanner = new Scanner(System.in);
+    private TimerGame timerGame = new TimerGame();
 
     private void initEvents() {
         while (true) {
@@ -187,7 +185,7 @@ public class TextView implements View {
 
                 Action action = listener.needAction(button);
                 click = new Click(row, column, action);
-                listener.needStartTimer();
+                listener.needStartTimer(timerGame);
             } while (listener.needClick(click));
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Выход за границы поля, попробуйте еще раз");

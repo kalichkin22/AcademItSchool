@@ -19,8 +19,8 @@ public class AppView implements View {
     private JLabel labelMines = new JLabel();
     private JButton newGame = new JButton();
     private JPanel gamePanel = new JPanel();
-    private JLabel labelTime = new JLabel();
     private GameField2 gameField2;
+    private TimerGame timerGame = new TimerGame();
     private JMenuItem menu = new JMenuItem();
     private Click click;
 
@@ -38,8 +38,9 @@ public class AppView implements View {
     }
 
     private void initEvents() {
+        listener.needDraw();
+        listener.needStartTimer(timerGame);
         gameField2.setBackground(Color.white);
-        listener.needStartTimer();
         gameField2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -49,15 +50,15 @@ public class AppView implements View {
                 click = new Click(row, column, action);
                 listener.needClick(click);
 
-                labelTime.setText(listener.needGetTime());
                 labelMines.setText(String.valueOf(listener.needNumberOfFlags()));
                 gameField2.repaint();
             }
         });
 
         newGame.addActionListener(e -> {
+            frame.remove(timerGame);
             gamePanel.removeAll();
-            labelTime.setText("00:00");
+            timerGame = new TimerGame();
             listener.needBeginnerLevel();
             addComponentsToPanel(frame);
             initEvents();
@@ -100,19 +101,18 @@ public class AppView implements View {
 
         c.gridx = 2;
         c.gridy = 1;
-        labelTime.setPreferredSize(new Dimension(85, 50));
-        labelTime.setForeground(Color.DARK_GRAY);
-        labelTime.setHorizontalAlignment(SwingConstants.CENTER);
-        labelTime.setFont(new Font("Helvetica", Font.PLAIN, 25));
-        labelTime.setBorder(new BasicBorders.FieldBorder(Color.LIGHT_GRAY, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
-        contentPane.add(labelTime, c);
+        timerGame.setPreferredSize(new Dimension(85, 50));
+        timerGame.setForeground(Color.DARK_GRAY);
+        timerGame.setHorizontalAlignment(SwingConstants.CENTER);
+        timerGame.setFont(new Font("Helvetica", Font.PLAIN, 25));
+        timerGame.setBorder(new BasicBorders.FieldBorder(Color.LIGHT_GRAY, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
+        contentPane.add(timerGame, c);
 
         c.gridx = 0;
         c.gridy = 2;
         c.gridwidth = 3;
         gamePanel.setBorder(new BasicBorders.FieldBorder(Color.LIGHT_GRAY, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
         contentPane.add(gamePanel, c);
-        listener.needDraw();
     }
 
 

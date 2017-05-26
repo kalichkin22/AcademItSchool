@@ -5,7 +5,6 @@ import ru.academits.kalichkin.minesweeper.common.ViewListener;
 import ru.academits.kalichkin.minesweeper.model.*;
 import ru.academits.kalichkin.minesweeper.model.Action;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.List;
 
@@ -110,9 +109,8 @@ public class Controller implements ViewListener {
 
 
     @Override
-    public void needStartTimer() {
-        timerGame = new TimerGame();
-        timerGame.startTimer();
+    public void needStartTimer(TimerGame timerGame) {
+        this.timerGame = timerGame;
     }
 
 
@@ -125,12 +123,6 @@ public class Controller implements ViewListener {
     @Override
     public int needNumberOfFlags() {
         return field.getNumberOfFlags();
-    }
-
-
-    @Override
-    public String needGetTime() {
-        return timerGame.getTime();
     }
 
 }
