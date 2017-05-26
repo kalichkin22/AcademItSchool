@@ -164,11 +164,11 @@ public class AppView implements View {
     @Override
     public String onIsWin() {
         gameField2.repaint();
-        Object[] message = new Object[]{"ВЫ ВЫИГРАЛИ! ПОЗДРАВЛЯЕМ!!!", "Введите Ваше имя:"};
+        Object[] message = new Object[]{"   ВЫ ВЫИГРАЛИ! ПОЗДРАВЛЯЕМ!!!", "Введите Ваше имя без пробелов:"};
         String name = JOptionPane.showInputDialog(frame, message, "Конец игры", JOptionPane.PLAIN_MESSAGE);
 
         if (name == null) {
-            name = "Неизвестный игрок";
+            name = "Неизвестный";
         }
         return name;
     }
