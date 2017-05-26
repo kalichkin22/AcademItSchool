@@ -37,6 +37,5 @@ class HighScoresDialog extends JDialog {
         JScrollPane scrollPane = new JScrollPane(table);
         this.getContentPane().add(scrollPane);
         this.setVisible(true);
-        this.getOwner().setVisible(false);
     }
 }

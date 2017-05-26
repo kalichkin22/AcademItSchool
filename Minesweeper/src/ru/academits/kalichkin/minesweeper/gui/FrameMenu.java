@@ -5,6 +5,7 @@ import ru.academits.kalichkin.minesweeper.common.ViewListener;
 import ru.academits.kalichkin.minesweeper.controller.Controller;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
 import java.io.FileNotFoundException;
 
@@ -47,34 +48,44 @@ class FrameMenu extends JFrame {
         contentPane.setLayout(gbl);
 
         GridBagConstraints c = new GridBagConstraints();
+        Font font = new Font("Helvetica", Font.PLAIN, 25);
+        c.insets = new Insets(10, 10, 0, 10);
 
         if (SHOULD_WEIGHT_X) {
             c.weightx = 0.5;
         }
 
-        c.fill = GridBagConstraints.CENTER;
-        c.anchor = GridBagConstraints.CENTER;
-
         c.gridx = 0;
         c.gridy = 0;
         contentPane.add(newGame, c);
+        newGame.setFont(font);
+        newGame.setBorder(new BasicBorders.ButtonBorder(Color.LIGHT_GRAY, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
+        newGame.setFocusPainted(true);
+
 
         c.gridx = 0;
         c.gridy = 1;
         contentPane.add(scores, c);
-
+        scores.setFont(font);
+        scores.setBorder(new BasicBorders.ButtonBorder(Color.LIGHT_GRAY, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
+        scores.setFocusPainted(true);
 
         c.gridx = 0;
         c.gridy = 2;
         contentPane.add(setting, c);
+        setting.setFont(font);
+        setting.setBorder(new BasicBorders.ButtonBorder(Color.LIGHT_GRAY, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
 
         c.gridx = 0;
         c.gridy = 3;
-
         contentPane.add(about, c);
+        about.setFont(font);
+        about.setBorder(new BasicBorders.ButtonBorder(Color.LIGHT_GRAY, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
 
         c.gridx = 0;
         c.gridy = 4;
         contentPane.add(exit, c);
+        exit.setFont(font);
+        exit.setBorder(new BasicBorders.ButtonBorder(Color.LIGHT_GRAY, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
     }
 }
