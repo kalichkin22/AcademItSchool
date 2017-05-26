@@ -16,7 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 
-public class Game implements View {
+public class AppView implements View {
     private ViewListener listener;
     private final JFrame frame = new JFrame("Minesweeper");
     private JLabel labelMines = new JLabel();
