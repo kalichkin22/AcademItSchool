@@ -87,7 +87,7 @@ public class AppView implements View {
         contentPane.add(labelMines, c);
         labelMines.setForeground(Color.DARK_GRAY);
         labelMines.setText(String.valueOf(listener.needNumberOfFlags()));
-        labelMines.setBorder(new BasicBorders.FieldBorder(Color.lightGray, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
+        labelMines.setBorder(new BasicBorders.ButtonBorder(Color.LIGHT_GRAY, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
         labelMines.setPreferredSize(new Dimension(85, 50));
         labelMines.setHorizontalAlignment(SwingConstants.CENTER);
         labelMines.setFont(new Font("Helvetica", Font.PLAIN, 25));
@@ -104,13 +104,13 @@ public class AppView implements View {
         labelTime.setForeground(Color.DARK_GRAY);
         labelTime.setHorizontalAlignment(SwingConstants.CENTER);
         labelTime.setFont(new Font("Helvetica", Font.PLAIN, 25));
-        labelTime.setBorder(new BasicBorders.FieldBorder(Color.lightGray, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
+        labelTime.setBorder(new BasicBorders.FieldBorder(Color.LIGHT_GRAY, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
         contentPane.add(labelTime, c);
 
         c.gridx = 0;
         c.gridy = 2;
         c.gridwidth = 3;
-        gamePanel.setBorder(new BasicBorders.FieldBorder(Color.lightGray, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
+        gamePanel.setBorder(new BasicBorders.FieldBorder(Color.LIGHT_GRAY, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
         contentPane.add(gamePanel, c);
         listener.needDraw();
     }
@@ -162,7 +162,12 @@ public class AppView implements View {
     public String onIsWin() {
         gameField2.repaint();
         Object[] message = new Object[]{"ВЫ ВЫИГРАЛИ! ПОЗДРАВЛЯЕМ!!!", "Введите Ваше имя:"};
-        return JOptionPane.showInputDialog(frame, message, "Конец игры", JOptionPane.PLAIN_MESSAGE);
+        String name = JOptionPane.showInputDialog(frame, message, "Конец игры", JOptionPane.PLAIN_MESSAGE);
+
+        if (name == null) {
+            name = "Неизвестный игрок";
+        }
+        return name;
     }
 }
 
