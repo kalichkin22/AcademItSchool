@@ -16,7 +16,7 @@ class HighScoresDialog extends JDialog {
     }
 
     void createDialog() {
-        this.setMinimumSize(new Dimension(300, 150));
+        this.setMinimumSize(new Dimension(300, 400));
         this.pack();
         this.setLocationRelativeTo(null);
 
@@ -37,5 +37,6 @@ class HighScoresDialog extends JDialog {
         JScrollPane scrollPane = new JScrollPane(table);
         this.getContentPane().add(scrollPane);
         this.setVisible(true);
+        this.getOwner().setVisible(false);
     }
 }

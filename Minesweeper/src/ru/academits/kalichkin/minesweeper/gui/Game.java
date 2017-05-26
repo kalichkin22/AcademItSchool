@@ -3,7 +3,6 @@ package ru.academits.kalichkin.minesweeper.gui;
 
 import ru.academits.kalichkin.minesweeper.common.View;
 import ru.academits.kalichkin.minesweeper.common.ViewListener;
-import ru.academits.kalichkin.minesweeper.controller.Controller;
 import ru.academits.kalichkin.minesweeper.model.*;
 import ru.academits.kalichkin.minesweeper.model.Action;
 
@@ -15,10 +14,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 
-public class AppView implements View {
+
+public class Game implements View {
     private ViewListener listener;
     private final JFrame frame = new JFrame("Minesweeper");
     private JLabel labelMines = new JLabel();
@@ -26,7 +24,7 @@ public class AppView implements View {
     private JPanel gamePanel = new JPanel();
     private GameField2 gameField2;
     private JLabel timerGame;
-    private JMenuItem setting = new JMenuItem("Setting");
+    private JButton menu = new JButton("Меню");
     private Click click;
 
     private final static boolean SHOULD_WEIGHT_X = true;
@@ -68,14 +66,13 @@ public class AppView implements View {
             initEvents();
         });
 
-        setting.addActionListener(e -> {
-            try {
-                HighScoresDialog dialog = new HighScoresDialog(frame, "Таблица рекордов", listener.needReadScores(Controller.SCORES_FILE_NAME));
-                dialog.createDialog();
-            } catch (FileNotFoundException e1) {
-                e1.printStackTrace();
+        menu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FrameMenu menu = new FrameMenu("Меню", listener);
             }
         });
+
     }
 
 
@@ -94,10 +91,11 @@ public class AppView implements View {
 
         c.gridx = 0;
         c.gridy = 0;
-        setting.setBackground(Color.lightGray);
-        setting.setBorder(new BasicBorders.MenuBarBorder(Color.LIGHT_GRAY, Color.DARK_GRAY));
-        setting.setFont(new Font("Helvetica", Font.PLAIN, 15));
-        contentPane.add(setting, c);
+        menu.setBorderPainted(false);
+        menu.setBorder(new BasicBorders.MenuBarBorder(Color.LIGHT_GRAY, Color.DARK_GRAY));
+        menu.setBackground(Color.lightGray);
+        menu.setFont(new Font("Helvetica", Font.PLAIN, 15));
+        contentPane.add(menu, c);
 
         c.gridx = 0;
         c.gridy = 1;
@@ -117,6 +115,7 @@ public class AppView implements View {
 
         c.gridx = 2;
         c.gridy = 1;
+
         timerGame = listener.needStartTimer();
         timerGame.setPreferredSize(new Dimension(85, 50));
         timerGame.setForeground(Color.DARK_GRAY);

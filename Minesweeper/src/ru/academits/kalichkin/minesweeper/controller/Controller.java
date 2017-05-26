@@ -112,7 +112,7 @@ public class Controller implements ViewListener {
 
     @Override
     public JLabel needStartTimer() {
-       return timerGame = new TimerGame();
+        return timerGame = new TimerGame();
     }
 
 

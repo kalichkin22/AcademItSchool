@@ -1,13 +1,13 @@
 import ru.academits.kalichkin.minesweeper.common.View;
 import ru.academits.kalichkin.minesweeper.controller.Controller;
-import ru.academits.kalichkin.minesweeper.gui.AppView;
+import ru.academits.kalichkin.minesweeper.gui.Game;
 import ru.academits.kalichkin.minesweeper.model.Field;
 
 
 
 public class MinesweeperApp {
     public static void main(String[] args) {
-        View view = new AppView();
+        View view = new Game();
         Field field = new Field(9, 9, 10);
         Controller controller = new Controller(field, view);
         view.setViewListener(controller);
