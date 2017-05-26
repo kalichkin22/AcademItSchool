@@ -55,7 +55,6 @@ class FrameMenu extends JFrame {
                 owner.setVisible(true);
             }
         });
-
     }
 
 
