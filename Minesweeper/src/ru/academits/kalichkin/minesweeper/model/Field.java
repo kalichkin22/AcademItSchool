@@ -154,10 +154,8 @@ public class Field {
                         for (int j = -1; j <= 1; j++) {
                             if ((click.getRow() + i >= 0) && (click.getRow() + i < fieldRow)
                                     && (click.getColumn() + j >= 0) && (click.getColumn() + j < fieldColumn)) {
-                                Cell cell2 = field[click.getRow() + i][click.getColumn() + j];
-                                if (!cell2.isMine() && !cell2.isQuestion() && !cell2.isFlag()) {
-                                    field[click.getRow() + i][click.getColumn() + j].setOpen();
-                                }
+                                Click fakeClick = new Click(click.getRow() + i, click.getColumn() + j, Action.OPEN);
+                                actionCell(fakeClick);
                             }
                         }
                     }
