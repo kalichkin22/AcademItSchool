@@ -3,6 +3,7 @@ package ru.academits.kalichkin.minesweeper.gui;
 
 import ru.academits.kalichkin.minesweeper.common.View;
 import ru.academits.kalichkin.minesweeper.common.ViewListener;
+import ru.academits.kalichkin.minesweeper.controller.Controller;
 import ru.academits.kalichkin.minesweeper.model.*;
 import ru.academits.kalichkin.minesweeper.model.Action;
 
@@ -10,8 +11,12 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class AppView implements View {
     private ViewListener listener;
@@ -61,6 +66,15 @@ public class AppView implements View {
             listener.needBeginnerLevel();
             addComponentsToPanel(frame);
             initEvents();
+        });
+
+        setting.addActionListener(e -> {
+            try {
+                HighScoresDialog dialog = new HighScoresDialog(frame, "Таблица рекордов", listener.needReadScores(Controller.SCORES_FILE_NAME));
+                dialog.createDialog();
+            } catch (FileNotFoundException e1) {
+                e1.printStackTrace();
+            }
         });
     }
 

@@ -10,11 +10,6 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 public class HighScores {
-    private String fileName;
-
-    public String getFileName() {
-        return fileName;
-    }
 
     public ArrayList<PersonWin> readScores(String filename) throws FileNotFoundException {
         ArrayList<PersonWin> list = new ArrayList<>();
@@ -29,7 +24,6 @@ public class HighScores {
     }
 
     public void writeScores(String filename, String name, String time) throws FileNotFoundException {
-        this.fileName = filename;
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(filename, true))) {
             PersonWin person = new PersonWin(name, time);
             writer.println(person);

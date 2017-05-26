@@ -7,6 +7,7 @@ import ru.academits.kalichkin.minesweeper.model.Action;
 
 import javax.swing.*;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -116,7 +117,7 @@ public class Controller implements ViewListener {
 
 
     @Override
-    public List<PersonWin> needReadScores(String fileName) throws FileNotFoundException {
+    public ArrayList<PersonWin> needReadScores(String fileName) throws FileNotFoundException {
         return highScores.readScores(fileName);
     }
 
