@@ -10,9 +10,7 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
+import java.awt.event.*;
 
 public class AppView implements View {
     private ViewListener listener;
@@ -22,7 +20,6 @@ public class AppView implements View {
     private JPanel gamePanel = new JPanel();
     private GameField gameField;
     private JLabel timerGame;
-    private JButton menu = new JButton("Меню");
     private Click click;
 
     private final static boolean SHOULD_WEIGHT_X = true;
@@ -64,14 +61,15 @@ public class AppView implements View {
             initEvents();
         });
 
-        menu.addActionListener(e -> {
-            FrameMenu menu = new FrameMenu(frame,"Меню", listener);
-        });
+
 
     }
 
 
     private void addComponentsToPanel(Container contentPane) {
+        Menu menu = new Menu(frame, listener);
+        menu.addOnFrame("Меню");
+
         GridBagLayout gbl = new GridBagLayout();
         contentPane.setLayout(gbl);
 
@@ -80,15 +78,6 @@ public class AppView implements View {
         if (SHOULD_WEIGHT_X) {
             c.weightx = 0.5;
         }
-
-        c.anchor = GridBagConstraints.FIRST_LINE_START;
-        c.gridx = 0;
-        c.gridy = 0;
-        menu.setBorderPainted(false);
-        menu.setForeground(Color.DARK_GRAY);
-        menu.setFont(new Font("Helvetica", Font.PLAIN, 15));
-        menu.setBorder(new BasicBorders.MenuBarBorder(Color.LIGHT_GRAY, Color.DARK_GRAY));
-        contentPane.add(menu, c);
 
 
         c.fill = GridBagConstraints.CENTER;
