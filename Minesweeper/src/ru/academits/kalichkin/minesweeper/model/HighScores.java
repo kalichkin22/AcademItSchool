@@ -23,6 +23,7 @@ public class HighScores {
         return list;
     }
 
+
     public void writeScores(String filename, String name, String time) throws FileNotFoundException {
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(filename, true))) {
             PersonWin person = new PersonWin(name, time);

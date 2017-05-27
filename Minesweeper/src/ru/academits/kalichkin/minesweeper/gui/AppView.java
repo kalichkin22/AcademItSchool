@@ -19,7 +19,7 @@ public class AppView implements View {
     private JButton newGame = new JButton();
     private JPanel gamePanel = new JPanel();
     private GameField gameField;
-    private JLabel timerGame;
+    private TimerGame timerGame = new TimerGame();
     private Click click;
 
     private final static boolean SHOULD_WEIGHT_X = true;
@@ -37,6 +37,7 @@ public class AppView implements View {
 
     private void initEvents() {
         listener.needDraw();
+        listener.needStartTimer(timerGame);
         gameField.setBackground(Color.white);
         gameField.addMouseListener(new MouseAdapter() {
             @Override
@@ -60,7 +61,6 @@ public class AppView implements View {
             addComponentsToPanel(frame);
             initEvents();
         });
-
 
 
     }
@@ -102,7 +102,7 @@ public class AppView implements View {
         c.gridx = 2;
         c.gridy = 1;
 
-        timerGame = listener.needStartTimer();
+        timerGame.setText("00:00");
         timerGame.setPreferredSize(new Dimension(85, 50));
         timerGame.setForeground(Color.DARK_GRAY);
         timerGame.setHorizontalAlignment(SwingConstants.CENTER);

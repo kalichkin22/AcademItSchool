@@ -65,7 +65,6 @@ class Menu {
 
 
     private void initEvents() {
-
         scores.addActionListener(e -> {
             try {
                 HighScoresDialog dialog = new HighScoresDialog(frame, "Таблица рекордов", listener.needReadScores(Controller.SCORES_FILE_NAME));

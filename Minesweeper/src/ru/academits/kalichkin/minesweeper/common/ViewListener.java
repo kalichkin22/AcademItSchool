@@ -26,7 +26,7 @@ public interface ViewListener {
 
     void needUserLevel(int row, int column, int numberOfMines);
 
-    JLabel needStartTimer();
+    void needStartTimer(TimerGame label);
 
     List<PersonWin> needReadScores(String fileName) throws FileNotFoundException;
 

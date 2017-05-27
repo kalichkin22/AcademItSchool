@@ -16,6 +16,7 @@ public class Controller implements ViewListener {
     private Field field;
     private TimerGame timerGame;
     private HighScores highScores = new HighScores();
+    private int firstClick;
 
     public static final String SCORES_FILE_NAME = "scores.txt";
 
@@ -46,10 +47,16 @@ public class Controller implements ViewListener {
     @Override
     public boolean needClick(Click click) {
         field.actionCell(click);
+
+        if (firstClick == 0) {
+            timerGame.startTimer();
+        }
+        firstClick++;
         if (field.isDefeat(click)) {
             timerGame.stopTimer();
             field.showAll();
             view.onDefeat();
+            firstClick = 0;
             return false;
         } else if (field.isWin()) {
             String time = timerGame.stopTimer();
@@ -59,6 +66,7 @@ public class Controller implements ViewListener {
             } catch (FileNotFoundException e) {
                 System.out.printf("Файл %s не найден", SCORES_FILE_NAME);
             }
+            firstClick = 0;
             return false;
         }
         return true;
@@ -111,8 +119,8 @@ public class Controller implements ViewListener {
 
 
     @Override
-    public JLabel needStartTimer() {
-        return timerGame = new TimerGame();
+    public void needStartTimer(TimerGame timerGame) {
+        this.timerGame = timerGame;
     }
 
 

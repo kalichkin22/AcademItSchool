@@ -110,6 +110,7 @@ public class Field {
             setNumberMinesNear();
         }
         countClick++;
+
         switch (click.getAction()) {
             case OPEN:
                 if (!cell.isOpen()) {
@@ -199,6 +200,7 @@ public class Field {
         return countNotOpen == numberOfMines || numberOfMines == getCountFlagTrue();
     }
 
+
     public boolean isDefeat(Click click) {
         return field[click.getRow()][click.getColumn()].isMine()
                 && !field[click.getRow()][click.getColumn()].isFlag() && field[click.getRow()][click.getColumn()].isOpen();
@@ -218,9 +220,11 @@ public class Field {
         return countMines;
     }
 
+
     public int getNumberOfFlags() {
         return numberOfMines - numberOfFlags;
     }
+
 
     public Field getField() {
         return new Field(fieldRow, fieldColumn, numberOfMines);

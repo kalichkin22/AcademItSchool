@@ -10,7 +10,7 @@ public class TimerGame extends JLabel {
     private String timeStop;
 
 
-    public TimerGame() {
+    public void startTimer() {
         TimerTask timerTask = new TimerTask() {
             volatile int time;
             Runnable refresher = new Runnable() {
