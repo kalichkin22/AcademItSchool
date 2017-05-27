@@ -62,6 +62,7 @@ public class AppView implements View {
             gamePanel.remove(gameField);
             timerGame = new TimerGame();
             listener.needNewGame();
+            listener.setFirstClick(0);
             addComponentsToPanel(frame);
             initEvents();
         });

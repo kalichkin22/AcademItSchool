@@ -43,6 +43,10 @@ public class Controller implements ViewListener {
         this.field = field;
     }
 
+    public void setFirstClick(int firstClick) {
+        this.firstClick = firstClick;
+    }
+
 
     @Override
     public boolean needClick(Click click) {

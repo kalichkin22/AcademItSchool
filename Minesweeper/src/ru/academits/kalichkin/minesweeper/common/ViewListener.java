@@ -33,4 +33,6 @@ public interface ViewListener {
     int needNumberOfFlags();
 
     void needNewGame();
+
+    void setFirstClick(int firstClick);
 }

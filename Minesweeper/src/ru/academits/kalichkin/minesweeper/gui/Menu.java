@@ -13,6 +13,7 @@ class Menu {
     private JFrame frame;
     private ViewListener listener;
     private JMenu menu;
+    private JMenuItem newGame;
     private JMenuItem scores;
     private JMenuItem beginner;
     private JMenuItem intermediate;
@@ -46,6 +47,10 @@ class Menu {
         menu = new JMenu(title);
         menu.setFont(font);
 
+        newGame = new JMenuItem("Новая игра");
+        newGame.setFont(font);
+        menu.add(newGame);
+
         scores = new JMenuItem("Таблица рекордов");
         scores.setFont(font);
         menu.add(scores);
@@ -76,7 +81,7 @@ class Menu {
 
         menu.addSeparator();
 
-        exit = new JMenuItem("Exit");
+        exit = new JMenuItem("Выход");
         exit.setFont(font);
         menu.add(exit);
     }
