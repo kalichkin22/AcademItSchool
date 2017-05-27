@@ -1,11 +1,14 @@
 package ru.academits.kalichkin.minesweeper.gui;
 
 
+import ru.academits.kalichkin.minesweeper.common.View;
 import ru.academits.kalichkin.minesweeper.common.ViewListener;
 import ru.academits.kalichkin.minesweeper.controller.Controller;
+import ru.academits.kalichkin.minesweeper.model.TimerGame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
 
 
@@ -23,15 +26,16 @@ class Menu {
     private JMenuItem exit;
 
 
-    Menu(JFrame frame, ViewListener listener) {
+    Menu(ViewListener listener, JFrame frame) {
         this.frame = frame;
         this.listener = listener;
     }
 
-    void addOnFrame(String title) {
+
+    void addOnFrame(String title, AppView view) {
         createMenu(title);
         createMenuBar();
-        initEvents();
+        initEvents(view);
     }
 
 
@@ -87,7 +91,12 @@ class Menu {
     }
 
 
-    private void initEvents() {
+    private void initEvents(AppView view) {
+        newGame.addActionListener((ActionEvent e) -> {
+            view.setNewGame();
+        });
+
+
         scores.addActionListener(e -> {
             try {
                 HighScoresDialog dialog = new HighScoresDialog(frame, "Таблица рекордов", listener.needReadScores(Controller.SCORES_FILE_NAME));
@@ -101,17 +110,19 @@ class Menu {
         beginner.addActionListener(e -> {
             listener.needBeginnerLevel();
             frame.setSize(new Dimension(320, 420));
-
+            view.setNewGame();
         });
 
         intermediate.addActionListener(e -> {
             listener.needIntermediateLevel();
             frame.setSize(new Dimension(500, 600));
+            view.setNewGame();
         });
 
         expert.addActionListener(e -> {
             listener.needExpertLevel();
             frame.setSize(new Dimension(650, 900));
+            view.setNewGame();
         });
 
         user.addActionListener(e -> {

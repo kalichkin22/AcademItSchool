@@ -122,9 +122,8 @@ public class Controller implements ViewListener {
         field = new Field(row, column, numberOfMines);
     }
 
-
     @Override
-    public void needStartTimer(TimerGame timerGame) {
+    public void needSetTimer(TimerGame timerGame) {
         this.timerGame = timerGame;
     }
 

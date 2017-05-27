@@ -37,7 +37,7 @@ public class AppView implements View {
 
     private void initEvents() {
         listener.needDraw();
-        listener.needStartTimer(timerGame);
+        listener.needSetTimer(timerGame);
         gameField.setBackground(Color.white);
         gameField.addMouseListener(new MouseAdapter() {
             @Override
@@ -57,23 +57,21 @@ public class AppView implements View {
             }
         });
 
-        newGame.addActionListener(e -> {
+        newGame.addActionListener((ActionEvent e) -> {
             frame.remove(timerGame);
             gamePanel.remove(gameField);
             timerGame = new TimerGame();
             listener.needNewGame();
             listener.setFirstClick(0);
-            addComponentsToPanel(frame);
-            initEvents();
+            AppView.this.addComponentsToPanel(frame);
+            AppView.this.initEvents();
         });
-
-
     }
 
 
     private void addComponentsToPanel(Container contentPane) {
-        Menu menu = new Menu(frame, listener);
-        menu.addOnFrame("Меню");
+        Menu menu = new Menu(listener, frame);
+        menu.addOnFrame("Меню", this);
 
         GridBagLayout gbl = new GridBagLayout();
         contentPane.setLayout(gbl);
@@ -175,6 +173,16 @@ public class AppView implements View {
             name = "Неизвестный";
         }
         return name;
+    }
+
+    void setNewGame() {
+        frame.remove(timerGame);
+        gamePanel.remove(gameField);
+        timerGame = new TimerGame();
+        listener.needNewGame();
+        listener.setFirstClick(0);
+        AppView.this.addComponentsToPanel(frame);
+        AppView.this.initEvents();
     }
 }
 
