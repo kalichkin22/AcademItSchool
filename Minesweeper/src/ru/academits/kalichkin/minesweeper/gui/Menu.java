@@ -112,7 +112,7 @@ class Menu {
         user.addActionListener(e -> {
             UserLevelDialog dialog = new UserLevelDialog();
             if (dialog.show(frame)) {
-                listener.needUserLevel(dialog.getRow(), dialog.getColumn(), dialog.getMines());
+                listener.needUserLevel(dialog.getColumn(), dialog.getRow(), dialog.getMines());
                 frame.setSize(new Dimension(650, 900));
             }
         });

@@ -15,7 +15,8 @@ class UserLevelDialog {
     private JTextField minesBox;
 
     UserLevelDialog() {
-        rowBox = new JSlider(Controller.MIN_COUNT_ROW, Controller.MAX_COUNT_ROW);
+        rowBox = new JSlider();
+        rowBox = new JSlider(Controller.MIN_COUNT_COLUMN, Controller.MAX_COUNT_COLUMN);
         rowBox.setValueIsAdjusting(true);
 
         row.setFont(new Font("Helvetica", Font.PLAIN, 16));
@@ -25,9 +26,7 @@ class UserLevelDialog {
         rowBox.setPaintTicks(true);
         rowBox.addChangeListener(e -> row.setText(String.valueOf(rowBox.getValue())));
 
-        columnBox = new JSlider();
-
-        columnBox = new JSlider(Controller.MIN_COUNT_COLUMN, Controller.MAX_COUNT_COLUMN);
+        columnBox = new JSlider(Controller.MIN_COUNT_ROW, Controller.MAX_COUNT_ROW);
         columnBox.setValueIsAdjusting(true);
 
         column.setFont(new Font("Helvetica", Font.PLAIN, 16));
@@ -37,16 +36,15 @@ class UserLevelDialog {
         columnBox.setPaintTicks(true);
         columnBox.addChangeListener(e -> column.setText(String.valueOf(columnBox.getValue())));
 
-
         minesBox = new JTextField();
-    }
-
-    int getRow() {
-        return rowBox.getValue();
     }
 
     int getColumn() {
         return columnBox.getValue();
+    }
+
+    int getRow() {
+        return rowBox.getValue();
     }
 
     int getMines() {
@@ -54,7 +52,7 @@ class UserLevelDialog {
     }
 
     private Object[] createData() {
-        return new Object[]{"Выберете колличество строк:", column, columnBox, "Выберете колличество столбцов:", row, rowBox,
+        return new Object[]{"Выберете колличество строк:", row, rowBox, "Выберете колличество столбцов:", column, columnBox,
                 "Введите колличество мин:", minesBox};
     }
 
