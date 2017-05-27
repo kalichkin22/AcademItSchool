@@ -16,7 +16,7 @@ class HighScoresDialog extends JDialog {
     }
 
     void createDialog() {
-        this.setMinimumSize(new Dimension(300, 400));
+        this.setMinimumSize(new Dimension(320, 420));
         this.pack();
         this.setLocationRelativeTo(null);
 

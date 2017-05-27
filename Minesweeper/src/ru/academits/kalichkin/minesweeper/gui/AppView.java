@@ -30,7 +30,7 @@ public class AppView implements View {
 
     private void createFrame() {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(300, 400));
+        frame.setMinimumSize(new Dimension(320, 420));
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
@@ -42,14 +42,18 @@ public class AppView implements View {
         gameField.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                Action action = listener.needAction(e.getButton());
-                int row = e.getX() / GameField.BLOCK_SIZE;
-                int column = e.getY() / GameField.BLOCK_SIZE;
-                click = new Click(row, column, action);
-                listener.needClick(click);
+                try {
+                    Action action = listener.needAction(e.getButton());
+                    int row = e.getX() / GameField.BLOCK_SIZE;
+                    int column = e.getY() / GameField.BLOCK_SIZE;
+                    click = new Click(row, column, action);
+                    listener.needClick(click);
 
-                labelMines.setText(String.valueOf(listener.needNumberOfFlags()));
-                gameField.repaint();
+                    labelMines.setText(String.valueOf(listener.needNumberOfFlags()));
+                    gameField.repaint();
+                } catch (IllegalStateException el) {
+                    JOptionPane.showMessageDialog(frame, "Игра окончена, начните новую ;)", null, JOptionPane.PLAIN_MESSAGE);
+                }
             }
         });
 
@@ -163,7 +167,7 @@ public class AppView implements View {
     @Override
     public String onIsWin() {
         gameField.repaint();
-        Object[] message = new Object[]{"   ВЫ ВЫИГРАЛИ! ПОЗДРАВЛЯЕМ!!!", "Введите Ваше имя без пробелов:"};
+        Object[] message = new Object[]{"ВЫ ВЫИГРАЛИ! ПОЗДРАВЛЯЕМ!!!", "Введите Ваше имя без пробелов:"};
         String name = JOptionPane.showInputDialog(frame, message, "Конец игры", JOptionPane.PLAIN_MESSAGE);
 
         if (name == null) {

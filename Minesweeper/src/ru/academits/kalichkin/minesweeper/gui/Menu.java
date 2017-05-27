@@ -12,10 +12,12 @@ import java.io.FileNotFoundException;
 class Menu {
     private JFrame frame;
     private ViewListener listener;
-    private JMenuBar menuBar;
     private JMenu menu;
     private JMenuItem scores;
-    private JMenuItem setting;
+    private JMenuItem beginner;
+    private JMenuItem intermediate;
+    private JMenuItem expert;
+    private JMenuItem user;
     private JMenuItem about;
     private JMenuItem exit;
 
@@ -33,13 +35,13 @@ class Menu {
 
 
     private void createMenuBar() {
-        menuBar = new JMenuBar();
+        JMenuBar menuBar = new JMenuBar();
         menuBar.add(menu);
         frame.setJMenuBar(menuBar);
     }
 
 
-    private void createMenu(String title){
+    private void createMenu(String title) {
         Font font = new Font("Verdana", Font.PLAIN, 12);
         menu = new JMenu(title);
         menu.setFont(font);
@@ -48,9 +50,25 @@ class Menu {
         scores.setFont(font);
         menu.add(scores);
 
-        setting = new JMenuItem("Настройки");
-        setting.setFont(font);
-        menu.add(setting);
+        JMenu level = new JMenu("Уровень");
+        level.setFont(font);
+        menu.add(level);
+
+        beginner = new JMenuItem("Новичек");
+        beginner.setFont(font);
+        level.add(beginner);
+
+        intermediate = new JMenuItem("Любитель");
+        intermediate.setFont(font);
+        level.add(intermediate);
+
+        expert = new JMenuItem("Профессионал");
+        expert.setFont(font);
+        level.add(expert);
+
+        user = new JMenuItem("Пользовательский");
+        user.setFont(font);
+        level.add(user);
 
         about = new JMenuItem("О игре");
         about.setFont(font);
@@ -71,6 +89,31 @@ class Menu {
                 dialog.createDialog();
             } catch (FileNotFoundException e1) {
                 e1.printStackTrace();
+            }
+        });
+
+
+        beginner.addActionListener(e -> {
+            listener.needBeginnerLevel();
+            frame.setSize(new Dimension(320, 420));
+
+        });
+
+        intermediate.addActionListener(e -> {
+            listener.needIntermediateLevel();
+            frame.setSize(new Dimension(500, 600));
+        });
+
+        expert.addActionListener(e -> {
+            listener.needExpertLevel();
+            frame.setSize(new Dimension(650, 900));
+        });
+
+        user.addActionListener(e -> {
+            UserLevelDialog dialog = new UserLevelDialog();
+            if (dialog.show(frame)) {
+                listener.needUserLevel(dialog.getRow(), dialog.getColumn(), dialog.getMines());
+                frame.setSize(new Dimension(650, 900));
             }
         });
 

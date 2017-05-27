@@ -20,10 +20,10 @@ public class Controller implements ViewListener {
 
     public static final String SCORES_FILE_NAME = "scores.txt";
 
-    private static final int MIN_COUNT_ROW = 8;
-    private static final int MAX_COUNT_ROW = 24;
-    private static final int MIN_COUNT_COLUMN = 8;
-    private static final int MAX_COUNT_COLUMN = 30;
+    public static final int MIN_COUNT_ROW = 8;
+    public static final int MAX_COUNT_ROW = 20;
+    public static final int MIN_COUNT_COLUMN = 8;
+    public static final int MAX_COUNT_COLUMN = 20;
 
     private static final int BEGINNER_MINES = 10;
     private static final int BEGINNER_NUMBER_ROWS = 9;
@@ -51,6 +51,7 @@ public class Controller implements ViewListener {
         if (firstClick == 0) {
             timerGame.startTimer();
         }
+
         firstClick++;
         if (field.isDefeat(click)) {
             timerGame.stopTimer();

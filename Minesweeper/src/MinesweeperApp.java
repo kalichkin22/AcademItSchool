@@ -2,7 +2,7 @@ import ru.academits.kalichkin.minesweeper.common.View;
 import ru.academits.kalichkin.minesweeper.controller.Controller;
 import ru.academits.kalichkin.minesweeper.gui.AppView;
 import ru.academits.kalichkin.minesweeper.model.Field;
-
+import ru.academits.kalichkin.minesweeper.text.TextView;
 
 
 public class MinesweeperApp {

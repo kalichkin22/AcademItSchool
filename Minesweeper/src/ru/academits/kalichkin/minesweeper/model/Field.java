@@ -51,22 +51,22 @@ public class Field {
 
 
     private void setNumberMinesNear() {
-        for (int row = 0; row < fieldColumn; row++) {
-            for (int column = 0; column < fieldRow; column++) {
-                if (!field[column][row].isMine()) {
+        for (int column = 0; column < fieldColumn; column++) {
+            for (int row = 0; row < fieldRow; row++) {
+                if (!field[row][column].isMine()) {
                     int count = 0;
                     for (int i = -1; i <= 1; i++) {
                         for (int j = -1; j <= 1; j++) {
-                            int x = row + i;
-                            int y = column + j;
+                            int x = column + i;
+                            int y = row + j;
                             if (x < 0 || y < 0 || x > fieldColumn - 1 || y > fieldRow - 1) {
-                                x = row;
-                                y = column;
+                                x = column;
+                                y = row;
                             }
                             count += field[y][x].isMine() ? 1 : 0;
                         }
                     }
-                    field[column][row].setAmountMinesNear(count);
+                    field[row][column].setAmountMinesNear(count);
                 }
             }
         }
