@@ -1,8 +1,9 @@
+package ru.academits.kalichkin.minesweeper;
+
 import ru.academits.kalichkin.minesweeper.common.View;
 import ru.academits.kalichkin.minesweeper.controller.Controller;
 import ru.academits.kalichkin.minesweeper.gui.AppView;
 import ru.academits.kalichkin.minesweeper.model.Field;
-
 
 
 public class MinesweeperApp {

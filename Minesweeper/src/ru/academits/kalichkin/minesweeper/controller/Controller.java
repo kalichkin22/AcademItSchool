@@ -2,11 +2,13 @@ package ru.academits.kalichkin.minesweeper.controller;
 
 import ru.academits.kalichkin.minesweeper.common.View;
 import ru.academits.kalichkin.minesweeper.common.ViewListener;
+import ru.academits.kalichkin.minesweeper.gui.AppView;
 import ru.academits.kalichkin.minesweeper.model.*;
 import ru.academits.kalichkin.minesweeper.model.Action;
 
 import javax.swing.*;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +51,7 @@ public class Controller implements ViewListener {
 
 
     @Override
-    public boolean needClick(Click click) {
+    public boolean needClick(Click click) throws IOException {
         field.actionCell(click);
 
         if (firstClick == 0) {
@@ -85,7 +87,7 @@ public class Controller implements ViewListener {
 
 
     @Override
-    public void needDraw() {
+    public void needDraw() throws IOException {
         view.onDraw(field);
     }
 

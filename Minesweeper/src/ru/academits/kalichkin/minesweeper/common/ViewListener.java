@@ -5,14 +5,15 @@ import ru.academits.kalichkin.minesweeper.model.Action;
 
 import javax.swing.*;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 
 public interface ViewListener {
 
-    void needDraw();
+    void needDraw() throws IOException;
 
-    boolean needClick(Click click);
+    boolean needClick(Click click) throws IOException;
 
     int getCountFlagTrue();
 

@@ -5,12 +5,15 @@ import ru.academits.kalichkin.minesweeper.controller.Controller;
 import ru.academits.kalichkin.minesweeper.model.*;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 public class TextView implements View {
     private ViewListener listener;
     private Scanner scanner = new Scanner(System.in);
     private TimerGame timerGame = new TimerGame();
+
+    public static String USER_NAME;
 
     private void initEvents() {
         while (true) {
@@ -99,14 +102,14 @@ public class TextView implements View {
     }
 
     @Override
-    public void onDefeat() {
+    public void onDefeat() throws IOException {
         listener.needDraw();
         System.out.println("Вы проиграли!");
         System.out.println("Угадано мин: " + listener.getCountFlagTrue() + System.lineSeparator());
     }
 
     @Override
-    public String onIsWin() {
+    public String onIsWin() throws IOException {
         String name = "";
         while (name.equals("")) {
             listener.needDraw();
@@ -190,6 +193,8 @@ public class TextView implements View {
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Выход за границы поля, попробуйте еще раз");
             setClick();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

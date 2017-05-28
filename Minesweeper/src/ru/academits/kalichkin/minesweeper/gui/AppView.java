@@ -1,6 +1,5 @@
 package ru.academits.kalichkin.minesweeper.gui;
 
-
 import ru.academits.kalichkin.minesweeper.common.View;
 import ru.academits.kalichkin.minesweeper.common.ViewListener;
 import ru.academits.kalichkin.minesweeper.model.*;
@@ -11,6 +10,7 @@ import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
 
 import java.awt.event.*;
+import java.io.IOException;
 
 public class AppView implements View {
     private ViewListener listener;
@@ -21,6 +21,7 @@ public class AppView implements View {
     private GameField gameField;
     private TimerGame timerGame = new TimerGame();
     private Click click;
+    private static String USER_NAME;
 
     private final static boolean SHOULD_WEIGHT_X = true;
     private static final String SMILE_HAPPY = "/res/Happy.png";
@@ -35,7 +36,7 @@ public class AppView implements View {
         frame.setVisible(true);
     }
 
-    private void initEvents() {
+    private void initEvents() throws IOException {
         listener.needDraw();
         listener.needSetTimer(timerGame);
         gameField.setBackground(Color.white);
@@ -53,11 +54,19 @@ public class AppView implements View {
                     gameField.repaint();
                 } catch (IllegalStateException el) {
                     JOptionPane.showMessageDialog(frame, "Игра окончена, начните новую ;)", null, JOptionPane.PLAIN_MESSAGE);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
                 }
             }
         });
 
-        newGame.addActionListener((ActionEvent e) -> setNewGame());
+        newGame.addActionListener((ActionEvent e) -> {
+            try {
+                setNewGame();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
     }
 
 
@@ -119,13 +128,17 @@ public class AppView implements View {
         SwingUtilities.invokeLater(() -> {
             createFrame();
             addComponentsToPanel(frame);
-            initEvents();
+            try {
+                initEvents();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 
 
     @Override
-    public void onDraw(Field field) {
+    public void onDraw(Field field) throws IOException {
         gameField = new GameField(field);
         gamePanel.add(gameField);
     }
@@ -160,22 +173,22 @@ public class AppView implements View {
     public String onIsWin() {
         gameField.repaint();
         Object[] message = new Object[]{"ВЫ ВЫИГРАЛИ! ПОЗДРАВЛЯЕМ!!!", "Введите Ваше имя без пробелов:"};
-        String name = JOptionPane.showInputDialog(frame, message, "Конец игры", JOptionPane.PLAIN_MESSAGE);
+        String name = JOptionPane.showInputDialog(frame, message, "Конец игры", JOptionPane.QUESTION_MESSAGE);
 
-        if (name == null) {
+        if (name == null || name.equals("")) {
             name = "Неизвестный";
         }
         return name;
     }
 
-    void setNewGame() {
+    void setNewGame() throws IOException {
         frame.remove(timerGame);
-        gamePanel.remove(gameField);
+        gamePanel.removeAll();
         timerGame = new TimerGame();
-        listener.needNewGame();
         listener.setFirstClick(0);
-        AppView.this.addComponentsToPanel(frame);
-        AppView.this.initEvents();
+        listener.needNewGame();
+        addComponentsToPanel(frame);
+        initEvents();
     }
 }
 

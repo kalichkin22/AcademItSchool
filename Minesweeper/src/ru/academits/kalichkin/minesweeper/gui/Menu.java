@@ -6,7 +6,9 @@ import ru.academits.kalichkin.minesweeper.controller.Controller;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 
 class Menu {
@@ -89,8 +91,16 @@ class Menu {
 
 
     private void initEvents(AppView view) {
-        newGame.addActionListener(e -> view.setNewGame());
+        newGame.addActionListener(e -> {
+            try {
+                view.setNewGame();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
 
+        newGame.setMnemonic('X');
+        newGame.setAccelerator(KeyStroke.getKeyStroke('X', KeyEvent.CTRL_MASK));
 
         scores.addActionListener(e -> {
             try {
@@ -101,33 +111,64 @@ class Menu {
             }
         });
 
+        scores.setMnemonic('S');
+        scores.setAccelerator(KeyStroke.getKeyStroke('S', KeyEvent.CTRL_MASK));
+
 
         beginner.addActionListener(e -> {
             listener.needBeginnerLevel();
             frame.setSize(new Dimension(320, 420));
-            view.setNewGame();
+            try {
+                view.setNewGame();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         });
+
+        beginner.setMnemonic('A');
+        beginner.setAccelerator(KeyStroke.getKeyStroke('A', KeyEvent.CTRL_MASK));
 
         intermediate.addActionListener(e -> {
             listener.needIntermediateLevel();
             frame.setSize(new Dimension(500, 600));
-            view.setNewGame();
+            try {
+                view.setNewGame();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         });
+
+        intermediate.setMnemonic('D');
+        intermediate.setAccelerator(KeyStroke.getKeyStroke('D', KeyEvent.CTRL_MASK));
 
         expert.addActionListener(e -> {
             listener.needExpertLevel();
             frame.setSize(new Dimension(650, 900));
-            view.setNewGame();
+            try {
+                view.setNewGame();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         });
+
+        expert.setMnemonic('F');
+        expert.setAccelerator(KeyStroke.getKeyStroke('F', KeyEvent.CTRL_MASK));
 
         user.addActionListener(e -> {
             UserLevelDialog dialog = new UserLevelDialog();
             if (dialog.show(frame)) {
                 listener.needUserLevel(dialog.getColumn(), dialog.getRow(), dialog.getMines());
                 frame.setSize(new Dimension(650, 900));
-                view.setNewGame();
+                try {
+                    view.setNewGame();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
+
+        user.setMnemonic('X');
+        user.setAccelerator(KeyStroke.getKeyStroke('X', KeyEvent.CTRL_MASK));
 
 
         about.addActionListener(e -> {
@@ -135,7 +176,13 @@ class Menu {
             aboutFrame.createFrame();
         });
 
+        about.setMnemonic('Z');
+        about.setAccelerator(KeyStroke.getKeyStroke('Z', KeyEvent.CTRL_MASK));
+
         exit.addActionListener(e -> System.exit(0));
+
+        exit.setMnemonic('W');
+        exit.setAccelerator(KeyStroke.getKeyStroke('W', KeyEvent.CTRL_MASK));
     }
 
 }

@@ -17,23 +17,23 @@ public class GameField extends JPanel {
     static final int BLOCK_SIZE = 30;
     private JLabel[][] labels;
 
-    private static final String FLAG = "/res/flag.png";
-    private static final String QUESTION = "/res/question.png";
-    private static final String MINE = "/res/mine.png";
-    private static final String NUMBER_1 = "/res/1.png";
-    private static final String NUMBER_2 = "/res/2.png";
-    private static final String NUMBER_3 = "/res/3.png";
-    private static final String NUMBER_4 = "/res/4.png";
-    private static final String NUMBER_5 = "/res/5.png";
-    private static final String NUMBER_6 = "/res/6.png";
-    private static final String NUMBER_7 = "/res/7.png";
-    private static final String NUMBER_8 = "/res/8.png";
-    private static final String BROKEN_FLAG = "/res/broken_flag.png";
-    private static final String QUESTION_WITHOUT_MINE = "/res/Question-30.png";
-    private static final String QUESTION_WITH_MINE = "/res/Question3.png";
 
+    private BufferedImage mine = ImageIO.read(getClass().getResource("/res/mine.png"));
+    private BufferedImage flag = ImageIO.read(getClass().getResource("/res/flag.png"));
+    private BufferedImage question = ImageIO.read(getClass().getResource("/res/question.png"));
+    private BufferedImage img1 = ImageIO.read(getClass().getResource("/res/1.png"));
+    private BufferedImage img2 = ImageIO.read(getClass().getResource("/res/2.png"));
+    private BufferedImage img3 = ImageIO.read(getClass().getResource("/res/3.png"));
+    private BufferedImage img4 = ImageIO.read(getClass().getResource("/res/4.png"));
+    private BufferedImage img5 = ImageIO.read(getClass().getResource("/res/5.png"));
+    private BufferedImage img6 = ImageIO.read(getClass().getResource("/res/6.png"));
+    private BufferedImage img7 = ImageIO.read(getClass().getResource("/res/7.png"));
+    private BufferedImage img8 = ImageIO.read(getClass().getResource("/res/8.png"));
+    private BufferedImage brokenFlag = ImageIO.read(getClass().getResource("/res/broken_flag.png"));
+    private BufferedImage question2 = ImageIO.read(getClass().getResource("/res/Question-30.png"));
+    private BufferedImage question3 = ImageIO.read(getClass().getResource("/res/Question3.png"));
 
-    GameField(Field field) {
+    GameField(Field field) throws IOException {
         this.field = field;
         this.setLayout(new GridLayout(field.getFieldColumn(), field.getFieldRow()));
         this.setMinimumSize(new Dimension(650, 900));
@@ -79,61 +79,46 @@ public class GameField extends JPanel {
             g.fill3DRect(row * BLOCK_SIZE, column * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, true);
 
             if (cell.isFlag()) {
-                BufferedImage flag = ImageIO.read(getClass().getResource(FLAG));
                 addImage(g, flag, row, column, Color.lightGray);
             } else if (cell.isQuestion()) {
-                BufferedImage question = ImageIO.read(getClass().getResource(QUESTION));
                 addImage(g, question, row, column, Color.lightGray);
             }
         } else if (cell.isMine() && !cell.isFlag()) {
-            BufferedImage mine = ImageIO.read(getClass().getResource(MINE));
             addImage(g, mine, row, column, Color.white);
         } else if (cell.getAmountMinesNear() > 0) {
             if (cell.getAmountMinesNear() == 1) {
-                BufferedImage img1 = ImageIO.read(getClass().getResource(NUMBER_1));
                 addImage(g, img1, row, column, Color.white);
             } else if (cell.getAmountMinesNear() == 2) {
-                BufferedImage img2 = ImageIO.read(getClass().getResource(NUMBER_2));
                 addImage(g, img2, row, column, Color.white);
             } else if (cell.getAmountMinesNear() == 3) {
-                BufferedImage img3 = ImageIO.read(getClass().getResource(NUMBER_3));
                 addImage(g, img3, row, column, Color.white);
             } else if (cell.getAmountMinesNear() == 4) {
-                BufferedImage img4 = ImageIO.read(getClass().getResource(NUMBER_4));
                 addImage(g, img4, row, column, Color.white);
             } else if (cell.getAmountMinesNear() == 5) {
-                BufferedImage img5 = ImageIO.read(getClass().getResource(NUMBER_5));
                 addImage(g, img5, row, column, Color.white);
             } else if (cell.getAmountMinesNear() == 6) {
-                BufferedImage img6 = ImageIO.read(getClass().getResource(NUMBER_6));
                 addImage(g, img6, row, column, Color.white);
             } else if (cell.getAmountMinesNear() == 7) {
-                BufferedImage img7 = ImageIO.read(getClass().getResource(NUMBER_7));
                 addImage(g, img7, row, column, Color.white);
             } else if (cell.getAmountMinesNear() == 8) {
-                BufferedImage img8 = ImageIO.read(getClass().getResource(NUMBER_8));
                 addImage(g, img8, row, column, Color.white);
             }
         }
 
         if (cell.isFlag() && cell.isOpen()) {
-            BufferedImage flag = ImageIO.read(getClass().getResource(FLAG));
             addImage(g, flag, row, column, Color.white);
         }
 
         if (cell.isFlag() && !cell.isMine() && cell.isOpen()) {
-            BufferedImage brokenFlag = ImageIO.read(getClass().getResource(BROKEN_FLAG));
             addImage(g, brokenFlag, row, column, Color.white);
         }
 
         if (cell.isQuestion() && !cell.isMine() && cell.isOpen()) {
-            BufferedImage question = ImageIO.read(getClass().getResource(QUESTION_WITHOUT_MINE));
-            addImage(g, question, row, column, Color.white);
+            addImage(g, question2, row, column, Color.white);
         }
 
         if (cell.isQuestion() && cell.isMine() && cell.isOpen()) {
-            BufferedImage question = ImageIO.read(getClass().getResource(QUESTION_WITH_MINE));
-            addImage(g, question, row, column, Color.white);
+            addImage(g, question3, row, column, Color.white);
         }
     }
 
