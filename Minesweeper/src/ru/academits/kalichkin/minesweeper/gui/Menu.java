@@ -9,6 +9,7 @@ import ru.academits.kalichkin.minesweeper.model.TimerGame;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
 
@@ -131,6 +132,11 @@ class Menu {
                 listener.needUserLevel(dialog.getColumn(), dialog.getRow(), dialog.getMines());
                 frame.setSize(new Dimension(650, 900));
             }
+        });
+
+
+        about.addActionListener(e -> {
+            AboutDialog dialog = new AboutDialog();
         });
 
         exit.addActionListener(e -> System.exit(0));
