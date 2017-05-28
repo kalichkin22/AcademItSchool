@@ -171,10 +171,11 @@ public class AppView implements View {
     @Override
     public String onIsWin() {
         gameField.repaint();
-        String name = null;
-        WinDialog winDialog = new WinDialog(frame);
-        if (winDialog.show(frame)) {
-            name = winDialog.getName();
+        Object[] message = new Object[]{"ВЫ ВЫИГРАЛИ! ПОЗДРАВЛЯЕМ!!!", "Введите Ваше имя без пробелов:"};
+        String name = JOptionPane.showInputDialog(frame, message, "Конец игры", JOptionPane.QUESTION_MESSAGE);
+
+        if (name == null || name.equals("")) {
+            name = "Неизвестный";
         }
         return name;
     }

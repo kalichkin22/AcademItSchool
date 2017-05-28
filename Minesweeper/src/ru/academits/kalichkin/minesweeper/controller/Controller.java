@@ -67,11 +67,7 @@ public class Controller implements ViewListener {
             String time = timerGame.stopTimer();
             field.showAll();
             try {
-                if (view.onIsWin() == null) {
-                    return true;
-                } else {
-                    highScores.writeScores(SCORES_FILE_NAME, view.onIsWin(), time);
-                }
+                highScores.writeScores(SCORES_FILE_NAME, view.onIsWin(), time);
             } catch (FileNotFoundException e) {
                 System.out.printf("Файл %s не найден", SCORES_FILE_NAME);
             }
