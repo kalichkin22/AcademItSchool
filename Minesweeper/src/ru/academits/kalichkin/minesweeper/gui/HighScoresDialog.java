@@ -37,6 +37,7 @@ class HighScoresDialog extends JDialog {
         NumberedModel numberedModel = new NumberedModel(table.getModel());
         table.setModel(numberedModel);
         table.setFont(new Font("TimesNewRoman", Font.PLAIN, 15));
+        table.getColumn("Место").setPreferredWidth(0);
         table.setEnabled(false);
         JScrollPane scrollPane = new JScrollPane(table);
         this.getContentPane().add(scrollPane);
@@ -74,7 +75,7 @@ class HighScoresDialog extends JDialog {
         @Override
         public String getColumnName(int column) {
             if (column == 0) {
-                return "Номер";
+                return "Место";
             } else {
                 return tableModel.getColumnName(column - 1);
             }
