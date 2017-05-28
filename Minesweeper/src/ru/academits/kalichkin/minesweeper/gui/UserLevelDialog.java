@@ -39,9 +39,11 @@ class UserLevelDialog {
         minesBox = new JTextField();
     }
 
+
     int getColumn() {
         return columnBox.getValue();
     }
+
 
     int getRow() {
         return rowBox.getValue();
@@ -53,7 +55,7 @@ class UserLevelDialog {
 
     private Object[] createData() {
         return new Object[]{"Выберете колличество строк:", row, rowBox, "Выберете колличество столбцов:", column, columnBox,
-                "Введите колличество мин:", minesBox};
+                "Введите колличество мин, не больше чем:", minesBox};
     }
 
 

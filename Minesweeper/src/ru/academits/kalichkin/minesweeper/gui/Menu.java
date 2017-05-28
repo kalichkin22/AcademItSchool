@@ -1,15 +1,11 @@
 package ru.academits.kalichkin.minesweeper.gui;
 
-
-import ru.academits.kalichkin.minesweeper.common.View;
 import ru.academits.kalichkin.minesweeper.common.ViewListener;
 import ru.academits.kalichkin.minesweeper.controller.Controller;
-import ru.academits.kalichkin.minesweeper.model.TimerGame;
+
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
 
@@ -33,8 +29,8 @@ class Menu {
     }
 
 
-    void addOnFrame(String title, AppView view) {
-        createMenu(title);
+    void addOnFrame(AppView view) {
+        createMenu();
         createMenuBar();
         initEvents(view);
     }
@@ -47,9 +43,9 @@ class Menu {
     }
 
 
-    private void createMenu(String title) {
+    private void createMenu() {
         Font font = new Font("Verdana", Font.PLAIN, 12);
-        menu = new JMenu(title);
+        menu = new JMenu("Меню");
         menu.setFont(font);
 
         newGame = new JMenuItem("Новая игра");
@@ -93,9 +89,7 @@ class Menu {
 
 
     private void initEvents(AppView view) {
-        newGame.addActionListener((ActionEvent e) -> {
-            view.setNewGame();
-        });
+        newGame.addActionListener(e -> view.setNewGame());
 
 
         scores.addActionListener(e -> {
@@ -136,7 +130,8 @@ class Menu {
 
 
         about.addActionListener(e -> {
-            AboutDialog dialog = new AboutDialog();
+            AboutFrame aboutFrame = new AboutFrame();
+            aboutFrame.createFrame();
         });
 
         exit.addActionListener(e -> System.exit(0));

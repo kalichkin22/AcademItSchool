@@ -211,9 +211,12 @@ public class Field {
         int countMines = 0;
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                Cell cell = this.field[click.getRow() + i][click.getColumn() + j];
-                if (cell.isFlag() && cell.isMine()) {
-                    countMines++;
+                if ((click.getRow() + i >= 0) && (click.getRow() + i < fieldRow)
+                        && (click.getColumn() + j >= 0) && (click.getColumn() + j < fieldColumn)) {
+                    Cell cell = this.field[click.getRow() + i][click.getColumn() + j];
+                    if (cell.isFlag() && cell.isMine()) {
+                        countMines++;
+                    }
                 }
             }
         }

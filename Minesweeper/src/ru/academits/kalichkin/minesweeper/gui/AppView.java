@@ -71,7 +71,7 @@ public class AppView implements View {
 
     private void addComponentsToPanel(Container contentPane) {
         Menu menu = new Menu(listener, frame);
-        menu.addOnFrame("Меню", this);
+        menu.addOnFrame(this);
 
         GridBagLayout gbl = new GridBagLayout();
         contentPane.setLayout(gbl);

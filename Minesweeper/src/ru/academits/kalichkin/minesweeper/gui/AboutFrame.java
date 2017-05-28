@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.text.*;
 
 
-class AboutDialog extends JFrame {
+class AboutFrame extends JFrame {
     private Style heading;
     private Style normal;
     private final String STYLE_heading = "heading";
@@ -35,15 +35,18 @@ class AboutDialog extends JFrame {
             {"Удачной игры!", "heading"}};
 
 
-    AboutDialog() {
+    AboutFrame() {
         super("О игре");
+        setSize(320, 420);
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    public void createFrame() {
         JTextPane textEditor = new JTextPane();
         createStyles(textEditor);
         loadText(textEditor);
         getContentPane().add(new JScrollPane(textEditor));
-        setSize(320, 420);
-        setLocationRelativeTo(null);
-        setVisible(true);
     }
 
 
