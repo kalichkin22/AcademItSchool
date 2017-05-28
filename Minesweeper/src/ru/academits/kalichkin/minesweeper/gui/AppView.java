@@ -57,9 +57,7 @@ public class AppView implements View {
             }
         });
 
-        newGame.addActionListener((ActionEvent e) -> {
-            setNewGame();
-        });
+        newGame.addActionListener((ActionEvent e) -> setNewGame());
     }
 
 
