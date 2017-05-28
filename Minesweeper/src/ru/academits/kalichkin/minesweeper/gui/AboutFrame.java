@@ -42,7 +42,7 @@ class AboutFrame extends JFrame {
         setVisible(true);
     }
 
-    public void createFrame() {
+    void createFrame() {
         JTextPane textEditor = new JTextPane();
         createStyles(textEditor);
         loadText(textEditor);
