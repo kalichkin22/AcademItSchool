@@ -21,7 +21,6 @@ public class AppView implements View {
     private GameField gameField;
     private TimerGame timerGame = new TimerGame();
     private Click click;
-    private static String USER_NAME;
 
     private final static boolean SHOULD_WEIGHT_X = true;
     private static final String SMILE_HAPPY = "/res/Happy.png";

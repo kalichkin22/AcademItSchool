@@ -2,15 +2,13 @@ package ru.academits.kalichkin.minesweeper.controller;
 
 import ru.academits.kalichkin.minesweeper.common.View;
 import ru.academits.kalichkin.minesweeper.common.ViewListener;
-import ru.academits.kalichkin.minesweeper.gui.AppView;
+
 import ru.academits.kalichkin.minesweeper.model.*;
 import ru.academits.kalichkin.minesweeper.model.Action;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class Controller implements ViewListener {
