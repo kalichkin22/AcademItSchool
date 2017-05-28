@@ -100,6 +100,7 @@ public class AppView implements View {
         c.gridy = 1;
         newGame.setIcon(new ImageIcon(getClass().getResource(SMILE_HAPPY)));
         newGame.setBorderPainted(false);
+        newGame.setBackground(Color.lightGray);
         contentPane.add(newGame, c);
 
         c.gridx = 2;
