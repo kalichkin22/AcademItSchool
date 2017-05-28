@@ -125,6 +125,7 @@ class Menu {
             if (dialog.show(frame)) {
                 listener.needUserLevel(dialog.getColumn(), dialog.getRow(), dialog.getMines());
                 frame.setSize(new Dimension(650, 900));
+                view.setNewGame();
             }
         });
 
