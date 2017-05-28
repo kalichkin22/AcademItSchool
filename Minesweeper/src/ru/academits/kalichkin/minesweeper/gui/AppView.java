@@ -36,6 +36,14 @@ public class AppView implements View {
     }
 
     private void initEvents() throws IOException {
+        newGame.addActionListener(e -> {
+            try {
+                setNewGame();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
+
         listener.needDraw();
         listener.needSetTimer(timerGame);
         gameField.setBackground(Color.white);
@@ -56,14 +64,6 @@ public class AppView implements View {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
-            }
-        });
-
-        newGame.addActionListener((ActionEvent e) -> {
-            try {
-                setNewGame();
-            } catch (IOException e1) {
-                e1.printStackTrace();
             }
         });
     }
@@ -171,11 +171,10 @@ public class AppView implements View {
     @Override
     public String onIsWin() {
         gameField.repaint();
-        Object[] message = new Object[]{"ВЫ ВЫИГРАЛИ! ПОЗДРАВЛЯЕМ!!!", "Введите Ваше имя без пробелов:"};
-        String name = JOptionPane.showInputDialog(frame, message, "Конец игры", JOptionPane.QUESTION_MESSAGE);
-
-        if (name == null || name.equals("")) {
-            name = "Неизвестный";
+        String name = null;
+        WinDialog winDialog = new WinDialog(frame);
+        if (winDialog.show(frame)) {
+            name = winDialog.getName();
         }
         return name;
     }
