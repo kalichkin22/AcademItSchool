@@ -3,29 +3,25 @@ package ru.academits.kalichkin.minesweeper.gui;
 
 import ru.academits.kalichkin.minesweeper.model.*;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.JLabel;
 import java.awt.*;
 
 import java.io.IOException;
 
-
+import static javax.imageio.ImageIO.*;
 
 public class GameField extends JPanel {
     private Field field;
     private JLabel[][] labels;
 
-    private Image mine = ImageIO.read(getClass().getResource("/res/mine.png"));
-    private Image flag = ImageIO.read(getClass().getResource("/res/flag.png"));
-    private Image question = ImageIO.read(getClass().getResource("/res/question.png"));
-    private Image brokenFlag = ImageIO.read(getClass().getResource("/res/broken_flag.png"));
-    private Image question2 = ImageIO.read(getClass().getResource("/res/Question-30.png"));
-    private Image question3 = ImageIO.read(getClass().getResource("/res/Question3.png"));
-    private Image[] image = {ImageIO.read(getClass().getResource("/res/1.png")), ImageIO.read(getClass().getResource("/res/2.png")),
-            ImageIO.read(getClass().getResource("/res/3.png")), ImageIO.read(getClass().getResource("/res/4.png")),
-                    ImageIO.read(getClass().getResource("/res/5.png")), ImageIO.read(getClass().getResource("/res/6.png")),
-                            ImageIO.read(getClass().getResource("/res/7.png")), ImageIO.read(getClass().getResource("/res/8.png"))};
+    private Image mine = read(getClass().getResource("/res/mine.png"));
+    private Image flag = read(getClass().getResource("/res/flag.png"));
+    private Image question = read(getClass().getResource("/res/question.png"));
+    private Image brokenFlag = read(getClass().getResource("/res/broken_flag.png"));
+    private Image question2 = read(getClass().getResource("/res/Question-30.png"));
+    private Image question3 = read(getClass().getResource("/res/Question3.png"));
+    private Image[] imagesOfNumbers = new Image[8];
 
     static final int BLOCK_SIZE = 30;
 
@@ -39,6 +35,9 @@ public class GameField extends JPanel {
                 labels[i][j].setPreferredSize(new Dimension(BLOCK_SIZE, BLOCK_SIZE));
                 this.add(labels[i][j]);
             }
+        }
+        for (int i = 0; i < imagesOfNumbers.length; i++) {
+            imagesOfNumbers[i] = read(getClass().getResource(String.format("/res/%d.png", i + 1)));
         }
     }
 
@@ -81,11 +80,7 @@ public class GameField extends JPanel {
         } else if (cell.isMine() && !cell.isFlag()) {
             addImage(g, mine, row, column, Color.white);
         } else if (cell.getAmountMinesNear() > 0) {
-            for (int i = 0; i < image.length; i++) {
-                if (cell.getAmountMinesNear() - 1 == i) {
-                    addImage(g, image[i], row, column, Color.white);
-                }
-            }
+            addImage(g, imagesOfNumbers[cell.getAmountMinesNear() - 1], row, column, Color.white);
         }
 
         if (cell.isFlag() && cell.isOpen()) {
