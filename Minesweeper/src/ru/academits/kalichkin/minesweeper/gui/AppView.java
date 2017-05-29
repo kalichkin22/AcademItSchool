@@ -39,8 +39,12 @@ public class AppView implements View {
         frame.setVisible(true);
     }
 
-    private void initEvents() throws IOException {
-        listener.needDraw();
+    private void initEvents() {
+        try {
+            listener.needDraw();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         listener.needSetTimer(timerGame);
         gameField.setBackground(Color.white);
         gameField.addMouseListener(new MouseAdapter() {
@@ -56,7 +60,7 @@ public class AppView implements View {
                     labelMines.setText(String.valueOf(listener.needNumberOfFlags()));
                     gameField.repaint();
                 } catch (IllegalStateException el) {
-                    // JOptionPane.showMessageDialog(frame, "Игра окончена, начните новую ;)", null, JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "Игра окончена, начните новую ;)", null, JOptionPane.PLAIN_MESSAGE);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
@@ -64,13 +68,7 @@ public class AppView implements View {
         });
 
 
-        newGame.addActionListener(e -> {
-            try {
-                setNewGame();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        });
+        newGame.addActionListener(e -> setNewGame());
     }
 
 
@@ -137,18 +135,20 @@ public class AppView implements View {
                 e.printStackTrace();
             }
             addComponentsToPanel(frame);
-            try {
-                initEvents();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+            initEvents();
+
         });
     }
 
 
     @Override
-    public void onDraw(Field field) throws IOException {
-        gameField = new GameField(field);
+    public void onDraw(Field field) {
+        try {
+            gameField = new GameField(field);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         gamePanel.add(gameField);
     }
 
@@ -190,7 +190,7 @@ public class AppView implements View {
         return name;
     }
 
-    void setNewGame() throws IOException {
+    void setNewGame() {
         frame.remove(timerGame);
         frame.remove(newGame);
         gamePanel.removeAll();

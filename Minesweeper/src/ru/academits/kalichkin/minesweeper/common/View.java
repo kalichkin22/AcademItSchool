@@ -15,7 +15,7 @@ public interface View {
 
     Action onAction(int button);
 
-    void onDefeat() throws IOException;
+    void onDefeat();
 
-    String onIsWin() throws IOException;
+    String onIsWin();
 }

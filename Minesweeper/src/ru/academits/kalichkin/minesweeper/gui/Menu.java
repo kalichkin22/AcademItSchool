@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 
 class Menu {
@@ -91,13 +90,7 @@ class Menu {
 
 
     private void initEvents(AppView view) {
-        newGame.addActionListener(e -> {
-            try {
-                view.setNewGame();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        });
+        newGame.addActionListener(e -> view.setNewGame());
 
         newGame.setMnemonic('X');
         newGame.setAccelerator(KeyStroke.getKeyStroke('X', KeyEvent.CTRL_MASK));
@@ -118,11 +111,7 @@ class Menu {
         beginner.addActionListener(e -> {
             listener.needBeginnerLevel();
             frame.setSize(new Dimension(320, 420));
-            try {
-                view.setNewGame();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+            view.setNewGame();
         });
 
         beginner.setMnemonic('A');
@@ -131,11 +120,7 @@ class Menu {
         intermediate.addActionListener(e -> {
             listener.needIntermediateLevel();
             frame.setSize(new Dimension(500, 600));
-            try {
-                view.setNewGame();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+            view.setNewGame();
         });
 
         intermediate.setMnemonic('D');
@@ -144,11 +129,7 @@ class Menu {
         expert.addActionListener(e -> {
             listener.needExpertLevel();
             frame.setSize(new Dimension(650, 900));
-            try {
-                view.setNewGame();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+            view.setNewGame();
         });
 
         expert.setMnemonic('F');
@@ -159,11 +140,7 @@ class Menu {
             if (dialog.show(frame)) {
                 listener.needUserLevel(dialog.getColumn(), dialog.getRow(), dialog.getMines());
                 frame.setSize(new Dimension(650, 900));
-                try {
-                    view.setNewGame();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+                view.setNewGame();
             }
         });
 

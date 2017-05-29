@@ -39,7 +39,7 @@ public class Cell {
     }
 
 
-    public void setFlag(boolean isFlag) {
+    void setFlag(boolean isFlag) {
         this.isFlag = isFlag;
     }
 

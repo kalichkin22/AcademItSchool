@@ -102,17 +102,25 @@ public class TextView implements View {
     }
 
     @Override
-    public void onDefeat() throws IOException {
-        listener.needDraw();
+    public void onDefeat() {
+        try {
+            listener.needDraw();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println("Вы проиграли!");
         System.out.println("Угадано мин: " + listener.getCountFlagTrue() + System.lineSeparator());
     }
 
     @Override
-    public String onIsWin() throws IOException {
+    public String onIsWin() {
         String name = "";
         while (name.equals("")) {
-            listener.needDraw();
+            try {
+                listener.needDraw();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             System.out.println("Вы выиграли!" + System.lineSeparator());
             System.out.println("Введите свое имя: ");
             name = scanner.nextLine();

@@ -54,7 +54,7 @@ public class Controller implements ViewListener {
 
 
     @Override
-    public boolean needClick(Click click) throws IOException {
+    public boolean needClick(Click click) {
         field.actionCell(click);
 
         if (firstClick == 0) {
@@ -90,8 +90,12 @@ public class Controller implements ViewListener {
 
 
     @Override
-    public void needDraw() throws IOException {
-        view.onDraw(field);
+    public void needDraw()  {
+        try {
+            view.onDraw(field);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

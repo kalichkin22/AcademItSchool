@@ -8,34 +8,29 @@ import javax.swing.*;
 import javax.swing.JLabel;
 import java.awt.*;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
+
 
 
 public class GameField extends JPanel {
     private Field field;
     private JLabel[][] labels;
 
-    private BufferedImage mine = ImageIO.read(getClass().getResource("/res/mine.png"));
-    private BufferedImage flag = ImageIO.read(getClass().getResource("/res/flag.png"));
-    private BufferedImage question = ImageIO.read(getClass().getResource("/res/question.png"));
-    private BufferedImage img1 = ImageIO.read(getClass().getResource("/res/1.png"));
-    private BufferedImage img2 = ImageIO.read(getClass().getResource("/res/2.png"));
-    private BufferedImage img3 = ImageIO.read(getClass().getResource("/res/3.png"));
-    private BufferedImage img4 = ImageIO.read(getClass().getResource("/res/4.png"));
-    private BufferedImage img5 = ImageIO.read(getClass().getResource("/res/5.png"));
-    private BufferedImage img6 = ImageIO.read(getClass().getResource("/res/6.png"));
-    private BufferedImage img7 = ImageIO.read(getClass().getResource("/res/7.png"));
-    private BufferedImage img8 = ImageIO.read(getClass().getResource("/res/8.png"));
-    private BufferedImage brokenFlag = ImageIO.read(getClass().getResource("/res/broken_flag.png"));
-    private BufferedImage question2 = ImageIO.read(getClass().getResource("/res/Question-30.png"));
-    private BufferedImage question3 = ImageIO.read(getClass().getResource("/res/Question3.png"));
+    private Image mine = ImageIO.read(getClass().getResource("/res/mine.png"));
+    private Image flag = ImageIO.read(getClass().getResource("/res/flag.png"));
+    private Image question = ImageIO.read(getClass().getResource("/res/question.png"));
+    private Image brokenFlag = ImageIO.read(getClass().getResource("/res/broken_flag.png"));
+    private Image question2 = ImageIO.read(getClass().getResource("/res/Question-30.png"));
+    private Image question3 = ImageIO.read(getClass().getResource("/res/Question3.png"));
+    private Image[] image = {ImageIO.read(getClass().getResource("/res/1.png")), ImageIO.read(getClass().getResource("/res/2.png")),
+            ImageIO.read(getClass().getResource("/res/3.png")), ImageIO.read(getClass().getResource("/res/4.png")),
+                    ImageIO.read(getClass().getResource("/res/5.png")), ImageIO.read(getClass().getResource("/res/6.png")),
+                            ImageIO.read(getClass().getResource("/res/7.png")), ImageIO.read(getClass().getResource("/res/8.png"))};
 
     static final int BLOCK_SIZE = 30;
 
     GameField(Field field) throws IOException {
         this.field = field;
-        this.setMinimumSize(new Dimension(650, 900));
         this.setLayout(new GridLayout(field.getFieldColumn(), field.getFieldRow()));
         labels = new JLabel[field.getFieldColumn()][field.getFieldRow()];
         for (int i = 0; i < field.getFieldColumn(); i++) {
@@ -46,6 +41,7 @@ public class GameField extends JPanel {
             }
         }
     }
+
 
     @Override
     public void paintComponent(Graphics g) {
@@ -85,22 +81,10 @@ public class GameField extends JPanel {
         } else if (cell.isMine() && !cell.isFlag()) {
             addImage(g, mine, row, column, Color.white);
         } else if (cell.getAmountMinesNear() > 0) {
-            if (cell.getAmountMinesNear() == 1) {
-                addImage(g, img1, row, column, Color.white);
-            } else if (cell.getAmountMinesNear() == 2) {
-                addImage(g, img2, row, column, Color.white);
-            } else if (cell.getAmountMinesNear() == 3) {
-                addImage(g, img3, row, column, Color.white);
-            } else if (cell.getAmountMinesNear() == 4) {
-                addImage(g, img4, row, column, Color.white);
-            } else if (cell.getAmountMinesNear() == 5) {
-                addImage(g, img5, row, column, Color.white);
-            } else if (cell.getAmountMinesNear() == 6) {
-                addImage(g, img6, row, column, Color.white);
-            } else if (cell.getAmountMinesNear() == 7) {
-                addImage(g, img7, row, column, Color.white);
-            } else if (cell.getAmountMinesNear() == 8) {
-                addImage(g, img8, row, column, Color.white);
+            for (int i = 0; i < image.length; i++) {
+                if (cell.getAmountMinesNear() - 1 == i) {
+                    addImage(g, image[i], row, column, Color.white);
+                }
             }
         }
 
