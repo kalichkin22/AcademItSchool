@@ -102,9 +102,9 @@ public class AppView implements View {
         c.gridx = 1;
         c.gridy = 1;
         newGame.setIcon(smileHappy);
-        newGame.setBorderPainted(false);
         newGame.setBackground(Color.lightGray);
         contentPane.add(newGame, c);
+        newGame.setBorderPainted(false);
 
         c.gridx = 2;
         c.gridy = 1;
