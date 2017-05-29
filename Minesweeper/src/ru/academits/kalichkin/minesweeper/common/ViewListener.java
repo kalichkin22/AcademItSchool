@@ -35,4 +35,6 @@ public interface ViewListener {
     void needNewGame();
 
     void setFirstClick(int firstClick);
+
+    Field needGetField();
 }

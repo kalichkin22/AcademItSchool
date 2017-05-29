@@ -14,9 +14,7 @@ import java.io.IOException;
 
 public class GameField extends JPanel {
     private Field field;
-    static final int BLOCK_SIZE = 30;
     private JLabel[][] labels;
-
 
     private BufferedImage mine = ImageIO.read(getClass().getResource("/res/mine.png"));
     private BufferedImage flag = ImageIO.read(getClass().getResource("/res/flag.png"));
@@ -33,10 +31,12 @@ public class GameField extends JPanel {
     private BufferedImage question2 = ImageIO.read(getClass().getResource("/res/Question-30.png"));
     private BufferedImage question3 = ImageIO.read(getClass().getResource("/res/Question3.png"));
 
+    static final int BLOCK_SIZE = 30;
+
     GameField(Field field) throws IOException {
         this.field = field;
-        this.setLayout(new GridLayout(field.getFieldColumn(), field.getFieldRow()));
         this.setMinimumSize(new Dimension(650, 900));
+        this.setLayout(new GridLayout(field.getFieldColumn(), field.getFieldRow()));
         labels = new JLabel[field.getFieldColumn()][field.getFieldRow()];
         for (int i = 0; i < field.getFieldColumn(); i++) {
             for (int j = 0; j < field.getFieldRow(); j++) {
@@ -46,7 +46,6 @@ public class GameField extends JPanel {
             }
         }
     }
-
 
     @Override
     public void paintComponent(Graphics g) {
@@ -125,6 +124,7 @@ public class GameField extends JPanel {
     JLabel getLabel(int row, int column) {
         return labels[row][column];
     }
+
 }
 
 

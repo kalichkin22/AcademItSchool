@@ -47,6 +47,11 @@ public class Controller implements ViewListener {
         this.firstClick = firstClick;
     }
 
+    @Override
+    public Field needGetField() {
+        return field;
+    }
+
 
     @Override
     public boolean needClick(Click click) throws IOException {

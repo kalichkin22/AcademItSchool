@@ -23,12 +23,16 @@ public class AppView implements View {
     private Click click;
 
     private final static boolean SHOULD_WEIGHT_X = true;
-    private static final String SMILE_HAPPY = "/res/Happy.png";
-    private static final String SMILE_SAD = "/res/Sad.png";
-    private static final String BANG = "/res/bang.png";
+
+    private ImageIcon smileSad = new ImageIcon(getClass().getResource("/res/Sad.png"));
+    private ImageIcon smileHappy = new ImageIcon(getClass().getResource("/res/Happy.png"));
+    private ImageIcon bang = new ImageIcon(getClass().getResource("/res/bang.png"));
+
+    public AppView() throws IOException {
+    }
 
 
-    private void createFrame() {
+    private void createFrame() throws IOException {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(320, 420));
         frame.setLocationRelativeTo(null);
@@ -36,14 +40,6 @@ public class AppView implements View {
     }
 
     private void initEvents() throws IOException {
-        newGame.addActionListener(e -> {
-            try {
-                setNewGame();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        });
-
         listener.needDraw();
         listener.needSetTimer(timerGame);
         gameField.setBackground(Color.white);
@@ -60,10 +56,19 @@ public class AppView implements View {
                     labelMines.setText(String.valueOf(listener.needNumberOfFlags()));
                     gameField.repaint();
                 } catch (IllegalStateException el) {
-                    JOptionPane.showMessageDialog(frame, "Игра окончена, начните новую ;)", null, JOptionPane.PLAIN_MESSAGE);
+                    // JOptionPane.showMessageDialog(frame, "Игра окончена, начните новую ;)", null, JOptionPane.PLAIN_MESSAGE);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
+            }
+        });
+
+
+        newGame.addActionListener(e -> {
+            try {
+                setNewGame();
+            } catch (IOException e1) {
+                e1.printStackTrace();
             }
         });
     }
@@ -98,7 +103,7 @@ public class AppView implements View {
 
         c.gridx = 1;
         c.gridy = 1;
-        newGame.setIcon(new ImageIcon(getClass().getResource(SMILE_HAPPY)));
+        newGame.setIcon(smileHappy);
         newGame.setBorderPainted(false);
         newGame.setBackground(Color.lightGray);
         contentPane.add(newGame, c);
@@ -114,6 +119,7 @@ public class AppView implements View {
         timerGame.setBorder(new BasicBorders.FieldBorder(Color.LIGHT_GRAY, Color.DARK_GRAY, Color.LIGHT_GRAY, Color.DARK_GRAY));
         contentPane.add(timerGame, c);
 
+
         c.gridx = 0;
         c.gridy = 2;
         c.gridwidth = 3;
@@ -125,7 +131,11 @@ public class AppView implements View {
     @Override
     public void startApplication() {
         SwingUtilities.invokeLater(() -> {
-            createFrame();
+            try {
+                createFrame();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             addComponentsToPanel(frame);
             try {
                 initEvents();
@@ -164,8 +174,8 @@ public class AppView implements View {
 
     @Override
     public void onDefeat() {
-        gameField.getLabel(click.getColumn(), click.getRow()).setIcon(new ImageIcon(getClass().getResource(BANG)));
-        newGame.setIcon(new ImageIcon(getClass().getResource(SMILE_SAD)));
+        gameField.getLabel(click.getColumn(), click.getRow()).setIcon(bang);
+        newGame.setIcon(smileSad);
     }
 
     @Override
@@ -182,8 +192,10 @@ public class AppView implements View {
 
     void setNewGame() throws IOException {
         frame.remove(timerGame);
+        frame.remove(newGame);
         gamePanel.removeAll();
         timerGame = new TimerGame();
+        newGame = new JButton();
         listener.setFirstClick(0);
         listener.needNewGame();
         addComponentsToPanel(frame);
@@ -191,3 +203,5 @@ public class AppView implements View {
     }
 }
 
+
+r
