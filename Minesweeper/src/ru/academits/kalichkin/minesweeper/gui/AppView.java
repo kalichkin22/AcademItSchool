@@ -108,7 +108,6 @@ public class AppView implements View {
 
         c.gridx = 2;
         c.gridy = 1;
-
         timerGame.setText("00:00");
         timerGame.setPreferredSize(new Dimension(85, 50));
         timerGame.setForeground(Color.DARK_GRAY);

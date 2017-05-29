@@ -114,7 +114,7 @@ public class Field {
         switch (click.getAction()) {
             case OPEN:
                 if (!cell.isOpen()) {
-                    if (!cell.isFlag() && !cell.isQuestion()) {
+                    if (!cell.isFlag()) {
                         cell.setOpen();
                         if (cell.getAmountMinesNear() == 0) {
                             for (int i = -1; i <= 1; i++) {

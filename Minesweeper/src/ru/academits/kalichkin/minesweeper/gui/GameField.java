@@ -91,12 +91,14 @@ public class GameField extends JPanel {
             addImage(g, brokenFlag, row, column, Color.white);
         }
 
-        if (cell.isQuestion() && !cell.isMine() && cell.isOpen()) {
-            addImage(g, question2, row, column, Color.white);
-        }
+        if (field.isWin() || (cell.isMine() && cell.isFlag() && cell.isOpen())) {
+            if (cell.isQuestion() && !cell.isMine() && cell.isOpen()) {
+                addImage(g, question2, row, column, Color.white);
+            }
 
-        if (cell.isQuestion() && cell.isMine() && cell.isOpen()) {
-            addImage(g, question3, row, column, Color.white);
+            if (cell.isQuestion() && cell.isMine() && cell.isOpen()) {
+                addImage(g, question3, row, column, Color.white);
+            }
         }
     }
 
