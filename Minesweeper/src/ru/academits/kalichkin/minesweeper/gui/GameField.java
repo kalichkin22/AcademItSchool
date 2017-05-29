@@ -2,6 +2,7 @@ package ru.academits.kalichkin.minesweeper.gui;
 
 
 import ru.academits.kalichkin.minesweeper.model.*;
+import ru.academits.kalichkin.minesweeper.model.Action;
 
 import javax.swing.*;
 import javax.swing.JLabel;
@@ -91,7 +92,7 @@ public class GameField extends JPanel {
             addImage(g, brokenFlag, row, column, Color.white);
         }
 
-        if (field.isWin() || (cell.isMine() && cell.isFlag() && cell.isOpen())) {
+        if (field.isOpen()) {
             if (cell.isQuestion() && !cell.isMine() && cell.isOpen()) {
                 addImage(g, question2, row, column, Color.white);
             }

@@ -114,6 +114,9 @@ public class Field {
         switch (click.getAction()) {
             case OPEN:
                 if (!cell.isOpen()) {
+                    if (cell.isQuestion()) {
+                        cell.setQuestion(false);
+                    }
                     if (!cell.isFlag()) {
                         cell.setOpen();
                         if (cell.getAmountMinesNear() == 0) {
@@ -231,5 +234,17 @@ public class Field {
 
     public Field getField() {
         return new Field(fieldRow, fieldColumn, numberOfMines);
+    }
+
+
+    public boolean isOpen() {
+        for (Cell[] row : field) {
+            for (Cell cell : row) {
+                if (!cell.isOpen()) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
