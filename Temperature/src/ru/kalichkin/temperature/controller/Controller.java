@@ -12,8 +12,6 @@ public class Controller implements ViewListener {
 
     private ArrayList<TemperatureConverter> listOfTemperature = new ArrayList<>(Arrays.asList(new Kelvin(), new Fahrenheit()));
 
-    private final String[] items = {"Celsius", "Fahrenheit", "Kelvin"};
-
     public Controller(View view) {
         this.view = view;
     }
@@ -23,7 +21,7 @@ public class Controller implements ViewListener {
         for (TemperatureConverter temperatureName : listOfTemperature) {
             if (temperatureName.getName().equals(nameFrom)) {
                 view.onTemperatureConverted(temperatureName.convertToCelsius(temperature));
-            } else if (temperatureName.getName().equals(nameTo) ) {
+            } else if (temperatureName.getName().equals(nameTo)) {
                 view.onTemperatureConverted(temperatureName.convertFromCelsius(temperature));
             }
             if (temperatureName.getName().equals(nameFrom)) {
@@ -40,6 +38,11 @@ public class Controller implements ViewListener {
 
 
     public String[] getItems() {
+        String[] items = new String[listOfTemperature.size() + 1];
+        items[0] = "Celsius";
+        for (int i = 1; i < items.length; i++) {
+            items[i] = listOfTemperature.get(i - 1).getName();
+        }
         return items;
     }
 }
