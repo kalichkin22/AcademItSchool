@@ -25,7 +25,8 @@ public class Controller implements ViewListener {
                 view.onTemperatureConverted(aList.convertToCelsius(temperature));
             } else if (nameFrom.equals("Celsius") && aList.getName().equals(nameTo)) {
                 view.onTemperatureConverted(aList.convertFromCelsius(temperature));
-            } else if (aList.getName().equals(nameFrom)) {
+            }
+            if (aList.getName().equals(nameFrom)) {
                 double celsius = aList.convertToCelsius(temperature);
                 for (TemperatureConverter aList1 : list) {
                     if (aList1.getName().equals(nameTo)) {
