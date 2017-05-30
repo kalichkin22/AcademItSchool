@@ -6,7 +6,6 @@ public interface View {
 
     void onTemperatureConverted(double convertedTemperature);
 
-    void addViewListener(ViewListener listener);
+    void setViewListener(ViewListener listener);
 
-    void removeViewListener(ViewListener listener);
 }

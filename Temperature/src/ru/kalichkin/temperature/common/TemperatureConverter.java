@@ -1,5 +1,10 @@
 package ru.kalichkin.temperature.common;
 
+
 public interface TemperatureConverter {
-    double convert(double temperature);
+    String getName();
+
+    double convertFromCelsius(double temperature);
+
+    double convertToCelsius(double temperature);
 }

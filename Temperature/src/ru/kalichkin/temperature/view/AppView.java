@@ -1,22 +1,20 @@
 package ru.kalichkin.temperature.view;
 
-import ru.kalichkin.temperature.common.FindTemperature;
 import ru.kalichkin.temperature.common.View;
 import ru.kalichkin.temperature.common.ViewListener;
+import ru.kalichkin.temperature.controller.Controller;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class AppView implements View {
-    private final ArrayList<ViewListener> listeners = new ArrayList<>();
-
+    private ViewListener listener;
     private final JFrame frame = new JFrame("Temperature converter");
     private final JTextField tfTemperature = new JTextField();
     private final JButton convertButton = new JButton("Convert");
     private final JTextField resultLabel = new JTextField();
 
-    private JComboBox<String> comboBox = new JComboBox<>(FindTemperature.items);
+    private JComboBox<String> comboBox;
     private JComboBox<String> comboBox2 = new JComboBox<>();
     private JLabel infoLabel = new JLabel();
 
@@ -35,11 +33,12 @@ public class AppView implements View {
         convertButton.addActionListener(e -> {
             try {
                 double temperature = Double.parseDouble(tfTemperature.getText());
-                listeners.forEach(listener -> listener.needConvertTemperature(temperature, comboBox.getSelectedItem().toString(),
-                        comboBox2.getSelectedItem().toString()));
+                listener.needConvertTemperature(temperature, comboBox.getSelectedItem().toString(),
+                        comboBox2.getSelectedItem().toString());
                 infoLabel.setText("");
             } catch (NumberFormatException ex) {
                 infoLabel.setText("Температура должна быть цифрой.");
+                resultLabel.setText("");
             }
         });
 
@@ -47,8 +46,8 @@ public class AppView implements View {
             itemsComboBox2();
             try {
                 double temperature = Double.parseDouble(tfTemperature.getText());
-                listeners.forEach(listener -> listener.needConvertTemperature(temperature, comboBox.getSelectedItem().toString(),
-                        comboBox2.getSelectedItem().toString()));
+                listener.needConvertTemperature(temperature, comboBox.getSelectedItem().toString(),
+                        comboBox2.getSelectedItem().toString());
             } catch (NumberFormatException ex) {
                 infoLabel.setText("");
                 tfTemperature.setText(Integer.toString(0));
@@ -66,9 +65,11 @@ public class AppView implements View {
         }
 
         GridBagConstraints c1 = new GridBagConstraints();
+
         c1.fill = GridBagConstraints.HORIZONTAL;
         c1.gridx = 0;
         c1.gridy = 1;
+        comboBox = new JComboBox<>(listener.getItems());
         contentPane.add(comboBox, c1);
 
         c.gridx = 0;
@@ -141,22 +142,14 @@ public class AppView implements View {
 
 
     @Override
-    public void addViewListener(ViewListener listener) {
-        if (!listeners.contains(listener)) {
-            listeners.add(listener);
-        }
-    }
-
-
-    @Override
-    public void removeViewListener(ViewListener listener) {
-        listeners.remove(listener);
+    public void setViewListener(ViewListener listener) {
+        this.listener = listener;
     }
 
 
     private void itemsComboBox2() {
         comboBox2.removeAllItems();
-        for (String item : FindTemperature.items) {
+        for (String item : listener.getItems()) {
             if (!comboBox.getSelectedItem().equals(item)) {
                 comboBox2.addItem(item);
             }
