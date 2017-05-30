@@ -23,7 +23,7 @@ public class Controller implements ViewListener {
         for (TemperatureConverter temperatureName : listOfTemperature) {
             if (temperatureName.getName().equals(nameFrom)) {
                 view.onTemperatureConverted(temperatureName.convertToCelsius(temperature));
-            } else if (nameFrom.equals("Celsius") && temperatureName.getName().equals(nameTo)) {
+            } else if (temperatureName.getName().equals(nameTo) ) {
                 view.onTemperatureConverted(temperatureName.convertFromCelsius(temperature));
             }
             if (temperatureName.getName().equals(nameFrom)) {
@@ -33,6 +33,7 @@ public class Controller implements ViewListener {
                         view.onTemperatureConverted(temperatureName2.convertFromCelsius(celsius));
                     }
                 }
+                break;
             }
         }
     }
