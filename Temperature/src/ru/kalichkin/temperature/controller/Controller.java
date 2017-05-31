@@ -5,8 +5,11 @@ import ru.kalichkin.temperature.model.Celsius;
 import ru.kalichkin.temperature.model.Fahrenheit;
 import ru.kalichkin.temperature.model.Kelvin;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.function.BiConsumer;
+import java.util.stream.Stream;
 
 public class Controller implements ViewListener {
     private final View view;
@@ -18,41 +21,24 @@ public class Controller implements ViewListener {
 
     @Override
     public void needConvertTemperature(double temperature, String nameFrom, String nameTo) {
-        TemperatureConverter temperatureTo = searchConvertTo(nameTo);
-        TemperatureConverter temperatureFrom = searchConvertFrom(nameFrom);
+        TemperatureConverter temperatureTo = searchConvert(nameTo);
+        TemperatureConverter temperatureFrom = searchConvert(nameFrom);
         view.onTemperatureConverted(temperatureTo.convertFromCelsius(temperatureFrom.convertToCelsius(temperature)));
     }
 
+    private TemperatureConverter searchConvert(String name) {
+        TemperatureConverter temperatureConverter = null;
+        for (TemperatureConverter e : listOfTemperature) {
+            if (e.getName().equals(name)) {
+                temperatureConverter = e;
+                break;
+            }
+        }
+        return temperatureConverter;
+    }
 
     public String[] getItems() {
-        String[] items = new String[listOfTemperature.size()];
-        for (int i = 0; i < items.length; i++) {
-            items[i] = listOfTemperature.get(i).getName();
-        }
-        return items;
-    }
-
-
-    private TemperatureConverter searchConvertFrom(String nameFrom) {
-        TemperatureConverter temperatureConverter = null;
-        for (TemperatureConverter a : listOfTemperature) {
-            if (a.getName().equals(nameFrom)) {
-                temperatureConverter = a;
-                break;
-            }
-        }
-        return temperatureConverter;
-    }
-
-    private TemperatureConverter searchConvertTo(String nameTo) {
-        TemperatureConverter temperatureConverter = null;
-        for (TemperatureConverter a : listOfTemperature) {
-            if (a.getName().equals(nameTo)) {
-                temperatureConverter = a;
-                break;
-            }
-        }
-        return temperatureConverter;
+       return listOfTemperature.stream().map(TemperatureConverter::getName).toArray(String[]::new);
     }
 }
 
