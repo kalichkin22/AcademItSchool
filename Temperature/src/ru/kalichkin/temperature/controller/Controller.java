@@ -24,18 +24,16 @@ public class Controller implements ViewListener {
     }
 
     private TemperatureConverter searchConvert(String name) {
-        TemperatureConverter temperatureConverter = null;
         for (TemperatureConverter e : listOfTemperature) {
             if (e.getName().equals(name)) {
-                temperatureConverter = e;
-                break;
+               return e;
             }
         }
-        return temperatureConverter;
+        return null;
     }
 
     public String[] getItems() {
-       return listOfTemperature.stream().map(TemperatureConverter::getName).toArray(String[]::new);
+        return listOfTemperature.stream().map(TemperatureConverter::getName).toArray(String[]::new);
     }
 }
 
