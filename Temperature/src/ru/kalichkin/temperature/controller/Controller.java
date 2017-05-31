@@ -21,9 +21,6 @@ public class Controller implements ViewListener {
         TemperatureConverter temperatureFrom = searchConvertFrom(nameFrom);
         TemperatureConverter temperatureTo = searchConvertTo(nameTo);
         view.onTemperatureConverted(temperatureFrom.convertFromCelsius(temperatureTo.convertToCelsius(temperature)));
-
-
-
     }
 
 
