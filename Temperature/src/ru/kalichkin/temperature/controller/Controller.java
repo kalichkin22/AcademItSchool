@@ -5,11 +5,8 @@ import ru.kalichkin.temperature.model.Celsius;
 import ru.kalichkin.temperature.model.Fahrenheit;
 import ru.kalichkin.temperature.model.Kelvin;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.BiConsumer;
-import java.util.stream.Stream;
 
 public class Controller implements ViewListener {
     private final View view;
