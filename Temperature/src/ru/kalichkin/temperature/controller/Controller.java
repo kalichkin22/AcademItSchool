@@ -18,9 +18,9 @@ public class Controller implements ViewListener {
 
     @Override
     public void needConvertTemperature(double temperature, String nameFrom, String nameTo) {
-        TemperatureConverter temperatureFrom = searchConvertFrom(nameFrom);
         TemperatureConverter temperatureTo = searchConvertTo(nameTo);
-        view.onTemperatureConverted(temperatureFrom.convertFromCelsius(temperatureTo.convertToCelsius(temperature)));
+        TemperatureConverter temperatureFrom = searchConvertFrom(nameFrom);
+        view.onTemperatureConverted(temperatureTo.convertFromCelsius(temperatureFrom.convertToCelsius(temperature)));
     }
 
 
