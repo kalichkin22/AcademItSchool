@@ -7,5 +7,4 @@ public interface View {
     void onTemperatureConverted(double convertedTemperature);
 
     void setViewListener(ViewListener listener);
-
 }

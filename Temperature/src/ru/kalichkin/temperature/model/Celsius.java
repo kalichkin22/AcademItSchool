@@ -2,21 +2,19 @@ package ru.kalichkin.temperature.model;
 
 import ru.kalichkin.temperature.common.TemperatureConverter;
 
-public class Fahrenheit implements TemperatureConverter {
-
+public class Celsius implements TemperatureConverter{
     @Override
     public String getName() {
-        return "Fahrenheit";
+        return "Celsius";
     }
 
     @Override
     public double convertFromCelsius(double temperature) {
-        return temperature * 9.0 / 5.0 + 32.0;
+        return temperature;
     }
 
     @Override
     public double convertToCelsius(double temperature) {
-        return 5.0 / 9.0 * (temperature - 32);
+        return temperature;
     }
-
 }

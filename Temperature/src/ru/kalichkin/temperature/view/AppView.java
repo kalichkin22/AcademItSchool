@@ -37,7 +37,7 @@ public class AppView implements View {
                         comboBox2.getSelectedItem().toString());
                 infoLabel.setText("");
             } catch (NumberFormatException ex) {
-                infoLabel.setText("Температура должна быть цифрой.");
+                infoLabel.setText("The temperature must be a number.");
                 resultLabel.setText("");
             }
         });
